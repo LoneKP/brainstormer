@@ -1,0 +1,13 @@
+<p>PROBLEM: <%= @brainstorm.problem %></p>
+
+<%= form_for(@idea, remote: true) do |f| %>
+<%= f.text_area :text, cols: "30", rows: "6" %>
+<%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
+<%= f.submit "Add idea" %>
+<% end %>
+
+<ol reversed>
+  <% @ideas.each do |idea| %>
+  <li><%= idea.text %></li>
+  <% end %>
+</ol>

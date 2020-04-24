@@ -1,0 +1,10 @@
+<h2>What problem do you want to solve?</h2>
+<%= form_with model: @brainstorm do |f| %>
+<%= f.text_area :problem, size: "60x12" %>
+<h2>What is your name?</h2>
+<%= f.fields_for :admin, Admin.new do |ff| %>
+<%= ff.text_field :name, size: "10" %>
+<% end %>
+
+<%= f.submit 'GO' %>
+<% end %>
