@@ -1,1 +1,8 @@
-<p><%= link_to 'GO TO BRAINSTORM', new_brainstorm_path %></p>
+<h2>What problem do you want to solve?</h2>
+<%= form_with model: @brainstorm do |f| %>
+<%= f.text_area :problem, size: "60x12" %>
+<h2>What is your name?</h2>
+<%= f.text_field :name, size: "10" %>
+
+<%= f.submit 'GO TO BRAINSTORM' %>
+<% end %>
