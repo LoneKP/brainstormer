@@ -3,21 +3,15 @@ class BrainstormsController < ApplicationController
   before_action :set_brainstorm_ideas, only: :show
 
   def index
-  end
-
-  def new
     @brainstorm = Brainstorm.new
   end
 
   def create
-    @admin = Admin.new(brainstorm_params[:admin_attributes])
-    @admin.save
-    @brainstorm = Brainstorm.new(brainstorm_params)
-    @brainstorm.admin = @admin
+    @brainstorm = Brainstorm.new(filtered_brainstorm_params)
       if @brainstorm.save
-        redirect_to @brainstorm
+        redirect_to brainstorm_path(@brainstorm, name: brainstorm_params[:name])
       else
-        render 'new'
+        render :root
     end
   end
 
@@ -32,7 +26,11 @@ class BrainstormsController < ApplicationController
   end
 
   def brainstorm_params
-    params.require(:brainstorm).permit(:problem, :admin_attributes =>[:name])
+    params.require(:brainstorm).permit(:problem, :name)
+  end
+
+  def filtered_brainstorm_params
+    brainstorm_params.except(:name)
   end
 
   def set_brainstorm_ideas
