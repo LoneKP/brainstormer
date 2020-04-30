@@ -1,13 +1,22 @@
-<p>PROBLEM: <%= @brainstorm.problem %></p>
+<div class="flex flex-row justify-between h-screen">
+  <div class="flex-col flex w-full">
+    <div class="flex-row self-center">
+      <h1 class="text-3xl">Let's get some ideas!</h1>
+      <p class="italic"><%=@brainstorm.problem %></p>
 
-<%= form_for(@idea, remote: true) do |f| %>
-<%= f.text_area :text, cols: "30", rows: "6" %>
-<%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
-<%= f.submit "Add idea" %>
-<% end %>
-
-<ol reversed>
-  <% @ideas.each do |idea| %>
-  <li><%= idea.text %></li>
-  <% end %>
-</ol>
+      <%= form_for(@idea, remote: true) do |f| %>
+      <div class="field my-8">
+        <%= f.text_area :text, cols: "30", rows: "6", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+      </div>
+      <%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
+      <div class="actions">
+        <%= f.submit "Add idea", class: "w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <div class="flex-col flex">
+    <p class="bg-gray-400 text-white border-solid border-b-2 border-gray-600">PARTICIPANTS PRESENT</p>
+    <div id="name-list"></div>
+  </div>
+</div>

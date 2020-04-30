@@ -8,8 +8,11 @@ class BrainstormsController < ApplicationController
 
   def create
     @brainstorm = Brainstorm.new(filtered_brainstorm_params)
+    name = brainstorm_params[:name]
+    session_id = request.session.id
       if @brainstorm.save
-        redirect_to brainstorm_path(@brainstorm, name: brainstorm_params[:name])
+        redirect_to @brainstorm
+        REDIS.set session_id, name
       else
         render :root
     end
