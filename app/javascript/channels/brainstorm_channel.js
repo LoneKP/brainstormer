@@ -49,19 +49,27 @@ consumer.subscriptions.create({ channel: "BrainstormChannel", id: location.pathn
   },
 
   received(data) {
-    console.log(data.users)
-    const nameListElement = document.getElementById("name-list")
+    console.log(data);
+    const nameListElement = document.getElementById("name-list");
     nameListElement.innerHTML = "";
 
-    for (let i = 0; i < data.users.length; i++) {
+    for (let i = 0; i < data.initials.length; i++) {
+      let div = document.createElement("div");
+      div.setAttribute("id", data.user_ids[i]);
+      div.title = data.users[i];
+      div.classList.add("flex", "flex-col", "justify-center", "items-center", "bg-white", "rounded-full", "h-8", "w-8", "ml-1", "border-solid", "border-2", "border-blurple");
+      nameListElement.appendChild(div)
       let paragraph = document.createElement("P")
-      let text = document.createTextNode(data.users[i])
+      div.appendChild(paragraph)
+      let text = document.createTextNode(data.initials[i])
       paragraph.appendChild(text)
-      nameListElement.appendChild(paragraph)
     };
+
+    showCurrentUser()
   },
 
   get documentIsActive() {
     return document.visibilityState == "visible" || document.hasFocus()
   },
 })
+
