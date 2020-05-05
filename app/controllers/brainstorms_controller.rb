@@ -1,6 +1,7 @@
 class BrainstormsController < ApplicationController
   before_action :set_brainstorm, only: :show
   before_action :set_brainstorm_ideas, only: :show
+  before_action :set_session_id, only: [:show, :create]
 
   def index
     @brainstorm = Brainstorm.new
@@ -9,10 +10,9 @@ class BrainstormsController < ApplicationController
   def create
     @brainstorm = Brainstorm.new(filtered_brainstorm_params)
     name = brainstorm_params[:name]
-    session_id = request.session.id
       if @brainstorm.save
         redirect_to @brainstorm
-        REDIS.set session_id, name
+        REDIS.set @session_id, name
       else
         render :root
     end
@@ -37,6 +37,10 @@ class BrainstormsController < ApplicationController
   end
 
   def set_brainstorm_ideas
-    @ideas = Brainstorm.find(params[:id]).ideas.order('id DESC')
+    @ideas = @brainstorm.ideas.order('id DESC')
+  end
+
+  def set_session_id
+    @session_id = request.session.id
   end
 end

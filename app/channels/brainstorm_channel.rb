@@ -31,13 +31,19 @@ class BrainstormChannel < ApplicationCable::Channel
     users = REDIS.smembers(brainstorm_key)
 
     names = []
-    users.each do |user|
-      name = REDIS.get(user)
+    initials = []
+    user_ids = []
+    users.each do |user_id|
+      name = REDIS.get(user_id)
       names << name
+      user_ids << user_id
+      initials << name.split(nil,2).map(&:first).join.upcase
     end
 
     data = {
       users: names,
+      initials: initials,
+      user_ids: user_ids,
     }
 
     ActionCable.server.broadcast("brainstorm-#{@brainstorm.id}", data)
@@ -62,7 +68,7 @@ class BrainstormChannel < ApplicationCable::Channel
   end
 
   def random_adjective
-    adjectives = ["Wild", "Tame", "White", "Black", "Striped", "Invisible", "Blue", "Flourescent", "Tall", "Creative", "Boring", "Ethereal-sounding", "Colorful", "Van Gogh's", "Cool", "Famous", "Flying"]
+    adjectives = ["Wild", "Tame", "White", "Black", "Striped", "Invisible", "Blue", "Flourescent", "Tall", "Creative", "Boring", "Ethereal-sounding", "Colorful", "Van Gogh's", "Cool", "Famous", "Flying", "Nervous", "Hungry"]
 
     number_of_adjectives = adjectives.count
 
