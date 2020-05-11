@@ -1,0 +1,12 @@
+<h2>You're entering a brainstorm session!</h2>
+
+<h2>What is your name?</h2>
+<form action="/set_user_name">
+  <div class="field mt-8">
+    <%= text_field_tag "user_name", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+  </div>
+  <%= hidden_field_tag "session_id", @session_id %>
+  <%= hidden_field_tag "brainstorm_id", @brainstorm.id %>
+
+  <button type=submit class="modal-close w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showUserNameModal = false">Go!</button>
+</form>

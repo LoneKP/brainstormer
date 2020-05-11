@@ -1,7 +1,7 @@
 class BrainstormsController < ApplicationController
-  before_action :set_brainstorm, only: :show
+  before_action :set_brainstorm, only: [:show, :enter_brainstorm]
   before_action :set_brainstorm_ideas, only: :show
-  before_action :set_session_id, only: [:show, :create]
+  before_action :set_session_id, only: [:show, :create, :enter_brainstorm]
 
   def index
     @brainstorm = Brainstorm.new
@@ -19,7 +19,20 @@ class BrainstormsController < ApplicationController
   end
 
   def show
+    if REDIS.get(@session_id).nil?
+      redirect_to enter_brainstorm_path
+    end
     @idea = Idea.new
+  end
+
+  def enter_brainstorm; end
+
+  def set_user_name
+    if REDIS.set params[:session_id], params[:user_name]
+      redirect_to Brainstorm.find params[:brainstorm_id]
+    else
+      render 'enter_brainstorm'
+    end
   end
 
   private
