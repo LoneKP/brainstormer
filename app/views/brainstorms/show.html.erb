@@ -1,68 +1,70 @@
 <%= render 'nav' %>
-<div class="flex-col flex w-80 items-center bg-gray-300 h-screen">
-  <button class="my-1 bg-blurple text-white font-bold py-3 px-4 rounded cursor-pointer">START TIMER</button>
-  <div class="rounded-full w-40 h-40 bg-gray-800 my-8"></div>
-  <button class="my-1 bg-blurple text-white font-bold py-3 px-4 rounded cursor-pointer">START VOTING</button>
-  <div class="flex flex-col justify-around items-center py-3 px-4 w-40 h-40 bg-plum mt-16 text-white font-bold">
-    <p>IDEAS</p>
-    <p class="text-2xl" id="ideasCount"><%= @ideas.count %> / 20</p>
-  </div>
-</div>
+<div class="flex flex-row" x-data="{ 'showModal': false }" @keydown.escape="showModal = false">
 
-<div class="flex-col flex w-full items-center">
-  <div class="flex-col flex ">
-    <h1 class="text-3xl">Let's get some ideas!</h1>
-    <p class="italic"><%=@brainstorm.problem %></p>
-    <button id="addIdeaButton" type="button" class="h-48 w-56 px-6 py-2 m-4 text-center rounded-lg flex items-center justify-center border-dashed border-2 border-gray-300 shadow-lg" @click="showModal = true">Add idea</button>
-  </div>
-
-  <div class="flex flex-wrap justify-center" id="ideas">
-    <% @ideas.each do |idea| %>
-    <div class="idea-card h-48 w-56 px-4 pt-6 pb-1 shadow-lg m-4 text-center rounded-lg flex flex-col items-center justify-between" id=<%= idea.id %>>
-      <div>
-        <p><%=idea.text %></p>
-      </div>
-      <div class="flex flex-row self-end items-center">
-        <p class="likes">0</p>
-        <div class="w-4 h-4 heart-gray"></div>
-      </div>
+  <div class="flex-col flex w-80 items-center bg-gray-300 h-screen">
+    <button class="my-1 bg-blurple text-white font-bold py-3 px-4 rounded cursor-pointer">START TIMER</button>
+    <div class="rounded-full w-40 h-40 bg-gray-800 my-8"></div>
+    <button class="my-1 bg-blurple text-white font-bold py-3 px-4 rounded cursor-pointer">START VOTING</button>
+    <div class="flex flex-col justify-around items-center py-3 px-4 w-40 h-40 bg-plum mt-16 text-white font-bold">
+      <p>IDEAS</p>
+      <p class="text-2xl" id="ideasCount"><%= @ideas.count %> / 20</p>
     </div>
-    <% end %>
   </div>
 
+  <div class="flex-col flex w-full items-center">
+    <div class="flex-col flex ">
+      <h1 class="text-3xl">Let's get some ideas!</h1>
+      <p class="italic"><%=@brainstorm.problem %></p>
+      <button id="addIdeaButton" type="button" class="h-48 w-56 px-6 py-2 m-4 text-center rounded-lg flex items-center justify-center border-dashed border-2 border-gray-300 shadow-lg" @click="showModal = true">Add idea</button>
+    </div>
 
-  <!--Overlay-->
-  <div class="" style="background-color: rgba(0,0,0,0.5)" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
-    <!--Dialog-->
-    <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-4 text-left px-6" x-show="showModal" @click.away="showModal = false">
-
-      <!--Title-->
-      <div class="flex justify-between items-center pb-3">
-        <p class="text-2xl font-bold">Add idea!</p>
-        <div class="cursor-pointer z-50" @click="showModal = false">
-          <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-            <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-          </svg>
+    <div class="flex flex-wrap justify-center" id="ideas">
+      <% @ideas.each do |idea| %>
+      <div class="idea-card h-48 w-56 px-4 pt-6 pb-1 shadow-lg m-4 text-center rounded-lg flex flex-col items-center justify-between" id=<%= idea.id %>>
+        <div>
+          <p><%=idea.text %></p>
+        </div>
+        <div class="flex flex-row self-end items-center">
+          <p class="likes">0</p>
+          <div class="w-4 h-4 heart-gray"></div>
         </div>
       </div>
-
-      <!-- content -->
-      <%= form_for(@idea, remote: true, html: { autocomplete: "off" } ) do |f| %>
-      <div class="field mt-8">
-        <%= f.text_field :text, class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
-      </div>
-      <%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
-
-      <p id="characterCount" class="text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
-
-      <button type=submit class="modal-close w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showModal = false">Add idea</button>
       <% end %>
     </div>
-    <!--/Dialog -->
-  </div><!-- /Overlay -->
 
+
+    <!--Overlay-->
+    <div class="" style="background-color: rgba(0,0,0,0.5)" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
+      <!--Dialog-->
+      <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-4 text-left px-6" x-show="showModal" @click.away="showModal = false">
+
+        <!--Title-->
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-2xl font-bold">Add idea!</p>
+          <div class="cursor-pointer z-50" @click="showModal = false">
+            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- content -->
+        <%= form_for(@idea, remote: true, html: { autocomplete: "off" } ) do |f| %>
+        <div class="field mt-8">
+          <%= f.text_field :text, class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+        </div>
+        <%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
+
+        <p id="characterCount" class="text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
+
+        <button type=submit class="modal-close w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showModal = false">Add idea</button>
+        <% end %>
+      </div>
+      <!--/Dialog -->
+    </div><!-- /Overlay -->
+
+  </div>
 </div>
-
 
 <div id="idHolder" data="<%= @session_id %>"></div>
 
