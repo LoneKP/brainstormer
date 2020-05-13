@@ -5,7 +5,5 @@ Rails.application.routes.draw do
 
   root 'brainstorms#index'
 
-  get 'brainstorms/:id/enter', to: 'brainstorms#enter_brainstorm', as: 'enter_brainstorm'
-
   get '/set_user_name', to: 'brainstorms#set_user_name'
 end

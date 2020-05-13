@@ -1,19 +1,16 @@
-<nav class="bg-gray-300">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex items-center justify-between h-16">
-      <%= link_to root_path do %>
-      <div class="flex-shrink-0">
-        <h3 class="text-white text-lg ">Easy Brainstormer</h3>
-      </div>
-      <% end %>
-      <div>
-        <div class="flex items-center">
-          <%= link_to 'FINISH', root_path, class: "ml-8 text-white" %>
-          <%= link_to 'SHARE LINK', root_path, class: "ml-8 text-white" %>
-          <div id="name-list" class="flex ml-7"></div>
-        </div>
-      </div>
+<div class="flex items-end mx-16 pt-16 mb-16 justify-between">
+  <div class="flex flex-row">
+    <%= link_to root_path do %>
+    <div class="italic bg-black w-20 h-20 text-white text-5xl flex font-bold items-center justify-center">
+      <span>B</span>
+    </div>
+    <% end %>
+    <div class="font-semibold bg-greeny text-white text-2xl items-center flex px-4 py-1 self-end ml-4">
+      <span>#BRAIN<%=@brainstorm.id%></span>
     </div>
   </div>
+  <div class="flex my-shadow">
+    <div id="name-list" class="items-center flex bg-white"></div>
   </div>
-</nav>
+
+</div>

@@ -5,7 +5,7 @@ class IdeasController < ApplicationController
     @idea = Idea.new(idea_params)
     respond_to do |format|
       if @idea.save
-          ActionCable.server.broadcast("brainstorm-#{@brainstorm.id}-idea", content: @idea, ideas_total: @brainstorm.ideas.count )
+          ActionCable.server.broadcast("brainstorm-#{@brainstorm.id}-idea", content: @idea, ideas_total: @brainstorm.ideas.count, idea_number: @idea.number )
           format.html {}
           format.js
       else

@@ -1,5 +1,11 @@
 import consumer from "./consumer"
 
+const randomColorPicker = () => {
+  let colorClasses = ["bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy"];
+  let randomColor = colorClasses[Math.floor(Math.random() * colorClasses.length)];
+  return randomColor;
+}
+
 consumer.subscriptions.create({ channel: "BrainstormChannel", id: location.pathname.split('/')[2] }, {
 
   // Called once when the subscription is created.
@@ -15,7 +21,6 @@ consumer.subscriptions.create({ channel: "BrainstormChannel", id: location.pathn
 
   // Called when the WebSocket connection is closed.
   disconnected() {
-    console.log("disconnected")
     this.uninstall()
   },
 
@@ -49,27 +54,51 @@ consumer.subscriptions.create({ channel: "BrainstormChannel", id: location.pathn
   },
 
   received(data) {
-    console.log(data);
-    const nameListElement = document.getElementById("name-list");
-    nameListElement.innerHTML = "";
+    switch (data.event) {
+      case "transmit_list":
+        console.log(data);
 
-    for (let i = 0; i < data.initials.length; i++) {
-      let div = document.createElement("div");
-      div.setAttribute("id", data.user_ids[i]);
-      div.title = data.users[i];
-      div.classList.add("flex", "flex-col", "justify-center", "items-center", "bg-white", "rounded-full", "h-8", "w-8", "ml-1", "border-solid", "border-2", "border-blurple");
-      nameListElement.appendChild(div)
-      let paragraph = document.createElement("P")
-      div.appendChild(paragraph)
-      let text = document.createTextNode(data.initials[i])
-      paragraph.appendChild(text)
-    };
+        let idHolder = document.getElementById("idHolder")
+        for (let i = 0; i < data.no_user_names.length; i++) {
+          if (currentUserId == data.no_user_names[i]) {
+            idHolder.dataset.noName = "true"
+            break;
+          }
+          else {
+            idHolder.dataset.noName = "false"
+          }
+        }
 
-    showCurrentUser()
+        console.log(currentUserId);
+        const nameListElement = document.getElementById("name-list");
+        nameListElement.innerHTML = "";
+
+        for (let i = 0; i < data.initials.length; i++) {
+          let div = document.createElement("div");
+          div.setAttribute("id", data.user_ids[i]);
+          div.title = data.users[i];
+          div.classList.add("flex", "flex-col", "justify-center", "items-center", "rounded-full", "h-12", "w-12", "m-4", "text-white", "text-2xl", "font-black", randomColorPicker());
+          nameListElement.appendChild(div)
+          let paragraph = document.createElement("P")
+          div.appendChild(paragraph)
+          let text = document.createTextNode(data.initials[i])
+          paragraph.appendChild(text)
+        };
+        openModalToSetName();
+        showCurrentUser();
+        break;
+      case "name_changed":
+        console.log(data)
+        this.perform("update_name")
+        break;
+    }
+
   },
 
   get documentIsActive() {
     return document.visibilityState == "visible" || document.hasFocus()
   },
+
+
 })
 

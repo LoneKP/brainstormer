@@ -1,11 +1,9 @@
 class BrainstormChannel < ApplicationCable::Channel
   def subscribed
     @user = session_id
-    unless user_has_no_name?
-      @brainstorm = Brainstorm.find(params[:id])
-      stream_from "brainstorm-#{@brainstorm.id}"
-      add_to_list_and_transmit!
-    end
+    @brainstorm = Brainstorm.find(params[:id])
+    stream_from "brainstorm-#{@brainstorm.id}"
+    add_to_list_and_transmit!
   end
 
   def unsubscribed
@@ -19,6 +17,7 @@ class BrainstormChannel < ApplicationCable::Channel
   private
 
   def add_to_list_and_transmit!
+    set_guest_name_if_user_has_no_name
     REDIS.sadd brainstorm_key, user_key unless already_present?
     transmit_list!
   end
@@ -28,8 +27,11 @@ class BrainstormChannel < ApplicationCable::Channel
     transmit_list!
   end
 
-  def user_has_no_name?
-    REDIS.get(user_key).nil?
+  def set_guest_name_if_user_has_no_name
+    if REDIS.get(user_key).nil?
+      REDIS.sadd "no_user_name", user_key
+      REDIS.set session_id, "GUEST"
+    end
   end
 
   def already_present?
@@ -50,9 +52,11 @@ class BrainstormChannel < ApplicationCable::Channel
     end
 
     data = {
+      event: "transmit_list",
       users: names,
       initials: initials,
       user_ids: user_ids,
+      no_user_names: REDIS.smembers("no_user_name")
     }
 
     ActionCable.server.broadcast("brainstorm-#{@brainstorm.id}", data)

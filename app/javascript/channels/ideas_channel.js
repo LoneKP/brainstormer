@@ -17,19 +17,37 @@ consumer.subscriptions.create({ channel: "IdeasChannel", id: location.pathname.s
 });
 
 const createNewIdea = (data) => {
-  let element = document.createElement("P");
-  let div = document.createElement("div");
+  let ideaDiv = document.createElement("div");
+  let ideaElement = document.createElement("P");
+  let numberElement = document.createElement("H2");
+  let likeElement = document.createElement("div");
+  let likeCountElement = document.createElement("P");
+  let heartElement = document.createElement("div");
 
-  div.classList.add("idea-card", "h-48", "w-56", "px-4", "pt-6", "pb-1", "shadow-lg", "m-4", "text-center", "rounded-lg", "flex", "flex-col", "items-center", "justify-between");
+  likeElement.appendChild(likeCountElement);
+  likeElement.appendChild(heartElement);
 
-  div.setAttribute("id", data.content.id);
+  likeElement.classList.add("flex", "flex-row", "self-end", "items-center");
+  likeCountElement.classList.add("likes");
+  heartElement.classList.add("w-4", "h-4", "heart-gray");
+  numberElement.classList.add("text-blurple", "text-xl");
 
-  let textnode = document.createTextNode(data.content.text);
+  ideaDiv.classList.add("idea-card", "h-48", "w-64", "px-4", "pt-6", "pb-1", "my-shadow", "my-4", "mr-8", "flex", "flex-col", "items-start", "justify-between", "italic", "font-bold", "bg-yellowy");
 
-  element.appendChild(textnode);
-  div.appendChild(element);
+  ideaDiv.setAttribute("id", data.content.id);
 
-  document.getElementById("ideas").prepend(div);
+  let likeCountText = document.createTextNode("0")
+  let ideaText = document.createTextNode(data.content.text);
+
+  ideaElement.appendChild(ideaText);
+  numberElement.innerHTML = `#${data.idea_number}`
+  likeCountElement.appendChild(likeCountText)
+
+  ideaDiv.appendChild(numberElement);
+  ideaDiv.appendChild(ideaElement);
+  ideaDiv.appendChild(likeElement)
+
+  document.getElementById("ideas").prepend(ideaDiv);
 }
 
 const addIdeasCount = (data) => {
