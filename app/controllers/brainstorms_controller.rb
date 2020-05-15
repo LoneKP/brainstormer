@@ -10,11 +10,14 @@ class BrainstormsController < ApplicationController
   def create
     @brainstorm = Brainstorm.new(filtered_brainstorm_params)
     name = brainstorm_params[:name]
+    respond_to do |format|
       if @brainstorm.save
-        redirect_to @brainstorm
         REDIS.set @session_id, name
+          format.js { render :js => "window.location.href = '#{brainstorm_path(@brainstorm)}'" }
       else
-        render :root
+          format.html { render action: "root"}
+          format.js
+      end
     end
   end
 

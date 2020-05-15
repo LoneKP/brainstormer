@@ -15,6 +15,22 @@
   background-position: 0 0, 0px 0px;
 }
 
+.bg-normal {
+  background: #FBEDEB;
+}
+
+.bg-dots {
+  background-image:
+    radial-gradient(#ffffff 14%, transparent 0),
+    radial-gradient(#ffffff 14%, transparent 0);
+  background-size: 60px 60px;
+  background-position: 0 0, 0px 0px;
+}
+
 .my-shadow {
-  box-shadow: 7px 7px 0 0 rgba(0, 0, 0, 0.15);
+  box-shadow: 8px 8px 0 0 rgba(0, 0, 0, 0.2);
+}
+
+.my-shadow-lg {
+  box-shadow: 12px 12px 0 0 rgba(0, 0, 0, 0.2);
 }

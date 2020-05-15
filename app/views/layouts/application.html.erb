@@ -11,7 +11,7 @@
   <%= stylesheet_pack_tag 'stylesheets', media: 'all' %>
 </head>
 
-<body class="font-mono bg-pattern">
+<body class="font-mono <%= action_name == "brainstorms" ? "bg-pattern" : "bg-normal" %>">
   <%= yield %>
 </body>
 
