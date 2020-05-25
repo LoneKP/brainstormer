@@ -1,4 +1,4 @@
-<div class="mx-auto container" x-data=" { 'showNewBrainstormModal' : false, 'showJoinSessionModal' : true }" @keydown.escape="showNewBrainstormModal = false" @keydown.escape="showJoinSessionModal = false">
+<div class="mx-auto container" x-data=" { 'showNewBrainstormModal' : false, 'showJoinSessionModal' : false }" @keydown.escape="showNewBrainstormModal = false" @keydown.escape="showJoinSessionModal = false">
   <div class="flex-col flex bg-blurple p-12 mt-8">
     <div class="bg-dots p-12">
       <div class="-ml-28 -mt-12 italic bg-black w-16 h-16 text-white text-5xl flex font-bold items-center justify-center">
@@ -14,16 +14,125 @@
       </div>
     </div>
   </div>
+
+  <div class="flex justify-between mt-24">
+    <div class="flex-col w-1/2 mr-48 ml-24 mb-8">
+      <div class="h-24 w-24 bg-greeny rounded-full mb-8"></div>
+      <div class="mb-8">
+        <h1 class="text-greeny text-5xl font-bold leading-tight uppercase">why brainstorm?</h1>
+      </div>
+      <div>
+        <p class="font-bold leading-relaxed">Sometimes you just need to get enough ideas to find the perfect way to solve a problem! Even bad ideas can be helpful in getting you on the right path to a great idea. With a structured approach to ideation you might start <span class="text-greeny">connecting the dots</span> in new ways. Maybe in ways that no one did before!</p>
+      </div>
+    </div>
+    <div class="flex-col flex w-1/2 bg-greeny px-12 justify-between">
+      <div class="bg-dots-bigger w-full h-10 mt-4 "></div>
+      <div class="bg-greeny triangle h-16 w-16 self-end -mr-12"></div>
+    </div>
+  </div>
+
+  <div class="mt-24 bg-greeny flex flex-col p-24">
+    <div class="flex flex-col">
+      <h1 class="text-white text-5xl font-bold">How it works</h1>
+      <div class="border-solid border-white border-t-8 w-1/4 mt-2"></div>
+    </div>
+    <div class="flex flex-row mt-24 h-56 justify-between">
+      <div class="w-1/4 my-shadow border-solid border-white border-4">
+        <div class="bg-white">
+          <p class="py-2 px-4 italic text-greeny text-2xl font-semibold">STEP #1</p>
+        </div>
+        <div class="p-4">
+          <p class="text-white leading-loose">Create brainstorm and share link with participants</p>
+        </div>
+      </div>
+      <div class="w-1/4 my-shadow border-solid border-white border-4">
+        <div class="bg-white">
+          <p class="py-2 px-4 italic text-greeny text-2xl font-semibold">STEP #2</p>
+        </div>
+        <div class="p-4">
+          <p class="text-white leading-loose">Come up with ideas together</p>
+        </div>
+      </div>
+      <div class="w-1/4 my-shadow border-solid border-white border-4">
+        <div class="bg-white">
+          <p class="py-2 px-4 italic text-greeny text-2xl font-semibold">STEP #3</p>
+        </div>
+        <div class="p-4">
+          <p class="text-white leading-loose">Find the best ideas</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="flex justify-between mt-24">
+    <div class="flex-col flex w-1/2 bg-yellowy px-12 justify-between">
+      <div class="bg-dots-bigger w-full h-10 mt-4 "></div>
+      <div class="my-8">
+        <p class="leading-loose italic font-bold text-3xl uppercase">How do you write a good problem statement?</p>
+      </div>
+      <div class="bg-yellowy triangle h-16 w-16 self-end -mr-12"></div>
+    </div>
+    <div class="flex-col flex w-1/2 ml-24 mb-8 justify-around">
+      <div class="text-2xl italic">The statement should...</div>
+      <div class="items-center flex-row flex border-dashed border-4 border-yellowy p-4">
+        <div class="h-4 w-4 bg-black mr-4"></div>
+        <p>be open enough to inspire a lot of ideas</p>
+      </div>
+      <div class="items-center flex-row flex border-dashed border-4 border-yellowy  p-4">
+        <div class="h-4 w-4 bg-black mr-4"></div>
+        <p>be closed enough to give your team the direction they need</p>
+      </div>
+      <div class="items-center flex-row flex border-dashed border-4 border-yellowy p-4">
+        <div class="h-4 w-4 bg-black mr-4"></div>
+        <p>not be answerable with a simple yes or no</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-12 bg-black text-white border-white border-dashed border-4 p-12 text-center flex flex-col items-center">
+    <p class=" text-4xl font-bold">To achieve this, you can start with "HOW MIGHT WE..."</p>
+    <div class="flex flex-row items-center mt-8 mb-2 text-xl">
+
+      <p><span class="font-bold">How might we</span> prevent shopping carts from getting rusty</p>
+      <div class="h-8 w-8 ml-8">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Cross" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+          <path fill="#DC6660" d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0  c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183  l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15  C14.817,13.62,14.817,14.38,14.348,14.849z" />
+        </svg>
+      </div>
+      <p class="text-reddy ml-2">TOO NARROW</p>
+    </div>
+    <div class="flex flex-row items-center mb-2 text-xl">
+
+      <p><span class="font-bold">How might we</span> reinvent shopping</p>
+      <div class="h-8 w-8 ml-8">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Cross" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+          <path fill="#DC6660" d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0  c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183  l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15  C14.817,13.62,14.817,14.38,14.348,14.849z" />
+        </svg>
+      </div>
+      <p class="text-reddy ml-2">TOO OPEN</p>
+    </div>
+    <div class="flex flex-row items-center text-xl">
+
+      <p><span class="font-bold">How might we</span> redesign shopping carts to last longer</p>
+      <div class="h-8 w-8 ml-8">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Check" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+          <path fill="#027540" d="M8.294,16.998c-0.435,0-0.847-0.203-1.111-0.553L3.61,11.724c-0.465-0.613-0.344-1.486,0.27-1.951  c0.615-0.467,1.488-0.344,1.953,0.27l2.351,3.104l5.911-9.492c0.407-0.652,1.267-0.852,1.921-0.445  c0.653,0.406,0.854,1.266,0.446,1.92L9.478,16.34c-0.242,0.391-0.661,0.635-1.12,0.656C8.336,16.998,8.316,16.998,8.294,16.998z" />
+        </svg>
+      </div>
+      <p class="text-greeny ml-2">PERFECT</p>
+    </div>
+  </div>
+
   <!--Overlay-->
   <div class="" style=" background-color: rgba(49,39,131,0.9)" x-show="showNewBrainstormModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showNewBrainstormModal }">
     <!--Dialog-->
-    <div class=" flex-col w-1/2" @click.away="showNewBrainstormModal = false">
+    <div class="flex-col w-1/2" @click.away="showNewBrainstormModal = false" x-on:click="clearField()">
       <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left px-6" x-show="showNewBrainstormModal">
 
         <!--Title-->
         <div class="flex justify-between items-center">
           <p class="pb-8 text-4xl font-bold text-blurple">NEW BRAINSTORM</p>
-          <div class="cursor-pointer z-50" @click="showNewBrainstormModal = false">
+          <div class="cursor-pointer z-50" @click="showNewBrainstormModal = false" x-on:click="clearField()">
             <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
               <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
             </svg>
@@ -34,7 +143,7 @@
         <%= form_with model: @brainstorm, class: "flex flex-col" do |f| %>
         <div class="flex flex-row justify-between items-baseline mb-2">
           <%= f.label :problem_to_solve, class: "italic text-2xl font-bold leading-none" %>
-          <p class="opacity-50 text-black italic font-semibold">Some text</p>
+          <p class="opacity-50 text-black italic font-semibold">Start with "How might we"</p>
         </div>
         <%= f.text_field :problem, class: "border-solid border-2 border-black h-12 italic font-bold px-4" %>
       </div>
@@ -60,12 +169,10 @@
     <!--/Dialog -->
   </div><!-- /Overlay -->
 
-
-
   <!--Overlay-->
-  <div class="" style=" background-color: rgba(49,39,131,0.9)" x-show="showJoinSessionModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showJoinSessionModal }">
+  <div class="" style=" background-color: rgba(49,39,131,0.9)" x-show="showJoinSessionModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showJoinSessionModal }" x-on:click="clearField()">
     <!--Dialog-->
-    <div class=" flex-col w-1/2" @click.away="showJoinSessionModal = false">
+    <div class=" flex-col w-1/2" @click.away="showJoinSessionModal = false" x-on:click="clearField()">
       <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left px-6" x-show="showJoinSessionModal">
 
         <!--Title-->
@@ -75,14 +182,14 @@
 
         <!-- content -->
 
-        <form action="">
-          <div class="flex flex-row justify-between items-baseline mb-2">
-            <label class="italic text-2xl font-bold leading-none" for="">BRAINSTORM ID</label>
-            <p class="opacity-50 text-black italic font-semibold">ID your facilitator has sent you</p>
-          </div>
-          <div class="">
-            <input value="#" class="border-solid border-2 border-black h-16 italic px-4 w-full focus:outline-none focus:text-black font-bold text-2xl text-lighter-gray" type="text">
-          </div>
+        <%= form_with url: "/go_to_brainstorm", local: true do |f| %>
+        <div class="flex flex-row justify-between items-baseline mb-2">
+          <label class="italic text-2xl font-bold leading-none" for="">BRAINSTORM ID</label>
+          <p class="opacity-50 text-black italic font-semibold">ID your facilitator has sent you</p>
+        </div>
+        <div class="">
+          <%= f.text_field :token, class: "border-solid border-2 border-black h-16 italic px-4 w-full focus:outline-none focus:text-black font-bold text-2xl text-lighter-gray", value: "#" %>
+        </div>
       </div>
       <div class="mt-8 flex flex-row justify-between">
         <div @click="showJoinSessionModal = false" class="cursor-pointer my-shadow-lg bg-white text-lg font-bold h-14 w-14">
@@ -90,13 +197,15 @@
             <path fill="#352288" d="M12.141,13.418c0.268,0.271,0.268,0.709,0,0.978c-0.268,0.27-0.701,0.272-0.969,0l-3.83-3.908  c-0.268-0.27-0.268-0.707,0-0.979l3.83-3.908c0.267-0.27,0.701-0.27,0.969,0c0.268,0.271,0.268,0.709,0,0.978L9,10L12.141,13.418z" />
           </svg>
         </div>
-        <button class="px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny cursor-pointer">JOIN SESSION</button>
-
+        <button type="submit" class="px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny cursor-pointer">JOIN SESSION</button>
       </div>
-      </form>
+      <% end %>
 
     </div>
     <!--/Dialog -->
   </div><!-- /Overlay -->
-
 </div>
+
+<script>
+  const clearField = () => document.getElementById("token").value = "#";
+</script>

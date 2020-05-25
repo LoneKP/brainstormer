@@ -1,6 +1,6 @@
 import consumer from "./consumer"
 
-consumer.subscriptions.create({ channel: "IdeasChannel", id: location.pathname.split('/')[2] }, {
+consumer.subscriptions.create({ channel: "IdeasChannel", token: location.pathname.replace("/", "") }, {
   connected() {
     // Called when the subscription is ready for use on the server
   },

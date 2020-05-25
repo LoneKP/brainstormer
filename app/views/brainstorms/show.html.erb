@@ -39,12 +39,20 @@
     <div class="flex-col flex">
       <div class="flex flex-col items-center w-80 bg-white my-shadow mr-16 p-6">
         <h2 class="italic font-semibold text-xl text-blurple">Time</h2>
-        <div class="rounded-full w-40 h-40 bg-gray-800 my-8"></div>
-        <div class="flex items-end justify-around w-full bg-wine mt-8 pt-16 pb-4 text-white font-bold">
-          <p class="uppercase italic text-lg">ideas</p>
-          <p class="text-6xl leading-none" id="ideasCount"><%= @ideas.count %></p>
+        <div class="text-3xl font-bold bg-black text-white rounded-full h-40 w-40 flex items-center justify-center my-4">
+          <p id="timeDisplay">10:00</p>
         </div>
+        <%= link_to "Start timer", start_timer_brainstorm_path(@brainstorm.token), remote: true, method: :post, id: "startTimer", class: "bg-black text-white p-2" %>
+        <div class="bg-wine text-white font-bold w-full mt-8">
+          <div class="flex items-end justify-around mt-8 pt-16 pb-4">
+            <p class="uppercase italic text-lg">ideas</p>
+            <p class="text-6xl leading-none" id="ideasCount"><%= @ideas.count %></p>
+          </div>
+          <div class="p-4 text-center text-sm bg-wine-light">GOAL: 20 ideas in 10 minutes</div>
+        </div>
+
       </div>
+
       <div class="w-80 items-center bg-white my-shadow mt-8 mr-16 p-6">
         <button class="bg-greeny text-white text-center text-2xl font-semibold py-2 w-full">
           SHARE LINK
@@ -68,52 +76,24 @@
         </div>
 
         <!-- content -->
-        <form action="/set_user_name" data-remote="true">
-          <div class="field mt-8">
-            <%= text_field_tag "user_name", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
-          </div>
-          <%= hidden_field_tag "session_id", @session_id %>
-          <%= hidden_field_tag "brainstorm_id", @brainstorm.id %>
+        <%= form_for :brainstorm, url: set_user_name_brainstorm_path(@brainstorm.token), remote: true do |f| %>
 
-          <button type=submit class="modal-close w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showModal = false">Go!</button>
-        </form>
+        <div class="field mt-8">
+          <%= text_field_tag "user_name", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+        </div>
+        <%= hidden_field_tag "session_id", @session_id %>
+
+        <button type=submit class="modal-close w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showModal = false">Go!</button>
+        <% end %>
       </div>
       <!--/Dialog -->
     </div><!-- /Overlay -->
-
   </div>
-
-
-
 </div>
-
-
-
 <div id="idHolder" data-id="<%= @session_id %>"></div>
 
-<style>
-  .duration-300 {
-    transition-duration: 300ms;
-  }
-
-  .ease-in {
-    transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
-  }
-
-  .ease-out {
-    transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
-  }
-
-  .scale-90 {
-    transform: scale(.9);
-  }
-
-  .scale-100 {
-    transform: scale(1);
-  }
-</style>
-
 <script>
+  let timerStopped = false;
   const p = document.getElementById("characterCount");
   const inputField = document.getElementById("idea_text");
   const maxCharacters = 110
@@ -177,8 +157,5 @@
     wrapper.classList.add("bg-black")
     currentUserElement.classList.add("bg-white", "text-black")
     currentUserElement.classList.remove("bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy")
-
-
-
   }
 </script>

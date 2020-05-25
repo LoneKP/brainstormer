@@ -1,8 +1,8 @@
 class BrainstormChannel < ApplicationCable::Channel
   def subscribed
     @user = session_id
-    @brainstorm = Brainstorm.find(params[:id])
-    stream_from "brainstorm-#{@brainstorm.id}"
+    @brainstorm = Brainstorm.find_by(token: params[:token])
+    stream_from "brainstorm-#{params[:token]}"
     add_to_list_and_transmit!
   end
 
@@ -59,11 +59,11 @@ class BrainstormChannel < ApplicationCable::Channel
       no_user_names: REDIS.smembers("no_user_name")
     }
 
-    ActionCable.server.broadcast("brainstorm-#{@brainstorm.id}", data)
+    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}", data)
   end
 
   def brainstorm_key
-    "brainstorm_id_#{@brainstorm.id}"
+    "brainstorm_id_#{@brainstorm.token}"
   end
 
   def user_key

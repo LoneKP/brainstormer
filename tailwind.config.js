@@ -18,6 +18,7 @@ module.exports = {
         'reddy': '#DC6660',
         'purply': '#A260DC',
         'wine': '#750202',
+        'wine-light': '#ba7f80',
         'light-greeny': '#DBFFC1',
         'light-blurple': '#DFD8FF'
       },

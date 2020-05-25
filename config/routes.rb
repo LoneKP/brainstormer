@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
-  resources :brainstorms
-  resources :ideas
+  resources :brainstorms, param: :token, only: [:create, :set_user_name] do
+    member do
+      post :set_user_name, :start_timer
+    end
+  end
+
+  resources :ideas, only: :create
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   root 'brainstorms#index'
 
-  get '/set_user_name', to: 'brainstorms#set_user_name'
+  get '/:token', to: 'brainstorms#show', as: 'brainstorm'
+
+  post '/go_to_brainstorm', to: 'brainstorms#go_to_brainstorm'
 end

@@ -1,6 +1,6 @@
 class BrainstormsController < ApplicationController
-  before_action :set_brainstorm, only: :show
-  before_action :set_brainstorm_ideas, only: :show
+  before_action :set_brainstorm, only: [:show, :start_timer]
+  before_action :set_brainstorm_ideas, only: [:show]
   before_action :set_session_id, only: [:show, :create]
 
   def index
@@ -9,11 +9,12 @@ class BrainstormsController < ApplicationController
 
   def create
     @brainstorm = Brainstorm.new(filtered_brainstorm_params)
+    @brainstorm.token = generate_token
     name = brainstorm_params[:name]
     respond_to do |format|
       if @brainstorm.save
         REDIS.set @session_id, name
-          format.js { render :js => "window.location.href = '#{brainstorm_path(@brainstorm)}'" }
+          format.js { render :js => "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
       else
           format.html { render action: "root"}
           format.js
@@ -29,7 +30,23 @@ class BrainstormsController < ApplicationController
     respond_to do |format|
       if REDIS.set params[:session_id], params[:user_name]
           REDIS.srem "no_user_name", params[:session_id]
-          ActionCable.server.broadcast("brainstorm-#{params[:brainstorm_id]}", event: "name_changed" )
+          ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "name_changed" )
+          format.html {}
+          format.js
+      else
+          format.html {}
+          format.js
+      end
+    end
+  end
+
+  def go_to_brainstorm
+    redirect_to brainstorm_path(params[:token].sub("#", ""))
+  end
+
+  def start_timer
+    respond_to do |format|
+      if ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "start_timer")
           format.html {}
           format.js
       else
@@ -41,8 +58,12 @@ class BrainstormsController < ApplicationController
 
   private
 
+  def generate_token
+    "BRAIN" + SecureRandom.hex(3).to_s
+  end
+
   def set_brainstorm
-    @brainstorm = Brainstorm.find params[:id]
+    @brainstorm = Brainstorm.find_by token: params[:token]
   end
 
   def brainstorm_params

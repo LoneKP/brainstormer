@@ -1,12 +1,14 @@
 import consumer from "./consumer"
 
+let secondsTotal = 600;
+
 const randomColorPicker = () => {
   let colorClasses = ["bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy"];
   let randomColor = colorClasses[Math.floor(Math.random() * colorClasses.length)];
   return randomColor;
 }
 
-consumer.subscriptions.create({ channel: "BrainstormChannel", id: location.pathname.split('/')[2] }, {
+consumer.subscriptions.create({ channel: "BrainstormChannel", token: location.pathname.replace("/", "") }, {
 
   // Called once when the subscription is created.
   initialized() {
@@ -54,10 +56,9 @@ consumer.subscriptions.create({ channel: "BrainstormChannel", id: location.pathn
   },
 
   received(data) {
+    console.log(data)
     switch (data.event) {
       case "transmit_list":
-        console.log(data);
-
         let idHolder = document.getElementById("idHolder")
         for (let i = 0; i < data.no_user_names.length; i++) {
           if (currentUserId == data.no_user_names[i]) {
@@ -68,7 +69,6 @@ consumer.subscriptions.create({ channel: "BrainstormChannel", id: location.pathn
             idHolder.dataset.noName = "false"
           }
         }
-
         console.log(currentUserId);
         const nameListElement = document.getElementById("name-list");
         nameListElement.innerHTML = "";
@@ -88,16 +88,41 @@ consumer.subscriptions.create({ channel: "BrainstormChannel", id: location.pathn
         showCurrentUser();
         break;
       case "name_changed":
-        console.log(data)
-        this.perform("update_name")
+        console.log(data);
+        this.perform("update_name");
+        break;
+      case "start_timer":
+        let startStop = document.getElementById("startTimer");
+        timerStopped ? startStop.innerHTML = "Start timer" : startStop.innerHTML = "Stop timer"
+        let timeDisplay = document.getElementById("timeDisplay");
+        let timer = setInterval(function () {
+          if (!timerStopped) {
+            clearInterval(timer)
+            timeDisplay.dataset.secondsTotal = secondsTotal
+          }
+          else if (timerStopped) {
+            secondsTotal--;
+            let timeLeftSeconds = secondsTotal % 60;
+            let timeLeftSecondsInMinutes = (secondsTotal - timeLeftSeconds) / 60;
+            let timeLeftMinutes = timeLeftSecondsInMinutes % 60;
+            let formattedTimeLeftMinutes = ("0" + timeLeftMinutes).slice(-2);
+            let formattedTimeLeftSeconds = ("0" + timeLeftSeconds).slice(-2);
+            timeDisplay.textContent = `${formattedTimeLeftMinutes}:${formattedTimeLeftSeconds}`;
+            if (secondsTotal <= 0) {
+              secondsTotal = 600
+              clearInterval(timer)
+            }
+          }
+        }, 1000)
         break;
     }
-
   },
 
   get documentIsActive() {
     return document.visibilityState == "visible" || document.hasFocus()
   },
+
+
 
 
 })
