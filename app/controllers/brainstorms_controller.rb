@@ -46,10 +46,16 @@ class BrainstormsController < ApplicationController
 
   def start_timer
     respond_to do |format|
-      if ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "start_timer")
+      if @brainstorm.timer_running? == false
+        ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "start_timer")
+        @brainstorm.timer_running = !@brainstorm.timer_running?
+        @brainstorm.save
           format.html {}
           format.js
       else
+        ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "reset_timer")
+        @brainstorm.timer_running = !@brainstorm.timer_running?
+        @brainstorm.save
           format.html {}
           format.js
       end

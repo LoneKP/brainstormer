@@ -1,12 +1,7 @@
 import consumer from "./consumer"
 
-let secondsTotal = 600;
-
-const randomColorPicker = () => {
-  let colorClasses = ["bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy"];
-  let randomColor = colorClasses[Math.floor(Math.random() * colorClasses.length)];
-  return randomColor;
-}
+let secondsTotal = 10;
+let timer;
 
 consumer.subscriptions.create({ channel: "BrainstormChannel", token: location.pathname.replace("/", "") }, {
 
@@ -92,28 +87,11 @@ consumer.subscriptions.create({ channel: "BrainstormChannel", token: location.pa
         this.perform("update_name");
         break;
       case "start_timer":
-        let startStop = document.getElementById("startTimer");
-        timerStopped ? startStop.innerHTML = "Start timer" : startStop.innerHTML = "Stop timer"
-        let timeDisplay = document.getElementById("timeDisplay");
-        let timer = setInterval(function () {
-          if (!timerStopped) {
-            clearInterval(timer)
-            timeDisplay.dataset.secondsTotal = secondsTotal
-          }
-          else if (timerStopped) {
-            secondsTotal--;
-            let timeLeftSeconds = secondsTotal % 60;
-            let timeLeftSecondsInMinutes = (secondsTotal - timeLeftSeconds) / 60;
-            let timeLeftMinutes = timeLeftSecondsInMinutes % 60;
-            let formattedTimeLeftMinutes = ("0" + timeLeftMinutes).slice(-2);
-            let formattedTimeLeftSeconds = ("0" + timeLeftSeconds).slice(-2);
-            timeDisplay.textContent = `${formattedTimeLeftMinutes}:${formattedTimeLeftSeconds}`;
-            if (secondsTotal <= 0) {
-              secondsTotal = 600
-              clearInterval(timer)
-            }
-          }
-        }, 1000)
+        startTimer();
+        break;
+      case "reset_timer":
+        console.log("reset timer")
+        stopTimer()
         break;
     }
   },
@@ -121,9 +99,35 @@ consumer.subscriptions.create({ channel: "BrainstormChannel", token: location.pa
   get documentIsActive() {
     return document.visibilityState == "visible" || document.hasFocus()
   },
-
-
-
-
 })
 
+const randomColorPicker = () => {
+  let colorClasses = ["bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy"];
+  let randomColor = colorClasses[Math.floor(Math.random() * colorClasses.length)];
+  return randomColor;
+}
+
+const startTimer = () => {
+  document.getElementById("startTimer").textContent = "Reset timer"
+  timer = setInterval(countDown, 1000)
+}
+
+const stopTimer = () => {
+  clearInterval(timer);
+  secondsTotal = 10;
+  document.getElementById("timeDisplay").textContent = "00:10"
+  document.getElementById("startTimer").textContent = "Start timer"
+}
+
+const countDown = () => {
+  secondsTotal--;
+  let timeLeftSeconds = secondsTotal % 60;
+  let timeLeftSecondsInMinutes = (secondsTotal - timeLeftSeconds) / 60;
+  let timeLeftMinutes = timeLeftSecondsInMinutes % 60;
+  let formattedTimeLeftMinutes = ("0" + timeLeftMinutes).slice(-2);
+  let formattedTimeLeftSeconds = ("0" + timeLeftSeconds).slice(-2);
+  timeDisplay.textContent = `${formattedTimeLeftMinutes}:${formattedTimeLeftSeconds}`;
+  if (secondsTotal <= 0) {
+    clearInterval(timer)
+  }
+}
