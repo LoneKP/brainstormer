@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  resources :brainstorms, param: :token, only: [:create, :set_user_name] do
+  resources :brainstorms, param: :token, only: :create do
     member do
-      post :set_user_name, :start_timer
+      post :set_user_name, :start_timer, :send_ideas_email
     end
   end
 

@@ -14,6 +14,7 @@ class BrainstormsController < ApplicationController
     respond_to do |format|
       if @brainstorm.save
         REDIS.set @session_id, name
+        REDIS.srem "no_user_name", @session_id
           format.js { render :js => "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
       else
           format.html { render action: "root"}
@@ -31,6 +32,18 @@ class BrainstormsController < ApplicationController
       if REDIS.set params[:session_id], params[:user_name]
           REDIS.srem "no_user_name", params[:session_id]
           ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "name_changed" )
+          format.html {}
+          format.js
+      else
+          format.html {}
+          format.js
+      end
+    end
+  end
+
+  def send_ideas_email
+    respond_to do |format|
+      if IdeasMailer.with(token: params[:token], email: params[:email]).ideas_email.deliver_later
           format.html {}
           format.js
       else

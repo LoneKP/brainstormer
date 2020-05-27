@@ -1,19 +1,19 @@
 <div>
   <%= render 'nav' %>
-  <div id="modalContainer" class="flex flex-row" x-data="{ 'showModal': false }" @keydown.escape="showModal = false">
+  <div id="modalContainer" class="flex flex-row" x-data="{ 'showModal': false, 'showEmailModal': false }" @keydown.escape="showModal = false">
     <div class="flex-col flex w-full items-start">
-      <div class="flex-col flex w-3/4">
+      <div class="flex-col flex w-full lg:w-3/4">
         <h1 class="mx-16 p-3 text-5xl text-white font-bold uppercase bg-blurple leading-tight"><%=@brainstorm.problem %></h1>
         <%= form_for(@idea, remote: true, html: { autocomplete: "off", class: "bg-light-gray p-6 m-16" } ) do |f| %>
         <h2 class="italic text-2xl font-semibold">Idea</h2>
         <div class="field mt-8">
-          <%= f.text_area :text, class:"w-full bg-white focus:outline-none border-solid border-black border-2 py-2 px-4 block w-full appearance-none leading-normal" %>
+          <%= f.text_area :text, class:"w-full h-32 bg-white focus:outline-none border-solid border-black border-2 py-2 px-4 block appearance-none leading-normal" %>
         </div>
         <%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
 
         <p id="characterCount" class="text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
 
-        <button id="addIdeaButton" type=submit class="modal-close w-full my-1 bg-blurple focus:outline-none text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showModal = false">Add idea</button>
+        <button id="addIdeaButton" type=submit class="modal-close w-full my-1 bg-blurple focus:outline-none text-white font-bold py-3 px-4 rounded cursor-pointer">Add idea</button>
         <% end %>
       </div>
 
@@ -23,10 +23,7 @@
         <div class="idea-card h-48 w-64 px-4 pt-6 pb-1 my-shadow my-4 mr-8 flex flex-col items-start justify-between italic font-bold bg-yellowy" id=<%= idea.id %>>
 
           <h2 class="text-blurple text-xl">#<%=idea.number%></h2>
-
-
           <p><%=idea.text %></p>
-
           <div class="flex flex-row self-end items-center">
             <p class="likes">0</p>
             <div class="w-4 h-4 heart-gray"></div>
@@ -36,7 +33,7 @@
       </div>
 
     </div>
-    <div class="flex-col flex">
+    <div class="flex-col hidden lg:flex">
       <div class="flex flex-col items-center w-80 bg-white my-shadow mr-16 p-6">
         <h2 class="italic font-semibold text-xl text-blurple">Time</h2>
         <div class="text-3xl font-bold bg-black text-white rounded-full h-40 w-40 flex items-center justify-center my-4">
@@ -53,12 +50,52 @@
 
       </div>
 
-      <div class="w-80 items-center bg-white my-shadow mt-8 mr-16 p-6">
-        <button class="bg-greeny text-white text-center text-2xl font-semibold py-2 w-full">
+      <div class="tooltip w-80 items-center bg-white my-shadow mt-8 mr-16 p-6">
+        <button onclick="copyAction(getURL())" onmouseout="outFunc()" class="focus:outline-none bg-greeny text-white text-center text-2xl font-semibold py-2 w-full">
+          <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
           SHARE LINK
         </button>
       </div>
+
+      <div class="w-80 items-center bg-white my-shadow mt-8 mr-16 p-6">
+        <button @click="showEmailModal = true" class="focus:outline-none bg-greeny text-white text-center text-2xl font-semibold py-2 w-full">
+          EMAIL IDEAS
+        </button>
+      </div>
     </div>
+
+
+    <!--Overlay-->
+    <div class="" style="background-color: rgba(0,0,0,0.5)" x-show="showEmailModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showEmailModal }">
+      <!--Dialog-->
+      <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-4 text-left px-6" x-show="showEmailModal" @click.away="showEmailModal = false">
+
+        <!--Title-->
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-2xl font-bold">Send ideas to:</p>
+          <div class="cursor-pointer z-50" @click="showEmailModal = false">
+            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- content -->
+        <%= form_for :brainstorm, url: send_ideas_email_brainstorm_path(@brainstorm.token), remote: true do |f| %>
+
+        <div class="field mt-8">
+          <%= text_field_tag "email", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+        </div>
+
+        <button type=submit class="w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showEmailModal = false">Send</button>
+        <% end %>
+      </div>
+      <!--/Dialog -->
+    </div><!-- /Overlay -->
+
+
+
+
 
     <!--Overlay-->
     <div class="" style="background-color: rgba(0,0,0,0.5)" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
@@ -83,7 +120,7 @@
         </div>
         <%= hidden_field_tag "session_id", @session_id %>
 
-        <button type=submit class="modal-close w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showModal = false">Go!</button>
+        <button type=submit class="w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showModal = false">Go!</button>
         <% end %>
       </div>
       <!--/Dialog -->
@@ -148,7 +185,6 @@
 
   const showCurrentUser = () => {
     let currentUserElement = document.getElementById(currentUserId)
-
     currentUserElement.parentNode.appendChild(currentUserElement)
     let wrapper = document.createElement('div');
     currentUserElement.parentNode.insertBefore(wrapper, currentUserElement);
@@ -156,5 +192,30 @@
     wrapper.classList.add("bg-black")
     currentUserElement.classList.add("bg-white", "text-black")
     currentUserElement.classList.remove("bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy")
+
+    currentUserElement.parentNode.onclick = () => {
+      document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }")
+    }
+  }
+
+  const copyAction = (value) => {
+    let tempInput = document.createElement("input");
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = value;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    let tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copied!";
+  }
+
+  const getURL = () => {
+    return window.location.href;
+  }
+
+  function outFunc() {
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copy to clipboard";
   }
 </script>
