@@ -7,5 +7,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV["REDISTOGO_URL"] %>
+  url: <%= ENV["REDIS_URL"] %>
   channel_prefix: easy_brainstormer_production
