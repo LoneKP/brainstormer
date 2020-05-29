@@ -1,6 +1,5 @@
 class BrainstormChannel < ApplicationCable::Channel
   def subscribed
-    @user = session_id
     @brainstorm = Brainstorm.find_by(token: params[:token])
     stream_from "brainstorm-#{params[:token]}"
     add_to_list_and_transmit!
@@ -18,24 +17,20 @@ class BrainstormChannel < ApplicationCable::Channel
 
   def add_to_list_and_transmit!
     set_guest_name_if_user_has_no_name
-    REDIS.sadd brainstorm_key, user_key unless already_present?
+    REDIS.sadd brainstorm_key, session_id
     transmit_list!
   end
 
   def remove_from_list_and_transmit!
-    REDIS.srem brainstorm_key, user_key
+    REDIS.srem brainstorm_key, session_id
     transmit_list!
   end
 
   def set_guest_name_if_user_has_no_name
-    if REDIS.get(user_key).nil?
-      REDIS.sadd "no_user_name", user_key
+    if REDIS.get(session_id).nil?
+      REDIS.sadd "no_user_name", session_id
       REDIS.set session_id, "GUEST"
     end
-  end
-
-  def already_present?
-    REDIS.sscan(brainstorm_key, 0, match: user_key).last.any?
   end
 
   def transmit_list!
@@ -64,9 +59,5 @@ class BrainstormChannel < ApplicationCable::Channel
 
   def brainstorm_key
     "brainstorm_id_#{@brainstorm.token}"
-  end
-
-  def user_key
-    @user
   end
 end
