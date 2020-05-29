@@ -17,12 +17,12 @@ class BrainstormChannel < ApplicationCable::Channel
 
   def add_to_list_and_transmit!
     set_guest_name_if_user_has_no_name
-    REDIS.sadd brainstorm_key, session_id
+    REDIS.hset brainstorm_key, session_id, Time.now
     transmit_list!
   end
 
   def remove_from_list_and_transmit!
-    REDIS.srem brainstorm_key, session_id
+    REDIS.hdel brainstorm_key, session_id
     transmit_list!
   end
 
@@ -34,16 +34,18 @@ class BrainstormChannel < ApplicationCable::Channel
   end
 
   def transmit_list!
-    users = REDIS.smembers(brainstorm_key)
+    users = REDIS.hgetall(brainstorm_key).keys
 
     names = []
     initials = []
     user_ids = []
     users.each do |user_id|
-      name = REDIS.get(user_id)
-      names << name
-      user_ids << user_id
-      initials << name.split(nil,2).map(&:first).join.upcase
+      unless last_user_activity_more_than_one_hour_ago?(user_id)
+        name = REDIS.get(user_id)
+        names << name
+        user_ids << user_id
+        initials << name.split(nil,2).map(&:first).join.upcase
+      end
     end
 
     data = {
@@ -55,6 +57,10 @@ class BrainstormChannel < ApplicationCable::Channel
     }
 
     ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}", data)
+  end
+
+  def last_user_activity_more_than_one_hour_ago?(user_id)
+    DateTime.parse(REDIS.hget(brainstorm_key, user_id)) < Time.now-1.hour
   end
 
   def brainstorm_key
