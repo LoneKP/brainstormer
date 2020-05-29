@@ -3,7 +3,9 @@ import consumer from "./consumer"
 let secondsTotal = 10;
 let timer;
 
-consumer.subscriptions.create({ channel: "BrainstormChannel", token: location.pathname.replace("/", "") }, {
+consumer.subscriptions.create({
+  channel: "BrainstormChannel", token: location.pathname.replace("/", "")
+}, {
 
   // Called once when the subscription is created.
   initialized() {
@@ -54,17 +56,16 @@ consumer.subscriptions.create({ channel: "BrainstormChannel", token: location.pa
     console.log(data)
     switch (data.event) {
       case "transmit_list":
-        let idHolder = document.getElementById("idHolder")
         for (let i = 0; i < data.no_user_names.length; i++) {
-          if (currentUserId == data.no_user_names[i]) {
-            idHolder.dataset.noName = "true"
+          if (currentUser.id == data.no_user_names[i]) {
+            currentUser.name = false;
             break;
           }
           else {
-            idHolder.dataset.noName = "false"
+            currentUser.name = true;
           }
         }
-        console.log(currentUserId);
+        console.log(currentUser.id);
         const nameListElement = document.getElementById("name-list");
         nameListElement.innerHTML = "";
 

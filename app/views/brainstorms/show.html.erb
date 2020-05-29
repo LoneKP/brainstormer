@@ -127,9 +127,13 @@
     </div><!-- /Overlay -->
   </div>
 </div>
-<div id="idHolder" data-id="<%= @session_id %>"></div>
 
 <script>
+  currentUser = {
+    id: '<%= @session_id %>',
+    name: false
+  };
+
   const p = document.getElementById("characterCount");
   const inputField = document.getElementById("idea_text");
   const maxCharacters = 110
@@ -174,17 +178,14 @@
     }
   }
 
-  const currentUserId = document.getElementById("idHolder").dataset.id;
-
-
   const openModalToSetName = () => {
-    if (document.getElementById("idHolder").dataset.noName == "true") {
+    if (!currentUser.name) {
       document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }")
     }
   }
 
   const showCurrentUser = () => {
-    let currentUserElement = document.getElementById(currentUserId)
+    let currentUserElement = document.getElementById(currentUser.id)
     currentUserElement.parentNode.appendChild(currentUserElement)
     let wrapper = document.createElement('div');
     currentUserElement.parentNode.insertBefore(wrapper, currentUserElement);

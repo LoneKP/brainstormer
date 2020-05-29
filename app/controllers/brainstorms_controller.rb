@@ -98,6 +98,7 @@ class BrainstormsController < ApplicationController
   end
 
   def set_session_id
-    @session_id = request.session.id
+    session["init"] = true
+    @session_id = session.id
   end
 end
