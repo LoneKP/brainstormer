@@ -145,7 +145,7 @@
           <%= f.label :problem_to_solve, class: "italic text-2xl font-bold leading-none" %>
           <p class="opacity-50 text-black italic font-semibold">Start with "How might we"</p>
         </div>
-        <%= f.text_field :problem, class: "border-solid border-2 border-black h-12 italic font-bold px-4" %>
+        <%= f.text_field :problem, class: "border-solid border-2 border-black h-12 italic font-bold px-4", autocomplete: "off" %>
       </div>
 
       <div class="my-shadow-lg bg-light-blurple flex flex-col py-12 px-16">
@@ -153,7 +153,7 @@
           <%= f.label :name, class: "italic text-lg font-bold leading-none"  %>
           <p class="opacity-50 text-black italic font-semibold">Let your participants know who you are</p>
         </div>
-        <%= f.text_field :name, class: "border-solid border-2 border-black h-10 italic font-bold px-4" %>
+        <%= f.text_field :name, class: "border-solid border-2 border-black h-10 italic font-bold px-4", autocomplete: "off" %>
       </div>
 
       <div class="mt-8 flex flex-row justify-between">
@@ -188,7 +188,7 @@
           <p class="opacity-50 text-black italic font-semibold">ID your facilitator has sent you</p>
         </div>
         <div class="">
-          <%= f.text_field :token, class: "border-solid border-2 border-black h-16 italic px-4 w-full focus:outline-none focus:text-black font-bold text-2xl text-lighter-gray", value: "#" %>
+          <%= f.text_field :token, class: "border-solid border-2 border-black h-16 italic px-4 w-full focus:outline-none focus:text-black font-bold text-2xl text-lighter-gray", value: "#", autocomplete: "off" %>
         </div>
       </div>
       <div class="mt-8 flex flex-row justify-between">
