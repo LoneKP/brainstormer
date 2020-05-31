@@ -4,7 +4,7 @@
     <div class="flex-col flex w-full items-start">
       <div class="flex-col flex w-full lg:w-3/4">
         <h1 class="mx-16 p-3 text-5xl text-white font-bold uppercase bg-blurple leading-tight"><%=@brainstorm.problem %></h1>
-        <%= form_for(@idea, remote: true, html: { autocomplete: "off", class: "bg-light-gray p-6 m-16" } ) do |f| %>
+        <%= form_for(@idea, remote: true, html: { autocomplete: "off", class: "bg-light-gray p-6 m-16" }) do |f| %>
         <h2 class="italic text-2xl font-semibold">Idea</h2>
         <div class="field mt-8">
           <%= f.text_area :text, class:"w-full h-32 bg-white focus:outline-none border-solid border-black border-2 py-2 px-4 block appearance-none leading-normal" %>
@@ -19,19 +19,17 @@
 
       <div class="flex flex-wrap justify-start ml-16" id="ideas">
         <% @ideas.each do |idea| %>
-
-        <div class="idea-card h-48 w-64 px-4 pt-6 pb-1 my-shadow my-4 mr-8 flex flex-col items-start justify-between italic font-bold bg-yellowy" id=<%= idea.id %>>
-
-          <h2 class="text-blurple text-xl">#<%=idea.number%></h2>
-          <p><%=idea.text %></p>
+        <%= link_to idea_path(:id => idea.id, :session_id => @session_id), method: :patch, remote: true, data: { turbolinks: false } do %>
+        <div class="select-none idea-card h-48 w-64 px-4 pt-6 pb-1 my-shadow my-4 mr-8 flex flex-col items-start justify-between italic font-bold bg-yellowy cursor-default">
+          <h2 class="text-blurple text-xl">#<%= idea.number %></h2>
+          <p><%= idea.text %></p>
           <div class="flex flex-row self-end items-center">
-            <p class="likes">0</p>
-            <div class="w-4 h-4 heart-gray"></div>
+            <div id="<%= idea.id %>" class="w-4 h-4 heart-gray like"></div>
           </div>
         </div>
         <% end %>
+        <% end %>
       </div>
-
     </div>
     <div class="flex-col hidden lg:flex">
       <div class="flex flex-col items-center w-80 bg-white my-shadow mr-16 p-6">
@@ -94,9 +92,6 @@
     </div><!-- /Overlay -->
 
 
-
-
-
     <!--Overlay-->
     <div class="" style="background-color: rgba(0,0,0,0.5)" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
       <!--Dialog-->
@@ -134,6 +129,16 @@
     name: false
   };
 
+  const toggleHeart = (id) => {
+    if (document.getElementById(id).classList.contains("heart-gray")) {
+      document.getElementById(id).classList.add("heart-red")
+      document.getElementById(id).classList.remove("heart-gray")
+    } else {
+      document.getElementById(id).classList.add("heart-gray")
+      document.getElementById(id).classList.remove("heart-red")
+    }
+  }
+
   const p = document.getElementById("characterCount");
   const inputField = document.getElementById("idea_text");
   const maxCharacters = 110
@@ -161,22 +166,6 @@
       }
     }
   );
-
-  window.onclick = e => {
-    e = event.srcElement;
-    if (e.className.indexOf("idea-card") != -1) {
-
-      let likeElement = document.getElementById(e.id).querySelector(".likes")
-      let numberOfLikes = Number(likeElement.innerHTML);
-
-      likeElement.innerHTML = numberOfLikes + 1
-
-      if (numberOfLikes == 0) {
-        likeElement.nextElementSibling.classList.add("heart-red");
-        likeElement.nextElementSibling.classList.remove("heart-gray");
-      }
-    }
-  }
 
   const openModalToSetName = () => {
     if (!currentUser.name) {
@@ -215,7 +204,7 @@
     return window.location.href;
   }
 
-  function outFunc() {
+  const outFunc = () => {
     var tooltip = document.getElementById("myTooltip");
     tooltip.innerHTML = "Copy to clipboard";
   }
