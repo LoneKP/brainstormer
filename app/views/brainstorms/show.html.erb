@@ -35,7 +35,7 @@
       <div class="flex flex-col items-center w-80 bg-white my-shadow mr-16 p-6">
         <h2 class="italic font-semibold text-xl text-blurple">Time</h2>
         <div class="text-3xl font-bold bg-black text-white rounded-full h-40 w-40 flex items-center justify-center my-4">
-          <p id="timeDisplay">00:10</p>
+          <p id="timeDisplay">10:00</p>
         </div>
         <%= link_to "#{@brainstorm.timer_running? ? "Reset timer" : "Start timer"}", start_timer_brainstorm_path(@brainstorm.token), remote: true, method: :post, id: "startTimer", class: "bg-black text-white p-2" %>
         <div class="bg-wine text-white font-bold w-full mt-8">

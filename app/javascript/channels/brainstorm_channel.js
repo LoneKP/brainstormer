@@ -1,6 +1,6 @@
 import consumer from "./consumer"
 
-let secondsTotal = 10;
+let secondsTotal = 600;
 let timer;
 
 consumer.subscriptions.create({
@@ -124,8 +124,8 @@ const startTimer = () => {
 
 const resetTimer = () => {
   clearInterval(timer);
-  secondsTotal = 10;
-  document.getElementById("timeDisplay").textContent = "00:10"
+  secondsTotal = 600;
+  document.getElementById("timeDisplay").textContent = "10:00"
   document.getElementById("startTimer").textContent = "Start timer"
 }
 
