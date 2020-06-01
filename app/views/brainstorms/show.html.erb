@@ -101,7 +101,7 @@
         <div class="flex justify-between items-center lg:mb-3 mb-8">
           <p class="text-5xl lg:text-2xl font-bold lg:mb-0 mb-4">What is your name?</p>
           <div class="cursor-pointer z-50" @click="showModal = false">
-            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 18 18">
               <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
             </svg>
           </div>
@@ -111,11 +111,11 @@
         <%= form_for :brainstorm, url: set_user_name_brainstorm_path(@brainstorm.token), remote: true do |f| %>
 
         <div class="field mt-8">
-          <%= text_field_tag "user_name", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-8 lg:py-2 mb-8 lg:mb-4 px-4 block w-full appearance-none leading-normal" %>
+          <%= text_field_tag "user_name", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-8 lg:py-2 mb-8 lg:mb-4 px-4 block w-full appearance-none leading-normal lg:text-base text-4xl"%>
         </div>
         <%= hidden_field_tag "session_id", @session_id %>
 
-        <button type=submit class="w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold lg:py-3 lg:my-2 my-8 py-8 px-4 rounded cursor-pointer" @click="showModal = false">Go!</button>
+        <button type=submit class="w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold text-4xl lg:text-base lg:py-3 lg:my-2 my-8 py-8 px-4 rounded cursor-pointer" @click="showModal = false">Go!</button>
         <% end %>
       </div>
       <!--/Dialog -->
