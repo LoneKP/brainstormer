@@ -8,12 +8,24 @@
 <body>
   <h1>Great work in your ideation session!</h1>
   <p>
-    Here are the results:<br>
+    You came up with <%= @ideas.count %> ideas to solve the following problem: <br>
   </p>
-  <%= @ideas.each do |idea| %>
-  <p><%= idea.text %></p>
+
+  <h2 style="font-weight:bold"> <%= @brainstorm.problem %></h2>
+
+  <p>Here are your ideas sorted by most likes:</p>
+  <% @ideas.each do |idea| %>
+    <p>
+     <span style="font-weight:bold"><%= idea.text %></span><br>
+      Likes: <%= idea.likes%>
+    </p>
   <% end %>
 
+  <p>You can also always go back to your <a href="<%= brainstorm_url(@brainstorm.token) %>">brainstorm room</a> to review your ideas.</p>
+
+  <p>If you liked this way of doing ideation, you are always welcome to try it out again at <a href="<%= root_url %>">brainstormer.online</a>.</p>
+
+  <p>If you have any feedback, questions or feature requests, don't be shy! You can press reply and let me know what you think!</p>
 </body>
 
 </html>
