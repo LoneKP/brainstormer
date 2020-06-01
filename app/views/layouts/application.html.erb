@@ -8,6 +8,7 @@
   <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
   <%= javascript_pack_tag 'application' %>
   <%= stylesheet_pack_tag 'application', media: 'all' %>
+  <%= favicon_link_tag asset_path('favicon.png') %>
 </head>
 
 <body class="font-mono <%= action_name == "index" ? "bg-normal" : "bg-pattern" %>">
