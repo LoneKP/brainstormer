@@ -32,7 +32,7 @@ const createNewIdea = (data) => {
   heartElement.classList.add("w-4", "h-4", "heart-gray");
   numberElement.classList.add("text-blurple", "text-xl");
 
-  ideaDiv.classList.add("select-none", "idea-card", "h-48", "w-64", "px-4", "pt-6", "pb-1", "my-shadow", "my-4", "mr-8", "flex", "flex-col", "items-start", "justify-between", "italic", "font-bold", "bg-yellowy", "cursor-default");
+  ideaDiv.classList.add("select-none", "idea-card", "h-64", "w-64", "px-4", "pt-6", "pb-1", "my-shadow", "my-4", "mr-8", "flex", "flex-col", "items-start", "justify-between", "italic", "font-bold", "bg-yellowy", "cursor-default");
 
   linkContainer.setAttribute("data-turbolinks", "false")
   linkContainer.setAttribute("data-remote", "true")

@@ -3,24 +3,24 @@
   <div id="modalContainer" class="flex flex-row" x-data="{ 'showModal': false, 'showEmailModal': false }" @keydown.escape="showModal = false">
     <div class="flex-col flex w-full items-start">
       <div class="flex-col flex w-full lg:w-3/4">
-        <h1 class="mx-16 p-3 text-5xl text-white font-bold uppercase bg-blurple leading-tight"><%=@brainstorm.problem %></h1>
+        <h1 class="mx-16 p-3 text-6xl lg:text-5xl text-white font-bold uppercase bg-blurple leading-tight"><%=@brainstorm.problem %></h1>
         <%= form_for(@idea, remote: true, html: { autocomplete: "off", class: "bg-light-gray p-6 m-16" }) do |f| %>
-        <h2 class="italic text-2xl font-semibold">Idea</h2>
+        <h2 class="italic text-3xl lg:text-2xl font-semibold">Idea</h2>
         <div class="field mt-8">
-          <%= f.text_area :text, class:"w-full h-32 bg-white focus:outline-none border-solid border-black border-2 py-2 px-4 block appearance-none leading-normal" %>
+          <%= f.text_area :text, class:"w-full h-screen/5 lg:h-32 bg-white focus:outline-none border-solid border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal text-4xl lg:text-base" %>
         </div>
         <%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
 
-        <p id="characterCount" class="text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
+        <p id="characterCount" class="text-xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
 
-        <button id="addIdeaButton" type=submit class="modal-close w-full my-1 bg-blurple focus:outline-none text-white font-bold py-3 px-4 rounded cursor-pointer">Add idea</button>
+        <button id="addIdeaButton" type=submit class="modal-close w-full my-1 bg-blurple focus:outline-none text-white font-bold py-6 lg:py-3 px-4 rounded cursor-pointer text-4xl lg:text-base">Add idea</button>
         <% end %>
       </div>
 
       <div class="flex flex-wrap justify-start ml-16" id="ideas">
         <% @ideas.each do |idea| %>
         <%= link_to idea_path(:id => idea.id, :session_id => @session_id), method: :patch, remote: true, data: { turbolinks: false } do %>
-        <div class="select-none idea-card h-48 w-64 px-4 pt-6 pb-1 my-shadow my-4 mr-8 flex flex-col items-start justify-between italic font-bold bg-yellowy cursor-default">
+        <div class="select-none idea-card h-64 w-64 px-4 pt-6 pb-1 my-shadow my-4 mr-8 flex flex-col items-start justify-between italic font-bold bg-yellowy cursor-default">
           <h2 class="text-blurple text-xl">#<%= idea.number %></h2>
           <p><%= idea.text %></p>
           <div class="flex flex-row self-end items-center">
