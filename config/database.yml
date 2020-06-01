@@ -23,13 +23,13 @@ default: &default
 
 development:
   <<: *default
-  database: easy_brainstormer_development
+  database: brainstormer_online_development
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: easy_brainstormer
+  #username: brainstormer_online
 
   # The password associated with the postgres role (username).
   #password:
@@ -57,7 +57,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: easy_brainstormer_test
+  database: brainstormer_online_test
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: easy_brainstormer_production
-  username: easy_brainstormer
-  password: <%= ENV['EASY_BRAINSTORMER_DATABASE_PASSWORD'] %>
+  database: brainstormer_online_production
+  username: brainstormer_online
+  password: <%= ENV['BRAINSTORMER_ONLINE_DATABASE_PASSWORD'] %>
