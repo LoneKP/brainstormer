@@ -1,4 +1,4 @@
-<div class="mx-auto container" x-data=" { 'showNewBrainstormModal' : false, 'showJoinSessionModal' : false }" @keydown.escape="showNewBrainstormModal = false" @keydown.escape="showJoinSessionModal = false">
+<div class="mx-auto container" x-data=" { 'showNewBrainstormModal' : false, 'showJoinSessionModal' : false, 'showNewBrainstormModalDialog' : null  }" @keydown.escape="showNewBrainstormModal = false" @keydown.escape="showJoinSessionModal = false">
   <div class="flex-col flex bg-blurple p-12 mt-8">
     <div class="bg-dots p-12">
       <div class="-ml-28 -mt-12 italic bg-black w-16 h-16 text-white text-5xl flex font-bold items-center justify-center">
@@ -9,12 +9,11 @@
         </h1>
       </div>
       <div class="flex flex-col lg:w-1/3 md:w-full mt-8 bg-blurple">
-        <button @click="showNewBrainstormModal = true" class="text-lg my-shadow py-4 bg-white focus:outline-none">SETUP BRAINSTORM</button>
-        <button @click="showJoinSessionModal = true" class="bg-blurple text-lg my-shadow py-4 mt-4 text-white border-solid border-white border-4 focus:outline-none">JOIN SESSION</button>
+        <button @click="{ showNewBrainstormModal = true, showNewBrainstormModalDialog = 1}" class="text-lg my-shadow py-4 bg-white focus:outline-none hvr-underline-from-left">SETUP BRAINSTORM</button>
+        <button @click="showJoinSessionModal = true" class="bg-blurple text-lg my-shadow py-4 mt-4 text-white border-solid border-white border-4 focus:outline-none hvr-underline-from-left">JOIN SESSION</button>
       </div>
     </div>
   </div>
-
   <div class="flex justify-between mt-24">
     <div class="flex-col w-1/2 mr-48 ml-24 mb-8">
       <div class="h-24 w-24 bg-greeny rounded-full mb-8"></div>
@@ -22,7 +21,11 @@
         <h1 class="text-greeny text-5xl font-bold leading-tight uppercase">why brainstorm?</h1>
       </div>
       <div>
-        <p class="font-bold leading-relaxed">Sometimes you just need to get enough ideas to find the perfect way to solve a problem! Even bad ideas can be helpful in getting you on the right path to a great idea. With a structured approach to ideation you might start <span class="text-greeny">connecting the dots</span> in new ways. Maybe in ways that no one did before!</p>
+        <p class="font-bold leading-relaxed">Sometimes you just need to get enough ideas to find the perfect way to solve a problem! <br>
+          <br>
+          With a structured approach to ideation you might start connecting the dots in new ways. <br>
+          <br>
+          Maybe in ways that no one did before!</p>
       </div>
     </div>
     <div class="flex-col flex w-1/2 bg-greeny px-12 justify-between">
@@ -30,7 +33,6 @@
       <div class="bg-greeny triangle h-16 w-16 self-end -mr-12"></div>
     </div>
   </div>
-
   <div class="mt-24 bg-greeny flex flex-col p-24">
     <div class="flex flex-col">
       <h1 class="text-white text-5xl font-bold">How it works</h1>
@@ -63,72 +65,58 @@
       </div>
     </div>
   </div>
-
-  <div class="flex justify-between mt-24">
-    <div class="flex-col flex w-1/2 bg-yellowy px-12 justify-between">
-      <div class="bg-dots-bigger w-full h-10 mt-4 "></div>
-      <div class="my-8">
-        <p class="leading-loose italic font-bold text-3xl uppercase">How do you write a good problem statement?</p>
+  <div class="flex flex-row my-16 text-white">
+    <div class="flex bg-blurple flex-col mr-8 w-full p-24">
+      <h2 class="font-bold text-5xl leading-tight">HELP SPREAD <br>
+        THE WORD</h2>
+      <p class="font-bold mt-4 w-auto">Do you want to tell others about this tool? Or do you have ideas for improvements? Please don't hold back!</p>
+      <div class="flex flex-row mt-16 justify-between">
+        <div class="flex flex-row">
+          <div class="hvr-grow mr-8 bg-white my-shadow-dark h-24 w-24 p-4">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Twitter" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+              <path fill="#312783" d="M17.316,6.246c0.008,0.162,0.011,0.326,0.011,0.488c0,4.99-3.797,10.742-10.74,10.742  c-2.133,0-4.116-0.625-5.787-1.697c0.296,0.035,0.596,0.053,0.9,0.053c1.77,0,3.397-0.604,4.688-1.615  c-1.651-0.031-3.046-1.121-3.526-2.621c0.23,0.043,0.467,0.066,0.71,0.066c0.345,0,0.679-0.045,0.995-0.131  C2.84,11.183,1.539,9.658,1.539,7.828c0-0.016,0-0.031,0-0.047c0.509,0.283,1.092,0.453,1.71,0.473  c-1.013-0.678-1.68-1.832-1.68-3.143c0-0.691,0.186-1.34,0.512-1.898C3.942,5.498,6.725,7,9.862,7.158  C9.798,6.881,9.765,6.594,9.765,6.297c0-2.084,1.689-3.773,3.774-3.773c1.086,0,2.067,0.457,2.756,1.191  c0.859-0.17,1.667-0.484,2.397-0.916c-0.282,0.881-0.881,1.621-1.66,2.088c0.764-0.092,1.49-0.293,2.168-0.594  C18.694,5.051,18.054,5.715,17.316,6.246z"/>
+            </svg>
+          </div>
+          <div class="hvr-grow mr-8 bg-white my-shadow-dark h-24 w-24 p-5">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <path fill="#312783" d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z"/></svg>
+          </div>
+          <div class="hvr-grow mr-8 bg-white my-shadow-dark h-24 w-24 p-5">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="LinkedIn" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+              <path fill="#312783" d="M1,6h4v13H1V6z M3,1C1.8,1,1,2,1,3.1C1,4.1,1.8,5,3,5c1.3,0,2-0.9,2-2C5,1.9,4.2,1,3,1z M14.6,6.2  c-2.1,0-3.3,1.2-3.8,2h-0.1l-0.2-1.7H6.9C6.9,7.6,7,8.9,7,10.4V19h4v-7.1c0-0.4,0-0.7,0.1-1c0.3-0.7,0.8-1.6,1.9-1.6  c1.4,0,2,1.2,2,2.8V19h4v-7.4C19,7.9,17.1,6.2,14.6,6.2z" style="&#10;    background-color: red;&#10;"/>
+            </svg>
+          </div>
+        </div>
+        <div>
+          <a href="mailto: brainstormer.online@gmail.com">
+            <div class="hvr-grow bg-blurple border-4 border-white border-solid my-shadow-dark h-24 w-24 p-3">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Mail" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                <path fill="#ffffff" d="M1.574,5.286c0.488,0.262,7.248,3.894,7.5,4.029C9.326,9.45,9.652,9.514,9.98,9.514  c0.328,0,0.654-0.064,0.906-0.199s7.012-3.767,7.5-4.029C18.875,5.023,19.337,4,18.44,4H1.521C0.624,4,1.086,5.023,1.574,5.286z   M18.613,7.489c-0.555,0.289-7.387,3.849-7.727,4.027s-0.578,0.199-0.906,0.199s-0.566-0.021-0.906-0.199S1.941,7.777,1.386,7.488  C0.996,7.284,1,7.523,1,7.707S1,15,1,15c0,0.42,0.566,1,1,1h16c0.434,0,1-0.58,1-1c0,0,0-7.108,0-7.292S19.004,7.285,18.613,7.489z"/>
+              </svg>
+            </div>
+          </a>
+        </div>
       </div>
-      <div class="bg-yellowy triangle h-16 w-16 self-end -mr-12"></div>
     </div>
-    <div class="flex-col flex w-1/2 ml-24 mb-8 justify-around">
-      <div class="text-2xl italic">The statement should...</div>
-      <div class="items-center flex-row flex border-dashed border-4 border-yellowy p-4">
-        <div class="h-4 w-4 bg-black mr-4"></div>
-        <p>be open enough to inspire a lot of ideas</p>
-      </div>
-      <div class="items-center flex-row flex border-dashed border-4 border-yellowy  p-4">
-        <div class="h-4 w-4 bg-black mr-4"></div>
-        <p>be closed enough to give your team the direction they need</p>
-      </div>
-      <div class="items-center flex-row flex border-dashed border-4 border-yellowy p-4">
-        <div class="h-4 w-4 bg-black mr-4"></div>
-        <p>not be answerable with a simple yes or no</p>
+    <div class="flex bg-white flex-col w-1/3 bg-blurple p-8">
+      <div class="border-4 border-white border-solid w-full h-full hvr-bounce-to-top hvr-buzz">
+        <svg class="m-auto" xmlns="http://www.w3.org/2000/svg" height="150px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Heart" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+          <path fill="#312783" d="M17.19,4.155c-1.672-1.534-4.383-1.534-6.055,0L10,5.197L8.864,4.155c-1.672-1.534-4.382-1.534-6.054,0  c-1.881,1.727-1.881,4.52,0,6.246L10,17l7.19-6.599C19.07,8.675,19.07,5.881,17.19,4.155z"/>
+        </svg>
+        <svg class="m-auto" height="150px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Heart" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+          <path fill="#312783" d="M17.19,4.155c-1.672-1.534-4.383-1.534-6.055,0L10,5.197L8.864,4.155c-1.672-1.534-4.382-1.534-6.054,0  c-1.881,1.727-1.881,4.52,0,6.246L10,17l7.19-6.599C19.07,8.675,19.07,5.881,17.19,4.155z"/>
+        </svg>
+        <svg class="m-auto" height="150px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Heart" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+          <path fill="#312783" d="M17.19,4.155c-1.672-1.534-4.383-1.534-6.055,0L10,5.197L8.864,4.155c-1.672-1.534-4.382-1.534-6.054,0  c-1.881,1.727-1.881,4.52,0,6.246L10,17l7.19-6.599C19.07,8.675,19.07,5.881,17.19,4.155z"/>
+        </svg>
       </div>
     </div>
   </div>
-
-  <div class="mt-12 bg-black text-white border-white border-dashed border-4 p-12 text-center flex flex-col items-center">
-    <p class=" text-4xl font-bold">To achieve this, you can start with "HOW MIGHT WE..."</p>
-    <div class="flex flex-row items-center mt-8 mb-2 text-xl">
-
-      <p><span class="font-bold">How might we</span> prevent shopping carts from getting rusty</p>
-      <div class="h-8 w-8 ml-8">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Cross" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-          <path fill="#DC6660" d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0  c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183  l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15  C14.817,13.62,14.817,14.38,14.348,14.849z" />
-        </svg>
-      </div>
-      <p class="text-reddy ml-2">TOO NARROW</p>
-    </div>
-    <div class="flex flex-row items-center mb-2 text-xl">
-
-      <p><span class="font-bold">How might we</span> reinvent shopping</p>
-      <div class="h-8 w-8 ml-8">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Cross" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-          <path fill="#DC6660" d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0  c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183  l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15  C14.817,13.62,14.817,14.38,14.348,14.849z" />
-        </svg>
-      </div>
-      <p class="text-reddy ml-2">TOO OPEN</p>
-    </div>
-    <div class="flex flex-row items-center text-xl">
-
-      <p><span class="font-bold">How might we</span> redesign shopping carts to last longer</p>
-      <div class="h-8 w-8 ml-8">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Check" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-          <path fill="#027540" d="M8.294,16.998c-0.435,0-0.847-0.203-1.111-0.553L3.61,11.724c-0.465-0.613-0.344-1.486,0.27-1.951  c0.615-0.467,1.488-0.344,1.953,0.27l2.351,3.104l5.911-9.492c0.407-0.652,1.267-0.852,1.921-0.445  c0.653,0.406,0.854,1.266,0.446,1.92L9.478,16.34c-0.242,0.391-0.661,0.635-1.12,0.656C8.336,16.998,8.316,16.998,8.294,16.998z" />
-        </svg>
-      </div>
-      <p class="text-greeny ml-2">PERFECT</p>
-    </div>
-  </div>
-
   <!--Overlay-->
-  <div class="" style=" background-color: rgba(49,39,131,0.9)" x-show="showNewBrainstormModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showNewBrainstormModal }">
-    <!--Dialog-->
-    <div class="flex-col w-1/2" @click.away="showNewBrainstormModal = false" x-on:click="clearField()">
+  <div style=" background-color: rgba(49,39,131,0.9)" x-show="showNewBrainstormModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showNewBrainstormModal }">
+    <!--Dialog 1-->
+    <div class="flex-col w-1/2" @click.away="showNewBrainstormModal = false" x-on:click="clearField()" x-show="showNewBrainstormModalDialog == 1 || 2">
       <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left px-6" x-show="showNewBrainstormModal">
-
         <!--Title-->
         <div class="flex justify-between items-center">
           <p class="pb-8 text-4xl font-bold text-blurple">NEW BRAINSTORM</p>
@@ -138,74 +126,149 @@
             </svg>
           </div>
         </div>
-
         <!-- content -->
         <%= form_with model: @brainstorm, class: "flex flex-col" do |f| %>
-        <div class="flex flex-row justify-between items-baseline mb-2">
-          <%= f.label :problem_to_solve, class: "italic text-2xl font-bold leading-none" %>
-          <p class="opacity-50 text-black italic font-semibold">Start with "How might we"</p>
+          <div class="flex flex-row justify-between items-baseline mb-2">
+            <%= f.label :problem_to_solve, class: "italic text-2xl font-bold leading-none" %>
+            <p class="opacity-50 text-black italic font-semibold">Need help? See TIPS & TRICKS</p>
+          </div>
+          <%= f.text_field :problem, class: "focus:outline-none border-solid border-2 border-black h-12 italic font-bold px-4", autocomplete: "off" %>
         </div>
-        <%= f.text_field :problem, class: "border-solid border-2 border-black h-12 italic font-bold px-4", autocomplete: "off" %>
-      </div>
-
-      <div class="my-shadow-lg bg-light-blurple flex flex-col py-12 px-16">
-        <div class="flex flex-row justify-between items-baseline mb-2">
-          <%= f.label :name, class: "italic text-lg font-bold leading-none"  %>
-          <p class="opacity-50 text-black italic font-semibold">Let your participants know who you are</p>
+        <div class="bg-white flex flex-col px-16 pb-8">
+          <div @click="showNewBrainstormModalDialog == 1 ? showNewBrainstormModalDialog = 2 : showNewBrainstormModalDialog = 1" class="cursor-pointer px-2 bg-light-blurple text-sm text-blurple flex flex-row self-end items-center">
+            <div class="mr-2 flex justify-center border-solid border border-black w-5 h-5">
+              <p class="leading-none self-center">i</p>
+            </div>
+            <p class="font-semibold">TIPS & TRICKS</p>
+            <div class="h-8 w-8">
+              <svg class="transform" :class="{'rotate-180': showNewBrainstormModalDialog == 2}" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_down" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                <path fill="#352288" d="M13.418,7.859c0.271-0.268,0.709-0.268,0.978,0c0.27,0.268,0.272,0.701,0,0.969l-3.908,3.83  c-0.27,0.268-0.707,0.268-0.979,0l-3.908-3.83c-0.27-0.267-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.978,0L10,11L13.418,7.859z  "/>
+              </svg>
+            </div>
+          </div>
         </div>
-        <%= f.text_field :name, class: "border-solid border-2 border-black h-10 italic font-bold px-4", autocomplete: "off" %>
-      </div>
-
-      <div class="mt-8 flex flex-row justify-between">
-        <div @click="showNewBrainstormModal = false" class="cursor-pointer my-shadow-lg bg-white text-lg font-bold h-14 w-14">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_left" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-            <path fill="#352288" d="M12.141,13.418c0.268,0.271,0.268,0.709,0,0.978c-0.268,0.27-0.701,0.272-0.969,0l-3.83-3.908  c-0.268-0.27-0.268-0.707,0-0.979l3.83-3.908c0.267-0.27,0.701-0.27,0.969,0c0.268,0.271,0.268,0.709,0,0.978L9,10L12.141,13.418z" />
-          </svg>
+        <!--Dialog 2-->
+        <div
+          class="bg-white flex flex-col" x-show="showNewBrainstormModalDialog == 2">
+          <div class="flex-col flex px-16 pb-8 justify-between">
+            <div class="">
+              <p class="leading-loose italic font-bold text-lg uppercase mb-4">What makes a good problem statement?</p>
+            </div>
+            <div class="flex-col flex mx-8 justify-around mb-4">
+              <div class="items-center flex-row flex">
+                <div class="h-2 w-2 bg-black mr-4"></div>
+                <p class="mb-2"><span class="bg-yellowy">Make it <span class="font-bold">open</span> enough to inspire a lot of ideas.</span></p>
+              </div>
+              <div class="items-center flex-row flex">
+                <div class="h-2 w-2 bg-black mr-4"></div>
+                <p class="mb-2"><span class="bg-yellowy">Make it <span class="font-bold">closed</span> enough to give your team the direction they need.</span></p>
+              </div>
+              <div class="items-center flex-row flex">
+                <div class="h-2 w-2 bg-black mr-4"></div>
+                <p class="mb-2"><span class="bg-yellowy">Make sure that it can't be answered with a simple <span class="font-bold">yes or no</span>.</span></p>
+              </div>
+            </div>
+            <p class="leading-loose italic font-bold text-lg uppercase mb-3">To achieve this, you can start the statement with "HOW MIGHT WE..."</p>
+            <div class="flex-col flex ml-8 justify-around">
+              <div class="items-center flex-row flex justify-between">
+                <div class="flex items-center">
+                  <div class="h-2 w-2 bg-black mr-4"></div>
+                  <p><span class="bg-yellowy"><span class="font-bold">How might we</span>  prevent shopping carts from getting rusty.</span></p>
+                </div>
+                <div class="flex items-center">
+                  <div class="h-8 w-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Cross" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                      <path fill="#DC6660" d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0  c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183  l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15  C14.817,13.62,14.817,14.38,14.348,14.849z" />
+                    </svg>
+                  </div>
+                  <p class="text-reddy ml-2">TOO NARROW</p>
+                </div>
+              </div>
+              <div class="items-center flex-row flex justify-between">
+                <div class="flex items-center">
+                  <div class="h-2 w-2 bg-black mr-4"></div>
+                  <p><span class="bg-yellowy"><span class="font-bold">How might we</span> reinvent .</span></p>
+                </div>
+                <div class="flex items-center">
+                  <div class="h-8 w-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Cross" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                      <path fill="#DC6660" d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0  c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183  l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15  C14.817,13.62,14.817,14.38,14.348,14.849z" />
+                    </svg>
+                  </div>
+                  <p class="text-reddy ml-2">TOO OPEN</p>
+                </div>
+              </div>
+              <div class="items-center flex-row flex justify-between">
+                <div class="flex items-center">
+                  <div class="h-2 w-2 bg-black mr-4"></div>
+                  <p><span class="bg-yellowy"><span class="font-bold">How might we</span> redesign shopping carts to last longer.</span></p>
+                </div>
+                <div class="flex items-center">
+                  <div class="h-8 w-8 ml-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Check" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                      <path fill="#027540" d="M8.294,16.998c-0.435,0-0.847-0.203-1.111-0.553L3.61,11.724c-0.465-0.613-0.344-1.486,0.27-1.951  c0.615-0.467,1.488-0.344,1.953,0.27l2.351,3.104l5.911-9.492c0.407-0.652,1.267-0.852,1.921-0.445  c0.653,0.406,0.854,1.266,0.446,1.92L9.478,16.34c-0.242,0.391-0.661,0.635-1.12,0.656C8.336,16.998,8.316,16.998,8.294,16.998z" />
+                    </svg>
+                  </div>
+                  <p class="text-greeny">PERFECT</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <%= f.submit 'CREATE BRAINSTORM', class: "px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny cursor-pointer" %>
+        <!--/Dialog 2 -->
+        <div class="my-shadow-lg bg-light-blurple flex flex-col py-12 px-16">
+          <div class="flex flex-row justify-between items-baseline mb-2">
+            <%= f.label :name, class: "italic text-lg font-bold leading-none"  %>
+            <p class="opacity-50 text-black italic font-semibold">Let your participants know who you are</p>
+          </div>
+          <%= f.text_field :name, class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4", autocomplete: "off" %>
+        </div>
+        <div class="mt-8 flex flex-row justify-between">
+          <div @click="showNewBrainstormModal = false" class="cursor-pointer my-shadow-lg bg-white text-lg font-bold h-14 w-14">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_left" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+              <path fill="#352288" d="M12.141,13.418c0.268,0.271,0.268,0.709,0,0.978c-0.268,0.27-0.701,0.272-0.969,0l-3.83-3.908  c-0.268-0.27-0.268-0.707,0-0.979l3.83-3.908c0.267-0.27,0.701-0.27,0.969,0c0.268,0.271,0.268,0.709,0,0.978L9,10L12.141,13.418z" />
+            </svg>
+          </div>
+          <%= f.submit 'CREATE BRAINSTORM', class: "px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny cursor-pointer" %>
         <% end %>
       </div>
     </div>
-    <!--/Dialog -->
-  </div><!-- /Overlay -->
-
+    <!--/Dialog 1 -->
+  </div>
+  <!-- /Overlay -->
   <!--Overlay-->
   <div class="" style=" background-color: rgba(49,39,131,0.9)" x-show="showJoinSessionModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showJoinSessionModal }" x-on:click="clearField()">
     <!--Dialog-->
     <div class=" flex-col w-1/2" @click.away="showJoinSessionModal = false" x-on:click="clearField()">
       <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left px-6" x-show="showJoinSessionModal">
-
         <!--Title-->
         <div class="flex justify-between items-center">
           <p class="pb-8 text-4xl font-bold text-blurple">JOIN SESSION</p>
         </div>
-
         <!-- content -->
-
         <%= form_with url: "/go_to_brainstorm", local: true do |f| %>
-        <div class="flex flex-row justify-between items-baseline mb-2">
-          <label class="italic text-2xl font-bold leading-none" for="">BRAINSTORM ID</label>
-          <p class="opacity-50 text-black italic font-semibold">ID your facilitator has sent you</p>
+          <div class="flex flex-row justify-between items-baseline mb-2">
+            <label class="italic text-2xl font-bold leading-none" for="">BRAINSTORM ID</label>
+            <p class="opacity-50 text-black italic font-semibold">ID your facilitator has sent you</p>
+          </div>
+          <div class="">
+            <%= f.text_field :token, class: "border-solid border-2 border-black h-16 italic px-4 w-full focus:outline-none focus:text-black font-bold text-2xl text-lighter-gray", value: "#", autocomplete: "off" %>
+          </div>
         </div>
-        <div class="">
-          <%= f.text_field :token, class: "border-solid border-2 border-black h-16 italic px-4 w-full focus:outline-none focus:text-black font-bold text-2xl text-lighter-gray", value: "#", autocomplete: "off" %>
+        <div class="mt-8 flex flex-row justify-between">
+          <div @click="showJoinSessionModal = false" class="cursor-pointer my-shadow-lg bg-white text-lg font-bold h-14 w-14">
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_left" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+              <path fill="#352288" d="M12.141,13.418c0.268,0.271,0.268,0.709,0,0.978c-0.268,0.27-0.701,0.272-0.969,0l-3.83-3.908  c-0.268-0.27-0.268-0.707,0-0.979l3.83-3.908c0.267-0.27,0.701-0.27,0.969,0c0.268,0.271,0.268,0.709,0,0.978L9,10L12.141,13.418z" />
+            </svg>
+          </div>
+          <button type="submit" class="px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny cursor-pointer">JOIN SESSION</button>
         </div>
-      </div>
-      <div class="mt-8 flex flex-row justify-between">
-        <div @click="showJoinSessionModal = false" class="cursor-pointer my-shadow-lg bg-white text-lg font-bold h-14 w-14">
-          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_left" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-            <path fill="#352288" d="M12.141,13.418c0.268,0.271,0.268,0.709,0,0.978c-0.268,0.27-0.701,0.272-0.969,0l-3.83-3.908  c-0.268-0.27-0.268-0.707,0-0.979l3.83-3.908c0.267-0.27,0.701-0.27,0.969,0c0.268,0.271,0.268,0.709,0,0.978L9,10L12.141,13.418z" />
-          </svg>
-        </div>
-        <button type="submit" class="px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny cursor-pointer">JOIN SESSION</button>
-      </div>
       <% end %>
-
     </div>
     <!--/Dialog -->
-  </div><!-- /Overlay -->
+  </div>
+  <!-- /Overlay -->
 </div>
-
 <script>
   const clearField = () => document.getElementById("token").value = "#";
 </script>
