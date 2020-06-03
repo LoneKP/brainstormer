@@ -26,7 +26,8 @@ module.exports = {
         'wine': '#750202',
         'wine-light': '#ba7f80',
         'light-greeny': '#DBFFC1',
-        'light-blurple': '#DFD8FF'
+        'light-blurple': '#DFD8FF',
+        'beigy': '#FBEDEB'
       },
     },
   },
