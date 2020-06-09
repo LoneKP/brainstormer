@@ -1,1 +1,5 @@
+<% if @idea.errors.any? %>
+ document.getElementById("error-field-idea").innerHTML = "<%= j render "shared/validation_error", type: "text" %>"
+<% end %>
+
 document.getElementById("idea_text").value=""

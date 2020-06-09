@@ -302,5 +302,21 @@
   transform: scale(1.1);
 }
 
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    height: 0;
+    padding: 0;
+  }
+}
+
+.fade-out{
+  animation: fadeOut 0.6s forwards;
+  animation-delay: 3s;
+}
+
 
 

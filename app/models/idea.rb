@@ -1,6 +1,8 @@
 class Idea < ApplicationRecord
   belongs_to :brainstorm
 
+  validates :text, presence: {message: "You forgot to write anything!"}
+
   def number
     brainstorm_idea_number[self.id]
   end

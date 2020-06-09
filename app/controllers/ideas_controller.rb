@@ -6,11 +6,13 @@ class IdeasController < ApplicationController
     respond_to do |format|
       if @idea.save
           ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-idea", content: @idea, ideas_total: @brainstorm.ideas.count, idea_number: @idea.number )
-          format.html {}
-          format.js
+        format.js
       else
-          format.html {}
+        @idea.errors.messages.each do |message|
+          flash.now[message.first] = message[1].first
           format.js
+        end
+        format.js
       end
     end
   end

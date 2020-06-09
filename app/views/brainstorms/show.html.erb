@@ -10,7 +10,9 @@
           <%= f.text_area :text, class:"w-full h-screen/5 lg:h-32 bg-white focus:outline-none border-solid border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal text-4xl lg:text-base" %>
         </div>
         <%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
-
+        <div id="error-field-idea">
+          <%= render "shared/validation_error" %>
+        </div>
         <p id="characterCount" class="text-xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
 
         <button id="addIdeaButton" type=submit class="modal-close w-full my-1 bg-blurple focus:outline-none text-white font-bold py-6 lg:py-3 px-4 rounded cursor-pointer text-4xl lg:text-base">Add idea</button>

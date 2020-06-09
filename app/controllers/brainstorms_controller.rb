@@ -8,17 +8,18 @@ class BrainstormsController < ApplicationController
   end
 
   def create
-    @brainstorm = Brainstorm.new(filtered_brainstorm_params)
+    @brainstorm = Brainstorm.new(brainstorm_params)
     @brainstorm.token = generate_token
-    name = brainstorm_params[:name]
     respond_to do |format|
       if @brainstorm.save
-        REDIS.set @session_id, name
+        REDIS.set @session_id, @brainstorm.name
         REDIS.srem "no_user_name", @session_id
           format.js { render :js => "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
       else
-          format.html { render action: "root"}
+        @brainstorm.errors.messages.each do |message|
+          flash.now[message.first] = message[1].first
           format.js
+        end
       end
     end
   end
@@ -54,7 +55,14 @@ class BrainstormsController < ApplicationController
   end
 
   def go_to_brainstorm
-    redirect_to brainstorm_path(params[:token].sub("#", ""))
+    respond_to do |format|
+      if !Brainstorm.find_by(token: params[:token].sub("#", "")).nil?
+        format.js { render :js => "window.location.href = '#{brainstorm_path(params[:token].sub("#", ""))}'" }
+      else
+          flash.now["token"] = "It looks like this ID doesn't exist"
+          format.js
+      end
+    end
   end
 
   def start_timer
@@ -87,10 +95,6 @@ class BrainstormsController < ApplicationController
 
   def brainstorm_params
     params.require(:brainstorm).permit(:problem, :name)
-  end
-
-  def filtered_brainstorm_params
-    brainstorm_params.except(:name)
   end
 
   def set_brainstorm_ideas

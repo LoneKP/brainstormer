@@ -1,0 +1,7 @@
+<% flash.each do |message_type, message| %>
+<% if message_type == type %>
+<div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine fade-out ">
+  <span><%= message %></span>
+</div>
+<% end %>
+<% end %>
