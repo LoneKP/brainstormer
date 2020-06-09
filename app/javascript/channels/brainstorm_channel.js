@@ -61,6 +61,7 @@ consumer.subscriptions.create({
         createUserBadges(data);
         openModalToSetName();
         showCurrentUser();
+        if (data.users.length > 7) { removeOverflowingUsers(data.users.length) };
         break;
       case "name_changed":
         this.perform("update_name");
@@ -98,6 +99,7 @@ const setBoolIfNoUserName = (data) => {
 
 const createUserBadges = (data) => {
   const nameListElement = document.getElementById("name-list");
+
   for (let i = 0; i < data.initials.length; i++) {
     let div = document.createElement("div");
     div.setAttribute("id", data.user_ids[i]);
