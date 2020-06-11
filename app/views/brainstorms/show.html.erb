@@ -37,9 +37,9 @@
       <div class="flex flex-col items-center w-80 bg-white my-shadow mr-16 p-6">
         <h2 class="italic font-semibold text-xl text-blurple">Time</h2>
         <div class="text-3xl font-bold bg-black text-white rounded-full h-40 w-40 flex items-center justify-center my-4">
-          <p id="timeDisplay">10:00</p>
+          <p id="timeDisplay"></p>
         </div>
-        <%= link_to "#{@brainstorm.timer_running? ? "Reset timer" : "Start timer"}", start_timer_brainstorm_path(@brainstorm.token), remote: true, method: :post, id: "startTimer", class: "bg-black text-white p-2" %>
+        <%= link_to "Start timer", start_timer_brainstorm_path(@brainstorm.token), remote: true, method: :post, id: "startTimer", class: "bg-black text-white p-2" %>
         <div class="bg-wine text-white font-bold w-full mt-8">
           <div class="flex items-end justify-around mt-8 pt-16 pb-4">
             <p class="uppercase italic text-lg">ideas</p>
@@ -47,13 +47,18 @@
           </div>
           <div class="p-4 text-center text-sm bg-wine-light">GOAL: 20 ideas in 10 minutes</div>
         </div>
-
       </div>
 
-      <div class="tooltip w-80 items-center bg-white my-shadow mt-8 mr-16 p-6">
+      <div class="tooltip w-80 bg-white my-shadow mt-8 mr-16 p-6 flex flex-row">
         <button onclick="copyAction(getURL())" onmouseout="outFunc()" class="focus:outline-none bg-greeny text-white text-center text-2xl font-semibold py-2 w-full">
           <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
           SHARE LINK
+        </button>
+      </div>
+      <div class="tooltip w-80 bg-white my-shadow mr-16 px-6 pb-6 flex flex-row">
+        <button onclick="copyToken(getToken())" onmouseout="tokenOutFunc()" class="focus:outline-none bg-greeny text-white text-center text-2xl font-semibold py-2 w-full">
+          <span class="tooltiptext" id="tooltipToken">Copy to clipboard</span>
+          SHARE ID
         </button>
       </div>
 
@@ -215,12 +220,33 @@
     tooltip.innerHTML = "Copied!";
   }
 
+  const copyToken = (value) => {
+    let tempInput = document.createElement("input");
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = value;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    let tooltip = document.getElementById("tooltipToken");
+    tooltip.innerHTML = "Copied!";
+  }
+
   const getURL = () => {
     return window.location.href;
   }
 
+  const getToken = () => {
+    return window.location.pathname.replace("/", "")
+  }
+
   const outFunc = () => {
     var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copy to clipboard";
+  }
+
+  const tokenOutFunc = () => {
+    var tooltip = document.getElementById("tooltipToken");
     tooltip.innerHTML = "Copy to clipboard";
   }
 </script>

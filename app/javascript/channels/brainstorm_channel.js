@@ -1,7 +1,8 @@
 import consumer from "./consumer"
 
-let secondsTotal = 600;
 let timer;
+let timerState;
+const timerStartSeconds = 600;
 
 consumer.subscriptions.create({
   channel: "BrainstormChannel", token: location.pathname.replace("/", "")
@@ -61,16 +62,21 @@ consumer.subscriptions.create({
         createUserBadges(data);
         openModalToSetName();
         showCurrentUser();
+        evaluateTimer(data);
+        formatTime();
+        setStateOfTimerButton();
         if (data.users.length > 7) { removeOverflowingUsers(data.users.length) };
         break;
       case "name_changed":
         this.perform("update_name");
         break;
       case "start_timer":
+        timerState.status = "running"
         startTimer();
         break;
       case "reset_timer":
-        resetTimer()
+        timerState.status = "readyToStart"
+        resetTimer();
         break;
     }
   },
@@ -119,27 +125,73 @@ const randomColorPicker = () => {
   return randomColor;
 }
 
+const evaluateTimer = (data) => {
+  if (data.timer_status == "ready_to_start_timer") {
+    timerState = {
+      status: "readyToStart",
+      secondsTotal: timerStartSeconds
+    }
+  }
+  else if (data.timer_status == "time_has_run_out") {
+    timerState = {
+      status: "timeElapsed",
+      secondsTotal: 0
+    }
+    clearInterval(timer);
+  }
+  else if (data.timer_status > 0 && data.timer_status < timerStartSeconds) {
+    clearInterval(timer);
+    timerState = {
+      status: "running",
+      secondsTotal: timerStartSeconds - data.timer_status
+    }
+    startTimer();
+  }
+  else {
+    resetTimer();
+  }
+}
+
 const startTimer = () => {
   document.getElementById("startTimer").textContent = "Reset timer"
-  timer = setInterval(countDown, 1000)
+  timer = setInterval(countDown, 1000);
 }
 
 const resetTimer = () => {
   clearInterval(timer);
-  secondsTotal = 600;
-  document.getElementById("timeDisplay").textContent = "10:00"
+  timerState = { status: "readyToStart", secondsTotal: timerStartSeconds };
+  formatTime();
   document.getElementById("startTimer").textContent = "Start timer"
 }
 
-const countDown = () => {
-  secondsTotal--;
-  let timeLeftSeconds = secondsTotal % 60;
-  let timeLeftSecondsInMinutes = (secondsTotal - timeLeftSeconds) / 60;
+const setStateOfTimerButton = () => {
+  switch (timerState.status) {
+    case "timeElapsed":
+      document.getElementById("startTimer").textContent = "Reset timer"
+      break;
+    case "readyToStart":
+      document.getElementById("startTimer").textContent = "Start timer"
+      break;
+    case "running":
+      document.getElementById("startTimer").textContent = "Reset timer"
+      break;
+  }
+}
+
+const formatTime = () => {
+  let timeLeftSeconds = timerState.secondsTotal % 60;
+  let timeLeftSecondsInMinutes = (timerState.secondsTotal - timeLeftSeconds) / 60;
   let timeLeftMinutes = timeLeftSecondsInMinutes % 60;
   let formattedTimeLeftMinutes = ("0" + timeLeftMinutes).slice(-2);
   let formattedTimeLeftSeconds = ("0" + timeLeftSeconds).slice(-2);
   timeDisplay.textContent = `${formattedTimeLeftMinutes}:${formattedTimeLeftSeconds}`;
-  if (secondsTotal <= 0) {
-    clearInterval(timer)
+}
+
+const countDown = () => {
+  timerState.secondsTotal--;
+  formatTime();
+  if (timerState.secondsTotal <= 0) {
+    clearInterval(timer);
+    timerState.status = "timeElapsed";
   }
 }

@@ -67,17 +67,13 @@ class BrainstormsController < ApplicationController
 
   def start_timer
     respond_to do |format|
-      if @brainstorm.timer_running? == false
+      if REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp").nil?
         ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "start_timer")
-        @brainstorm.timer_running = !@brainstorm.timer_running?
-        @brainstorm.save
-          format.html {}
+        REDIS.hset(brainstorm_timer_running_key, "timer_start_timestamp", Time.now)
           format.js
       else
         ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "reset_timer")
-        @brainstorm.timer_running = !@brainstorm.timer_running?
-        @brainstorm.save
-          format.html {}
+        REDIS.hdel(brainstorm_timer_running_key, "timer_start_timestamp")
           format.js
       end
     end
@@ -104,5 +100,9 @@ class BrainstormsController < ApplicationController
   def set_session_id
     session["init"] = true
     @session_id = session.id
+  end
+
+  def brainstorm_timer_running_key
+    "brainstorm_id_timer_running_#{@brainstorm.token}"
   end
 end
