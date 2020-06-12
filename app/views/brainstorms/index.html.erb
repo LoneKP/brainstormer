@@ -1,21 +1,46 @@
-<div class="mx-auto container" x-data=" { 'showNewBrainstormModal' : false, 'showJoinSessionModal' : false, 'showNewBrainstormModalDialog' : null  }" @keydown.escape="showNewBrainstormModal = false" @keydown.escape="showJoinSessionModal = false">
-  <div class="flex-col flex bg-blurple p-12 mt-8">
-    <div class="bg-dots p-12">
-      <div class="-ml-28 -mt-12 italic bg-black w-16 h-16 text-white text-5xl flex font-bold items-center justify-center">
+<div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl" x-data=" { 'showNewBrainstormModal' : false, 'showJoinSessionModal' : false, 'showNewBrainstormModalDialog' : null  }" @keydown.escape="showNewBrainstormModal = false" @keydown.escape="showJoinSessionModal = false">
+  <div class="flex-col flex bg-blurple p-12 mt-4 lg:mt-8 h-screen lg:h-full">
+    <div class="bg-dots p-12 h-screen lg:h-full">
+      <div class="-ml-28 -mt-12 italic bg-black w-32 h-32 lg:w-16 lg:h-16 text-white text-7xl lg:text-5xl flex font-bold items-center justify-center">
         <span>B</span>
       </div>
-      <div class="w-1/2 mt-56">
-        <h1 class="bg-blurple text-white text-5xl font-semibold ">EVERYTHING BEGINS WITH AN IDEA
+      <div class="hidden lg:block w-1/2 mt-16 mt-56">
+        <h1 class="py-4 px-4 lg:p-0 bg-blurple text-white text-7xl lg:text-5xl font-semibold leading-normal lg:leading-normal lg:border-none border-b-8 border-solid border-yellowy">EVERYTHING BEGINS WITH AN IDEA
         </h1>
       </div>
-      <div class="flex flex-col lg:w-1/3 md:w-full mt-8 bg-blurple">
+      <div class="hidden lg:flex flex-col w-1/3 mt-8 bg-blurple">
         <button @click="{ showNewBrainstormModal = true, showNewBrainstormModalDialog = 1}" class="text-lg my-shadow py-4 bg-white focus:outline-none hvr-underline-from-left">SETUP BRAINSTORM</button>
         <button @click="showJoinSessionModal = true" class="bg-blurple text-lg my-shadow py-4 mt-4 text-white border-solid border-white border-4 focus:outline-none hvr-underline-from-left">JOIN SESSION</button>
+      </div>
+      <div class="lg:hidden flex flex-col justify-around h-full">
+        <h1 class="mb-32 py-4 px-4 bg-blurple text-white text-7xl font-semibold leading-normal border-b-8 border-solid border-yellowy">EVERYTHING BEGINS WITH AN IDEA
+        </h1>
+        <div class="mb-56 bg-blurple text-left px-6 py-16">
+          <p class="pb-8 text-7xl font-bold text-white">JOIN SESSION</p>
+          <%= form_with(url: '/go_to_brainstorm', remote: true) do |f| %>
+          <div class="flex flex-row justify-between items-baseline mb-2 text-white">
+            <label class="italic text-3xl font-bold leading-none " for="">BRAINSTORM ID</label>
+          </div>
+          <div class="flex-row flex">
+            <%= f.text_field :token, class: "border-solid border-t-2 border-l-2 border-b-2 border-black h-32 italic px-4 w-full focus:outline-none focus:text-black font-bold text-5xl text-lighter-gray my-shadow-lg", value: "#BRAIN", autocomplete: "off" %>
+
+            <button type="submit" class="flex flex-col cursor-pointer my-shadow-lg bg-white text-lg font-bold h-32 w-56 ml-16">
+              <svg xmlns=" http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_right" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                <path fill="#352288" d="M11,10L7.859,6.58c-0.268-0.27-0.268-0.707,0-0.978c0.268-0.27,0.701-0.27,0.969,0l3.83,3.908  c0.268,0.271,0.268,0.709,0,0.979l-3.83,3.908c-0.267,0.272-0.701,0.27-0.969,0c-0.268-0.269-0.268-0.707,0-0.978L11,10z" />
+              </svg>
+            </button>
+          </div>
+          <div id="error-field-token-mobile">
+            <%= render 'shared/validation_error' %>
+          </div>
+        </div>
+
+        <% end %>
       </div>
     </div>
   </div>
   <div class="flex justify-between mt-24">
-    <div class="flex-col w-1/2 mr-48 ml-24 mb-8">
+    <div class="flex-col w-full lg:w-1/2 mr-48 ml-24 mb-8">
       <div class="mb-8">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="81px" height="81px" viewBox="0 0 81 81" version="1.1">
           <title>Shape</title>
@@ -29,10 +54,10 @@
         </svg>
       </div>
       <div class="mb-8">
-        <h1 class="text-greeny text-5xl font-bold leading-tight uppercase">why brainstorm?</h1>
+        <h1 class="text-greeny text-7xl lg:text-5xl font-bold leading-tight uppercase">why brainstorm?</h1>
       </div>
       <div>
-        <p class="font-bold leading-relaxed">Getting ONE good idea is hard! <br>
+        <p class="text-4xl lg:text-base font-bold leading-relaxed">Getting ONE good idea is hard! <br>
           <br>
           But with enough ideas targeted towards one specific problem, chances are pretty high that you have some really good ideas.<br>
           <br>
@@ -41,77 +66,77 @@
           Maybe in ways that no one did before!</p>
       </div>
     </div>
-    <div class="flex-col flex w-1/2 bg-greeny px-12 justify-between">
+    <div class="hidden lg:flex flex-col w-1/2 bg-greeny px-12 justify-between">
       <div class="bg-dots-bigger w-full h-10 mt-4 "></div>
       <div class="bg-greeny triangle h-16 w-16 self-end -mr-12"></div>
     </div>
   </div>
   <div class="mt-24 bg-greeny flex flex-col p-24">
     <div class="flex flex-col">
-      <h1 class="text-white text-5xl font-bold">How it works</h1>
-      <div class="border-solid border-white border-t-8 w-1/4 mt-2"></div>
+      <h1 class="text-white text-7xl lg:text-5xl font-bold">How it works</h1>
+      <div class="border-solid border-white border-t-8 w-7/12 lg:w-1/4 mt-2"></div>
     </div>
-    <div class="flex flex-row mt-24 h-56 justify-between">
-      <div class="w-1/4 my-shadow border-solid border-white border-4">
+    <div class="flex flex-col lg:flex-row mt-24 h-full lg:h-56 justify-between">
+      <div class="w-full mb-12 lg:m-0 lg:w-1/4 my-shadow border-solid border-white border-4">
         <div class="bg-white">
-          <p class="py-2 px-4 italic text-greeny text-2xl font-semibold">STEP #1</p>
+          <p class="py-2 px-4 italic text-greeny text-5xl lg:text-2xl font-semibold">STEP #1</p>
         </div>
         <div class="p-4">
-          <p class="text-white leading-loose">Create brainstorm and share link with participants</p>
+          <p class="lg:text-base text-5xl text-white leading-loose">Create brainstorm and share link with participants</p>
         </div>
       </div>
-      <div class="w-1/4 my-shadow border-solid border-white border-4">
+      <div class="w-full mb-12 lg:m-0 lg:w-1/4 my-shadow border-solid border-white border-4">
         <div class="bg-white">
-          <p class="py-2 px-4 italic text-greeny text-2xl font-semibold">STEP #2</p>
+          <p class="py-2 px-4 italic text-greeny text-5xl lg:text-2xl font-semibold">STEP #2</p>
         </div>
         <div class="p-4">
-          <p class="text-white leading-loose">Come up with ideas together</p>
+          <p class="lg:text-base text-5xl text-white leading-loose">Come up with as many ideas as possible within a set time</p>
         </div>
       </div>
-      <div class="w-1/4 my-shadow border-solid border-white border-4">
+      <div class="w-full lg:w-1/4 my-shadow border-solid border-white border-4">
         <div class="bg-white">
-          <p class="py-2 px-4 italic text-greeny text-2xl font-semibold">STEP #3</p>
+          <p class="py-2 px-4 italic text-greeny text-5xl lg:text-2xl font-semibold">STEP #3</p>
         </div>
         <div class="p-4">
-          <p class="text-white leading-loose">Find the best ideas</p>
+          <p class="lg:text-base text-5xl text-white leading-loose">Vote for the best ideas and receive them by email</p>
         </div>
       </div>
     </div>
   </div>
   <div class="mt-8 p-24">
     <div class="flex flex-col items-center">
-      <h2 class="text-5xl font-bold">TRIED AND TRUE METHOD</h2>
-      <p class="font-bold text-lg my-8">Brainstormer.online is developed to help guide your brainstorming sessions in the right direction. The tool is developed with well known ideation guidelines in mind, and the most important ones are listed below.
+      <h2 class="text-7xl lg:text-5xl font-bold">TRIED AND TRUE METHOD</h2>
+      <p class="font-bold text-4xl lg:text-lg my-8">Brainstormer.online is developed to help guide your brainstorming sessions in the right direction. The tool is developed with the following ideation guidelines in mind.
       </p>
     </div>
     <div>
-      <div class="h-48 w-full flex flex-row mt-8 bg-yellowy border-4 border-yellowy border-solid">
-        <div class="w-48 h-48 bg-beigy p-4">
-          <h3 class="text-yellowy text-4xl font-bold uppercase">Have a set of rules</h3>
+      <div class="h-full lg:h-48 w-full flex flex-col lg:flex-row mt-8 bg-yellowy border-4 border-yellowy border-solid">
+        <div class="w-full lg:w-48 lg:h-48 h-full bg-beigy p-4">
+          <h3 class="w-full text-yellowy text-4xl font-bold uppercase">Have a set of rules</h3>
         </div>
-        <div class="text-beigy font-semibold text-sm lg:text-2xl flex flex-col justify-evenly p-4 ml-8">
+        <div class="text-beigy font-semibold text-sm text-4xl lg:text-2xl flex flex-col justify-evenly p-4 ml-8">
           <p>Quantity over quality</p>
           <p>Don't say no</p>
           <p>Build on each other's ideas</p>
-          <p>Don't go too deep into the ideas</p>
+          <p>Don't go too deep</p>
         </div>
       </div>
-      <div class="h-48 w-full flex flex-row mt-8 bg-blurple border-4 border-blurple border-solid">
-        <div class="w-48 h-48 bg-beigy p-4">
+      <div class="h-full lg:h-48 w-full flex flex-col lg:flex-row mt-8 bg-blurple border-4 border-blurple border-solid">
+        <div class="w-full h-full lg:w-48 lg:h-48 bg-beigy p-4">
           <h3 class="text-blurple text-4xl font-bold uppercase">Set a fixed goal</h3>
         </div>
-        <div class="text-beigy font-semibold text-sm lg:text-2xl flex flex-col justify-evenly p-4 ml-8">
+        <div class="text-beigy font-semibold text-sm text-4xl lg:text-2xl flex flex-col justify-evenly p-4 ml-8">
           <p>For the ideas to flow,</p>
           <p>aim for:</p>
           <p>1 idea every 30 seconds OR</p>
           <p>20 ideas in 10 minues</p>
         </div>
       </div>
-      <div class="h-48 w-full flex flex-row mt-8 bg-greeny border-4 border-greeny border-solid">
-        <div class="w-48 h-48 bg-beigy p-4">
+      <div class="h-full lg:h-48 w-full flex flex-col lg:flex-row mt-8 bg-greeny border-4 border-greeny border-solid">
+        <div class="w-full h-full lg:w-48 lg:h-48 bg-beigy p-4">
           <h3 class="text-greeny text-4xl font-bold uppercase">Get a great team</h3>
         </div>
-        <div class="text-beigy font-semibold text-sm lg:text-2xl flex flex-col justify-evenly p-4 ml-8">
+        <div class="text-beigy font-semibold text-sm text-4xl lg:text-2xl flex flex-col justify-evenly p-4 ml-8">
           <p>Invite people</p>
           <p>who are</p>
           <p>different</p>
@@ -124,7 +149,7 @@
     <div class="flex bg-blurple flex-col mr-8 w-full p-24">
       <h2 class="font-bold text-5xl leading-tight">HELP SPREAD <br>
         THE WORD</h2>
-      <p class="font-bold mt-4 w-auto">Do you want to tell others about this tool? Or do you have ideas for improvements? Please don't hold back!</p>
+      <p class="font-bold mt-4 w-auto lg:text-base text-2xl">Do you want to tell others about this tool? Or do you have ideas for improvements? Please don't hold back!</p>
       <div class="flex flex-row mt-16 justify-between">
         <div class="flex flex-row">
           <a href="https://twitter.com/intent/tweet?text=Say%20something%20great%20about%20http%3A//www.brainstormer.online/%20-%20or%20don't%20-%20it's%20completely%20up%20to%20you!">
