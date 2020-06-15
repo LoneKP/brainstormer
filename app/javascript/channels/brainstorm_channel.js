@@ -185,6 +185,20 @@ const formatTime = () => {
   let formattedTimeLeftMinutes = ("0" + timeLeftMinutes).slice(-2);
   let formattedTimeLeftSeconds = ("0" + timeLeftSeconds).slice(-2);
   timeDisplay.textContent = `${formattedTimeLeftMinutes}:${formattedTimeLeftSeconds}`;
+  let timerOnMobile = document.getElementById("timerPhoneElement")
+  if (timerState.status == "running") {
+    if (timerOnMobile.classList.contains("bg-blurple") == false) {
+      timerOnMobile.classList.add("bg-blurple")
+    }
+    timerOnMobile.setAttribute("style", `width: ${100 - timerState.secondsTotal / timerStartSeconds * 100}%`)
+  }
+  else if (timerState.status == "readyToStart") {
+    timerOnMobile.classList.remove("bg-blurple")
+  }
+  else if (timerState.status == "timeElapsed") {
+    timerOnMobile.classList.remove("bg-blurple")
+  }
+
 }
 
 const countDown = () => {
@@ -193,5 +207,7 @@ const countDown = () => {
   if (timerState.secondsTotal <= 0) {
     clearInterval(timer);
     timerState.status = "timeElapsed";
+    console.log("time is up");
+    document.getElementById("modalContainer").setAttribute("x-data", "{ 'timeIsUpModal': true }")
   }
 }
