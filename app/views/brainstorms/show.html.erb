@@ -143,7 +143,7 @@
         <%= form_for :brainstorm, url: set_user_name_brainstorm_path(@brainstorm.token), remote: true do |f| %>
 
         <div class="field mt-8">
-          <%= text_field_tag "user_name", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-8 lg:py-2 mb-8 lg:mb-4 px-4 block w-full appearance-none leading-normal lg:text-base text-4xl"%>
+          <%= text_field_tag "user_name", @current_user_name, class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-8 lg:py-2 mb-8 lg:mb-4 px-4 block w-full appearance-none leading-normal lg:text-base text-4xl"%>
         </div>
         <%= hidden_field_tag "session_id", @session_id %>
 
@@ -158,7 +158,8 @@
 <script>
   currentUser = {
     id: '<%= @session_id %>',
-    name: false
+    name: false,
+    currentUserName: '<%= @current_user_name %>'
   };
 
   const toggleHeart = (id) => {
@@ -211,13 +212,17 @@
     let wrapper = document.createElement('div');
     currentUserElement.parentNode.insertBefore(wrapper, currentUserElement);
     wrapper.appendChild(currentUserElement);
-    wrapper.classList.add("bg-black")
+    wrapper.classList.add("bg-black", "cursor-pointer")
     currentUserElement.classList.add("bg-white", "text-black")
     currentUserElement.classList.remove("bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy")
 
     currentUserElement.parentNode.onclick = () => {
       document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }")
     }
+  }
+
+  const setCurrentUserName = (name) => {
+    currentUser.currentUserName = name
   }
 
   const showTimeIsUpModal = () => {

@@ -69,6 +69,7 @@ consumer.subscriptions.create({
         break;
       case "name_changed":
         this.perform("update_name");
+        setCurrentUserName(data.name);
         break;
       case "start_timer":
         timerState.status = "running"
