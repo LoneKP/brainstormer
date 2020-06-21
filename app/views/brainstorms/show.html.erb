@@ -90,7 +90,7 @@
         <%= form_for :brainstorm, url: send_ideas_email_brainstorm_path(@brainstorm.token), remote: true do |f| %>
 
         <div class="field mt-8">
-          <%= text_field_tag "email", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal" %>
+          <%= text_field_tag "email", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal", placeholder: "Email address" %>
         </div>
 
         <button type=submit class="w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showEmailModal = false">Send</button>
