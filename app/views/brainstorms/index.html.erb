@@ -1,11 +1,11 @@
-<div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl" x-data=" { 'showNewBrainstormModal' : false, 'showJoinSessionModal' : false, 'showNewBrainstormModalDialog' : null  }" @keydown.escape="showNewBrainstormModal = false" @keydown.escape="showJoinSessionModal = false">
+<div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl" x-data=" { 'showNewBrainstormModal' : false, 'showJoinSessionModal' : false, 'showNewBrainstormModalDialog' : null}" @keydown.escape="showNewBrainstormModal = false" @keydown.escape="showJoinSessionModal = false">
   <div class="flex-col flex bg-blurple p-12 mt-4 lg:mt-8 h-full">
     <div class="bg-dots p-12 h-full">
       <div class="-ml-28 -mt-12 italic bg-black w-32 h-32 lg:w-16 lg:h-16 text-white text-7xl lg:text-5xl flex font-bold items-center justify-center">
         <span>B</span>
       </div>
       <div class="hidden lg:block w-1/2 mt-16 mt-56">
-        <h1 class="py-4 px-4 lg:p-0 bg-blurple text-white text-7xl lg:text-5xl font-semibold leading-normal lg:leading-normal lg:border-none border-b-8 border-solid border-yellowy">EVERYTHING BEGINS WITH AN IDEA
+        <h1 class="py-4 px-4 lg:p-0 bg-blurple text-white text-7xl lg:text-5xl font-semibold leading-normal lg:leading-normal">EVERYTHING BEGINS WITH AN IDEA
         </h1>
       </div>
       <div class="hidden lg:flex flex-col w-1/3 mt-8 bg-blurple">
@@ -13,29 +13,45 @@
         <button @click="showJoinSessionModal = true" class="bg-blurple text-lg my-shadow py-4 mt-4 text-white border-solid border-white border-4 focus:outline-none hvr-underline-from-left">JOIN SESSION</button>
       </div>
       <div class="lg:hidden flex flex-col h-full">
-        <h1 class="my-32 py-4 px-4 bg-blurple text-white text-7xl font-semibold leading-normal border-b-8 border-solid border-yellowy">EVERYTHING BEGINS WITH AN IDEA
+        <h1 class="my-32 py-4 px-4 bg-blurple text-white text-7xl font-semibold leading-normal">EVERYTHING BEGINS WITH AN IDEA
         </h1>
-        <div class="my-32 bg-blurple text-left px-6 py-16">
-          <p class="pb-8 text-7xl font-bold text-white">JOIN SESSION</p>
+        <div class=" bg-blurple text-left px-6 py-16">
           <%= form_with(url: '/go_to_brainstorm', remote: true) do |f| %>
           <div class="flex flex-row justify-between items-baseline mb-2 text-white">
             <label class="italic text-3xl font-bold leading-none " for="">BRAINSTORM ID</label>
           </div>
-          <div class="flex-row flex">
-            <%= f.text_field :token, class: "border-solid border-t-2 border-l-2 border-b-2 border-black h-32 italic px-4 w-full focus:outline-none focus:text-black font-bold text-5xl text-lighter-gray my-shadow-lg", value: "#BRAIN", autocomplete: "off" %>
-
-            <button type="submit" class="flex flex-col cursor-pointer my-shadow-lg bg-white text-lg font-bold h-32 w-56 ml-4">
-              <svg xmlns=" http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_right" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve" width=100% height=100%>
-                <path fill="#352288" d="M11,10L7.859,6.58c-0.268-0.27-0.268-0.707,0-0.978c0.268-0.27,0.701-0.27,0.969,0l3.83,3.908  c0.268,0.271,0.268,0.709,0,0.979l-3.83,3.908c-0.267,0.272-0.701,0.27-0.969,0c-0.268-0.269-0.268-0.707,0-0.978L11,10z" />
-              </svg>
-            </button>
-          </div>
+          <%= f.text_field :token, class: "border-solid border-t-2 border-l-2 border-b-2 border-black h-32 italic px-4 w-full focus:outline-none focus:text-black font-bold text-5xl text-lighter-gray my-shadow-lg", value: "#BRAIN", autocomplete: "off" %>
+          <button type="submit" class="mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer">JOIN SESSION
+          </button>
           <div id="error-field-token-mobile">
             <%= render 'shared/validation_error' %>
           </div>
+          <% end %>
         </div>
-
-        <% end %>
+        <div class="mt-28 flex flex-row w-full items-center bg-blurple">
+          <div class="bg-white h-2 w-full"></div>
+          <p class="text-white text-5xl font-bold px-8">OR</p>
+          <div class="bg-white h-2 w-full"></div>
+        </div>
+        <div class="my-32 bg-blurple text-left px-6 py-12">
+          <%= form_with model: @brainstorm do |f| %>
+          <div class="flex flex-row justify-between items-baseline mb-2">
+            <%= f.label :problem_to_solve, class: "italic text-3xl font-bold flex flex-row justify-between items-baseline mb-2 text-white" %>
+          </div>
+          <%= f.text_field :problem, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none focus:text-black font-bold text-5xl text-lighter-gray my-shadow-lg", autocomplete: "off" %>
+          <div id="error-field-problem">
+            <%= render 'shared/validation_error' %>
+          </div>
+          <div class="flex flex-row justify-between items-baseline mb-2">
+            <%= f.label :your_name, class: "mt-8 italic text-3xl font-bold  flex flex-row justify-between items-baseline mb-2 text-white"  %>
+          </div>
+          <%= f.text_field :name, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none focus:text-black font-bold text-5xl text-lighter-gray my-shadow-lg", autocomplete: "off" %>
+          <div id="error-field-name">
+            <%= render 'shared/validation_error' %>
+          </div>
+          <%= f.submit 'CREATE BRAINSTORM', class: "mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer" %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
