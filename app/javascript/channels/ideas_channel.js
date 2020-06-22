@@ -29,11 +29,13 @@ const createNewIdea = (data) => {
 
   likeElement.classList.add("flex", "flex-row", "self-end", "items-center");
 
-  heartElement.classList.add("w-4", "h-4", "heart-gray");
-  numberElement.classList.add("text-blurple", "text-xl");
+  heartElement.classList.add("w-14", "h-14", "lg:h-5", "lg:w-5", "heart-gray");
+  numberElement.classList.add("mb-4", "lg:m-0", "text-blurple", "text-5xl", "lg:text-xl");
 
-  ideaDiv.classList.add("select-none", "idea-card", "h-64", "w-64", "px-4", "pt-6", "pb-1", "my-shadow", "my-4", "mr-8", "flex", "flex-col", "items-start", "justify-between", "italic", "font-bold", "bg-yellowy", "cursor-default");
+  ideaDiv.classList.add("select-none", "idea-card", "lg:h-64", "lg:w-64", "w-full", "lg:px-4", "px-10", "lg:pt-6", "lg:pb-1", "pt-14", "pb-8", "my-shadow", "my-8", "lg:my-4", "mr-8", "flex", "flex-col", "items-start", "justify-between", "italic", "font-bold", "bg-yellowy", "cursor-default");
 
+  ideaElement.classList.add("mb-4", "lg:m-0", "text-4xl", "lg:text-base", "leading-loose", "lg:leading-normal")
+  linkContainer.classList.add("cursor-default")
   linkContainer.setAttribute("data-turbolinks", "false")
   linkContainer.setAttribute("data-remote", "true")
   linkContainer.setAttribute("rel", "nofollow")
