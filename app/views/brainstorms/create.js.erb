@@ -2,8 +2,10 @@
 <% @brainstorm.errors.each do |error| %>
   <% if error.to_s == "name" %>
     document.getElementById("error-field-name").innerHTML = "<%= j render "shared/validation_error", type: "name" %>"
+    document.getElementById("error-field-name-mobile").innerHTML = "<%= j render "shared/validation_error", type: "name", phone: true %>"
   <% elsif error.to_s == "problem" %>
     document.getElementById("error-field-problem").innerHTML = "<%= j render "shared/validation_error", type: "problem" %>"
+    document.getElementById("error-field-problem-mobile").innerHTML = "<%= j render "shared/validation_error", type: "problem", phone: true %>"
   <% end %>
 <% end %>
 

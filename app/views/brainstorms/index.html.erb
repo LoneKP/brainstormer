@@ -21,11 +21,12 @@
             <label class="italic text-3xl font-bold leading-none " for="">BRAINSTORM ID</label>
           </div>
           <%= f.text_field :token, class: "border-solid border-t-2 border-l-2 border-b-2 border-black h-32 italic px-4 w-full focus:outline-none focus:text-black font-bold text-5xl text-lighter-gray my-shadow-lg", value: "#BRAIN", autocomplete: "off" %>
-          <button type="submit" class="mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer">JOIN SESSION
-          </button>
+
           <div id="error-field-token-mobile">
             <%= render 'shared/validation_error' %>
           </div>
+          <button type="submit" class="mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer">JOIN SESSION
+          </button>
           <% end %>
         </div>
         <div class="mt-28 flex flex-row w-full items-center bg-blurple px-6">
@@ -36,20 +37,21 @@
         <div class="my-32 bg-blurple text-left px-6 py-12">
           <%= form_with model: @brainstorm do |f| %>
           <div class="flex flex-row justify-between items-baseline mb-2">
-            <%= f.label :problem_to_solve, class: "italic text-3xl font-bold flex flex-row justify-between items-baseline mb-2 text-white" %>
+            <%= f.label :problem, "PROBLEM TO SOLVE", class: "italic text-3xl font-bold flex flex-row justify-between items-baseline text-white leading-none " %>
           </div>
-          <%= f.text_field :problem, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none focus:text-black font-bold text-5xl text-lighter-gray my-shadow-lg", autocomplete: "off" %>
-          <div id="error-field-problem">
+          <%= f.text_field :problem, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none text-black font-bold text-5xl my-shadow-lg", autocomplete: "off" %>
+          <div id="error-field-problem-mobile">
             <%= render 'shared/validation_error' %>
           </div>
           <div class="flex flex-row justify-between items-baseline mb-2">
-            <%= f.label :your_name, class: "mt-8 italic text-3xl font-bold  flex flex-row justify-between items-baseline mb-2 text-white"  %>
+            <%= f.label :name, "YOUR NAME", class: "mt-8 italic text-3xl font-bold  flex flex-row justify-between items-baseline text-white leading-none" %>
           </div>
-          <%= f.text_field :name, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none focus:text-black font-bold text-5xl text-lighter-gray my-shadow-lg", autocomplete: "off" %>
-          <div id="error-field-name">
+          <%= f.text_field :name, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none text-black font-bold text-5xl my-shadow-lg", autocomplete: "off" %>
+          <div id="error-field-name-mobile">
             <%= render 'shared/validation_error' %>
           </div>
           <%= f.submit 'CREATE BRAINSTORM', class: "mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer" %>
+
           <% end %>
         </div>
       </div>
