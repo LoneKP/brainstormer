@@ -1,15 +1,13 @@
 class BrainstormsController < ApplicationController
   before_action :set_brainstorm, only: [:show, :start_timer]
   before_action :set_brainstorm_ideas, only: [:show]
-
+  before_action :set_session_id, only: [:show, :create]
 
   def index
     @brainstorm = Brainstorm.new
   end
 
   def create
-    session.delete 'init'
-    @session_id = session.id
     @brainstorm = Brainstorm.new(brainstorm_params)
     @brainstorm.token = generate_token
     respond_to do |format|
@@ -27,8 +25,6 @@ class BrainstormsController < ApplicationController
   end
 
   def show
-    session.delete 'init'
-    @session_id = session.id
     @idea = Idea.new
   end
 
@@ -99,6 +95,11 @@ class BrainstormsController < ApplicationController
 
   def set_brainstorm_ideas
     @ideas = @brainstorm.ideas.order('id DESC')
+  end
+
+  def set_session_id
+    session.delete 'init'
+    @session_id = session.id
   end
 
   def brainstorm_timer_running_key
