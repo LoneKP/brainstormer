@@ -136,9 +136,9 @@
         <%= form_for :brainstorm, url: set_user_name_brainstorm_path(@brainstorm.token), remote: true do |f| %>
 
         <div class="field mt-8">
-          <%= text_field_tag "user_name", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-8 lg:py-2 mb-8 lg:mb-4 px-4 block w-full appearance-none leading-normal lg:text-base text-4xl"%>
+          <%= text_field_tag "set_user_name[user_name]", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-8 lg:py-2 mb-8 lg:mb-4 px-4 block w-full appearance-none leading-normal lg:text-base text-4xl"%>
         </div>
-        <%= hidden_field_tag "session_id", @session_id %>
+        <%= hidden_field_tag "set_user_name[session_id]", @session_id %>
 
         <button type=submit class="w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold text-4xl lg:text-base lg:py-3 lg:my-2 my-8 py-8 px-4 rounded cursor-pointer" @click="showModal = false">Go!</button>
         <% end %>

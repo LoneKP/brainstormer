@@ -30,8 +30,8 @@ class BrainstormsController < ApplicationController
 
   def set_user_name
     respond_to do |format|
-      if REDIS.set params[:session_id], params[:user_name]
-          REDIS.srem "no_user_name", params[:session_id]
+      if REDIS.set set_user_name_params[:session_id], set_user_name_params[:user_name]
+          REDIS.srem "no_user_name", set_user_name_params[:session_id]
           ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "name_changed")
           format.html {}
           format.js
@@ -97,9 +97,17 @@ class BrainstormsController < ApplicationController
     @ideas = @brainstorm.ideas.order('id DESC')
   end
 
+  def set_user_name_params
+    params.require(:set_user_name).permit(:user_name, :session_id)
+  end
+
   def set_session_id
-    session.delete 'init'
-    @session_id = session.id
+    if cookies[:user_id].nil?
+      cookies[:user_id] = SecureRandom.uuid
+      @session_id = cookies[:user_id]
+    else
+      @session_id = cookies[:user_id]
+    end
   end
 
   def brainstorm_timer_running_key
