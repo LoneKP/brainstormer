@@ -57,6 +57,9 @@ consumer.subscriptions.create({
     console.log(data)
     switch (data.event) {
       case "transmit_list":
+        if (typeof currentUser == "undefined") {
+          location.reload();
+        }
         setBoolIfNoUserName(data);
         clearNameListElement();
         createUserBadges(data);
@@ -93,6 +96,7 @@ const clearNameListElement = () => {
 
 const setBoolIfNoUserName = (data) => {
   for (let i = 0; i < data.no_user_names.length; i++) {
+
     if (currentUser.id == data.no_user_names[i]) {
       currentUser.name = false;
       break;
