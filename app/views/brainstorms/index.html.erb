@@ -226,8 +226,15 @@
         <div class="flex justify-between items-center">
           <p class="pb-8 text-4xl font-bold text-blurple">NEW BRAINSTORM</p>
           <div class="cursor-pointer z-50" @click="showNewBrainstormModal = false">
-            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
-              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+            <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="44px" viewBox="0 0 22 44" version="1.1">
+              <title>0A8AFE57-5D7F-4A41-BCD4-6E6B8A8CA7CB</title>
+              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                <g id="Desktop-HD" transform="translate(-1045.000000, -208.000000)" fill="#312783" fill-rule="nonzero">
+                  <g id="flash_on-24px" transform="translate(1045.000000, 208.000000)">
+                    <polygon id="Path" points="0 0 0 24.2 6.6 24.2 6.6 44 22 17.6 13.2 17.6 19.8 0" />
+                  </g>
+                </g>
+              </g>
             </svg>
           </div>
         </div>
@@ -353,8 +360,19 @@
     <div class=" flex-col w-1/2" @click.away="showJoinSessionModal = false">
       <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left px-6" x-show="showJoinSessionModal">
         <!--Title-->
-        <div class="flex justify-between items-center">
-          <p class="pb-8 text-4xl font-bold text-blurple">JOIN SESSION</p>
+        <div class="flex flex-row items-center pb-8 ">
+          <svg class="mr-4" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="44px" viewBox="0 0 22 44" version="1.1">
+            <title>0A8AFE57-5D7F-4A41-BCD4-6E6B8A8CA7CB</title>
+            <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+              <g id="Desktop-HD" transform="translate(-1045.000000, -208.000000)" fill="#312783" fill-rule="nonzero">
+                <g id="flash_on-24px" transform="translate(1045.000000, 208.000000)">
+                  <polygon id="Path" points="0 0 0 24.2 6.6 24.2 6.6 44 22 17.6 13.2 17.6 19.8 0" />
+                </g>
+              </g>
+            </g>
+          </svg>
+          <p class="text-4xl font-bold text-blurple">JOIN SESSION</p>
+
         </div>
         <!-- content -->
         <%= form_with(url: '/go_to_brainstorm', remote: true) do |f| %>
