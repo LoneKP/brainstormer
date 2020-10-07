@@ -1,10 +1,8 @@
 <div class="flex items-end mx-16 pt-16 mb-16 justify-between">
   <div class="flex flex-row">
-    <%= link_to root_path do %>
     <div class="italic bg-black w-20 h-20 text-white text-5xl flex font-bold items-center justify-center">
       <span>B</span>
     </div>
-    <% end %>
     <div onclick="copyToken(getToken())" onmouseout="tokenOutFunc()" class="tooltip cursor-pointer font-semibold bg-greeny text-white text-3xl lg:text-2xl items-center flex px-4 py-1 self-end ml-4">
       <span class="tooltiptext" id="tooltipToken">Copy to clipboard</span>
       <span>#<%=@brainstorm.token%></span>
