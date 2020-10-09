@@ -108,50 +108,58 @@
         </div>
 
         <!-- content -->
-
         <p class="mb-4">Now you can give the best ideas a like!</p>
         <button class="w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="timeIsUpModal = false">OK!</button>
 
       </div>
       <!--/Dialog -->
-    </div><!-- /Overlay -->
+    </div>
+    <!-- /Overlay -->
 
 
     <!--Overlay-->
-    <div class="" style="background-color: rgba(0,0,0,0.5)" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
+    <div class="flex flex-col" style="background-color: rgba(49, 39, 131, 0.9);" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
       <!--Dialog-->
-      <div class="bg-white w-11/12 lg:max-w-md mx-auto rounded shadow-lg lg:py-3 py-8 text-left px-6" x-show="showModal" @click.away="showModal = false">
+      <div class="bg-white w-11/12 lg:w-1/2 mx-auto rounded shadow-lg lg:py-3 py-8 text-left px-6" x-show="showModal" @click.away="showModal = false">
 
         <!--Title-->
-        <div class="flex justify-between items-center lg:mb-3 mb-8">
-          <p class="text-5xl lg:text-2xl font-bold lg:mb-0 mb-4">What is your name?</p>
-          <div class="cursor-pointer z-50" @click="showModal = false">
-            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 18 18">
-              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
-            </svg>
+        <div class="flex justify-between">
+          <div class="flex flex-col">
+            <p class="pb-8 text-4xl font-bold text-blurple">CHANGE NAME</p>
+            <p class="italic text-2xl font-bold leading-none">What is your name?</p>
           </div>
         </div>
 
         <!-- content -->
         <%= form_for :brainstorm, url: set_user_name_brainstorm_path(@brainstorm.token), remote: true do |f| %>
-
-        <div class="field mt-8">
-          <%= text_field_tag "set_user_name[user_name]", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-8 lg:py-2 mb-8 lg:mb-4 px-4 block w-full appearance-none leading-normal lg:text-base text-4xl"%>
+        <div class="field my-2">
+          <%= text_field_tag "set_user_name[user_name]", @current_user_name, class:"w-full focus:outline-none border-solid border-2 border-black h-12 italic font-bold px-4"%>
         </div>
         <%= hidden_field_tag "set_user_name[session_id]", @session_id %>
-
-        <button type=submit class="w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold text-4xl lg:text-base lg:py-3 lg:my-2 my-8 py-8 px-4 rounded cursor-pointer" @click="showModal = false">Go!</button>
+      </div>
+      <div class="mt-8 flex flex-row justify-between w-11/12 lg:w-1/2">
+        <div @click="showModal = false" class="cursor-pointer my-shadow-lg bg-white text-lg font-bold h-14 w-14">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_left" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+            <path fill="#352288" d="M12.141,13.418c0.268,0.271,0.268,0.709,0,0.978c-0.268,0.27-0.701,0.272-0.969,0l-3.83-3.908  c-0.268-0.27-0.268-0.707,0-0.979l3.83-3.908c0.267-0.27,0.701-0.27,0.969,0c0.268,0.271,0.268,0.709,0,0.978L9,10L12.141,13.418z" />
+          </svg>
+        </div>
+        <button type=submit class="px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny cursor-pointer" @click="showModal = false">Change!</button>
         <% end %>
       </div>
-      <!--/Dialog -->
-    </div><!-- /Overlay -->
-  </div>
-</div>
 
+      <!--/Dialog -->
+    </div>
+  </div>
+
+  <!-- /Overlay -->
+</div>
+</div>
 <script>
   currentUser = {
     id: '<%= @session_id %>',
-    name: false
+    name: false,
+    currentUserName: '<%= @current_user_name %>'
+
   };
 
   const toggleHeart = (id) => {
@@ -211,6 +219,10 @@
     currentUserElement.parentNode.onclick = () => {
       document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }")
     }
+  }
+
+  const setCurrentUserName = (name) => {
+    currentUser.currentUserName = name
   }
 
   const showTimeIsUpModal = () => {

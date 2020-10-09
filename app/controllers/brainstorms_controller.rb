@@ -26,13 +26,14 @@ class BrainstormsController < ApplicationController
 
   def show
     @idea = Idea.new
+    @current_user_name = REDIS.get(@session_id)
   end
 
   def set_user_name
     respond_to do |format|
       if REDIS.set set_user_name_params[:session_id], set_user_name_params[:user_name]
           REDIS.srem "no_user_name", set_user_name_params[:session_id]
-          ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "name_changed")
+          ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "name_changed", name: set_user_name_params[:user_name] )
           format.html {}
           format.js
       else
