@@ -161,7 +161,8 @@
   currentUser = {
     id: '<%= @session_id %>',
     name: false,
-    currentUserName: '<%= @current_user_name %>'
+    currentUserName: '<%= @current_user_name %>',
+    facilitator: '<%= @is_user_facilitator %>'
   };
 
   const openModalToSetName = () => {

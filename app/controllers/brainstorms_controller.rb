@@ -2,6 +2,7 @@ class BrainstormsController < ApplicationController
   before_action :set_brainstorm, only: [:show, :start_timer]
   before_action :set_brainstorm_ideas, only: [:show]
   before_action :set_session_id, only: [:show, :create]
+  before_action :facilitator?, only: [:show]
 
   def index
     @brainstorm = Brainstorm.new
@@ -27,7 +28,6 @@ class BrainstormsController < ApplicationController
 
   def show
     @idea = Idea.new
-    @current_user_name = REDIS.get(@session_id)
   end
 
   def set_user_name
@@ -114,6 +114,10 @@ class BrainstormsController < ApplicationController
 
   def set_facilitator
     REDIS.set brainstorm_facilitator_key, @session_id
+  end
+
+  def facilitator?
+    @is_user_facilitator = REDIS.get(brainstorm_facilitator_key) == @session_id
   end
 
   def brainstorm_facilitator_key
