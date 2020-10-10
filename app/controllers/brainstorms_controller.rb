@@ -14,6 +14,7 @@ class BrainstormsController < ApplicationController
       if @brainstorm.save
         REDIS.set @session_id, @brainstorm.name
         REDIS.srem "no_user_name", @session_id
+        set_facilitator
           format.js { render :js => "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
       else
         @brainstorm.errors.messages.each do |message|
@@ -109,6 +110,14 @@ class BrainstormsController < ApplicationController
     else
       @session_id = cookies[:user_id]
     end
+  end
+
+  def set_facilitator
+    REDIS.set brainstorm_facilitator_key, @session_id
+  end
+
+  def brainstorm_facilitator_key
+    "brainstorm_facilitator_#{@brainstorm.token}"
   end
 
   def brainstorm_timer_running_key

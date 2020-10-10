@@ -56,7 +56,8 @@ class BrainstormChannel < ApplicationCable::Channel
       initials: initials,
       user_ids: user_ids,
       no_user_names: REDIS.smembers("no_user_name"),
-      timer_status: timer_status
+      timer_status: timer_status,
+      facilitator: REDIS.get(brainstorm_facilitator_key)
     }
 
     ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}", data)
@@ -82,6 +83,10 @@ class BrainstormChannel < ApplicationCable::Channel
 
   def brainstorm_key
     "brainstorm_id_#{@brainstorm.token}"
+  end
+
+  def brainstorm_facilitator_key
+    "brainstorm_facilitator_#{@brainstorm.token}"
   end
 
   def brainstorm_timer_running_key
