@@ -7,18 +7,6 @@ const timerStartSeconds = 600;
 consumer.subscriptions.create({
   channel: "TimerChannel", token: location.pathname.replace("/", "")
 }, {
-
-  // Called when the subscription is ready for use on the server.
-  connected() {
-    this.install()
-    this.update()
-  },
-
-  // Called when the WebSocket connection is closed.
-  disconnected() {
-    this.uninstall()
-  },
-
   received(data) {
     console.log(data)
     switch (data.event) {
