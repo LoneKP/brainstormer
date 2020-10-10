@@ -36,10 +36,6 @@ inputField.addEventListener(
   }
 );
 
-const setCurrentUserName = (name) => {
-  currentUser.currentUserName = name
-}
-
 const removeOverflowingUsers = (onlineUsers) => {
   for (let i = 0; i < onlineUsers - 7; i++) {
     document.getElementById("name-list").removeChild(document.getElementById("name-list").childNodes[i]);

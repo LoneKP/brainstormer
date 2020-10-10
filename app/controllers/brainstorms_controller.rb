@@ -28,13 +28,14 @@ class BrainstormsController < ApplicationController
 
   def show
     @idea = Idea.new
+    @current_user_name = REDIS.get(@session_id)
   end
 
   def set_user_name
     respond_to do |format|
       if REDIS.set set_user_name_params[:session_id], set_user_name_params[:user_name]
           REDIS.srem "no_user_name", set_user_name_params[:session_id]
-          ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "name_changed", name: set_user_name_params[:user_name] )
+          ActionCable.server.broadcast("brainstorm-#{params[:token]}-presence", event: "name_changed", name: set_user_name_params[:user_name] )
           format.html {}
           format.js
       else
@@ -70,11 +71,11 @@ class BrainstormsController < ApplicationController
   def start_timer
     respond_to do |format|
       if REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp").nil?
-        ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "start_timer")
+        ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "start_timer")
         REDIS.hset(brainstorm_timer_running_key, "timer_start_timestamp", Time.now)
           format.js
       else
-        ActionCable.server.broadcast("brainstorm-#{params[:token]}", event: "reset_timer")
+        ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "reset_timer")
         REDIS.hdel(brainstorm_timer_running_key, "timer_start_timestamp")
           format.js
       end

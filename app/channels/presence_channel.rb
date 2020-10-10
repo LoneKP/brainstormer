@@ -1,9 +1,8 @@
-class BrainstormChannel < ApplicationCable::Channel
-  TIME_IN_TIMER = 600
+class PresenceChannel < ApplicationCable::Channel
 
   def subscribed
     @brainstorm = Brainstorm.find_by(token: params[:token])
-    stream_from "brainstorm-#{params[:token]}"
+    stream_from "brainstorm-#{params[:token]}-presence"
     add_to_list_and_transmit!
   end
 
@@ -51,30 +50,14 @@ class BrainstormChannel < ApplicationCable::Channel
     end
 
     data = {
-      event: "transmit_list",
+      event: "transmit_presence_list",
       users: names,
       initials: initials,
       user_ids: user_ids,
       no_user_names: REDIS.smembers("no_user_name"),
-      timer_status: timer_status,
-      facilitator: REDIS.get(brainstorm_facilitator_key)
     }
 
-    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}", data)
-  end
-
-  def timer_status
-    if REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp").nil?
-      return "ready_to_start_timer"
-    elsif timer_time_elapsed_in_seconds > TIME_IN_TIMER
-      return "time_has_run_out"
-    else
-      return timer_time_elapsed_in_seconds
-    end
-  end
-
-  def timer_time_elapsed_in_seconds
-    Time.now.to_i - DateTime.parse(REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp")).to_i
+    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-presence", data)
   end
 
   def last_user_activity_more_than_one_hour_ago?(user_id)
@@ -83,10 +66,6 @@ class BrainstormChannel < ApplicationCable::Channel
 
   def brainstorm_key
     "brainstorm_id_#{@brainstorm.token}"
-  end
-
-  def brainstorm_facilitator_key
-    "brainstorm_facilitator_#{@brainstorm.token}"
   end
 
   def brainstorm_timer_running_key
