@@ -1,3 +1,13 @@
+if (currentUser.facilitator == "true") {
+  document.getElementById("setup-participant").style.display = "none";
+  document.getElementById("ideate").style.display = "none";
+}
+
+if (currentUser.facilitator == "false") {
+  document.getElementById("setup-facilitator").style.display = "none";
+  document.getElementById("ideate").style.display = "none";
+}
+
 const toggleHeart = (id) => {
   if (document.getElementById(id).classList.contains("heart-gray")) {
     document.getElementById(id).classList.add("heart-red")
