@@ -22,6 +22,14 @@ module.exports = {
         "screen/4": "calc(100vh / 4)",
         "screen/5": "calc(100vh / 5)",
       }),
+      width: {
+        "1/7": "14.2857143%",
+        "2/7": "28.5714286%",
+        "3/7": "42.8571429%",
+        "4/7": "57.1428571%",
+        "5/7": "71.4285714%",
+        "6/7": "85.7142857%",
+      },
       fontFamily: {
         sans: ['Inter', ...defaultTheme.fontFamily.sans],
         mono: ['IBM Plex Mono', ...defaultTheme.fontFamily.mono]
@@ -33,6 +41,7 @@ module.exports = {
         'light-gray': '#d8d8d8',
         'lighter-gray': '#9B9B9B',
         'yellowy': '#E5D151',
+        'light-yellowy': '#FFE35F',
         'pinkish': '#E71EA3',
         'greeny': '#027540',
         'reddy': '#DC6660',
