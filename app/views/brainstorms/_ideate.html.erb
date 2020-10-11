@@ -1,0 +1,155 @@
+<div class="h-4 fixed block lg:hidden" id="timerPhoneElement"></div>
+<div>
+  <div id="modalContainer" class="flex flex-row" x-data="{ 'showModal': false, 'showEmailModal': false, 'timeIsUpModal': false }" @keydown.escape="showModal = false">
+    <div class="flex-col flex w-full items-start">
+      <div class="flex-col flex w-full lg:w-3/4">
+        <h1 class="mx-16 p-3 text-6xl lg:text-5xl text-white font-bold uppercase bg-blurple leading-tight"><%=@brainstorm.problem %></h1>
+        <%= form_for(@idea, remote: true, html: { autocomplete: "off", class: "bg-light-gray p-6 m-16" }) do |f| %>
+        <h2 class="italic text-4xl lg:text-2xl font-semibold">Idea</h2>
+        <div class="field mt-8">
+          <%= f.text_area :text, class:"w-full h-screen/5 lg:h-32 bg-white focus:outline-none border-solid border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal text-4xl lg:text-base" %>
+        </div>
+        <%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
+        <div id="error-field-idea">
+          <%= render "shared/validation_error" %>
+        </div>
+        <p id="characterCount" class="text-xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
+
+        <button id="addIdeaButton" type=submit class="modal-close w-full my-1 bg-blurple focus:outline-none text-white font-bold py-6 lg:py-3 px-4 rounded cursor-pointer text-4xl lg:text-base">Add idea</button>
+        <% end %>
+      </div>
+
+      <div class="block w-full lg:flex lg:flex-wrap lg:justify-start lg:px-0 px-16 ml-0 lg:p-0 lg:ml-16" id="ideas">
+        <% @ideas.each do |idea| %>
+        <%= link_to idea_path(:id => idea.id, :session_id => @session_id), method: :patch, remote: true, data: { turbolinks: false }, class: "cursor-default" do %>
+        <div class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 my-shadow my-8 lg:my-4 mr-8 flex flex-col items-start justify-between italic font-bold bg-yellowy cursor-default">
+          <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
+          <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal"><%= idea.text %></p>
+          <div class="flex flex-row self-end items-center">
+            <div id="<%= idea.id %>" class="w-14 h-14 lg:h-5 lg:w-5 heart-gray"></div>
+          </div>
+        </div>
+        <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="flex-col hidden lg:flex">
+      <div class="flex flex-col items-center w-80 bg-white my-shadow mr-16 p-6">
+        <h2 class="italic font-semibold text-xl text-blurple">Time</h2>
+        <div class="text-3xl font-bold bg-black text-white rounded-full h-40 w-40 flex items-center justify-center my-4">
+          <p id="timeDisplay"></p>
+        </div>
+        <%= link_to "Start timer", start_timer_brainstorm_path(@brainstorm.token), remote: true, method: :post, id: "startTimer", class: "bg-black text-white p-2" %>
+        <div class="bg-wine text-white font-bold w-full mt-8">
+          <div class="flex items-end justify-around mt-8 pt-16 pb-4">
+            <p class="uppercase italic text-lg">ideas</p>
+            <p class="text-6xl leading-none" id="ideasCount"><%= @ideas.count %></p>
+          </div>
+          <div class="p-4 text-center text-sm bg-wine-light">GOAL: 20 ideas in 10 minutes</div>
+        </div>
+      </div>
+
+      <div class="tooltip w-80 bg-white my-shadow mt-8 mr-16 p-6 flex flex-row">
+        <button onclick="copyAction(getURL())" onmouseout="outFunc()" class="focus:outline-none bg-greeny text-white text-center text-2xl font-semibold py-2 w-full">
+          <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+          SHARE LINK
+        </button>
+      </div>
+      <div class="w-80 items-center bg-white my-shadow mt-8 mr-16 p-6">
+        <button @click="showEmailModal = true" class="focus:outline-none bg-greeny text-white text-center text-2xl font-semibold py-2 w-full">
+          EMAIL IDEAS
+        </button>
+      </div>
+    </div>
+
+
+    <!--Overlay-->
+    <div class="" style="background-color: rgba(0,0,0,0.5)" x-show="showEmailModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showEmailModal }">
+      <!--Dialog-->
+      <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-4 text-left px-6" x-show="showEmailModal" @click.away="showEmailModal = false">
+
+        <!--Title-->
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-2xl font-bold">Send ideas to:</p>
+          <div class="cursor-pointer z-50" @click="showEmailModal = false">
+            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- content -->
+        <%= form_for :brainstorm, url: send_ideas_email_brainstorm_path(@brainstorm.token), remote: true do |f| %>
+
+        <div class="field mt-8">
+          <%= text_field_tag "email", "", class:"w-full bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none leading-normal", placeholder: "Email address" %>
+        </div>
+
+        <button type=submit class="w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="showEmailModal = false">Send</button>
+        <% end %>
+      </div>
+      <!--/Dialog -->
+    </div><!-- /Overlay -->
+
+    <!--Overlay-->
+    <div class="" style="background-color: rgba(0,0,0,0.5)" x-show="timeIsUpModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': timeIsUpModal }">
+      <!--Dialog-->
+      <div class="bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg py-4 text-left px-6" x-show="timeIsUpModal" @click.away="timeIsUpModal = false">
+
+        <!--Title-->
+        <div class="flex justify-between items-center pb-3">
+          <p class="text-2xl font-bold">Time's up!</p>
+          <div class="cursor-pointer z-50" @click="timeIsUpModal = false">
+            <svg class="fill-current text-black" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 18 18">
+              <path d="M14.53 4.53l-1.06-1.06L9 7.94 4.53 3.47 3.47 4.53 7.94 9l-4.47 4.47 1.06 1.06L9 10.06l4.47 4.47 1.06-1.06L10.06 9z"></path>
+            </svg>
+          </div>
+        </div>
+
+        <!-- content -->
+        <p class="mb-4">Now you can give the best ideas a like!</p>
+        <button class="w-full my-1 bg-blurple hover:bg-plum-700 text-white font-bold py-3 px-4 rounded cursor-pointer" @click="timeIsUpModal = false">OK!</button>
+
+      </div>
+      <!--/Dialog -->
+    </div>
+    <!-- /Overlay -->
+
+
+    <!--Overlay-->
+    <div class="flex flex-col" style="background-color: rgba(49, 39, 131, 0.9);" x-show="showModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showModal }">
+      <!--Dialog-->
+      <div class="bg-white w-11/12 lg:w-1/2 mx-auto rounded shadow-lg lg:py-3 py-8 text-left px-6" x-show="showModal" @click.away="showModal = false">
+
+        <!--Title-->
+        <div class="flex justify-between">
+          <div class="flex flex-col">
+            <p class="pb-8 text-4xl font-bold text-blurple">CHANGE NAME</p>
+            <p class="italic text-2xl font-bold leading-none">What is your name?</p>
+          </div>
+        </div>
+
+        <!-- content -->
+        <%= form_for :brainstorm, url: set_user_name_brainstorm_path(@brainstorm.token), remote: true do |f| %>
+        <div class="field my-2">
+          <%= text_field_tag "set_user_name[user_name]", @current_user_name, class:"w-full focus:outline-none border-solid border-2 border-black h-12 italic font-bold px-4"%>
+        </div>
+        <%= hidden_field_tag "set_user_name[session_id]", @session_id %>
+      </div>
+      <div class="mt-8 flex flex-row justify-between w-11/12 lg:w-1/2">
+        <div @click="showModal = false" class="cursor-pointer my-shadow-lg bg-white text-lg font-bold h-14 w-14">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_left" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+            <path fill="#352288" d="M12.141,13.418c0.268,0.271,0.268,0.709,0,0.978c-0.268,0.27-0.701,0.272-0.969,0l-3.83-3.908  c-0.268-0.27-0.268-0.707,0-0.979l3.83-3.908c0.267-0.27,0.701-0.27,0.969,0c0.268,0.271,0.268,0.709,0,0.978L9,10L12.141,13.418z" />
+          </svg>
+        </div>
+        <button type=submit class="px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny cursor-pointer" @click="showModal = false">Change!</button>
+        <% end %>
+      </div>
+
+      <!--/Dialog -->
+    </div>
+  </div>
+
+  <!-- /Overlay -->
+</div>
+</div>
