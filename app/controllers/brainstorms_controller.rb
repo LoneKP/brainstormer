@@ -3,6 +3,7 @@ class BrainstormsController < ApplicationController
   before_action :set_brainstorm_ideas, only: [:show]
   before_action :set_session_id, only: [:show, :create]
   before_action :facilitator?, only: [:show]
+  before_action :facilitator_name, only: [:show]
 
   def index
     @brainstorm = Brainstorm.new
@@ -82,6 +83,10 @@ class BrainstormsController < ApplicationController
     end
   end
 
+  def start_workshop
+    ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "start_workshop")
+  end
+
   private
 
   def generate_token
@@ -119,6 +124,10 @@ class BrainstormsController < ApplicationController
 
   def facilitator?
     @is_user_facilitator = REDIS.get(brainstorm_facilitator_key) == @session_id
+  end
+
+  def facilitator_name
+    @brainstorm_facilitator_name = REDIS.get(REDIS.get(brainstorm_facilitator_key))
   end
 
   def brainstorm_facilitator_key

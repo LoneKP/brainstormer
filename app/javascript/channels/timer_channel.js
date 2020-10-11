@@ -23,9 +23,17 @@ consumer.subscriptions.create({
         timerState.status = "readyToStart"
         resetTimer();
         break;
+      case "start_workshop":
+        startWorkshop();
     }
   },
 })
+
+const startWorkshop = () => {
+  document.getElementById("setup-facilitator").style.display = "none";
+  document.getElementById("setup-participant").style.display = "none";
+  document.getElementById("ideate").style.display = "block";
+}
 
 const evaluateTimer = (data) => {
   if (data.timer_status == "ready_to_start_timer") {
