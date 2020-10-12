@@ -8,6 +8,12 @@ if (currentUser.facilitator == "false") {
   document.getElementById("ideate").style.display = "none";
 }
 
+if (brainstormStore.state == "ideation") {
+  document.getElementById("setup-facilitator").style.display = "none";
+  document.getElementById("setup-participant").style.display = "none";
+  document.getElementById("ideate").style.display = "block";
+}
+
 const toggleHeart = (id) => {
   if (document.getElementById(id).classList.contains("heart-gray")) {
     document.getElementById(id).classList.add("heart-red")

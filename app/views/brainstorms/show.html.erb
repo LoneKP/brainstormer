@@ -1,12 +1,12 @@
 <%= render 'nav' %>
+<div id="ideate">
+  <%= render 'ideate' %>
+</div>
 <div id="setup-facilitator">
   <%= render 'setup_facilitator' %>
 </div>
 <div id="setup-participant">
   <%= render 'setup_participant' %>
-</div>
-<div id="ideate">
-  <%= render 'ideate' %>
 </div>
 
 <script>
@@ -15,6 +15,10 @@
     name: false,
     currentUserName: '<%= @current_user_name %>',
     facilitator: '<%= @is_user_facilitator %>'
+  };
+
+  brainstormStore = {
+    state: '<%= @state %>'
   };
 
   const openModalToSetName = () => {
@@ -44,6 +48,48 @@
 
   const setCurrentUserName = (name) => {
     currentUser.currentUserName = name
+  }
+
+  const copyAction = (value) => {
+    let tempInput = document.createElement("input");
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = value;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    let tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copied!";
+  }
+
+  const copyToken = (value) => {
+    let tempInput = document.createElement("input");
+    tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+    tempInput.value = value;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    let tooltip = document.getElementById("tooltipToken");
+    tooltip.innerHTML = "Copied!";
+  }
+
+  const getURL = () => {
+    return window.location.href;
+  }
+
+  const getToken = () => {
+    return window.location.pathname.replace("/", "")
+  }
+
+  const outFunc = () => {
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copy to clipboard";
+  }
+
+  const tokenOutFunc = () => {
+    var tooltip = document.getElementById("tooltipToken");
+    tooltip.innerHTML = "Copy to clipboard";
   }
 </script>
 

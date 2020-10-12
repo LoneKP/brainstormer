@@ -4,6 +4,7 @@ let timer;
 let timerState;
 const timerStartSeconds = 600;
 
+
 consumer.subscriptions.create({
   channel: "TimerChannel", token: location.pathname.replace("/", "")
 }, {
@@ -23,13 +24,18 @@ consumer.subscriptions.create({
         timerState.status = "readyToStart"
         resetTimer();
         break;
-      case "start_workshop":
-        startWorkshop();
+      case "set_brainstorm_state":
+        setBrainstormState(data.state);
+        changeView();
     }
   },
 })
 
-const startWorkshop = () => {
+const setBrainstormState = (state) => {
+  brainstormStore.state = state;
+}
+
+const changeView = () => {
   document.getElementById("setup-facilitator").style.display = "none";
   document.getElementById("setup-participant").style.display = "none";
   document.getElementById("ideate").style.display = "block";
