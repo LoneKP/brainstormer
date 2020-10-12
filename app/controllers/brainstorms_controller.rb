@@ -1,8 +1,10 @@
 class BrainstormsController < ApplicationController
-  before_action :set_brainstorm, only: [:show, :start_timer]
+  before_action :set_brainstorm, only: [:show, :start_timer, :start_brainstorm]
   before_action :set_brainstorm_ideas, only: [:show]
   before_action :set_session_id, only: [:show, :create]
   before_action :facilitator?, only: [:show]
+  before_action :facilitator_name, only: [:show]
+  before_action :get_state, only: [:show]
 
   def index
     @brainstorm = Brainstorm.new
@@ -82,6 +84,11 @@ class BrainstormsController < ApplicationController
     end
   end
 
+  def start_brainstorm
+      REDIS.set(brainstorm_state_key, "ideation")
+      ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "set_brainstorm_state", state: "ideation")
+  end
+
   private
 
   def generate_token
@@ -121,11 +128,23 @@ class BrainstormsController < ApplicationController
     @is_user_facilitator = REDIS.get(brainstorm_facilitator_key) == @session_id
   end
 
+  def facilitator_name
+    @brainstorm_facilitator_name = REDIS.get(REDIS.get(brainstorm_facilitator_key))
+  end
+
   def brainstorm_facilitator_key
     "brainstorm_facilitator_#{@brainstorm.token}"
   end
 
   def brainstorm_timer_running_key
     "brainstorm_id_timer_running_#{@brainstorm.token}"
+  end
+
+  def brainstorm_state_key
+    "brainstorm_state_#{@brainstorm.token}"
+  end
+
+  def get_state
+    @state = REDIS.get(brainstorm_state_key)
   end
 end
