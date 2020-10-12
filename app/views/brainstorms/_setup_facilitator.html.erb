@@ -65,14 +65,17 @@
 
   <div class="flex flex-row mt-8 w-full ">
     <div class="bg-white py-4 px-8 my-shadow-lg w-full mr-2">
-      <div class="bg-blurple">
-        <p class="text-white uppercase text-xl font-medium py-2 text-center">Share brain link</p>
+      <div class="tooltip w-full">
+        <div onclick="copyAction(getURL())" onmouseout="outFunc()" class="bg-blurple tooltip cursor-pointer w-full">
+          <span class="tooltiptext" id="myTooltip">Copy to clipboard</span>
+          <p class=" text-white uppercase text-xl font-medium py-2 text-center">Share brain link</p>
+        </div>
       </div>
     </div>
     <div class="bg-white py-4 px-8 my-shadow-lg w-full ml-2">
       <div class="bg-greeny">
-        <%= link_to start_workshop_brainstorm_path(@brainstorm.token), remote: true, method: :post do %>
-        <p class="text-white uppercase text-xl font-medium py-2 text-center">Start workshop</p>
+        <%= link_to start_brainstorm_brainstorm_path(@brainstorm.token), remote: true, method: :post do %>
+        <p class="text-white uppercase text-xl font-medium py-2 text-center">Start Brainstorm </p>
         <% end %>
       </div>
     </div>
