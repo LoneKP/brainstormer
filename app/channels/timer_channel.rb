@@ -7,6 +7,11 @@ class TimerChannel < ApplicationCable::Channel
     transmit_list!
   end
 
+  def set_time_is_up_state
+    REDIS.set(brainstorm_state_key, "time_is_up")
+  end
+
+
   private
 
   def transmit_list!
@@ -39,5 +44,9 @@ class TimerChannel < ApplicationCable::Channel
 
   def brainstorm_timer_running_key
     "brainstorm_id_timer_running_#{@brainstorm.token}"
+  end
+
+  def brainstorm_state_key
+    "brainstorm_state_#{@brainstorm.token}"
   end
 end

@@ -26,19 +26,45 @@ consumer.subscriptions.create({
         break;
       case "set_brainstorm_state":
         setBrainstormState(data.state);
-        changeView();
+        if (data.state == "time_is_up") {
+          this.perform("set_time_is_up_state");
+        };
     }
   },
 })
 
 const setBrainstormState = (state) => {
   brainstormStore.state = state;
+  changeView(state);
 }
 
-const changeView = () => {
-  document.getElementById("setup-facilitator").style.display = "none";
-  document.getElementById("setup-participant").style.display = "none";
-  document.getElementById("ideate").style.display = "block";
+const changeView = (state) => {
+  switch (state) {
+    case "ideation":
+      document.getElementById("setup-facilitator").style.display = "none";
+      document.getElementById("setup-participant").style.display = "none";
+      document.getElementById("ideate").style.display = "block";
+      document.getElementById("vote").style.display = "none";
+      document.getElementById("voting-done").style.display = "none";
+      document.getElementById("time-is-up").style.display = "none";
+      break;
+    case "time_is_up":
+      document.getElementById("setup-facilitator").style.display = "none";
+      document.getElementById("setup-participant").style.display = "none";
+      document.getElementById("ideate").style.display = "block";
+      document.getElementById("vote").style.display = "none";
+      document.getElementById("voting-done").style.display = "none";
+      document.getElementById("time-is-up").style.display = "block";
+      break;
+    case "vote":
+      document.getElementById("setup-facilitator").style.display = "none";
+      document.getElementById("setup-participant").style.display = "none";
+      document.getElementById("ideate").style.display = "none";
+      document.getElementById("vote").style.display = "block";
+      document.getElementById("voting-done").style.display = "none";
+      document.getElementById("time-is-up").style.display = "none";
+      break;
+  }
 }
 
 const evaluateTimer = (data) => {
@@ -123,7 +149,6 @@ const countDown = () => {
   if (timerState.secondsTotal <= 0) {
     clearInterval(timer);
     timerState.status = "timeElapsed";
-    console.log("time is up");
-    document.getElementById("modalContainer").setAttribute("x-data", "{ 'timeIsUpModal': true }")
+    setBrainstormState("time_is_up");
   }
 }
