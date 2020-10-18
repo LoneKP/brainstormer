@@ -47,7 +47,7 @@ const inputField = document.getElementById("idea_text");
 const maxCharacters = 110
 inputField.maxLength = maxCharacters
 
-document.getElementById("new_idea").addEventListener(
+document.getElementById("addIdeaPin").addEventListener(
   "click",
   function () {
     p.innerHTML = inputField.value.length + "/" + maxCharacters
@@ -69,6 +69,22 @@ inputField.addEventListener(
     }
   }
 );
+
+inputField.addEventListener(
+  "keyup",
+  function () {
+    if (inputField.value.length > 0) {
+      document.getElementById("addIdeaPin").classList.add("bg-post-it-yellowy");
+      document.getElementById("addIdeaPin").classList.remove("bg-lighter-gray");
+      document.getElementById("addIdeaPin").firstElementChild.style.fill = "#312783";
+    }
+    else if (inputField.value.length == 0) {
+      document.getElementById("addIdeaPin").classList.remove("bg-post-it-yellowy");
+      document.getElementById("addIdeaPin").classList.add("bg-lighter-gray");
+      document.getElementById("addIdeaPin").firstElementChild.style.fill = "white";
+    }
+  }
+)
 
 const removeOverflowingUsers = (onlineUsers) => {
   for (let i = 0; i < onlineUsers - 7; i++) {
