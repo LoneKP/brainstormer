@@ -42,6 +42,7 @@ module.exports = {
         'lighter-gray': '#9B9B9B',
         'yellowy': '#E5D151',
         'light-yellowy': '#FFE35F',
+        'post-it-yellowy': '#F6E573',
         'pinkish': '#E71EA3',
         'greeny': '#027540',
         'reddy': '#DC6660',
