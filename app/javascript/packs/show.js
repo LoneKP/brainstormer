@@ -42,17 +42,6 @@ if (brainstormStore.state == "vote") {
   document.getElementById("time-is-up").style.display = "none";
 }
 
-
-const toggleHeart = (id) => {
-  if (document.getElementById(id).classList.contains("heart-gray")) {
-    document.getElementById(id).classList.add("heart-red")
-    document.getElementById(id).classList.remove("heart-gray")
-  } else {
-    document.getElementById(id).classList.add("heart-gray")
-    document.getElementById(id).classList.remove("heart-red")
-  }
-}
-
 const p = document.getElementById("characterCount");
 const inputField = document.getElementById("idea_text");
 const maxCharacters = 110

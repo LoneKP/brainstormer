@@ -17,28 +17,6 @@ class IdeasController < ApplicationController
     end
   end
 
-  def update
-    @idea = Idea.find params[:id]
-    if REDIS.get("#{params[:session_id]}_#{@idea.id}") == "true"
-      @idea.likes -= 1
-    elsif REDIS.get("#{params[:session_id]}_#{@idea.id}") == "false"
-      @idea.likes += 1
-    elsif REDIS.get("#{params[:session_id]}_#{@idea.id}").nil?
-      @idea.likes += 1
-    end
-
-    respond_to do |format|
-      if @idea.save
-        REDIS.get("#{params[:session_id]}_#{@idea.id}") == "true" ? REDIS.set("#{params[:session_id]}_#{@idea.id}", "false") : REDIS.set("#{params[:session_id]}_#{@idea.id}", "true")
-        format.html {}
-        format.js
-      else
-        format.html {}
-        format.js
-      end
-    end
-  end
-
   private
 
   def idea_params
