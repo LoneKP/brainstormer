@@ -4,13 +4,9 @@ class TimerChannel < ApplicationCable::Channel
   def subscribed
     @brainstorm = Brainstorm.find_by(token: params[:token])
     stream_from "brainstorm-#{params[:token]}-timer"
+    update_redis_if_time_has_run_out
     transmit_list!
   end
-
-  def set_time_is_up_state
-    REDIS.set(brainstorm_state_key, "time_is_up")
-  end
-
 
   private
 
@@ -36,6 +32,12 @@ class TimerChannel < ApplicationCable::Channel
 
   def timer_time_elapsed_in_seconds
     Time.now.to_i - DateTime.parse(REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp")).to_i
+  end
+
+  def update_redis_if_time_has_run_out
+    if REDIS.get(brainstorm_state_key) == "ideation" && timer_status == "time_has_run_out"
+      REDIS.set(brainstorm_state_key, "time_is_up")
+    end
   end
 
   def brainstorm_key
