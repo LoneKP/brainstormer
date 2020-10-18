@@ -47,7 +47,7 @@ const inputField = document.getElementById("idea_text");
 const maxCharacters = 110
 inputField.maxLength = maxCharacters
 
-document.getElementById("addIdeaButton").addEventListener(
+document.getElementById("new_idea").addEventListener(
   "click",
   function () {
     p.innerHTML = inputField.value.length + "/" + maxCharacters
