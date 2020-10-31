@@ -1,0 +1,2 @@
+document.getElementById("add-idea-form").classList.add("hidden");
+document.getElementById("add-idea-build-form").innerHTML = "<%= j render "brainstorms/add_idea_build_form", idea: @idea, idea_build: @idea_build, brainstorm: @brainstorm %>"

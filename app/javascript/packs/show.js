@@ -42,7 +42,7 @@ if (brainstormStore.state == "vote") {
   document.getElementById("time-is-up").style.display = "none";
 }
 
-const p = document.getElementById("characterCount");
+const p = document.getElementById("characterCountIdea");
 const inputField = document.getElementById("idea_text");
 const maxCharacters = 110
 inputField.maxLength = maxCharacters

@@ -5,7 +5,13 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :ideas, only: [:create]
+  resources :ideas, only: [:create] do
+    resources :idea_builds, only: [:create]
+    member do
+      post :show_idea_build_form
+    end
+  end
+
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

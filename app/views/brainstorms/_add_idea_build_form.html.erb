@@ -1,0 +1,26 @@
+<%= form_for(@idea_build, url: idea_idea_builds_path(idea.id), remote: true, html: { autocomplete: "off", class: "flex flex-row items-end w-full" }) do |f| %>
+<div class="p-6 ml-16 mt-8 w-full bg-post-it-yellowy my-shadow-lg">
+  <h2 class="italic text-4xl lg:text-2xl font-semibold">Build on #<%= idea.number %></h2>
+  <p class="font-semibold italic text-normal mt-4"><%= idea.text %></p>
+  <div class="field mt-8">
+    <%= f.text_area :idea_build_text, class:"w-full h-screen/5 lg:h-32 opacity-50 focus:outline-none border-dashed border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal text-4xl lg:text-base" %>
+  </div>
+  <%= f.hidden_field :idea_id, :value => idea.id %>
+  <%= f.hidden_field :brainstorm_id, :value => brainstorm.id %>
+  <div id="error-field-idea-build">
+    <%= render "shared/validation_error" %>
+  </div>
+  <p id="characterCountIdeaBuild" class="text-xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
+</div>
+<button id="addIdeaBuildPin" type=submit class="ml-4 flex flex-col justify-center items-center modal-close w-20 h-20 my-shadow-lg bg-lighter-gray focus:outline-none cursor-pointer ">
+  <svg class="h-12 w-12" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="white" width="18px" height="18px">
+    <g>
+      <rect fill="none" />
+    </g>
+    <g>
+      <path d="M16,9V4l1,0c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1H7C6.45,2,6,2.45,6,3v0 c0,0.55,0.45,1,1,1l1,0v5c0,1.66-1.34,3-3,3h0v2h5.97v7l1,1l1-1v-7H19v-2h0C17.34,12,16,10.66,16,9z" fill-rule="evenodd" />
+    </g>
+  </svg>
+</button>
+
+<% end %>

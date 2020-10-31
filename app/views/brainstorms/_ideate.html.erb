@@ -5,41 +5,38 @@
       <div class="flex-col flex w-full lg:w-3/4">
         <h1 class="mx-16 p-3 text-6xl lg:text-5xl text-white font-bold uppercase bg-blurple leading-tight my-shadow-lg"><%=@brainstorm.problem %></h1>
       </div>
-      <div class="flex-row flex w-full lg:w-3/4 mb-16">
-        <%= form_for(@idea, remote: true, html: { autocomplete: "off", class: "flex flex-row items-end w-full" }) do |f| %>
-        <div class="p-6 ml-16 mt-8 w-full bg-post-it-yellowy my-shadow-lg">
-          <h2 class="italic text-4xl lg:text-2xl font-semibold">Add thought</h2>
-          <div class="field mt-8">
-            <%= f.text_area :text, class:"w-full h-screen/5 lg:h-32 opacity-50 focus:outline-none border-dashed border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal text-4xl lg:text-base" %>
-          </div>
-          <%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
-          <div id="error-field-idea">
-            <%= render "shared/validation_error" %>
-          </div>
-          <p id="characterCount" class="text-xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
+      <div class="flex-col flex w-full lg:w-3/4 mb-16">
+        <div id="add-idea-form" class="w-full">
+          <%= render 'add_idea_form' %>
         </div>
-        <button id="addIdeaPin" type=submit class="ml-4 flex flex-col justify-center items-center modal-close w-20 h-20 my-shadow-lg bg-lighter-gray focus:outline-none cursor-pointer ">
-          <svg class="h-12 w-12" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="white" width="18px" height="18px">
-            <g>
-              <rect fill="none" />
-            </g>
-            <g>
-              <path d="M16,9V4l1,0c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1H7C6.45,2,6,2.45,6,3v0 c0,0.55,0.45,1,1,1l1,0v5c0,1.66-1.34,3-3,3h0v2h5.97v7l1,1l1-1v-7H19v-2h0C17.34,12,16,10.66,16,9z" fill-rule="evenodd" />
-            </g>
-          </svg>
-        </button>
+        <div id="add-idea-build-form"></div>
 
-        <% end %>
 
 
       </div>
 
       <div class="block w-full lg:flex lg:flex-wrap lg:justify-start lg:px-0 px-16 ml-0 lg:p-0 lg:ml-16" id="ideas">
         <% @ideas.each do |idea| %>
+        <div class="flex flex-col">
+          <div class="my-shadow mr-8 my-8 lg:my-4 bg-white">
+            <div onclick="toggleBuildOnIdea(<%=idea.id %>)" id="idea-<%=idea.id %>" class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic font-bold bg-post-it-yellowy cursor-default">
+              <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
+              <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal"><%= idea.text %></p>
+            </div>
 
-        <div class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 my-shadow my-8 lg:my-4 mr-8 flex flex-col items-start italic font-bold bg-yellowy cursor-default">
-          <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
-          <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal"><%= idea.text %></p>
+            <% idea.idea_builds.each do |idea_build| %>
+            <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic font-bold lg:px-4 px-10">
+              <h2 class="py-4 mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
+              <p class="py-4 text-4xl lg:text-base leading-loose lg:leading-normal "><%= idea_build.idea_build_text %></p>
+            </div>
+            <% end %>
+
+            <div id="buildOnIdea-<%=idea.id %>" class="hidden text-center bg-post-it-yellowy-60 py-2">
+              <%= link_to show_idea_build_form_idea_path(idea), remote: true, method: :post do %>
+              <button class="text-lg font-medium uppercase bg-black text-white py-1 px-8">Build on idea</button>
+              <% end %>
+            </div>
+          </div>
         </div>
         <% end %>
       </div>
@@ -100,3 +97,13 @@
   <!-- /Overlay -->
 </div>
 </div>
+
+<script>
+  const toggleBuildOnIdea = (ideaId) => {
+    if (document.getElementById(`buildOnIdea-${ideaId}`).classList.contains("hidden")) {
+      document.getElementById(`buildOnIdea-${ideaId}`).classList.remove("hidden")
+    } else {
+      document.getElementById(`buildOnIdea-${ideaId}`).classList.add("hidden")
+    }
+  }
+</script>
