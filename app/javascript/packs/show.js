@@ -1,7 +1,7 @@
 if (currentUser.facilitator == "true") {
   document.getElementById("setup-participant").style.display = "none";
   document.getElementById("ideate").style.display = "none";
-  document.getElementById("voting-done").style.display = "none";
+  document.getElementById("vote").style.display = "none";
   document.getElementById("voting-done").style.display = "none";
   document.getElementById("time-is-up").style.display = "none";
 }
@@ -9,7 +9,7 @@ if (currentUser.facilitator == "true") {
 if (currentUser.facilitator == "false") {
   document.getElementById("setup-facilitator").style.display = "none";
   document.getElementById("ideate").style.display = "none";
-  document.getElementById("voting-done").style.display = "none";
+  document.getElementById("vote").style.display = "none";
   document.getElementById("voting-done").style.display = "none";
   document.getElementById("time-is-up").style.display = "none";
 }
@@ -18,7 +18,7 @@ if (brainstormStore.state == "ideation") {
   document.getElementById("setup-facilitator").style.display = "none";
   document.getElementById("setup-participant").style.display = "none";
   document.getElementById("ideate").style.display = "block";
-  document.getElementById("voting-done").style.display = "none";
+  document.getElementById("vote").style.display = "none";
   document.getElementById("voting-done").style.display = "none";
   document.getElementById("time-is-up").style.display = "none";
 }
@@ -28,7 +28,6 @@ if (brainstormStore.state == "time_is_up") {
   document.getElementById("setup-participant").style.display = "none";
   document.getElementById("ideate").style.display = "block";
   document.getElementById("vote").style.display = "none";
-  document.getElementById("voting-done").style.display = "none";
   document.getElementById("voting-done").style.display = "none";
   document.getElementById("time-is-up").style.display = "block";
 }
@@ -41,6 +40,15 @@ if (brainstormStore.state == "vote") {
   document.getElementById("voting-done").style.display = "none";
   document.getElementById("time-is-up").style.display = "none";
 }
+
+
+for (i = 0; i < JSON.parse(currentUser.votesCastIdeas).length; i++) {
+  document.getElementById(`star-idea-${JSON.parse(currentUser.votesCastIdeas)[i]}`).setAttribute("fill", "#312783");
+};
+
+for (i = 0; i < JSON.parse(currentUser.votesCastIdeaBuilds).length; i++) {
+  document.getElementById(`star-idea-build-${JSON.parse(currentUser.votesCastIdeaBuilds)[i]}`).setAttribute("fill", "#312783");
+};
 
 const p = document.getElementById("characterCountIdea");
 const inputField = document.getElementById("idea_text");

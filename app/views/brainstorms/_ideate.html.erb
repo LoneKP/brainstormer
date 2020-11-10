@@ -10,11 +10,7 @@
           <%= render 'add_idea_form' %>
         </div>
         <div id="add-idea-build-form"></div>
-
-
-
       </div>
-
       <div class="block w-full lg:flex lg:flex-wrap lg:justify-start lg:px-0 px-16 ml-0 lg:p-0 lg:ml-16" id="ideas">
         <% @ideas.each do |idea| %>
         <div class="flex flex-col">
@@ -23,16 +19,14 @@
               <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
               <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal"><%= idea.text %></p>
             </div>
-
             <% idea.idea_builds.each do |idea_build| %>
             <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic font-bold lg:px-4 px-10">
               <h2 class="py-4 mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
               <p class="py-4 text-4xl lg:text-base leading-loose lg:leading-normal "><%= idea_build.idea_build_text %></p>
             </div>
             <% end %>
-
             <div id="buildOnIdea-<%=idea.id %>" class="hidden text-center bg-post-it-yellowy-60 py-2">
-              <%= link_to show_idea_build_form_idea_path(idea), remote: true, method: :post do %>
+              <%= link_to idea_show_idea_build_form_path(idea), remote: true, method: :post do %>
               <button class="text-lg font-medium uppercase bg-black text-white py-1 px-8">Build on idea</button>
               <% end %>
             </div>

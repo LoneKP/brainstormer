@@ -5,6 +5,10 @@ class BrainstormsController < ApplicationController
   before_action :facilitator?, only: [:show]
   before_action :facilitator_name, only: [:show]
   before_action :get_state, only: [:show]
+  before_action :votes_left, only: [:show]
+  before_action :votes_cast, only: [:show]
+  before_action :idea_votes, only: [:show]
+  before_action :idea_build_votes, only: [:show]
 
   def index
     @brainstorm = Brainstorm.new
@@ -114,15 +118,6 @@ class BrainstormsController < ApplicationController
 
   def set_user_name_params
     params.require(:set_user_name).permit(:user_name, :session_id)
-  end
-
-  def set_session_id
-    if cookies[:user_id].nil?
-      cookies[:user_id] = SecureRandom.uuid
-      @session_id = cookies[:user_id]
-    else
-      @session_id = cookies[:user_id]
-    end
   end
 
   def set_facilitator

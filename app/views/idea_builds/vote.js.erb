@@ -1,0 +1,16 @@
+if ('<%= @idea_build_has_a_vote %>' == "true") {
+  document.getElementById("star-idea-build-<%=@idea_build.id %>").setAttribute("fill", "");
+ }
+ else if ('<%= @idea_build_has_a_vote %>' == "false")  {
+  document.getElementById("star-idea-build-<%=@idea_build.id %>").setAttribute("fill", "#312783");
+ }
+
+ for (i=0;i < '<%= @votes_cast %>'; i++) {
+  document.getElementsByClassName("starVoteFill")[i].setAttribute("fill", "");
+};
+
+if ('<%= @votes_cast %>' < <%= ApplicationController::MAX_VOTES_PER_USER %>) {
+  for (i='<%= @votes_cast %>';i < '<%= ApplicationController::MAX_VOTES_PER_USER %> '; i++) {
+    document.getElementsByClassName("starVoteFill")[i].setAttribute("fill", "#FFFFFF")
+  }
+};

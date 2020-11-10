@@ -1,1 +1,102 @@
-<h1>Vote on your favorite ideas</h1>
+       <div class="px-56">
+         <h1 class="p-3 text-2xl lg:text-4xl text-white font-bold uppercase bg-blurple leading-tight my-shadow-lg w-1/2"><%=@brainstorm.problem %></h1>
+         <h1 class="mt-12 p-4 text-lg lg:text-2xl text-white font-semibold uppercase bg-greeny leading-tight my-shadow-lg w-1/2">Vote on your favorite ideas</h1>
+         <div class="flex w-full">
+           <div class="justify-between p-4 mt-8 lg:flex-1 flex flex-row bg-greeny my-shadow-lg w-full">
+             <h1 class="text-lg lg:text-2xl text-white font-semibold uppercase leading-tight ">Votes left</h1>
+             <div class="flex">
+               <% @votes_cast.times do %>
+               <svg class="h-8 w-8 ml-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
+                 <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>
+                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                   <g transform="translate(-701.000000, -551.000000)">
+                     <g transform="translate(653.000000, 551.000000)">
+                       <g transform="translate(48.000000, 0.000000)">
+                         <polygon id="Path" points="0 0 36 0 36 36 0 36" />
+                         <polygon id="Path" points="0 0 36 0 36 36 0 36" />
+                         <polygon class="starVoteFill" id="Path" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
+                       </g>
+                     </g>
+                   </g>
+                 </g>
+               </svg>
+               <% end %>
+               <% @votes_left.times do %>
+               <svg class="h-8 w-8 ml-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
+                 <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>
+                 <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                   <g transform="translate(-701.000000, -551.000000)">
+                     <g transform="translate(653.000000, 551.000000)">
+                       <g transform="translate(48.000000, 0.000000)">
+                         <polygon id="Path" points="0 0 36 0 36 36 0 36" />
+                         <polygon id="Path" points="0 0 36 0 36 36 0 36" />
+                         <polygon class="starVoteFill" id="Path" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
+                       </g>
+                     </g>
+                   </g>
+                 </g>
+               </svg>
+               <% end %>
+             </div>
+           </div>
+           <div class="ml-8 mt-8 p-3 text-lg lg:text-2xl text-white font-semibold uppercase bg-greeny leading-tight my-shadow-lg w-56">
+             <button class="bg-white text-greeny w-full font-semibold h-full text-lg">
+               DONE</button></div>
+         </div>
+         <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideas">
+           <% @ideas.each do |idea| %>
+           <div class="flex flex-col">
+             <div class="my-shadow my-8 lg:my-4 bg-white">
+               <%= link_to idea_vote_path(idea), remote: true, method: :post do %>
+               <div class="idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic font-bold bg-post-it-yellowy cursor-default">
+                 <div class="flex flex-row justify-between w-full">
+                   <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
+                   <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
+                     <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>
+                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                       <g transform="translate(-701.000000, -551.000000)">
+                         <g transform="translate(653.000000, 551.000000)">
+                           <g transform="translate(48.000000, 0.000000)">
+                             <polygon id="Path" points="0 0 36 0 36 36 0 36" />
+                             <polygon id="Path" points="0 0 36 0 36 36 0 36" />
+                             <polygon id="star-idea-<%=idea.id %>" id="Path" stroke="#312783" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
+                           </g>
+                         </g>
+                       </g>
+                     </g>
+                   </svg>
+                 </div>
+                 <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal"><%= idea.text %></p>
+               </div>
+               <% end %>
+               <% idea.idea_builds.each do |idea_build| %>
+               <%= link_to idea_idea_build_vote_path(idea, idea_build), remote: true, method: :post do %>
+               <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic font-bold lg:px-4 px-10">
+
+                 <div class="flex flex-row justify-between w-full items-center">
+                   <h2 class="py-4 mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
+                   <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
+                     <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>
+                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                       <g transform="translate(-701.000000, -551.000000)">
+                         <g id="Group-16" transform="translate(653.000000, 551.000000)">
+                           <g transform="translate(48.000000, 0.000000)">
+                             <polygon id="Path" points="0 0 36 0 36 36 0 36" />
+                             <polygon id="Path" points="0 0 36 0 36 36 0 36" />
+                             <polygon id="star-idea-build-<%=idea_build.id %>" id="Path" stroke="#312783" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
+                           </g>
+                         </g>
+                       </g>
+                     </g>
+                   </svg>
+                 </div>
+                 <p class="py-4 text-4xl lg:text-base leading-loose lg:leading-normal "><%= idea_build.idea_build_text %></p>
+               </div>
+               <% end %>
+               <% end %>
+             </div>
+
+           </div>
+           <% end %>
+         </div>
+       </div>

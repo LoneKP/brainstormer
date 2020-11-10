@@ -6,9 +6,9 @@ Rails.application.routes.draw do
   end
 
   resources :ideas, only: [:create] do
-    resources :idea_builds, only: [:create]
-    member do
-      post :show_idea_build_form
+      post :show_idea_build_form, :vote
+    resources :idea_builds, only: [:create] do
+      post :vote
     end
   end
 
