@@ -53,7 +53,7 @@
     currentUserBadge.lastChild.classList.add("bg-black")
     currentUserBadge.lastChild.classList.remove("bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy")
 
-    currentUserElement.parentNode.onclick = () => {
+    currentUserBadge.parentNode.onclick = () => {
       document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }")
     }
   }
