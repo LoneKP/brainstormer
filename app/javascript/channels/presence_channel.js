@@ -95,22 +95,13 @@ const setBoolIfNoUserName = (data) => {
 
 const createUserBadges = (data) => {
   const nameListElement = document.getElementById("name-list");
-
   for (let i = 0; i < data.initials.length; i++) {
-    let div = document.createElement("div");
-    div.setAttribute("id", data.user_ids[i]);
-    div.title = data.users[i];
-    div.classList.add("flex", "flex-col", "justify-center", "items-center", "rounded-full", "h-12", "w-12", "m-4", "text-white", "text-2xl", "font-black", randomColorPicker());
-    nameListElement.appendChild(div)
-    let paragraph = document.createElement("P")
-    div.appendChild(paragraph)
+    let userBadge = document.createElement("user-badge");
+    userBadge.setAttribute("id", data.user_ids[i]);
+    userBadge.title = data.users[i];
+    nameListElement.appendChild(userBadge)
     let text = document.createTextNode(data.initials[i])
-    paragraph.appendChild(text)
+    userBadge.firstChild.append(text)
   };
 }
 
-const randomColorPicker = () => {
-  let colorClasses = ["bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy"];
-  let randomColor = colorClasses[Math.floor(Math.random() * colorClasses.length)];
-  return randomColor;
-}
