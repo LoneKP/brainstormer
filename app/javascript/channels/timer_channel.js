@@ -38,35 +38,6 @@ const setBrainstormState = (state) => {
   changeView(state);
 }
 
-const changeView = (state) => {
-  switch (state) {
-    case "ideation":
-      document.getElementById("setup-facilitator").style.display = "none";
-      document.getElementById("setup-participant").style.display = "none";
-      document.getElementById("ideate").style.display = "block";
-      document.getElementById("vote").style.display = "none";
-      document.getElementById("voting-done").style.display = "none";
-      document.getElementById("time-is-up").style.display = "none";
-      break;
-    case "time_is_up":
-      document.getElementById("setup-facilitator").style.display = "none";
-      document.getElementById("setup-participant").style.display = "none";
-      document.getElementById("ideate").style.display = "block";
-      document.getElementById("vote").style.display = "none";
-      document.getElementById("voting-done").style.display = "none";
-      document.getElementById("time-is-up").style.display = "block";
-      break;
-    case "vote":
-      document.getElementById("setup-facilitator").style.display = "none";
-      document.getElementById("setup-participant").style.display = "none";
-      document.getElementById("ideate").style.display = "none";
-      document.getElementById("vote").style.display = "block";
-      document.getElementById("voting-done").style.display = "none";
-      document.getElementById("time-is-up").style.display = "none";
-      break;
-  }
-}
-
 const evaluateTimer = (data) => {
   if (data.timer_status == "ready_to_start_timer") {
     timerState = {

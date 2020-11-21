@@ -21,6 +21,7 @@ class BrainstormsController < ApplicationController
       if @brainstorm.save
         REDIS.set @session_id, @brainstorm.name
         REDIS.srem "no_user_name", @session_id
+        REDIS.set brainstorm_state_key, "setup"
         set_facilitator
           format.js { render :js => "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
       else

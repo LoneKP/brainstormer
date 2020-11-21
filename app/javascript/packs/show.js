@@ -1,46 +1,73 @@
-if (currentUser.facilitator == "true") {
-  document.getElementById("setup-participant").style.display = "none";
-  document.getElementById("ideate").style.display = "none";
-  document.getElementById("vote").style.display = "none";
-  document.getElementById("voting-done").style.display = "none";
-  document.getElementById("time-is-up").style.display = "none";
+let stateConfiguration = {
+  setup: {
+    setup: true,
+    setup_facilitator: false,
+    setup_participant: false,
+    ideation: false,
+    time_is_up: false,
+    vote: false,
+    voting_done: false
+  },
+  ideation: {
+    setup: false,
+    setup_facilitator: false,
+    setup_participant: false,
+    ideation: true,
+    time_is_up: false,
+    vote: false,
+    voting_done: false
+  },
+  time_is_up: {
+    setup: false,
+    setup_facilitator: false,
+    setup_participant: false,
+    ideation: false,
+    time_is_up: true,
+    vote: false,
+    voting_done: false
+  },
+  vote: {
+    setup: false,
+    setup_facilitator: false,
+    setup_participant: false,
+    ideation: false,
+    time_is_up: false,
+    vote: true,
+    voting_done: false
+  },
+  voting_done: {
+    setup: false,
+    setup_facilitator: false,
+    setup_participant: false,
+    ideation: false,
+    time_is_up: false,
+    vote: false,
+    voting_done: true
+  }
 }
 
-if (currentUser.facilitator == "false") {
-  document.getElementById("setup-facilitator").style.display = "none";
-  document.getElementById("ideate").style.display = "none";
-  document.getElementById("vote").style.display = "none";
-  document.getElementById("voting-done").style.display = "none";
-  document.getElementById("time-is-up").style.display = "none";
+changeView = function (state) {
+  configuration = stateConfiguration[state]
+  for (const [key, value] of Object.entries(configuration)) {
+    document.getElementById(key).style.display = value ? 'block' : 'none';
+    console.log('Element', key, 'is', value ? 'block' : 'none')
+  }
 }
 
-if (brainstormStore.state == "ideation") {
-  document.getElementById("setup-facilitator").style.display = "none";
-  document.getElementById("setup-participant").style.display = "none";
-  document.getElementById("ideate").style.display = "block";
-  document.getElementById("vote").style.display = "none";
-  document.getElementById("voting-done").style.display = "none";
-  document.getElementById("time-is-up").style.display = "none";
-}
+changeView(brainstormStore.state)
 
-if (brainstormStore.state == "time_is_up") {
-  document.getElementById("setup-facilitator").style.display = "none";
-  document.getElementById("setup-participant").style.display = "none";
-  document.getElementById("ideate").style.display = "block";
-  document.getElementById("vote").style.display = "none";
-  document.getElementById("voting-done").style.display = "none";
-  document.getElementById("time-is-up").style.display = "block";
-}
+if (typeof brainstormStore.state === 'undefined' || brainstormStore.state === 'setup') {
 
-if (brainstormStore.state == "vote") {
-  document.getElementById("setup-facilitator").style.display = "none";
-  document.getElementById("setup-participant").style.display = "none";
-  document.getElementById("ideate").style.display = "none";
-  document.getElementById("vote").style.display = "block";
-  document.getElementById("voting-done").style.display = "none";
-  document.getElementById("time-is-up").style.display = "none";
-}
+  console.log('State: ', brainstormStore.state)
+  console.log('Setup participant div', document.querySelector("#setup_participant"))
+  console.log('Setup facilitator div', document.querySelector("#setup_facilitator"))
 
+  document.querySelector("#setup_participant").style.display = currentUser.facilitator == "true" ? "none" : "block"
+  document.querySelector("#setup_facilitator").style.display = currentUser.facilitator == "true" ? "block" : "none"
+
+  console.log('Setup participant div after logic', document.querySelector("#setup_participant"))
+  console.log('Setup facilitator div after logic', document.querySelector("#setup_facilitator"))
+}
 
 for (i = 0; i < JSON.parse(currentUser.votesCastIdeas).length; i++) {
   document.getElementById(`star-idea-${JSON.parse(currentUser.votesCastIdeas)[i]}`).setAttribute("fill", "#312783");
@@ -78,6 +105,9 @@ inputField.addEventListener(
   }
 );
 
+// This could be enclosed in it's own function
+// Something like an Idea object with a validate() method
+// that accepts the inputField.value.lenght as argument
 inputField.addEventListener(
   "keyup",
   function () {
@@ -107,6 +137,8 @@ const removeOverflowingUsers = (onlineUsers) => {
   paragraph.appendChild(text);
 }
 
+// These could be summed up in a single "copy()" function
+// that accepts the relevant element id and the value as arguments
 const copyAction = (value) => {
   let tempInput = document.createElement("input");
   tempInput.style = "position: absolute; left: -1000px; top: -1000px";
