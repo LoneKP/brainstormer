@@ -1,3 +1,4 @@
+
 let stateConfiguration = {
   setup: {
     setup: true,
@@ -58,15 +59,8 @@ changeView(brainstormStore.state)
 
 if (typeof brainstormStore.state === 'undefined' || brainstormStore.state === 'setup') {
 
-  console.log('State: ', brainstormStore.state)
-  console.log('Setup participant div', document.querySelector("#setup_participant"))
-  console.log('Setup facilitator div', document.querySelector("#setup_facilitator"))
-
   document.querySelector("#setup_participant").style.display = currentUser.facilitator == "true" ? "none" : "block"
   document.querySelector("#setup_facilitator").style.display = currentUser.facilitator == "true" ? "block" : "none"
-
-  console.log('Setup participant div after logic', document.querySelector("#setup_participant"))
-  console.log('Setup facilitator div after logic', document.querySelector("#setup_facilitator"))
 }
 
 for (i = 0; i < JSON.parse(currentUser.votesCastIdeas).length; i++) {
