@@ -67,6 +67,12 @@ consumer.subscriptions.create({
         this.perform("update_name");
         setCurrentUserName(data.name);
         break;
+      case "done_voting":
+        showUserDoneVoting(data.user_id);
+        break;
+      case "resume_voting":
+        removeUserDoneVoting(data.user_id);
+        break;
     }
   },
 
@@ -95,6 +101,21 @@ const setBoolIfNoUserName = (data) => {
 
 const createUserBadges = (data) => {
   const nameListElement = document.getElementById("name-list");
+  let nameListcontainer = document.getElementById("name-list-container");
+  let doneDivContainer;
+
+  if (document.getElementById("doneDivContainer") == null) {
+    doneDivContainer = document.createElement("div");
+  }
+  else {
+    doneDivContainer = document.getElementById("doneDivContainer")
+  }
+
+  doneDivContainer.classList.add("flex")
+  doneDivContainer.setAttribute("id", "doneDivContainer");
+
+  doneDivContainer.innerHTML = '';
+
   for (let i = 0; i < data.initials.length; i++) {
     let userBadge = document.createElement("user-badge");
     userBadge.setAttribute("id", data.user_ids[i]);
@@ -102,6 +123,22 @@ const createUserBadges = (data) => {
     nameListElement.appendChild(userBadge)
     let text = document.createTextNode(data.initials[i])
     userBadge.firstChild.append(text)
+
+    let doneDiv = document.createElement("div");
+    doneDiv.innerHTML = "DONE"
+    doneDiv.setAttribute("id", `user-done-${data.user_ids[i]}`);
+    doneDiv.classList.add("w-12", "mx-4", "text-center", "font-bold", "bg-yellowy", "text-white", "mt-2", "text-sm", "my-shadow")
+    if (data.done_voting_list[i] == "false" || data.done_voting_list[i] == null) {
+      doneDiv.classList.add("invisible")
+    }
+    doneDivContainer.appendChild(doneDiv);
   };
+  nameListcontainer.appendChild(doneDivContainer)
 }
 
+const showUserDoneVoting = (userId) => {
+  document.getElementById(`user-done-${userId}`).classList.remove("invisible");
+}
+const removeUserDoneVoting = (userId) => {
+  document.getElementById(`user-done-${userId}`).classList.add("invisible");
+}

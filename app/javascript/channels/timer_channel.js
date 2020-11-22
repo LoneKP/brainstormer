@@ -26,9 +26,6 @@ consumer.subscriptions.create({
         break;
       case "set_brainstorm_state":
         setBrainstormState(data.state);
-        if (data.state == "time_is_up") {
-          this.perform("set_time_is_up_state");
-        };
     }
   },
 })
@@ -36,6 +33,9 @@ consumer.subscriptions.create({
 const setBrainstormState = (state) => {
   brainstormStore.state = state;
   changeView(state);
+  if (state == "vote" || state == "voting_done") {
+    location.reload();
+  }
 }
 
 const evaluateTimer = (data) => {
@@ -111,7 +111,6 @@ const formatTime = () => {
   else if (timerState.status == "timeElapsed") {
     timerOnMobile.classList.remove("bg-blurple")
   }
-
 }
 
 const countDown = () => {

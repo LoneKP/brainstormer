@@ -22,15 +22,16 @@ class IdeaBuildsController < ApplicationController
   def vote
     @idea = Idea.find(params[:idea_id])
     @brainstorm = @idea.brainstorm
+    set_votes_cast_count
     respond_to do |format|
-      if !idea_build_has_a_vote? && votes_cast < MAX_VOTES_PER_USER
+      if !idea_build_has_a_vote? && @votes_cast < MAX_VOTES_PER_USER && !user_is_done_voting?
         add_idea_build
         format.js
-      elsif idea_build_has_a_vote?
+      elsif idea_build_has_a_vote? && !user_is_done_voting?
         subtract_idea_build
         format.js
       end
-    votes_cast
+    set_votes_cast_count
     format.js { render :action => "unable_to_vote" }
     end
   end

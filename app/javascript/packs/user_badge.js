@@ -8,8 +8,6 @@ class UserBadge extends HTMLElement {
     const color = randomColorPicker()
     div = document.createElement("div")
     div2 = document.createElement("div")
-    div2.innerHTML = "DONE"
-    div2.classList.add(color, "text-white", "text-center", "font-bold", "hidden")
 
     div.classList.add("flex", "flex-col", "justify-center", "items-center", "rounded-full", "h-12", "w-12", "m-4", "text-white", "text-2xl", "font-black", color);
 

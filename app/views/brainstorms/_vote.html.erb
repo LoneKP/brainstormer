@@ -40,8 +40,9 @@
              </div>
            </div>
            <div class="ml-8 mt-8 p-3 text-lg lg:text-2xl text-white font-semibold uppercase bg-greeny leading-tight my-shadow-lg w-56">
-             <button class="bg-white text-greeny w-full font-semibold h-full text-lg">
-               DONE</button></div>
+             <%= link_to done_voting_brainstorm_path, remote: true, method: :post do %> <button id="done-button" class="bg-white text-greeny w-full font-semibold h-full text-lg focus:outline-none">DONE</button>
+             <% end %>
+           </div>
          </div>
          <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideas">
            <% @ideas.each do |idea| %>
@@ -59,7 +60,7 @@
                            <g transform="translate(48.000000, 0.000000)">
                              <polygon id="Path" points="0 0 36 0 36 36 0 36" />
                              <polygon id="Path" points="0 0 36 0 36 36 0 36" />
-                             <polygon id="star-idea-<%=idea.id %>" id="Path" stroke="#312783" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
+                             <polygon class="star-idea-<%=idea.id %>" id="star-idea-<%=idea.id %>" id="Path" stroke="#312783" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
                            </g>
                          </g>
                        </g>
@@ -83,7 +84,7 @@
                            <g transform="translate(48.000000, 0.000000)">
                              <polygon id="Path" points="0 0 36 0 36 36 0 36" />
                              <polygon id="Path" points="0 0 36 0 36 36 0 36" />
-                             <polygon id="star-idea-build-<%=idea_build.id %>" id="Path" stroke="#312783" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
+                             <polygon class="star-idea-build-<%=idea_build.id %>" id="star-idea-build-<%=idea_build.id %>" id="Path" stroke="#312783" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
                            </g>
                          </g>
                        </g>

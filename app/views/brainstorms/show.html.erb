@@ -28,7 +28,8 @@
     currentUserName: '<%= @current_user_name %>',
     facilitator: '<%= @is_user_facilitator %>',
     votesCastIdeas: '<%= @idea_votes %>',
-    votesCastIdeaBuilds: '<%= @idea_build_votes %>'
+    votesCastIdeaBuilds: '<%= @idea_build_votes %>',
+    userIsDoneVoting: '<%= @user_is_done_voting %>'
   };
 
   brainstormStore = {
@@ -52,6 +53,10 @@
     currentUserBadge.firstChild.classList.remove("bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy")
     currentUserBadge.lastChild.classList.add("bg-black")
     currentUserBadge.lastChild.classList.remove("bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy")
+
+    doneDivForCurrentUser = document.getElementById(`user-done-${currentUser.id}`)
+    console.log(doneDivForCurrentUser)
+    doneDivForCurrentUser.parentNode.appendChild(doneDivForCurrentUser);
 
     currentUserBadge.parentNode.onclick = () => {
       document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }")
@@ -106,6 +111,12 @@
   const tokenOutFunc = () => {
     var tooltip = document.getElementById("tooltipToken");
     tooltip.innerHTML = "Copy to clipboard";
+  }
+
+  if (currentUser.userIsDoneVoting == "false") {
+    document.getElementById("done-button").innerHTML = "DONE"
+  } else if (currentUser.userIsDoneVoting == "true") {
+    document.getElementById("done-button").innerHTML = "CHANGE VOTES"
   }
 </script>
 

@@ -27,12 +27,23 @@ class ApplicationController < ActionController::Base
     "user_idea_build_votes_#{@session_id}_#{@brainstorm.token}"
   end
 
+  def user_key
+    "#{@session_id}"
+  end
+
+  def done_voting_brainstorm_status
+    "done_voting_brainstorm_status_#{@brainstorm.token}"
+  end
+
   def votes_left
     @votes_left = MAX_VOTES_PER_USER-(REDIS.smembers(user_idea_votes_key).count + REDIS.smembers(user_idea_build_votes_key).count)
   end
 
-  def votes_cast
+  def set_votes_cast_count
     @votes_cast = REDIS.smembers(user_idea_votes_key).count + REDIS.smembers(user_idea_build_votes_key).count
   end
 
+  def user_is_done_voting?
+    @user_is_done_voting = REDIS.hget(done_voting_brainstorm_status, user_key) == "true"
+  end
 end

@@ -1,11 +1,17 @@
 changeView(brainstormStore.state)
 
 for (i = 0; i < JSON.parse(currentUser.votesCastIdeas).length; i++) {
-  document.getElementById(`star-idea-${JSON.parse(currentUser.votesCastIdeas)[i]}`).setAttribute("fill", "#312783");
+  let elems = document.getElementsByClassName(`star-idea-${JSON.parse(currentUser.votesCastIdeas)[i]}`);
+  for (x = 0; x < elems.length; x++) {
+    elems[x].setAttribute("fill", "#312783");
+  }
 };
 
-for (i = 0; i < JSON.parse(currentUser.votesCastIdeaBuilds).length; i++) {
-  document.getElementById(`star-idea-build-${JSON.parse(currentUser.votesCastIdeaBuilds)[i]}`).setAttribute("fill", "#312783");
+for (i = 0; i < JSON.parse(currentUser.votesCastIdeas).length; i++) {
+  let elems = document.getElementsByClassName(`star-idea-build-${JSON.parse(currentUser.votesCastIdeas)[i]}`);
+  for (x = 0; x < elems.length; x++) {
+    elems[x].setAttribute("fill", "#312783");
+  }
 };
 
 const p = document.getElementById("characterCountIdea");

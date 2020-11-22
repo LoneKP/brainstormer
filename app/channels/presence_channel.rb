@@ -40,12 +40,15 @@ class PresenceChannel < ApplicationCable::Channel
     names = []
     initials = []
     user_ids = []
+    done_voting_list = []
     users.each do |user_id|
       unless last_user_activity_more_than_one_hour_ago?(user_id)
         name = REDIS.get(user_id)
+        done_voting = REDIS.hget(done_voting_brainstorm_status, "#{user_id}")
         names << name
         user_ids << user_id
         initials << name.split(nil,2).map(&:first).join.upcase
+        done_voting_list << done_voting
       end
     end
 
@@ -55,6 +58,7 @@ class PresenceChannel < ApplicationCable::Channel
       initials: initials,
       user_ids: user_ids,
       no_user_names: REDIS.smembers("no_user_name"),
+      done_voting_list: done_voting_list
     }
 
     ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-presence", data)
@@ -70,5 +74,13 @@ class PresenceChannel < ApplicationCable::Channel
 
   def brainstorm_timer_running_key
     "brainstorm_id_timer_running_#{@brainstorm.token}"
+  end
+
+  def user_key
+    "#{@session_id}"
+  end
+
+  def done_voting_brainstorm_status
+    "done_voting_brainstorm_status_#{@brainstorm.token}"
   end
 end

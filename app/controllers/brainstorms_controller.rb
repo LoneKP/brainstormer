@@ -1,14 +1,15 @@
 class BrainstormsController < ApplicationController
-  before_action :set_brainstorm, only: [:show, :start_timer, :start_brainstorm, :start_voting]
+  before_action :set_brainstorm, only: [:show, :start_timer, :start_brainstorm, :start_voting, :done_voting]
   before_action :set_brainstorm_ideas, only: [:show]
-  before_action :set_session_id, only: [:show, :create]
+  before_action :set_session_id, only: [:show, :create, :done_voting]
   before_action :facilitator?, only: [:show]
   before_action :facilitator_name, only: [:show]
   before_action :get_state, only: [:show]
   before_action :votes_left, only: [:show]
-  before_action :votes_cast, only: [:show]
+  before_action :set_votes_cast_count, only: [:show]
   before_action :idea_votes, only: [:show]
   before_action :idea_build_votes, only: [:show]
+  before_action :user_is_done_voting?, only: [:show]
 
   def index
     @brainstorm = Brainstorm.new
@@ -99,7 +100,33 @@ class BrainstormsController < ApplicationController
       ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "set_brainstorm_state", state: "vote")
   end
 
+  def done_voting
+    if !user_is_done_voting?
+      REDIS.hset(done_voting_brainstorm_status, user_key, "true")
+      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-presence", event: "done_voting", state: "vote", user_id: @session_id )
+      user_is_done_voting?
+    else
+      REDIS.hset(done_voting_brainstorm_status, user_key, "false")
+      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-presence", event: "resume_voting", state: "vote", user_id: @session_id )
+      user_is_done_voting?
+    end
+
+    if all_online_users_done_voting?
+      puts "ALL USERS ARE DONE VOOOOOOOOOOOOOOOOTING"
+      REDIS.set(brainstorm_state_key, "voting_done")
+      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-timer", event: "set_brainstorm_state", state: "voting_done")
+    end
+  end
+
   private
+
+  def all_online_users_done_voting?
+    users_online = REDIS.hgetall(brainstorm_key).count
+    users_done_voting = REDIS.hgetall(done_voting_brainstorm_status).count { |k,v| v=="true" }
+
+    return true if users_online == users_done_voting
+    false
+  end
 
   def generate_token
     "BRAIN" + SecureRandom.hex(3).to_s
@@ -147,5 +174,9 @@ class BrainstormsController < ApplicationController
 
   def get_state
     @state = REDIS.get(brainstorm_state_key)
+  end
+
+  def brainstorm_key
+    "brainstorm_id_#{@brainstorm.token}"
   end
 end
