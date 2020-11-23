@@ -93,4 +93,5 @@ const createNewIdeaBuild = (data) => {
 
 const addIdeasCount = (data) => {
   document.getElementById("ideasCount").innerHTML = data.ideas_total
+  document.getElementById("final-ideas-count").innerHTML = data.ideas_total > 1 ? `${data.ideas_total} ideas` : `${data.ideas_total} idea`
 };
