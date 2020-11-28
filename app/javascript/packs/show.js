@@ -14,53 +14,6 @@ for (i = 0; i < JSON.parse(currentUser.votesCastIdeas).length; i++) {
   }
 };
 
-const p = document.getElementById("characterCountIdea");
-const inputField = document.getElementById("idea_text");
-const maxCharacters = 110
-inputField.maxLength = maxCharacters
-
-document.getElementById("addIdeaPin").addEventListener(
-  "click",
-  function () {
-    p.innerHTML = inputField.value.length + "/" + maxCharacters
-    p.classList.remove("text-red-400")
-    p.textContent = "0" + "/" + maxCharacters
-  }
-)
-
-p.innerHTML = inputField.value.length + "/" + maxCharacters
-
-inputField.addEventListener(
-  "input",
-  function () {
-    p.textContent = inputField.value.length + "/" + maxCharacters
-    if (inputField.value.length >= maxCharacters - 2) {
-      p.classList.add("text-red-400")
-    } else if (inputField.value.length <= maxCharacters - 2) {
-      p.classList.remove("text-red-400")
-    }
-  }
-);
-
-// This could be enclosed in it's own function
-// Something like an Idea object with a validate() method
-// that accepts the inputField.value.lenght as argument
-inputField.addEventListener(
-  "keyup",
-  function () {
-    if (inputField.value.length > 0) {
-      document.getElementById("addIdeaPin").classList.add("bg-post-it-yellowy");
-      document.getElementById("addIdeaPin").classList.remove("bg-lighter-gray");
-      document.getElementById("addIdeaPin").firstElementChild.style.fill = "#312783";
-    }
-    else if (inputField.value.length == 0) {
-      document.getElementById("addIdeaPin").classList.remove("bg-post-it-yellowy");
-      document.getElementById("addIdeaPin").classList.add("bg-lighter-gray");
-      document.getElementById("addIdeaPin").firstElementChild.style.fill = "white";
-    }
-  }
-)
-
 const removeOverflowingUsers = (onlineUsers) => {
   for (let i = 0; i < onlineUsers - 7; i++) {
     document.getElementById("name-list").removeChild(document.getElementById("name-list").childNodes[i]);

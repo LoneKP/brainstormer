@@ -56,7 +56,6 @@
     currentUserBadge.lastChild.classList.remove("bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy")
 
     doneDivForCurrentUser = document.getElementById(`user-done-${currentUser.id}`)
-    console.log(doneDivForCurrentUser)
     doneDivForCurrentUser.parentNode.appendChild(doneDivForCurrentUser);
 
     currentUserBadge.parentNode.onclick = () => {
@@ -123,4 +122,5 @@
 
 <%= javascript_pack_tag 'user_badge' %>
 <%= javascript_pack_tag 'change_view_based_on_state' %>
+<%= javascript_pack_tag 'validations' %>
 <%= javascript_pack_tag 'show' %>

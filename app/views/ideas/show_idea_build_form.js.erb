@@ -1,2 +1,17 @@
 document.getElementById("add-idea-form").classList.add("hidden");
 document.getElementById("add-idea-build-form").innerHTML = "<%= j render "brainstorms/add_idea_build_form", idea: @idea, idea_build: @idea_build, brainstorm: @brainstorm %>"
+
+const maxCharacters = 110
+const ideaBuildInput = document.getElementById("idea_build_idea_build_text");
+const characterCountIdeaBuild = document.getElementById("characterCountIdeaBuild");
+const ideaBuildPinElement = document.getElementById("addIdeaBuildPin");
+
+addEventListenerToIdeaPin(ideaBuildPinElement, ideaBuildInput, maxCharacters, characterCountIdeaBuild);
+
+setInnerHTMLOfCountText(ideaBuildInput, maxCharacters, characterCountIdeaBuild);
+
+colorPinOnTyping(ideaBuildPinElement, ideaBuildInput);
+
+addEventListenerToInputField(ideaBuildInput, characterCountIdeaBuild, maxCharacters);
+
+setMaxCharacters(ideaBuildInput, maxCharacters);
