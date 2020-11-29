@@ -20,6 +20,7 @@
 </div>
 <div id="voting_done">
   <%= render 'voting_done' %>
+  <%= render 'send_email_popup' %>
 </div>
 
 <script>
@@ -41,6 +42,10 @@
     if (!currentUser.name) {
       document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }")
     }
+  }
+
+  const openSendEmailModal = () => {
+    document.getElementById("emailModalContainer").setAttribute("x-data", "{ 'showEmailModal': true }")
   }
 
   const showCurrentUser = () => {

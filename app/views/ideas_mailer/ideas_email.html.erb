@@ -11,17 +11,23 @@
     You came up with <%= @ideas.count %> ideas to solve the following problem: <br>
   </p>
 
-  <h2 style="font-weight:bold"> <%= @brainstorm.problem %></h2>
+  <h2 style="font-weight:bold"><%= @brainstorm.problem %></h2>
 
-  <p>Here are your ideas sorted by most likes:</p>
+  <p>Here are your ideas sorted by most votes:</p>
   <% @ideas.each do |idea| %>
-    <p>
-     <span style="font-weight:bold"><%= idea.text %></span><br>
-      Likes: <%= idea.likes%>
-    </p>
+  <p>
+    <span style="font-weight:bold"><%= idea.text %></span><br>
+    <%= pluralize(idea.votes, "vote") %>
+  </p>
+  <p><%= idea.idea_builds.count > 0 ? "The idea inspired the following idea builds: " : "" %> </p>
+  <% idea.idea_builds.each do |idea_build| %>
+  <ul>
+    <li><%= idea_build.idea_build_text %> (<%= pluralize(idea_build.votes, "vote") %>)</li>
+  </ul>
   <% end %>
-
-  <p>You can also always go back to your <a href="<%= brainstorm_url(@brainstorm.token) %>">brainstorm room</a> to review your ideas.</p>
+  <% end %>
+  <br>
+  <p>You can always go back to your <a href="<%= brainstorm_url(@brainstorm.token) %>">brainstorm room</a> to review your ideas.</p>
 
   <p>If you liked this way of doing ideation, you are always welcome to try it out again at <a href="<%= root_url %>">brainstormer.online</a>.</p>
 
