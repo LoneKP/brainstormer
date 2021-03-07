@@ -41,8 +41,10 @@
         <div class="text-3xl font-bold bg-black text-white rounded-full h-40 w-40 flex items-center justify-center my-4">
           <p id="timeDisplay"></p>
         </div>
-        <%= link_to "Start timer", start_timer_brainstorm_path(@brainstorm.token), remote: true, method: :post, id: "startTimer", class: "bg-black text-white p-2" %>
-        <%= link_to "Done brainstorming", done_brainstorming_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "bg-black text-white p-2 mt-2" %>
+        <% if @is_user_facilitator %>
+          <%= link_to "Start timer", start_timer_brainstorm_path(@brainstorm.token), remote: true, method: :post, id: "startTimer", class: "bg-black text-white p-2" %>
+          <%= link_to "Done brainstorming", done_brainstorming_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "bg-black text-white p-2 mt-2" %>
+        <% end %>
         <div class="text-white font-bold w-full mt-8">
           <div class="bg-blurple flex items-end justify-around mt-8 pt-16 pb-4">
             <p class="uppercase italic text-lg w-1/2">Your ideas</p>
