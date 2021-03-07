@@ -24,8 +24,6 @@ consumer.subscriptions.create({
         timerState.status = "readyToStart"
         resetTimer();
         break;
-      case "set_brainstorm_state":
-        setBrainstormState(data.state);
     }
   },
 })
@@ -59,7 +57,7 @@ const evaluateTimer = (data) => {
 
 const startTimer = () => {
   if (document.getElementById("startTimer")) {
-  document.getElementById("startTimer").textContent = "Reset timer"
+    document.getElementById("startTimer").textContent = "Reset timer"
   }
   timer = setInterval(countDown, 1000);
 }
@@ -69,24 +67,24 @@ const resetTimer = () => {
   timerState = { status: "readyToStart", secondsTotal: timerStartSeconds };
   formatTime();
   if (document.getElementById("startTimer")) {
-  document.getElementById("startTimer").textContent = "Start timer"
-}
+    document.getElementById("startTimer").textContent = "Start timer"
+  }
 }
 
 const setStateOfTimerButton = () => {
   if (document.getElementById("startTimer")) {
-  switch (timerState.status) {
-    case "timeElapsed":
-      document.getElementById("startTimer").textContent = "Reset timer"
-      break;
-    case "readyToStart":
-      document.getElementById("startTimer").textContent = "Start timer"
-      break;
-    case "running":
-      document.getElementById("startTimer").textContent = "Reset timer"
-      break;
+    switch (timerState.status) {
+      case "timeElapsed":
+        document.getElementById("startTimer").textContent = "Reset timer"
+        break;
+      case "readyToStart":
+        document.getElementById("startTimer").textContent = "Start timer"
+        break;
+      case "running":
+        document.getElementById("startTimer").textContent = "Reset timer"
+        break;
+    }
   }
-}
 }
 
 const formatTime = () => {
@@ -117,6 +115,6 @@ const countDown = () => {
   if (timerState.secondsTotal <= 0) {
     clearInterval(timer);
     timerState.status = "timeElapsed";
-    setBrainstormState("time_is_up");
+    setAndChangeBrainstormState("time_is_up");
   }
 }

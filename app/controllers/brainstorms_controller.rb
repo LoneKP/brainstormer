@@ -101,12 +101,12 @@ class BrainstormsController < ApplicationController
 
   def start_brainstorm
       REDIS.set(brainstorm_state_key, "ideation")
-      ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "set_brainstorm_state", state: "ideation")
+      ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", event: "set_brainstorm_state", state: "ideation")
   end
 
   def start_voting
       REDIS.set(brainstorm_state_key, "vote")
-      ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "set_brainstorm_state", state: "vote")
+      ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", event: "set_brainstorm_state", state: "vote")
   end
 
   def done_voting
@@ -123,7 +123,7 @@ class BrainstormsController < ApplicationController
     if all_online_users_done_voting?
       puts "ALL USERS ARE DONE VOOOOOOOOOOOOOOOOTING"
       REDIS.set(brainstorm_state_key, "voting_done")
-      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-timer", event: "set_brainstorm_state", state: "voting_done")
+      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", event: "set_brainstorm_state", state: "voting_done")
     end
   end
 

@@ -58,3 +58,12 @@ changeView = function (state) {
     document.querySelector("#setup_facilitator").style.display = currentUser.facilitator == "true" ? "block" : "none"
   }
 }
+
+setAndChangeBrainstormState = function (state) {
+  console.log("state is now: ", state)
+  brainstormStore.state = state;
+  changeView(state);
+    if (state == "vote" || state == "voting_done") {
+    location.reload();
+  }
+}
