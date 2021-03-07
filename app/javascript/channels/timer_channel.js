@@ -30,14 +30,6 @@ consumer.subscriptions.create({
   },
 })
 
-const setBrainstormState = (state) => {
-  brainstormStore.state = state;
-  changeView(state);
-  if (state == "vote" || state == "voting_done") {
-    location.reload();
-  }
-}
-
 const evaluateTimer = (data) => {
   if (data.timer_status == "ready_to_start_timer") {
     timerState = {
@@ -66,7 +58,9 @@ const evaluateTimer = (data) => {
 }
 
 const startTimer = () => {
+  if (document.getElementById("startTimer")) {
   document.getElementById("startTimer").textContent = "Reset timer"
+  }
   timer = setInterval(countDown, 1000);
 }
 
@@ -74,10 +68,13 @@ const resetTimer = () => {
   clearInterval(timer);
   timerState = { status: "readyToStart", secondsTotal: timerStartSeconds };
   formatTime();
+  if (document.getElementById("startTimer")) {
   document.getElementById("startTimer").textContent = "Start timer"
+}
 }
 
 const setStateOfTimerButton = () => {
+  if (document.getElementById("startTimer")) {
   switch (timerState.status) {
     case "timeElapsed":
       document.getElementById("startTimer").textContent = "Reset timer"
@@ -89,6 +86,7 @@ const setStateOfTimerButton = () => {
       document.getElementById("startTimer").textContent = "Reset timer"
       break;
   }
+}
 }
 
 const formatTime = () => {
