@@ -1,5 +1,5 @@
 class BrainstormsController < ApplicationController
-  before_action :set_brainstorm, only: [:show, :start_timer, :start_brainstorm, :start_voting, :done_voting]
+  before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :done_brainstorming]
   before_action :set_brainstorm_ideas, only: [:show]
   before_action :set_session_id, only: [:show, :create, :done_voting]
   before_action :facilitator?, only: [:show]
@@ -83,11 +83,20 @@ class BrainstormsController < ApplicationController
         REDIS.hset(brainstorm_timer_running_key, "timer_start_timestamp", Time.now)
           format.js
       else
-        ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "reset_timer")
-        REDIS.hdel(brainstorm_timer_running_key, "timer_start_timestamp")
-          format.js
+        reset_timer
+        format.js
       end
     end
+  end
+
+  def reset_timer
+    ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "reset_timer")
+    REDIS.hdel(brainstorm_timer_running_key, "timer_start_timestamp")
+  end
+
+  def done_brainstorming
+    start_voting
+    reset_timer
   end
 
   def start_brainstorm
