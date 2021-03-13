@@ -63,7 +63,7 @@ setAndChangeBrainstormState = function (state) {
   console.log("state is now: ", state)
   brainstormStore.state = state;
   changeView(state);
-    if (state == "vote" || state == "voting_done") {
+  if (state == "voting_done") {
     location.reload();
   }
 }

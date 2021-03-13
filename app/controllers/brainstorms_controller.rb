@@ -107,6 +107,7 @@ class BrainstormsController < ApplicationController
   def start_voting
       REDIS.set(brainstorm_state_key, "vote")
       ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", event: "set_brainstorm_state", state: "vote")
+      transmit_ideas
   end
 
   def done_voting
@@ -124,6 +125,7 @@ class BrainstormsController < ApplicationController
       puts "ALL USERS ARE DONE VOOOOOOOOOOOOOOOOTING"
       REDIS.set(brainstorm_state_key, "voting_done")
       ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", event: "set_brainstorm_state", state: "voting_done")
+      transmit_ideas
     end
   end
 
@@ -188,4 +190,22 @@ class BrainstormsController < ApplicationController
   def brainstorm_key
     "brainstorm_id_#{@brainstorm.token}"
   end
+
+  def transmit_ideas
+    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-idea", event: "transmit_ideas", ideas: ideas_and_idea_builds_object)
+  end
+
+  def ideas_and_idea_builds_object
+    @brainstorm.ideas.order('id DESC').as_json(
+      methods: :number,
+      only: [:id, :text, :votes], 
+      include: { 
+        idea_builds: {
+          methods: :decimal,
+          only: [:id, :idea_build_text, :votes]                                     
+        }
+      })
+  end
+
+
 end
