@@ -14,4 +14,8 @@ class IdeaBuild < ApplicationRecord
   def decimal
     idea.idea_builds.index(self) + 1
   end
+
+  def vote_in_plural_or_singular
+    votes > 1 || votes == 0 ? "votes" : "vote"
+  end
 end

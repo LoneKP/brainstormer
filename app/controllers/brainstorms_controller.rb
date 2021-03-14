@@ -197,11 +197,11 @@ class BrainstormsController < ApplicationController
 
   def ideas_and_idea_builds_object
     @brainstorm.ideas.order('id DESC').as_json(
-      methods: :number,
+      methods: [:vote_in_plural_or_singular, :number],
       only: [:id, :text, :votes], 
       include: { 
         idea_builds: {
-          methods: :decimal,
+          methods: [:vote_in_plural_or_singular, :decimal],
           only: [:id, :idea_build_text, :votes]                                     
         }
       })
