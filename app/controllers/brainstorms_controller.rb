@@ -201,7 +201,7 @@ class BrainstormsController < ApplicationController
       only: [:id, :text, :votes], 
       include: { 
         idea_builds: {
-          methods: [:vote_in_plural_or_singular, :decimal],
+          methods: [:vote_in_plural_or_singular, :decimal, :opacity_lookup],
           only: [:id, :idea_build_text, :votes]                                     
         }
       })
