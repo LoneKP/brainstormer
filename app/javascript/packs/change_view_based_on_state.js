@@ -59,11 +59,24 @@ changeView = function (state) {
   }
 }
 
+fillStarsWithUserVotes = function () {
+  for (i = 0; i < currentUser.votesCastIdeas.length; i++) {
+    let elems = document.getElementsByClassName(`star-idea-${currentUser.votesCastIdeas[i]}`);
+    for (x = 0; x < elems.length; x++) {
+      elems[x].setAttribute("fill", "#312783");
+    }
+  };
+  
+  for (i = 0; i < currentUser.votesCastIdeaBuilds.length; i++) {
+    let elems = document.getElementsByClassName(`star-idea-build-${currentUser.votesCastIdeaBuilds[i]}`);
+    for (x = 0; x < elems.length; x++) {
+      elems[x].setAttribute("fill", "#312783");
+    }
+  };
+}
+
 setAndChangeBrainstormState = function (state) {
   console.log("state is now: ", state)
   brainstormStore.state = state;
   changeView(state);
-  if (state == "voting_done") {
-    location.reload();
-  }
 }

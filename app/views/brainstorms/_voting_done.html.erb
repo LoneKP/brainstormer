@@ -29,7 +29,6 @@
     <% @ideas.each do |idea| %>
     <div class="flex flex-col">
       <div class="my-shadow my-8 lg:my-4 bg-white">
-        <%= link_to idea_vote_path(idea), remote: true, method: :post do %>
         <div class="idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic font-bold bg-post-it-yellowy cursor-default">
           <div class="flex flex-row justify-between w-full">
             <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl"><%= pluralize(idea.votes, "vote") %></h2>
@@ -50,11 +49,8 @@
           </div>
           <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal"><%= idea.text %></p>
         </div>
-        <% end %>
         <% idea.idea_builds.each do |idea_build| %>
-        <%= link_to idea_idea_build_vote_path(idea, idea_build), remote: true, method: :post do %>
         <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic font-bold lg:px-4 px-10">
-
           <div class="flex flex-row justify-between w-full items-center">
             <h2 class="py-4 mb-4 lg:m-0 text-blurple text-5xl lg:text-xl"><%= pluralize(idea_build.votes, "vote") %></h2>
             <svg class="h-8 w-8" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
@@ -74,7 +70,6 @@
           </div>
           <p class="py-4 text-4xl lg:text-base leading-loose lg:leading-normal "><%= idea_build.idea_build_text %></p>
         </div>
-        <% end %>
         <% end %>
       </div>
 
