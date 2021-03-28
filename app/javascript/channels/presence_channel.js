@@ -55,8 +55,7 @@ consumer.subscriptions.create({
       case "transmit_presence_list":
         if (typeof currentUser == "undefined") {
           location.reload();
-        }
-        setBoolIfNoUserName(data);
+        };
         clearNameListElement();
         createUserBadges(data);
         openModalToSetName();
@@ -84,19 +83,6 @@ consumer.subscriptions.create({
 const clearNameListElement = () => {
   const nameListElement = document.getElementById("name-list");
   nameListElement.innerHTML = "";
-}
-
-const setBoolIfNoUserName = (data) => {
-  for (let i = 0; i < data.no_user_names.length; i++) {
-
-    if (currentUser.id == data.no_user_names[i]) {
-      currentUser.name = false;
-      break;
-    }
-    else {
-      currentUser.name = true;
-    }
-  }
 }
 
 const createUserBadges = (data) => {

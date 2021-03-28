@@ -17,7 +17,7 @@ class PresenceChannel < ApplicationCable::Channel
   private
 
   def add_to_list_and_transmit!
-    set_guest_name_if_user_has_no_name
+    set_random_name_if_user_has_no_name
     REDIS.hset brainstorm_key, session_id, Time.now
     transmit_list!
   end
@@ -27,10 +27,9 @@ class PresenceChannel < ApplicationCable::Channel
     transmit_list!
   end
 
-  def set_guest_name_if_user_has_no_name
+  def set_random_name_if_user_has_no_name
     if REDIS.get(session_id).nil?
-      REDIS.sadd "no_user_name", session_id
-      REDIS.set session_id, "GUEST"
+      REDIS.set session_id, generate_random_temporary_user_name
     end
   end
 
@@ -57,7 +56,6 @@ class PresenceChannel < ApplicationCable::Channel
       users: names,
       initials: initials,
       user_ids: user_ids,
-      no_user_names: REDIS.smembers("no_user_name"),
       done_voting_list: done_voting_list
     }
 
@@ -82,5 +80,9 @@ class PresenceChannel < ApplicationCable::Channel
 
   def done_voting_brainstorm_status
     "done_voting_brainstorm_status_#{@brainstorm.token}"
+  end
+
+  def generate_random_temporary_user_name
+    "Anonymous Brainstormer"
   end
 end

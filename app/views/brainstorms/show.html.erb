@@ -26,7 +26,6 @@
 <script>
   currentUser = {
     id: '<%= @session_id %>',
-    name: false,
     currentUserName: '<%= @current_user_name %>',
     facilitator: '<%= @is_user_facilitator %>',
     votesCastIdeas: <%= @idea_votes %>,
@@ -39,9 +38,20 @@
   };
 
   const openModalToSetName = () => {
-    if (!currentUser.name) {
-      document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }")
+    if (!currentUser.currentUserName || currentUser.currentUserName == "Anonymous Brainstormer") {
+      document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }");
+      document.getElementById("set_user_name_user_name").setAttribute("value", createRandomUserName());
     }
+  }
+
+  const createRandomUserName = () => {
+    const adjectives = ["Sleeping", "Hungry", "Purple", "Hairy", "Wet", "Hungarian", "Australian", "Cross-eyed", "Mind-reading", "Fierce", "Wig-wearing", "Busy", "Bingo-playing", "Talking", "Smart", "Cool", "Amazing", "Happy", "Lovely", "Tomb Raiding", "Self-aware", "Flying", "Bald", "The Best", "Space-exploring", "To-the-point", "Forgetful", "Visionary", "Well-behaved", "Totally Awesome", "Hilarious", "Mild", "Charming"]
+    const nouns = ["Tiger", "Turtle", "Cat", "Sloth", "Hedgehog", "Human", "Space Explorer", "Mouse", "Hamster", "Tea Pot", "Alien", "Traveller", "Bear", "Fish", "Donkey", "Horse", "Zebra", "Lion", "Otter", "Spider", "Architect", "Surgeon", "Manager", "Auditor", "Friend", "Coffee Cup", "Thief", "Beer", "Computer", "Super Hero"]
+
+    let adjective = adjectives[Math.floor(Math.random() * adjectives.length)];
+    let noun = nouns[Math.floor(Math.random() * nouns.length)];
+
+    return `${adjective} ${noun}`
   }
 
   const openSendEmailModal = () => {
