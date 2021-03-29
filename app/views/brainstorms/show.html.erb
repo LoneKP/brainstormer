@@ -73,7 +73,7 @@
     doneDivForCurrentUser = document.getElementById(`user-done-${currentUser.id}`)
     doneDivForCurrentUser.parentNode.appendChild(doneDivForCurrentUser);
 
-    currentUserBadge.parentNode.onclick = () => {
+    currentUserBadge.onclick = () => {
       document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }")
     }
   }
