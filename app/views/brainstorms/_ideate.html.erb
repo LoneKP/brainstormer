@@ -14,8 +14,8 @@
       <div class="block w-full lg:flex lg:flex-wrap lg:justify-start lg:px-0 px-16 ml-0 lg:p-0 lg:ml-16" id="ideas">
         <% @ideas.each do |idea| %>
         <div class="flex flex-col">
-          <div class="my-shadow mr-8 my-8 lg:my-4 bg-white">
-            <div onclick="toggleBuildOnIdea(<%=idea.id %>)" id="idea-<%=idea.id %>" class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic font-bold bg-post-it-yellowy cursor-default">
+          <div onclick="toggleBuildOnIdea(<%=idea.id %>)" class="my-shadow mr-8 my-8 lg:my-4 bg-white">
+            <div id="idea-<%=idea.id %>" class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic font-bold bg-post-it-yellowy cursor-default">
               <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
               <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal"><%= idea.text %></p>
             </div>
