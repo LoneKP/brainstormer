@@ -2,10 +2,11 @@
   <h1 class="p-4 text-2xl lg:text-2xl text-white font-semibold uppercase bg-blurple leading-tight my-shadow-lg inline-flex">* VOTING DONE *</h1>
   <h1 class="mt-4 p-8 text-lg lg:text-4xl text-white font-semibold uppercase bg-black leading-tight my-shadow-lg w-full"><%=@brainstorm.problem %></h1>
   <div class="my-4 flex justify-end">
-  <!-- 
     <button class="p-2 text-lg lg:text-2xl text-white font-semibold uppercase bg-blurple leading-tight my-shadow-lg w-56">
       <div class="border-solid border-white border-2 flex items-center justify-between px-4">
+        <%= link_to download_pdf_path(format: :pdf), target: :_blank do %> 
         <div class="flex text-white w-full font-semibold h-full text-base focus:outline-none py-2">SAVE TO PDF</div>
+        <% end %>
         <div class="flex">
           <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18px" height="18px">
             <path d="M0 0h24v24H0z" fill="none" />
@@ -14,7 +15,6 @@
         </div>
       </div>
     </button>
-  -->
     <button onclick="openSendEmailModal()" class="ml-2 p-2 text-lg lg:text-2xl text-white font-semibold uppercase bg-blurple leading-tight my-shadow-lg w-56">
       <div class="border-solid border-white border-2 flex items-center justify-between px-4">
         <div class="flex text-white w-full font-semibold h-full text-base focus:outline-none py-2">EMAIL</div>

@@ -1,6 +1,6 @@
 class BrainstormsController < ApplicationController
-  before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :done_brainstorming]
-  before_action :set_brainstorm_ideas, only: [:show]
+  before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :done_brainstorming, :change_state, :download_pdf]
+  before_action :set_brainstorm_ideas, only: [:show, :download_pdf]
   before_action :set_session_id, only: [:show, :create, :done_voting]
   before_action :facilitator?, only: [:show]
   before_action :facilitator_name, only: [:show]
@@ -103,9 +103,9 @@ class BrainstormsController < ApplicationController
   end
 
   def start_voting
-      REDIS.set(brainstorm_state_key, "vote")
-      ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", event: "set_brainstorm_state", state: "vote")
-      transmit_ideas
+    REDIS.set(brainstorm_state_key, "vote")
+    ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", event: "set_brainstorm_state", state: "vote")
+    transmit_ideas
   end
 
   def done_voting
@@ -124,6 +124,24 @@ class BrainstormsController < ApplicationController
       REDIS.set(brainstorm_state_key, "voting_done")
       ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", event: "set_brainstorm_state", state: "voting_done")
       transmit_ideas
+    end
+  end
+
+  def change_state
+    REDIS.set(brainstorm_state_key, params[:new_state])
+    ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", event: "set_brainstorm_state", state: params[:new_state])
+  end
+
+  def download_pdf
+    respond_to do |format|
+      format.pdf do
+        render pdf: "Brainstorm session ideas",
+        page_size: "A4",
+        template: "brainstorms/download_pdf.html.erb",
+        layout: "pdf.html",
+        lowquality: true,
+        dpi: 75
+      end
     end
   end
 
