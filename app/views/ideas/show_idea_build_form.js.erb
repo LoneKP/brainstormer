@@ -10,3 +10,5 @@ colorPinOnTyping(document.getElementById("addIdeaBuildPin"), document.getElement
 addEventListenerToInputField(document.getElementById("idea_build_idea_build_text"), document.getElementById("characterCountIdeaBuild"), 110);
 
 setMaxCharacters(document.getElementById("idea_build_idea_build_text"), 110);
+
+document.getElementById("buildOnIdea-<%= @idea_build.idea_id %>").classList.add("hidden");
