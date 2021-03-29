@@ -1,5 +1,5 @@
 class BrainstormsController < ApplicationController
-  before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :done_brainstorming, :change_state, :download_pdf]
+  before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :done_brainstorming, :download_pdf]
   before_action :set_brainstorm_ideas, only: [:show, :download_pdf]
   before_action :set_session_id, only: [:show, :create, :done_voting]
   before_action :facilitator?, only: [:show]
@@ -41,7 +41,7 @@ class BrainstormsController < ApplicationController
   def set_user_name
     respond_to do |format|
       if REDIS.set set_user_name_params[:session_id], set_user_name_params[:user_name]
-          ActionCable.server.broadcast("brainstorm-#{params[:token]}-presence", event: "name_changed", name: set_user_name_params[:user_name] )
+          ActionCable.server.broadcast("brainstorm-#{params[:token]}-presence", { event: "name_changed", name: set_user_name_params[:user_name] })
           format.html {}
           format.js
       else
@@ -77,7 +77,7 @@ class BrainstormsController < ApplicationController
   def start_timer
     respond_to do |format|
       if REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp").nil?
-        ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "start_timer")
+        ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", { event: "start_timer" })
         REDIS.hset(brainstorm_timer_running_key, "timer_start_timestamp", Time.now)
           format.js
       else
@@ -88,7 +88,7 @@ class BrainstormsController < ApplicationController
   end
 
   def reset_timer
-    ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", event: "reset_timer")
+    ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", { event: "reset_timer" })
     REDIS.hdel(brainstorm_timer_running_key, "timer_start_timestamp")
   end
 
@@ -99,37 +99,37 @@ class BrainstormsController < ApplicationController
 
   def start_brainstorm
       REDIS.set(brainstorm_state_key, "ideation")
-      ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", event: "set_brainstorm_state", state: "ideation")
+      ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "ideation" })
   end
 
   def start_voting
     REDIS.set(brainstorm_state_key, "vote")
-    ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", event: "set_brainstorm_state", state: "vote")
+    ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "vote" })
     transmit_ideas
   end
 
   def done_voting
     if !user_is_done_voting?
       REDIS.hset(done_voting_brainstorm_status, user_key, "true")
-      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-presence", event: "done_voting", state: "vote", user_id: @session_id )
+      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-presence", { event: "done_voting", state: "vote", user_id: @session_id })
       user_is_done_voting?
     else
       REDIS.hset(done_voting_brainstorm_status, user_key, "false")
-      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-presence", event: "resume_voting", state: "vote", user_id: @session_id )
+      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-presence", { event: "resume_voting", state: "vote", user_id: @session_id })
       user_is_done_voting?
     end
 
     if all_online_users_done_voting?
       puts "ALL USERS ARE DONE VOOOOOOOOOOOOOOOOTING"
       REDIS.set(brainstorm_state_key, "voting_done")
-      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", event: "set_brainstorm_state", state: "voting_done")
+      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", { event: "set_brainstorm_state", state: "voting_done" })
       transmit_ideas
     end
   end
 
   def change_state
     REDIS.set(brainstorm_state_key, params[:new_state])
-    ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", event: "set_brainstorm_state", state: params[:new_state])
+    ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: params[:new_state] })
   end
 
   def download_pdf
@@ -208,7 +208,7 @@ class BrainstormsController < ApplicationController
   end
 
   def transmit_ideas
-    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-idea", event: "transmit_ideas", ideas: ideas_and_idea_builds_object)
+    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-idea", { event: "transmit_ideas", ideas: ideas_and_idea_builds_object })
   end
 
   def ideas_and_idea_builds_object

@@ -8,7 +8,7 @@ class IdeaBuildsController < ApplicationController
     @brainstorm = Brainstorm.find(brainstorm_params[:brainstorm_id])
     respond_to do |format|
       if @idea_build.save
-        ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-idea", content: @idea_build, idea_build_number: "#{@idea.number}.#{@idea_build.decimal}", event: "create_idea_build", opacity: @idea_build.opacity_lookup)
+        ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-idea", { content: @idea_build, idea_build_number: "#{@idea.number}.#{@idea_build.decimal}", event: "create_idea_build", opacity: @idea_build.opacity_lookup })
         format.js
       else
         @idea_build.errors.messages.each do |message|
