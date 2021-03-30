@@ -1,5 +1,6 @@
 changeView(brainstormStore.state);
 fillStarsWithUserVotes();
+changeHeadlineAccordingToVotesLeft(currentUser.votesCastIdeas.length + currentUser.votesCastIdeaBuilds.length, brainstormStore.maxVotesPerUser )
 
 const removeOverflowingUsers = (onlineUsers) => {
   for (let i = 0; i < onlineUsers - 7; i++) {

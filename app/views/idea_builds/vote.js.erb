@@ -20,3 +20,5 @@ if ('<%= @votes_cast %>' < <%= ApplicationController::MAX_VOTES_PER_USER %>) {
     document.getElementsByClassName("starVoteFill")[i].setAttribute("fill", "#FFFFFF")
   }
 };
+
+changeHeadlineAccordingToVotesLeft('<%= @votes_cast %>', '<%= ApplicationController::MAX_VOTES_PER_USER %>' )

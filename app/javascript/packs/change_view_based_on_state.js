@@ -72,7 +72,16 @@ fillStarsWithUserVotes = function () {
     for (x = 0; x < elems.length; x++) {
       elems[x].setAttribute("fill", "#312783");
     }
-  };
+  }; 
+}
+
+changeHeadlineAccordingToVotesLeft = function (votesCast, maxVotesPerUser) {
+  if (votesCast >= maxVotesPerUser) {
+    document.getElementById("votingHeadline").textContent = "No votes left!"
+  }
+  else if (votesCast < maxVotesPerUser) {
+    document.getElementById("votingHeadline").textContent = "Vote on your favourite ideas"
+  }
 }
 
 setAndChangeBrainstormState = function (state) {
