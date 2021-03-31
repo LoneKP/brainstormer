@@ -30,7 +30,7 @@ class PresenceChannel < ApplicationCable::Channel
 
   def set_random_name_if_user_has_no_name
     if REDIS.get(session_id).nil?
-      REDIS.set session_id, generate_random_temporary_user_name
+      REDIS.set session_id, temporary_user_name
     end
   end
 
@@ -91,7 +91,7 @@ class PresenceChannel < ApplicationCable::Channel
     "done_voting_brainstorm_status_#{@brainstorm.token}"
   end
 
-  def generate_random_temporary_user_name
+  def temporary_user_name
     "Anonymous Brainstormer"
   end
 
