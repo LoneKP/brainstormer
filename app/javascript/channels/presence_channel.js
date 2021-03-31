@@ -56,6 +56,11 @@ consumer.subscriptions.create({
         if (typeof currentUser == "undefined") {
           location.reload();
         };
+        if (brainstormStore.state == "setup") {
+          clearListOfParticipants();
+          createListOfParticipants(data);
+          removeNameListUserIdIfUserIsFacilitator();
+        }
         clearNameListElement();
         createUserBadges(data);
         openModalToSetName();
@@ -85,6 +90,21 @@ const clearNameListElement = () => {
   nameListElement.innerHTML = "";
 }
 
+const clearListOfParticipants = () => {
+  const listElement = document.getElementById("list-of-participants");
+  listElement.innerHTML = "";
+}
+
+const createListOfParticipants = (data) => {
+  for (let i = 0; i < data.users.length; i++) {
+    let nameDiv = document.createElement("div");
+    nameDiv.innerHTML = data.users[i];
+    nameDiv.classList.add("flex", "py-2", "px-2", `${data.user_colors[i]}`);
+    nameDiv.setAttribute("id", `name-list-user-id-${data.user_ids[i]}`);
+    document.getElementById("list-of-participants").appendChild(nameDiv)
+  }
+}
+
 const createUserBadges = (data) => {
   const nameListElement = document.getElementById("name-list");
   let nameListcontainer = document.getElementById("name-list-container");
@@ -109,6 +129,7 @@ const createUserBadges = (data) => {
     nameListElement.appendChild(userBadge)
     let text = document.createTextNode(data.initials[i])
     userBadge.firstChild.append(text)
+    userBadge.firstChild.classList.add(data.user_colors[i])
 
     let doneDiv = document.createElement("div");
     doneDiv.innerHTML = "DONE"

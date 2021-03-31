@@ -89,3 +89,10 @@ setAndChangeBrainstormState = function (state) {
   brainstormStore.state = state;
   changeView(state);
 }
+
+removeNameListUserIdIfUserIsFacilitator = function () {
+  if (currentUser.facilitator == "true") {
+    let userNameElement = document.getElementById(`name-list-user-id-${currentUser.id}`);
+    userNameElement.remove();
+  }
+}

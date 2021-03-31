@@ -5,11 +5,10 @@ class UserBadge extends HTMLElement {
 
   connectedCallback() {
 
-    const color = randomColorPicker()
     div = document.createElement("div")
     div2 = document.createElement("div")
 
-    div.classList.add("flex", "flex-col", "justify-center", "items-center", "rounded-full", "h-12", "w-12", "m-4", "text-white", "text-2xl", "font-black", color);
+    div.classList.add("flex", "flex-col", "justify-center", "items-center", "rounded-full", "h-12", "w-12", "m-4", "text-white", "text-2xl", "font-black");
 
     this.appendChild(div)
     this.appendChild(div2)
@@ -17,9 +16,3 @@ class UserBadge extends HTMLElement {
 }
 
 customElements.define('user-badge', UserBadge);
-
-const randomColorPicker = () => {
-  let colorClasses = ["bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy"];
-  let randomColor = colorClasses[Math.floor(Math.random() * colorClasses.length)];
-  return randomColor;
-}

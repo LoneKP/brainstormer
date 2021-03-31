@@ -18,6 +18,7 @@ class PresenceChannel < ApplicationCable::Channel
 
   def add_to_list_and_transmit!
     set_random_name_if_user_has_no_name
+    REDIS.set user_color_key, random_color_class
     REDIS.hset brainstorm_key, session_id, Time.now
     transmit_list!
   end
@@ -40,12 +41,15 @@ class PresenceChannel < ApplicationCable::Channel
     initials = []
     user_ids = []
     done_voting_list = []
+    user_colors = []
     users.each do |user_id|
       unless last_user_activity_more_than_one_hour_ago?(user_id)
         name = REDIS.get(user_id)
+        user_color = REDIS.get("user_color_for_user_id_#{user_id}")
         done_voting = REDIS.hget(done_voting_brainstorm_status, "#{user_id}")
         names << name
         user_ids << user_id
+        user_colors << user_color
         initials << name.split(nil,2).map(&:first).join.upcase
         done_voting_list << done_voting
       end
@@ -55,6 +59,7 @@ class PresenceChannel < ApplicationCable::Channel
       event: "transmit_presence_list",
       users: names,
       initials: initials,
+      user_colors: user_colors,
       user_ids: user_ids,
       done_voting_list: done_voting_list
     }
@@ -78,11 +83,21 @@ class PresenceChannel < ApplicationCable::Channel
     "#{@session_id}"
   end
 
+  def user_color_key
+    "user_color_for_user_id_#{session_id}"
+  end
+
   def done_voting_brainstorm_status
     "done_voting_brainstorm_status_#{@brainstorm.token}"
   end
 
   def generate_random_temporary_user_name
     "Anonymous Brainstormer"
+  end
+
+  def random_color_class
+    color_classes = ["bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy"]
+
+    color_classes.sample
   end
 end
