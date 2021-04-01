@@ -1,5 +1,5 @@
-<%= form_for(@idea, remote: true, html: { autocomplete: "off", class: "flex flex-row items-end w-full" }) do |f| %>
-<div class="p-6 ml-16 mt-8 w-full bg-post-it-yellowy my-shadow-lg">
+<%= form_for(@idea, remote: true, html: { autocomplete: "off", class: "flex flex-col w-full" }) do |f| %>
+<div class="p-6 lg:mr-8 mt-8 bg-post-it-yellowy my-shadow-lg">
   <h2 class="italic text-4xl lg:text-2xl font-semibold font-bold">Add thought</h2>
   <div class="field mt-8">
     <%= f.text_area :text, class:"italic font-bold w-full h-screen/5 lg:h-32 opacity-75 focus:outline-none border-dashed border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal text-4xl lg:text-base" %>
@@ -10,8 +10,9 @@
   </div>
   <p id="characterCountIdea" class="text-xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
 </div>
-<button id="addIdeaPin" type=submit class="ml-4 flex flex-col justify-center items-center modal-close w-20 h-20 my-shadow-lg bg-lighter-gray focus:outline-none cursor-pointer ">
-  <svg class="h-12 w-12" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="white" width="18px" height="18px">
+<button id="addIdeaPin" type=submit class="lg:mr-8 mt-4 px-8 text-2xl flex flex-row justify-center items-center modal-close h-20 my-shadow-lg bg-lighter-gray focus:outline-none cursor-pointer">
+  <p class="font-bold mr-2 text-white">ADD</p>
+  <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="white" width="18px" height="18px">
     <g>
       <rect fill="none" />
     </g>
