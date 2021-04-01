@@ -1,4 +1,4 @@
-       <div class="px-56">
+       <div class="flex-col flex w-full mx-auto lg:max-w-screen-lg">
          <h1 class="p-3 text-2xl lg:text-4xl text-white font-bold uppercase bg-blurple leading-tight my-shadow-lg w-1/2"><%=@brainstorm.problem %></h1>
          <div class="flex w-full my-4">
            <div class="justify-between p-4 mt-8 lg:flex-1 flex flex-row bg-greeny my-shadow-lg w-full">
@@ -45,7 +45,7 @@
          </div>
          <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideasVote">
            <% @ideas.each do |idea| %>
-           <div class="flex flex-col">
+           <div class="flex flex-col lg:mr-4">
              <div class="my-shadow my-8 lg:my-4 bg-white">
                <%= link_to idea_vote_path(idea), remote: true, method: :post do %>
                <div class="idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic font-bold bg-post-it-yellowy cursor-default">

@@ -220,7 +220,7 @@
   <!--Overlay-->
   <div style=" background-color: rgba(49,39,131,0.9)" x-show="showNewBrainstormModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showNewBrainstormModal }">
     <!--Dialog 1-->
-    <div class="flex-col w-1/2" @click.away="showNewBrainstormModal = false" x-show="showNewBrainstormModalDialog == 1 || 2">
+    <div class="flex-col w-11/12 xl:w-3/4 max-w-screen-lg" @click.away="showNewBrainstormModal = false" x-show="showNewBrainstormModalDialog == 1 || 2">
       <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left px-6" x-show="showNewBrainstormModal">
         <!--Title-->
         <div class="flex justify-between items-center">

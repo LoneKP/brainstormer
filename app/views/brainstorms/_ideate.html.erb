@@ -1,11 +1,11 @@
 <div class="h-4 fixed block lg:hidden" id="timerPhoneElement"></div>
 <div>
-  <div class="flex flex-row">
-    <div class="flex-col flex w-full items-start">
-      <div class="flex-col flex w-full lg:w-3/4">
-        <h1 class="mx-16 p-3 text-6xl lg:text-5xl text-white font-bold uppercase bg-blurple leading-tight my-shadow-lg"><%=@brainstorm.problem %></h1>
+  <div class="flex flex-row justify-center mx-auto lg:max-w-screen-xl">
+    <div class="flex-col flex w-full">
+      <div class="flex-col flex w-full">
+        <h1 class="mx-16 p-3 text-6xl lg:text-5xl text-white font-bold uppercase bg-blurple leading-tight my-shadow-lg max-w-screen-lg"><%=@brainstorm.problem %></h1>
       </div>
-      <div class="flex-col flex w-full lg:w-3/4 mb-16">
+      <div class="flex-col flex w-full mb-16">
         <div id="add-idea-form" class="w-full">
           <%= render 'add_idea_form' %>
         </div>
