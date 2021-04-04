@@ -1,9 +1,9 @@
 <%= render 'nav' %>
 <%= render 'change_name_popup' %>
-<div id="ideation">
+<div style="display:none" id="ideation">
   <%= render 'ideate' %>
 </div>
-<div id="setup">
+<div style="display:none" id="setup">
   <div id="setup_participant">
     <%= render 'setup_participant' %>
   </div>
@@ -12,13 +12,13 @@
   </div>
 </div>
 
-<div id="time_is_up">
+<div style="display:none" id="time_is_up">
   <%= render 'time_is_up' %>
 </div>
-<div id="vote">
+<div style="display:none" id="vote">
   <%= render 'vote' %>
 </div>
-<div id="voting_done">
+<div style="display:none" id="voting_done">
   <%= render 'voting_done' %>
   <%= render 'send_email_popup' %>
 </div>
