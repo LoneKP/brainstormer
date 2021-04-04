@@ -58,6 +58,7 @@ consumer.subscriptions.create({
         };
         if (brainstormStore.state == "setup") {
           clearListOfParticipants();
+          HideOrShowListOfParticipantsContainer(data);
           createListOfParticipants(data);
           removeNameListUserIdIfUserIsFacilitator();
         }
@@ -93,6 +94,16 @@ const clearNameListElement = () => {
 const clearListOfParticipants = () => {
   const listElement = document.getElementById("list-of-participants");
   listElement.innerHTML = "";
+}
+
+const HideOrShowListOfParticipantsContainer = (data) => {
+  let listOfParticipantsContainer = document.getElementById("list-of-participants-container")
+  if (data.users.length > 1) {
+    listOfParticipantsContainer.classList.remove("hidden");
+  }
+  else {
+    listOfParticipantsContainer.classList.add("hidden");
+  } 
 }
 
 const createListOfParticipants = (data) => {
