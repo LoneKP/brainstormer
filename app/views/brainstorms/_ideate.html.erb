@@ -1,7 +1,7 @@
 <div class="h-4 fixed block lg:hidden" id="timerPhoneElement"></div>
 <div>
   <div class="flex flex-row justify-center mx-auto lg:max-w-screen-xl">
-    <div class="flex-col flex w-full">
+    <div class="flex-col flex w-full lg:ml-16">
       <div class="flex-col flex w-full">
         <h1 class="lg:mr-8 p-3 text-6xl lg:text-5xl text-white font-bold uppercase bg-blurple leading-tight my-shadow-lg"><%=@brainstorm.problem %></h1>
       </div>
@@ -11,7 +11,7 @@
         </div>
         <div id="add-idea-build-form"></div>
       </div>
-      <div class="block w-full lg:flex lg:flex-wrap lg:justify-start lg:px-0 px-16 ml-0 lg:p-0 lg:ml-16" id="ideas">
+      <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideas">
         <% @ideas.each do |idea| %>
         <div class="flex flex-col">
           <div onclick="toggleBuildOnIdea(<%=idea.id %>)" class="my-shadow mr-8 my-8 lg:my-4 bg-white">
