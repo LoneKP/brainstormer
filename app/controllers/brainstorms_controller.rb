@@ -100,6 +100,7 @@ class BrainstormsController < ApplicationController
   def start_brainstorm
       REDIS.set(brainstorm_state_key, "ideation")
       ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "ideation" })
+      start_timer
   end
 
   def start_voting
