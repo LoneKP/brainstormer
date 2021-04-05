@@ -118,7 +118,7 @@ const createListOfParticipants = (data) => {
 
 const createUserBadges = (data) => {
   const nameListElement = document.getElementById("name-list");
-  let nameListcontainer = document.getElementById("name-list-container");
+  let nameListContainer = document.getElementById("name-list-container");
   let doneDivContainer;
 
   if (document.getElementById("doneDivContainer") == null) {
@@ -136,11 +136,19 @@ const createUserBadges = (data) => {
   for (let i = 0; i < data.initials.length; i++) {
     let userBadge = document.createElement("user-badge");
     userBadge.setAttribute("id", data.user_ids[i]);
-    userBadge.title = data.users[i];
+    userBadge.classList.add("cursor-default");
     nameListElement.appendChild(userBadge)
     let text = document.createTextNode(data.initials[i])
     userBadge.firstChild.append(text)
     userBadge.firstChild.classList.add(data.user_colors[i])
+    
+    let fullName = document.createElement("div");
+    fullName.classList.add("text-white", "text-lg", "absolute", "mt-2", "my-shadow", "px-2", "hidden", `${data.user_colors[i]}`);
+    fullName.innerHTML = `${data.users[i]}`;
+
+    userBadge.appendChild(fullName);
+
+    showOnHover(userBadge, fullName);
 
     let doneDiv = document.createElement("div");
     doneDiv.innerHTML = "DONE"
@@ -151,7 +159,17 @@ const createUserBadges = (data) => {
     }
     doneDivContainer.appendChild(doneDiv);
   };
-  nameListcontainer.appendChild(doneDivContainer)
+  nameListContainer.appendChild(doneDivContainer)
+}
+
+const showOnHover = (hoverElement, showElement) => {
+  hoverElement.addEventListener("mouseover",function (){
+    showElement.classList.remove("hidden");
+  });
+
+  hoverElement.addEventListener("mouseout",function (){
+    showElement.classList.add("hidden");  
+  });
 }
 
 const showUserDoneVoting = (userId) => {
