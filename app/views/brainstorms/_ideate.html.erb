@@ -12,7 +12,7 @@
         <div id="add-idea-build-form"></div>
       </div>
       <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideas">
-        <% @ideas.each do |idea| %>
+        <% @ideas.order('id DESC').each do |idea| %>
         <div class="flex flex-col">
           <div onclick="toggleBuildOnIdea(<%=idea.id %>)" class="my-shadow mr-8 my-8 lg:my-4 bg-white">
             <div id="idea-<%=idea.id %>" class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic font-bold bg-post-it-yellowy cursor-default">

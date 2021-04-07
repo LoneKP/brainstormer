@@ -44,7 +44,7 @@
            </div>
          </div>
          <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideasVote">
-           <% @ideas.each do |idea| %>
+           <% @ideas.order('id DESC').each do |idea| %>
            <div class="flex flex-col lg:mr-4">
              <div class="my-shadow my-8 lg:my-4 bg-white">
                <%= link_to idea_vote_path(idea), remote: true, method: :post do %>
