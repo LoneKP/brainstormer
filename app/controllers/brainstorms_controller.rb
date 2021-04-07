@@ -106,7 +106,7 @@ class BrainstormsController < ApplicationController
   def start_voting
     REDIS.set(brainstorm_state_key, "vote")
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "vote" })
-    transmit_ideas
+    transmit_ideas(sort_by_id_desc)
   end
 
   def done_voting
@@ -121,10 +121,9 @@ class BrainstormsController < ApplicationController
     end
 
     if all_online_users_done_voting?
-      puts "ALL USERS ARE DONE VOOOOOOOOOOOOOOOOTING"
       REDIS.set(brainstorm_state_key, "voting_done")
       ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", { event: "set_brainstorm_state", state: "voting_done" })
-      transmit_ideas
+      transmit_ideas(sort_by_votes_desc)
     end
   end
 
@@ -208,12 +207,12 @@ class BrainstormsController < ApplicationController
     "brainstorm_id_#{@brainstorm.token}"
   end
 
-  def transmit_ideas
-    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-idea", { event: "transmit_ideas", ideas: ideas_and_idea_builds_object })
+  def transmit_ideas(sorting_choice)
+    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-idea", { event: "transmit_ideas", ideas: ideas_and_idea_builds_object(sorting_choice) })
   end
 
-  def ideas_and_idea_builds_object
-    @brainstorm.ideas.order('id DESC').as_json(
+  def ideas_and_idea_builds_object(sorting_choice)
+    @brainstorm.ideas.order(sorting_choice).as_json(
       methods: [:vote_in_plural_or_singular, :number],
       only: [:id, :text, :votes], 
       include: { 
@@ -224,5 +223,11 @@ class BrainstormsController < ApplicationController
       })
   end
 
+  def sort_by_id_desc
+    'id DESC'
+  end
 
+  def sort_by_votes_desc
+    'votes DESC'
+  end
 end
