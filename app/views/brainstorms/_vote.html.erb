@@ -43,6 +43,9 @@
              <% end %>
            </div>
          </div>
+          <% if @is_user_facilitator %>
+           <%= link_to "Finish voting for everyone", end_voting_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "underline text-blurple flex justify-end" %>
+          <% end %>
          <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideasVote">
            <% @ideas.order('id DESC').each do |idea| %>
            <div class="flex flex-col lg:mr-4">

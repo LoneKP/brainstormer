@@ -1,5 +1,5 @@
 class BrainstormsController < ApplicationController
-  before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :done_brainstorming, :download_pdf]
+  before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :end_voting, :done_brainstorming, :download_pdf]
   before_action :set_brainstorm_ideas, only: [:show, :download_pdf]
   before_action :set_session_id, only: [:show, :create, :done_voting]
   before_action :facilitator?, only: [:show]
@@ -121,11 +121,15 @@ class BrainstormsController < ApplicationController
     end
 
     if all_online_users_done_voting?
+      end_voting
+    end
+  end
+
+  def end_voting
       REDIS.set(brainstorm_state_key, "voting_done")
       ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", { event: "set_brainstorm_state", state: "voting_done" })
       transmit_ideas(sort_by_votes_desc)
     end
-  end
 
   def change_state
     REDIS.set(brainstorm_state_key, params[:new_state])
