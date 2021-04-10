@@ -53,9 +53,6 @@ consumer.subscriptions.create({
     console.log(data)
     switch (data.event) {
       case "transmit_presence_list":
-        if (typeof currentUser == "undefined") {
-          location.reload();
-        };
         if (brainstormStore.state == "setup") {
           clearListOfParticipants();
           HideOrShowListOfParticipantsContainer(data);
