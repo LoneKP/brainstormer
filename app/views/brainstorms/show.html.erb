@@ -1,7 +1,5 @@
 <%= render 'nav' %>
-<% if Rails.env.development? %>
-  <%= render 'dev_nav' %>
-<% end %>
+<%= render 'dev_nav' if Rails.env.development? %>
 <%= render 'change_name_popup' %>
 <div class="hidden" id="ideation">
   <%= render 'ideate' %>
