@@ -101,8 +101,8 @@ class BrainstormsController < ApplicationController
   end
 
   def start_brainstorm
-      REDIS.set(brainstorm_state_key, "ideation")
-      ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "ideation" })
+    REDIS.set(brainstorm_state_key, "ideation")
+    ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "ideation" })
     start_timer(params[:brainstorm_duration])
   end
 
@@ -129,10 +129,10 @@ class BrainstormsController < ApplicationController
   end
 
   def end_voting
-      REDIS.set(brainstorm_state_key, "voting_done")
-      ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", { event: "set_brainstorm_state", state: "voting_done" })
-      transmit_ideas(sort_by_votes_desc)
-    end
+    REDIS.set(brainstorm_state_key, "voting_done")
+    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", { event: "set_brainstorm_state", state: "voting_done" })
+    transmit_ideas(sort_by_votes_desc)
+  end
 
   def change_state
     REDIS.set(brainstorm_state_key, params[:new_state])
@@ -175,7 +175,7 @@ class BrainstormsController < ApplicationController
   end
 
   def set_brainstorm_ideas
-    @ideas = @brainstorm.ideas.order('id DESC')
+    @ideas = @brainstorm.ideas
   end
 
   def set_user_name_params
