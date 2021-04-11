@@ -74,10 +74,13 @@ class BrainstormsController < ApplicationController
     end
   end
 
-  def start_timer
+  def start_timer(brainstorm_duration = "already_set")
+    unless brainstorm_duration == "already_set"
+      REDIS.set(brainstorm_duration_key, brainstorm_duration)
+    end
     respond_to do |format|
       if REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp").nil?
-        ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", { event: "start_timer" })
+        ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", { event: "start_timer", brainstorm_duration: brainstorm_duration })
         REDIS.hset(brainstorm_timer_running_key, "timer_start_timestamp", Time.now)
           format.js
       else
@@ -88,7 +91,7 @@ class BrainstormsController < ApplicationController
   end
 
   def reset_timer
-    ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", { event: "reset_timer" })
+    ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", { event: "reset_timer", brainstorm_duration: REDIS.get(brainstorm_duration_key) })
     REDIS.hdel(brainstorm_timer_running_key, "timer_start_timestamp")
   end
 
@@ -100,7 +103,7 @@ class BrainstormsController < ApplicationController
   def start_brainstorm
       REDIS.set(brainstorm_state_key, "ideation")
       ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "ideation" })
-      start_timer
+    start_timer(params[:brainstorm_duration])
   end
 
   def start_voting
@@ -197,6 +200,10 @@ class BrainstormsController < ApplicationController
 
   def brainstorm_timer_running_key
     "brainstorm_id_timer_running_#{@brainstorm.token}"
+  end
+
+  def brainstorm_duration_key
+    "brainstorm_id_duration_#{@brainstorm.token}"
   end
 
   def brainstorm_state_key

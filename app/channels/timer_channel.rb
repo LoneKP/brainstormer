@@ -1,5 +1,4 @@
 class TimerChannel < ApplicationCable::Channel
-  TIME_IN_TIMER = 600
 
   def subscribed
     @brainstorm = Brainstorm.find_by(token: params[:token])
@@ -15,6 +14,7 @@ class TimerChannel < ApplicationCable::Channel
     data = {
       event: "transmit_timer_status",
       timer_status: timer_status,
+      brainstorm_duration: REDIS.get(brainstorm_duration_key)
     }
 
     ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-timer", data)
@@ -23,7 +23,7 @@ class TimerChannel < ApplicationCable::Channel
   def timer_status
     if REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp").nil?
       return "ready_to_start_timer"
-    elsif timer_time_elapsed_in_seconds > TIME_IN_TIMER
+    elsif timer_time_elapsed_in_seconds > REDIS.get(brainstorm_duration_key).to_i
       return "time_has_run_out"
     else
       return timer_time_elapsed_in_seconds
@@ -46,6 +46,10 @@ class TimerChannel < ApplicationCable::Channel
 
   def brainstorm_timer_running_key
     "brainstorm_id_timer_running_#{@brainstorm.token}"
+  end
+
+  def brainstorm_duration_key
+    "brainstorm_id_duration_#{@brainstorm.token}"
   end
 
   def brainstorm_state_key

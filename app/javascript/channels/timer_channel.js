@@ -2,7 +2,7 @@ import consumer from "./consumer"
 
 let timer;
 let timerState;
-const timerStartSeconds = 600;
+let timerStartSeconds;
 
 
 consumer.subscriptions.create({
@@ -17,12 +17,17 @@ consumer.subscriptions.create({
         setStateOfTimerButton();;
         break;
       case "start_timer":
+        if (data.brainstorm_duration !== "already_set") {
+          timerStartSeconds = data.brainstorm_duration
+          timerState.secondsTotal = data.brainstorm_duration
+        }
+        formatTime();
         timerState.status = "running"
         startTimer();
         break;
       case "reset_timer":
         timerState.status = "readyToStart"
-        resetTimer();
+        resetTimer(data);
         break;
     }
   },
@@ -32,7 +37,7 @@ const evaluateTimer = (data) => {
   if (data.timer_status == "ready_to_start_timer") {
     timerState = {
       status: "readyToStart",
-      secondsTotal: timerStartSeconds
+      secondsTotal: data.brainstorm_duration
     }
   }
   else if (data.timer_status == "time_has_run_out") {
@@ -42,11 +47,11 @@ const evaluateTimer = (data) => {
     }
     clearInterval(timer);
   }
-  else if (data.timer_status > 0 && data.timer_status < timerStartSeconds) {
+  else if (data.timer_status > 0 && data.timer_status < data.brainstorm_duration) {
     clearInterval(timer);
     timerState = {
       status: "running",
-      secondsTotal: timerStartSeconds - data.timer_status
+      secondsTotal: data.brainstorm_duration - data.timer_status
     }
     startTimer();
   }
@@ -62,9 +67,9 @@ const startTimer = () => {
   timer = setInterval(countDown, 1000);
 }
 
-const resetTimer = () => {
+const resetTimer = (data) => {
   clearInterval(timer);
-  timerState = { status: "readyToStart", secondsTotal: timerStartSeconds };
+  timerState = { status: "readyToStart", secondsTotal: data.brainstorm_duration };
   formatTime();
   if (document.getElementById("startTimer")) {
     document.getElementById("startTimer").textContent = "Start timer"
