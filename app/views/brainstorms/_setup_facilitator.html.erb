@@ -104,10 +104,12 @@
 
   <div class="bg-white mt-8 my-shadow-lg flex flex-col p-8">
     <p class="italic text-blurple text-2xl font-semibold mb-8">Duration of brainstorm</p>
-    <select class="text-lg" name="time-selection" id="time-selection" onchange="setValueForBrainstormDuration()">
+    <select class="w-60 min-w-0 rounded outline-none p-2 font-bold text-lg border-2 border-blurple flex flex-col" name="time-selection" id="time-selection" onchange="setValueForBrainstormDuration()">
       <option value=300>5 minutes</option>
       <option selected value=600>10 minutes</option>
       <option value=900>15 minutes</option>
+      <option value=1200>20 minutes</option>
+      <option value=1800>30 minutes</option>
     </select>
   </div>
 
