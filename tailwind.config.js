@@ -45,6 +45,7 @@ module.exports = {
         'dark-yellowy': '#d1bd3d',
         'light-yellowy': '#FFE35F',
         'post-it-yellowy': '#F6E573',
+        'post-it-yellowy-dark': '#f0df71',
         'post-it-yellowy-90': 'rgba(246,229,115,0.9)',
         'post-it-yellowy-80': 'rgba(246,229,115,0.8)',
         'post-it-yellowy-70': 'rgba(246,229,115,0.7)',

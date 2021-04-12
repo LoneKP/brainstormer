@@ -36,14 +36,14 @@
       </div>
     </div>
     <div class="flex-col hidden lg:flex">
-      <div class="flex flex-col items-center w-60 bg-white my-shadow mr-16 p-6">
+      <div class="flex flex-col items-center w-64 bg-white my-shadow mr-16 p-6">
         <h2 class="italic font-semibold text-xl text-blurple">Time</h2>
-        <div class="text-3xl font-bold bg-black text-white rounded-full h-40 w-40 flex items-center justify-center my-4">
+        <div class="text-3xl font-bold bg-white text-black border-2 border-dashed border-black rounded-full h-40 w-40 flex items-center justify-center my-4">
           <p id="timeDisplay"></p>
         </div>
         <% if @is_user_facilitator %>
-          <%= link_to "Start timer", start_timer_brainstorm_path(@brainstorm.token), remote: true, method: :post, id: "startTimer", class: "transition duration-200 ease-in-out transform hover:text-white bg-black text-gray-200 p-2 w-full justify-center flex" %>
-          <%= link_to "Done brainstorming", done_brainstorming_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "transition duration-200 ease-in-out transform hover:text-white bg-black text-gray-200 p-2 mt-2 w-full justify-center flex" %>
+          <%= link_to "Start timer", start_timer_brainstorm_path(@brainstorm.token), remote: true, method: :post, id: "startTimer", class: "hvr-underline-from-left-thin border-2 border-black border-solid text-black uppercase bg-white p-2 w-full justify-center flex" %>
+          <%= link_to "Done brainstorming", done_brainstorming_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "hvr-underline-from-left-thin border-2 border-black text-black uppercase bg-white p-2 mt-2 w-full justify-center flex" %>
         <% end %>
         <div class="text-white font-bold w-full mt-8">
           <div class="bg-blurple flex items-end justify-around mt-8 pt-16 pb-4">

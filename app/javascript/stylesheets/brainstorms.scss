@@ -207,6 +207,34 @@
   right: 0;
 }
 
+.hvr-underline-from-left-thin {
+  vertical-align: middle;
+  -webkit-transform: perspective(1px) translateZ(0);
+  transform: perspective(1px) translateZ(0);
+  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  position: relative;
+  overflow: hidden;
+}
+.hvr-underline-from-left-thin:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  right: 100%;
+  bottom: 0;
+  background: #E5D151;
+  height: 7px;
+  -webkit-transition-property: right;
+  transition-property: right;
+  -webkit-transition-duration: 0.2s;
+  transition-duration: 0.2s;
+  -webkit-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+.hvr-underline-from-left-thin:hover:before, .hvr-underline-from-left-thin:active:before {
+  right: 0;
+}
+
 /* Sweep To Right */
 .hvr-sweep-to-right {
   display: inline-block;

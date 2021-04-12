@@ -48,13 +48,13 @@ colorPinOnTyping = (pinElement, inputField) => {
 };
 
 addColorToPin = (pinElement) => {
-  pinElement.classList.add("bg-post-it-yellowy");
+  pinElement.classList.add("bg-post-it-yellowy", "hover:bg-post-it-yellowy-dark");
   pinElement.classList.remove("bg-lighter-gray");
   pinElement.firstElementChild.style.fill = "#312783";
 }
 
 window.removeColorFromPin = function (pinElement) {
-  pinElement.classList.remove("bg-post-it-yellowy");
+  pinElement.classList.remove("bg-post-it-yellowy", "hover:bg-post-it-yellowy-dark");
   pinElement.classList.add("bg-lighter-gray");
   pinElement.firstElementChild.style.fill = "white";
 }
