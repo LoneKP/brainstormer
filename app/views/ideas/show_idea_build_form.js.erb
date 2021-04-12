@@ -12,3 +12,11 @@ addEventListenerToInputField(document.getElementById("idea_build_idea_build_text
 setMaxCharacters(document.getElementById("idea_build_idea_build_text"), 110);
 
 document.getElementById("buildOnIdea-<%= @idea.id %>").classList.add("hidden");
+
+window.scrollTo({
+  top: 0,
+  left: 0
+});
+
+document.getElementById("build-on-idea-headline").classList.add("buzz");
+setTimeout(function(){ document.getElementById("build-on-idea-headline").classList.remove("buzz"); }, 400);
