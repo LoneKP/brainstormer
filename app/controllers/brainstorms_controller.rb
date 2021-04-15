@@ -123,9 +123,9 @@ class BrainstormsController < ApplicationController
       user_is_done_voting?
     end
 
-    if all_online_users_done_voting?
-      end_voting
-    end
+    # if all_online_users_done_voting?
+    #   end_voting
+    # end
   end
 
   def end_voting
