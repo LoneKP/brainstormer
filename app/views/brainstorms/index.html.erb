@@ -9,8 +9,8 @@
         </h1>
       </div>
       <div class="hidden lg:flex flex-col w-1/3 mt-8 bg-blurple">
-        <button @click="{ showNewBrainstormModal = true, showNewBrainstormModalDialog = 1}" class="text-lg my-shadow py-4 bg-white focus:outline-none hvr-underline-from-left">SETUP BRAINSTORM</button>
-        <button @click="showJoinSessionModal = true" class="bg-blurple text-lg my-shadow py-4 mt-4 text-white border-solid border-white border-4 focus:outline-none hvr-underline-from-left">JOIN SESSION</button>
+        <button @click="{ showNewBrainstormModal = true, showNewBrainstormModalDialog = 1, topFunction() }" class="text-lg my-shadow py-4 bg-white focus:outline-none hvr-underline-from-left">SETUP BRAINSTORM</button>
+        <button @click="{ showJoinSessionModal = true, topFunction() }" class="bg-blurple text-lg my-shadow py-4 mt-4 text-white border-solid border-white border-4 focus:outline-none hvr-underline-from-left">JOIN SESSION</button>
       </div>
       <div class="lg:hidden flex flex-col h-full">
         <h1 class="my-32 py-4 px-4 bg-blurple text-white text-7xl font-semibold leading-normal">EVERYTHING BEGINS WITH AN IDEA
@@ -359,3 +359,12 @@
   </div>
   <!-- /Overlay -->
 </div>
+
+<script>
+  function topFunction() {
+    window.scrollTo({
+      top: 0,
+      left: 0
+    });
+    }
+</script>
