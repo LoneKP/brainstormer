@@ -53,7 +53,7 @@ class BrainstormsController < ApplicationController
 
   def send_ideas_email
     if IdeasMailer.with(token: params[:token], email: params[:email]).ideas_email.deliver_later
-      flash.now[:success] = "Your email is successfully sent to #{params[:email]}"
+      flash.now[:success] = "Your email was successfully sent to #{params[:email]}"
     else
       flash.now[:error] = "Sorry! Something went wrong, and we can't send your email right now."
     end
