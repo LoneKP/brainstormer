@@ -126,6 +126,7 @@ class BrainstormsController < ApplicationController
 
   def end_voting
     REDIS.set(brainstorm_state_key, "voting_done")
+    ActionCable.server.broadcast("brainstorm-#{params[:token]}-presence", { event: "remove_done_tags_on_user_badges" })
     ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", { event: "set_brainstorm_state", state: "voting_done" })
     transmit_ideas(sort_by_votes_desc)
   end

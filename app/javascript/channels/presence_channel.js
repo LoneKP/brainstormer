@@ -67,6 +67,7 @@ consumer.subscriptions.create({
         openModalToSetName();
         showCurrentUser();
         if (data.users.length > 7) { removeOverflowingUsers(data.users.length) };
+        if (brainstormStore.state !== "vote") { removeUsersDoneVoting(data.user_ids) };
         break;
       case "name_changed":
         this.perform("update_name");
@@ -77,6 +78,9 @@ consumer.subscriptions.create({
         break;
       case "resume_voting":
         removeUserDoneVoting(data.user_id);
+        break;
+      case "remove_done_tags_on_user_badges":
+        this.perform("update_name");
         break;
     }
   },
@@ -175,6 +179,14 @@ const showOnHover = (hoverElement, showElement) => {
 const showUserDoneVoting = (userId) => {
   document.getElementById(`user-done-${userId}`).classList.remove("invisible");
 }
+
 const removeUserDoneVoting = (userId) => {
   document.getElementById(`user-done-${userId}`).classList.add("invisible");
+}
+
+const removeUsersDoneVoting = (userIds) => {
+  for (let i = 0; i < userIds.length; i++) {
+    console.log(document.getElementById(`user-done-${userIds[i]}`))
+    document.getElementById(`user-done-${userIds[i]}`).classList.add("invisible");
+  }
 }
