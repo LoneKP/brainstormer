@@ -11,8 +11,8 @@
       </div>
 
     </div>
-    <%= link_to start_voting_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "self-end" do %>
-    <button class="flex items-center justify-between my-shadow-lg bg-blurple text-white font-bold w-48 py-2 pl-8 pr-4 mt-8">
+    <%= link_to start_voting_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "self-end hvr-grow mt-8" do %>
+    <button onclick="closeTimeIsUpModal()" class="flex items-center justify-between my-shadow-lg bg-blurple text-white font-bold w-48 py-2 pl-8 pr-4">
       <p>CONTINUE</p>
       <div class="h-8 w-8">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_right" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
@@ -23,3 +23,9 @@
     <% end %>
   </div>
 </div>
+
+<script>
+closeTimeIsUpModal = function () {
+  document.getElementById("time_is_up").classList.add("hidden");
+}
+</script>

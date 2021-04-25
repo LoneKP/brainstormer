@@ -120,6 +120,7 @@ const countDown = () => {
   if (timerState.secondsTotal <= 0) {
     clearInterval(timer);
     timerState.status = "timeElapsed";
-    setAndChangeBrainstormState("time_is_up");
+    setAndChangeBrainstormState("vote");
+    showTimeIsUpModal()
   }
 }

@@ -4,7 +4,6 @@ let stateConfiguration = {
     setup_facilitator: false,
     setup_participant: false,
     ideation: false,
-    time_is_up: false,
     vote: false,
     voting_done: false
   },
@@ -13,16 +12,6 @@ let stateConfiguration = {
     setup_facilitator: false,
     setup_participant: false,
     ideation: true,
-    time_is_up: false,
-    vote: false,
-    voting_done: false
-  },
-  time_is_up: {
-    setup: false,
-    setup_facilitator: false,
-    setup_participant: false,
-    ideation: false,
-    time_is_up: true,
     vote: false,
     voting_done: false
   },
@@ -31,7 +20,6 @@ let stateConfiguration = {
     setup_facilitator: false,
     setup_participant: false,
     ideation: false,
-    time_is_up: false,
     vote: true,
     voting_done: false
   },
@@ -40,7 +28,6 @@ let stateConfiguration = {
     setup_facilitator: false,
     setup_participant: false,
     ideation: false,
-    time_is_up: false,
     vote: false,
     voting_done: true
   }
@@ -61,6 +48,11 @@ changeView = function (state) {
   if (state == "voting_done") {
     document.getElementById("notice").innerHTML = '<div class="bg-greeny fade-out inset-x-0 fixed text-white text-center py-4 z-50 font-bold my-shadow"><span>Voting is done! Now you can review all your great ideas.</span></div>'
   }
+}
+
+showTimeIsUpModal = function () {
+  console.log("SHOW TIME IS UP MODAL")
+  document.getElementById("time_is_up").classList.remove("hidden");
 }
 
 fillStarsWithUserVotes = function () {
