@@ -57,7 +57,6 @@ class BrainstormsController < ApplicationController
     else
       flash.now[:error] = "Sorry! Something went wrong, and we can't send your email right now."
     end
-
   end
 
   def go_to_brainstorm
@@ -120,9 +119,9 @@ class BrainstormsController < ApplicationController
       user_is_done_voting?
     end
 
-    # if all_online_users_done_voting?
-    #   end_voting
-    # end
+    if all_online_users_done_voting?
+      end_voting
+    end
   end
 
   def end_voting
