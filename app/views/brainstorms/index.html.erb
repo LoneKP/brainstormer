@@ -84,9 +84,61 @@
           Maybe in ways that no one did before!</p>
       </div>
     </div>
-    <div class="hidden lg:flex flex-col w-1/2 bg-yellowy px-12 justify-between">
-      <div class="bg-dots-bigger w-full h-10 mt-4 "></div>
-      <div class="bg-yellowy triangle h-16 w-16 self-end -mr-12"></div>
+    <div id="index-post-it-container" class="hidden lg:flex flex-row w-1/2 flex-wrap gap-2 content-center">
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
     </div>
   </div>
   <div class="mt-24 bg-greeny flex flex-col p-24">
@@ -361,10 +413,30 @@
 </div>
 
 <script>
-  function topFunction() {
+  topFunction = () => {
     window.scrollTo({
       top: 0,
       left: 0
     });
+  }
+
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function writeTextInPostIts() {
+    let textSample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet metus in vestibulum feugiat. Vivamus ut augue finibus, viverra turpis vel, dignissim lacus. Integer et ipsum ac neque elementum laoreet. Praesent id imperdiet libero, non bibendum mauris. Aenean nec dapibus lorem, vel sagittis arcu. Etiam semper sem eget ullamcorper ultrices. Praesent quis pellentesque nibh. Vestibulum orci neque, vehicula ac massa non, luctus facilisis lorem. Nunc pellentesque venenatis libero, at ornare lectus euismod eu. Nunc tincidunt sit amet sem at gravida.".split(" ")
+    pTags = document.getElementById("index-post-it-container").getElementsByTagName("p")
+
+    for(i = 0; i < pTags.length; i++) {
+      for (x = i*6; x < (i+1)*6; x++ ) {
+        pTags[i].parentNode.parentNode.classList.remove("lg:hidden")
+        pTags[i].textContent += textSample[x] + " "
+        await sleep(200);
+      }
     }
+  }
+
+  writeTextInPostIts()
+    
 </script>

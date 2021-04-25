@@ -51,7 +51,7 @@
   width: 0;
   height: 0;
   border-style: solid;
-  border-width: 100px 100px 0 0;
+  border-width: 30px 30px 0 0;
   border-color: #fff transparent transparent transparent;
 }
 
@@ -361,6 +361,20 @@
   animation: fadeOut 0.6s forwards;
   animation-delay: 3s;
 }
+
+.font-flow {
+  font-family: flow;
+}
+
+
+
+@font-face {
+  font-family: flow;
+  src: url('../../../public/fonts/flow-block.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
 
 
 
