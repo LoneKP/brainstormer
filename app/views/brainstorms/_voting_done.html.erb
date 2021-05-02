@@ -1,25 +1,25 @@
 <div class="flex-col flex w-full md:p-4 lg:p-0 mx-auto lg:max-w-screen-lg">
-  <h1 class="p-4 text-2xl lg:text-2xl text-white font-semibold uppercase bg-blurple leading-tight my-shadow-lg inline-flex">* VOTING DONE *</h1>
-  <h1 class="mt-4 p-8 text-lg lg:text-4xl text-white font-semibold uppercase bg-black leading-tight my-shadow-lg w-full"><%=@brainstorm.problem %></h1>
-  <div class="my-4 flex justify-end">
-    <button class="hover:scale-105 ease-in-out duration-200 transform p-2 text-lg lg:text-2xl text-white font-semibold uppercase bg-blurple leading-tight my-shadow-lg w-56">
-      <div class="border-solid border-white border-2 flex items-center justify-between px-4">
+  <h1 class="p-4 text-4xl lg:text-2xl text-white font-semibold uppercase bg-blurple leading-tight my-shadow-lg inline-flex">* VOTING DONE *</h1>
+  <h1 class="mt-4 p-8 text-6xl lg:text-4xl text-white font-semibold uppercase bg-black leading-tight my-shadow-lg w-full"><%=@brainstorm.problem %></h1>
+  <div class="lg:mb-4 md:mb-16 lg:mt-4 md:mt-20 flex lg:flex-row md:flex-col justify-end lg:space-x-2">
+    <button class="hover:scale-105 ease-in-out duration-200 transform lg:p-2 md:p-4  text-white font-semibold uppercase bg-blurple leading-tight my-shadow-lg lg:w-56">
+      <div class="border-solid border-white border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
         <%= link_to download_pdf_path(format: :pdf), target: :_blank do %> 
-        <div class="flex text-white w-full font-semibold h-full text-base focus:outline-none py-2">SAVE TO PDF</div>
+        <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">SAVE TO PDF</div>
         <% end %>
         <div class="flex">
-          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18px" height="18px">
+          <svg class="lg:h-6 lg:w-6 md:h-12 md:w-12 md:ml-4 lg:ml-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
             <path d="M0 0h24v24H0z" fill="none" />
             <path d="M20 2H8c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-8.5 7.5c0 .83-.67 1.5-1.5 1.5H9v2H7.5V7H10c.83 0 1.5.67 1.5 1.5v1zm5 2c0 .83-.67 1.5-1.5 1.5h-2.5V7H15c.83 0 1.5.67 1.5 1.5v3zm4-3H19v1h1.5V11H19v2h-1.5V7h3v1.5zM9 9.5h1v-1H9v1zM4 6H2v14c0 1.1.9 2 2 2h14v-2H4V6zm10 5.5h1v-3h-1v3z" />
           </svg>
         </div>
       </div>
     </button>
-    <button onclick="openSendEmailModal()" class="hover:scale-105 ease-in-out duration-200 transform ml-2 p-2 text-lg lg:text-2xl text-white font-semibold uppercase bg-blurple leading-tight my-shadow-lg w-56">
-      <div class="border-solid border-white border-2 flex items-center justify-between px-4">
-        <div class="flex text-white w-full font-semibold h-full text-base focus:outline-none py-2">EMAIL</div>
+    <button onclick="openSendEmailModal()" class="hover:scale-105 ease-in-out duration-200 transform lg:p-2 md:p-4 text-lg lg:text-2xl text-white font-semibold uppercase bg-blurple leading-tight my-shadow-lg lg:w-56 lg:mt-0 md:mt-8">
+      <div class="border-solid border-white border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
+        <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">EMAIL</div>
         <div class="flex">
-          <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="18px" height="18px">
+          <svg class="lg:h-6 lg:w-6 md:h-12 md:w-12 md:ml-4 lg:ml-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white">
             <path d="M0 0h24v24H0z" fill="none" />
             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
           </svg>
