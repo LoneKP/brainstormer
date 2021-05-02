@@ -2,7 +2,7 @@ import consumer from "./consumer"
 
 let timer;
 let timerState;
-let timerStartSeconds;
+let brainstormDuration;
 
 
 consumer.subscriptions.create({
@@ -14,12 +14,13 @@ consumer.subscriptions.create({
       case "transmit_timer_status":
         evaluateTimer(data);
         formatTime();
-        setStateOfTimerButton();;
+        setStateOfTimerButton();
+        brainstormDuration = data.brainstorm_duration
         break;
       case "start_timer":
+        brainstormDuration = data.brainstorm_duration
         if (data.brainstorm_duration !== "already_set") {
-          timerStartSeconds = data.brainstorm_duration
-          timerState.secondsTotal = data.brainstorm_duration
+          timerState.timeLeftSecondsTotal = data.brainstorm_duration
         }
         formatTime();
         timerState.status = "running"
@@ -37,13 +38,13 @@ const evaluateTimer = (data) => {
   if (data.timer_status == "ready_to_start_timer") {
     timerState = {
       status: "readyToStart",
-      secondsTotal: data.brainstorm_duration
+      timeLeftSecondsTotal: data.brainstorm_duration
     }
   }
   else if (data.timer_status == "time_has_run_out") {
     timerState = {
       status: "timeElapsed",
-      secondsTotal: 0
+      timeLeftSecondsTotal: 0
     }
     clearInterval(timer);
   }
@@ -51,7 +52,7 @@ const evaluateTimer = (data) => {
     clearInterval(timer);
     timerState = {
       status: "running",
-      secondsTotal: data.brainstorm_duration - data.timer_status
+      timeLeftSecondsTotal: data.brainstorm_duration - data.timer_status
     }
     startTimer();
   }
@@ -69,7 +70,7 @@ const startTimer = () => {
 
 const resetTimer = (data) => {
   clearInterval(timer);
-  timerState = { status: "readyToStart", secondsTotal: data.brainstorm_duration };
+  timerState = { status: "readyToStart", timeLeftSecondsTotal: data.brainstorm_duration };
   formatTime();
   if (document.getElementById("startTimer")) {
     document.getElementById("startTimer").textContent = "Start timer"
@@ -93,8 +94,8 @@ const setStateOfTimerButton = () => {
 }
 
 const formatTime = () => {
-  let timeLeftSeconds = timerState.secondsTotal % 60;
-  let timeLeftSecondsInMinutes = (timerState.secondsTotal - timeLeftSeconds) / 60;
+  let timeLeftSeconds = timerState.timeLeftSecondsTotal % 60;
+  let timeLeftSecondsInMinutes = (timerState.timeLeftSecondsTotal - timeLeftSeconds) / 60;
   let timeLeftMinutes = timeLeftSecondsInMinutes % 60;
   let formattedTimeLeftMinutes = ("0" + timeLeftMinutes).slice(-2);
   let formattedTimeLeftSeconds = ("0" + timeLeftSeconds).slice(-2);
@@ -104,7 +105,7 @@ const formatTime = () => {
     if (timerOnMobile.classList.contains("bg-blurple") == false) {
       timerOnMobile.classList.add("bg-blurple")
     }
-    timerOnMobile.setAttribute("style", `width: ${100 - timerState.secondsTotal / timerStartSeconds * 100}%`)
+    timerOnMobile.setAttribute("style", `width: ${100 - timerState.timeLeftSecondsTotal / brainstormDuration * 100}%`)
   }
   else if (timerState.status == "readyToStart") {
     timerOnMobile.classList.remove("bg-blurple")
@@ -115,9 +116,9 @@ const formatTime = () => {
 }
 
 const countDown = () => {
-  timerState.secondsTotal--;
+  timerState.timeLeftSecondsTotal--;
   formatTime();
-  if (timerState.secondsTotal <= 0) {
+  if (timerState.timeLeftSecondsTotal <= 0) {
     clearInterval(timer);
     timerState.status = "timeElapsed";
     setAndChangeBrainstormState("vote");
