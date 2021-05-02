@@ -3,7 +3,7 @@
   <h2 id="build-on-idea-headline" class="underline italic text-4xl lg:text-2xl font-semibold">Build on #<%= idea.number %></h2>
   <p class="font-semibold italic text-normal mt-4"><%= idea.text %></p>
   <div class="field mt-8">
-    <%= f.text_area :idea_build_text, class:"w-full h-screen/5 lg:h-32 opacity-75 italic font-bold focus:outline-none border-dashed border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal text-4xl lg:text-base" %>
+    <%= f.text_area :idea_build_text, class:"w-full h-screen/5 lg:h-32 opacity-75 italic font-bold focus:outline-none border-dashed border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal md:text-5xl lg:text-xl lg:text-base" %>
   </div>
   <%= f.hidden_field :idea_id, :value => idea.id %>
   <%= f.hidden_field :brainstorm_id, :value => brainstorm.id %>
@@ -12,9 +12,9 @@
   </div>
   <p id="characterCountIdeaBuild" class="text-xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
 </div>
-<button id="addIdeaBuildPin" type=submit class="lg:mr-8 mt-4 px-8 text-2xl flex flex-row justify-center items-center modal-close h-20 my-shadow-lg bg-lighter-gray focus:outline-none cursor-pointer">
+<button id="addIdeaBuildPin" type=submit class="lg:mr-8 mt-4 px-8 lg:text-2xl md:text-7xl flex flex-row justify-center items-center modal-close lg:h-20 md:h-40 my-shadow-lg bg-lighter-gray focus:outline-none cursor-pointer">
   <p class="font-bold mr-2 text-white">ADD</p>
-  <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="white" width="18px" height="18px">
+  <svg class="lg:h-6 lg:w-6 md:h-20 md:w-20" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="white">
     <g>
       <rect fill="none" />
     </g>
