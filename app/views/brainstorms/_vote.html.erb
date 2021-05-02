@@ -1,11 +1,11 @@
        <div class="flex-col flex w-full md:p-4 lg:p-0 mx-auto lg:max-w-screen-lg">
-         <h1 class="p-3 text-2xl lg:text-4xl text-white font-bold uppercase bg-blurple leading-tight my-shadow-lg w-1/2"><%=@brainstorm.problem %></h1>
-         <div class="flex w-full my-4">
-           <div class="justify-between p-4 mt-8 lg:flex-1 flex flex-row bg-greeny my-shadow-lg w-full">
-             <h1 id="votingHeadline" class="text-lg lg:text-2xl text-white font-semibold uppercase leading-tight ">Vote on your favourite ideas</h1>
-             <div class="flex">
+         <h1 class="p-3 text-7xl lg:text-5xl text-white font-bold uppercase bg-blurple leading-tight my-shadow-lg w-full"><%=@brainstorm.problem %></h1>
+         <div class="flex lg:flex-row flex-col w-full my-4 lg:space-x-8">
+           <div class="justify-between p-4 mt-8 lg:flex-1 flex lg:flex-row flex-col bg-greeny my-shadow-lg w-full">
+             <h1 id="votingHeadline" class="md:text-4xl lg:text-2xl text-white font-semibold uppercase leading-tight ">Vote on your favourite ideas</h1>
+             <div class="flex space-x-2 md:mt-4 lg:mt-0 justify-start">
                <% @votes_cast.times do %>
-               <svg class="h-8 w-8 ml-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
+               <svg class="flex lg:h-8 lg:w-8 md:h-20 md:w-20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
                  <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>
                  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                    <g transform="translate(-701.000000, -551.000000)">
@@ -21,7 +21,7 @@
                </svg>
                <% end %>
                <% @votes_left.times do %>
-               <svg class="h-8 w-8 ml-2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
+               <svg class="flex lg:h-8 lg:w-8 md:h-20 md:w-20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
                  <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>
                  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
                    <g transform="translate(-701.000000, -551.000000)">
@@ -38,14 +38,14 @@
                <% end %>
              </div>
            </div>
-           <div class="hover:scale-105 ease-in-out duration-200 transform ml-8 mt-8 p-3 text-lg lg:text-2xl text-white font-semibold uppercase bg-greeny leading-tight my-shadow-lg w-56">
-             <%= link_to done_voting_brainstorm_path, remote: true, method: :post do %> <button id="done-button" class="bg-white text-greeny w-full font-semibold h-full text-lg focus:outline-none">DONE</button>
+           <div class="hover:scale-105 ease-in-out duration-200 transform lg:mt-8 md:mt-16 lg:p-3 md:p-6 text-lg lg:text-2xl md:text-5xl text-white font-semibold uppercase bg-greeny leading-tight my-shadow-lg lg:w-56 md:w-full">
+             <%= link_to done_voting_brainstorm_path, remote: true, method: :post do %> <button id="done-button" class="bg-white text-greeny w-full font-semibold h-full md:py-6 lg:py-0 focus:outline-none">DONE</button>
              <% end %>
            </div>
          </div>
           <% if @is_user_facilitator %>
-            <%= link_to end_voting_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "inline-flex justify-end" do %>
-            <p class="hover:bg-yellowy underline text-blurple ">Finish voting for everyone</p>
+            <%= link_to end_voting_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "lg:inline-flex lg:justify-end md:flex md:justify-center" do %>
+            <p class="hover:bg-yellowy underline text-blurple lg:text-xl md:text-4xl lg:my-0 md:my-16">Finish voting for everyone</p>
             <% end %>
           <% end %>
          <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideasVote">
