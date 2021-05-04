@@ -1,20 +1,20 @@
 <div class="absolute inset-0 z-10 flex flex-row items-center justify-center" style="background-color: rgba(49, 39, 131, 0.9);">
-  <div class="flex flex-col justify-between w-1/3">
-    <div class="bg-light-yellowy mt-12 my-shadow-lg">
+  <div class="flex flex-col justify-between w-full mx-8 lg:mx-0 lg:w-1/3">
+    <div class="bg-light-yellowy lg:mt-12 my-shadow-lg">
       <div class="bg-dots-blurple h-10 mb-8"></div>
-      <div class="flex flex-col items-center justify-around">
+      <div class="flex flex-col items-center justify-around py-32 lg:py-0">
         <svg class="h-48 w-48" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#312783">
           <path d="M0 0h24v24H0z" fill="none" />
           <path d="M15 1H9v2h6V1zm-4 13h2V8h-2v6zm8.03-6.61l1.42-1.42c-.43-.51-.9-.99-1.41-1.41l-1.42 1.42C16.07 4.74 14.12 4 12 4c-4.97 0-9 4.03-9 9s4.02 9 9 9 9-4.03 9-9c0-2.12-.74-4.07-1.97-5.61zM12 20c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" /></svg>
-        <p class="uppercase text-blurple text-5xl font-bold mt-8">Time is up!</p>
-        <p class="uppercase text-blurple text-2xl font-bold px-8 py-8 text-center">Good job, you and your team created <span id="final-ideas-count"> <%=pluralize(@ideas.count, "idea")%></span>!</p>
+        <p class="uppercase text-blurple lg:text-5xl text-8xl font-bold mt-8">Time is up!</p>
+        <p class="uppercase text-blurple text-5xl lg:text-2xl font-bold px-8 py-8 text-center">Good job, you and your team created <span id="final-ideas-count"> <%=pluralize(@ideas.count, "idea")%></span>!</p>
       </div>
 
     </div>
-    <%= link_to start_voting_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "self-end hvr-grow mt-8" do %>
-    <button onclick="closeTimeIsUpModal()" class="flex items-center justify-between my-shadow-lg bg-blurple text-white font-bold w-48 py-2 pl-8 pr-4">
+    <%= link_to start_voting_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "self-end hvr-grow mt-20 lg:mt-8 w-full lg:w-auto" do %>
+    <button onclick="closeTimeIsUpModal()" class="flex items-center justify-center lg:justify-between lg:text-base text-6xl my-shadow-lg bg-blurple text-white font-bold w-full lg:w-48 py-8 lg:py-2 lg:pl-8 lg:pr-4">
       <p>CONTINUE</p>
-      <div class="h-8 w-8">
+      <div class="hidden lg:flex h-8 w-8">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_right" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
           <path fill="#FFFFFF" d="M11,10L7.859,6.58c-0.268-0.27-0.268-0.707,0-0.978c0.268-0.27,0.701-0.27,0.969,0l3.83,3.908  c0.268,0.271,0.268,0.709,0,0.979l-3.83,3.908c-0.267,0.272-0.701,0.27-0.969,0c-0.268-0.269-0.268-0.707,0-0.978L11,10z" />
         </svg>
