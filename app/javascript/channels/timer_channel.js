@@ -18,15 +18,16 @@ consumer.subscriptions.create({
         brainstormDuration = data.brainstorm_duration
         break;
       case "start_timer":
-        brainstormDuration = data.brainstorm_duration
         if (data.brainstorm_duration !== "already_set") {
           timerState.timeLeftSecondsTotal = data.brainstorm_duration
+          brainstormDuration = data.brainstorm_duration
         }
         formatTime();
         timerState.status = "running"
         startTimer();
         break;
       case "reset_timer":
+        brainstormDuration = data.brainstorm_duration
         timerState.status = "readyToStart"
         resetTimer(data);
         break;
