@@ -39,6 +39,12 @@
   box-shadow: 8px 8px 0 0 rgba(0, 0, 0, 0.2);
 }
 
+.my-shadow-only-desktop {
+  @media (max-width: 767px) { 
+    box-shadow: 8px 8px 0 0 rgba(0, 0, 0, 0.2);
+  }
+}
+
 .my-shadow-dark {
   box-shadow: 8px 8px 0 0 rgba(0, 0, 0, 0.6);
 }
