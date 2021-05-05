@@ -10,6 +10,7 @@
     <%= favicon_link_tag asset_path('favicon.png') %>
   </head>
   <body class="font-mono <%= action_name == "index" ? "bg-beigy" : "bg-pattern" %>">
+    <%= render 'shared/feedback'%>
     <%= yield %>
   </body>
 </html>
