@@ -122,6 +122,7 @@ const countDown = () => {
   if (timerState.timeLeftSecondsTotal <= 0) {
     clearInterval(timer);
     timerState.status = "timeElapsed";
+    document.getElementById("timerPhoneElement").classList.remove("bg-blurple")
     setAndChangeBrainstormState("vote");
     showTimeIsUpModal()
   }
