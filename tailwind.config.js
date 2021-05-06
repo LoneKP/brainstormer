@@ -37,6 +37,7 @@ module.exports = {
       colors: {
         'plum': '#fb6484',
         'blurple': '#312783',
+        'blurple-gray': '#f4f2f7',
         'dark-blurple': '#28206e',
         'darky': '#2f2f41',
         'light-gray': '#d8d8d8',
@@ -63,6 +64,7 @@ module.exports = {
         'wine': '#750202',
         'wine-light': '#ba7f80',
         'light-greeny': '#DBFFC1',
+        'light-greeny-darker': '#cff2b6',
         'light-blurple': '#DFD8FF',
         'beigy': '#FBEDEB'
       },
