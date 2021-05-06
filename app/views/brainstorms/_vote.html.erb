@@ -39,13 +39,13 @@
              </div>
            </div>
            <div class="hover:scale-105 ease-in-out duration-200 transform lg:mt-8 md:mt-16 lg:p-3 md:p-6 text-lg lg:text-2xl md:text-5xl text-white font-semibold uppercase bg-greeny leading-tight my-shadow-lg lg:w-56 md:w-full">
-             <%= link_to done_voting_brainstorm_path, remote: true, method: :post do %> <button id="done-button" class="bg-white text-greeny w-full font-semibold h-full md:py-6 lg:py-0 focus:outline-none">DONE</button>
+             <%= link_to done_voting_brainstorm_path, remote: true, method: :post do %> <button id="done-button" class="bg-white text-greeny w-full font-semibold h-full md:py-6 lg:py-0 focus:outline-none active:bg-greeny-gray">DONE</button>
              <% end %>
            </div>
          </div>
           <% if @is_user_facilitator %>
             <%= link_to end_voting_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "lg:inline-flex lg:justify-end md:flex md:justify-center" do %>
-            <p class="hover:bg-yellowy underline text-blurple lg:text-xl md:text-4xl lg:my-0 md:my-16">Finish voting for everyone</p>
+            <p class="hover:bg-yellowy active:bg-dark-yellowy underline text-blurple lg:text-xl md:text-4xl lg:my-0 md:my-16">Finish voting for everyone</p>
             <% end %>
           <% end %>
          <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideasVote">

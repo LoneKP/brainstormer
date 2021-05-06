@@ -20,12 +20,12 @@
       </div>
     </div>
     <div class="lg:mt-8 mt-12 flex flex-row justify-between w-11/12 lg:w-1/2">
-      <div @click="showEmailModal = false" class="hvr-grow cursor-pointer my-shadow-lg bg-white text-lg font-bold lg:h-14 lg:w-14 h-28 w-28">
+      <div @click="showEmailModal = false" class="hvr-grow cursor-pointer my-shadow-lg bg-white active:bg-blurple-gray text-lg font-bold lg:h-14 lg:w-14 h-28 w-28">
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_left" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
           <path fill="#352288" d="M12.141,13.418c0.268,0.271,0.268,0.709,0,0.978c-0.268,0.27-0.701,0.272-0.969,0l-3.83-3.908  c-0.268-0.27-0.268-0.707,0-0.979l3.83-3.908c0.267-0.27,0.701-0.27,0.969,0c0.268,0.271,0.268,0.709,0,0.978L9,10L12.141,13.418z" />
         </svg>
       </div>
-      <button type=submit class="hvr-grow px-20 py-3 lg:py-0 lg:px-8 my-shadow-lg text-blurple text-6xl lg:text-lg font-bold bg-light-greeny cursor-pointer" @click="showEmailModal = false">SEND!</button>
+      <button type=submit class="hvr-grow px-20 py-3 lg:py-0 lg:px-8 my-shadow-lg text-blurple text-6xl lg:text-lg font-bold bg-light-greeny active:bg-light-greeny-darker focus:outline-none cursor-pointer" @click="showEmailModal = false">SEND!</button>
       <% end %>
     </div>
 
