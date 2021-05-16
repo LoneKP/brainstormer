@@ -97,7 +97,7 @@ const createNewIdea = (data) => {
   buildOnIdeaLink.setAttribute("rel", "nofollow");
   buildOnIdeaLink.setAttribute("data-method", "post");
   buildOnIdeaLink.setAttribute("href", data.build_on_idea_link);
-  buildOnIdeaButton.classList.add("text-5xl", "lg:text-lg", "font-medium", "uppercase", "bg-black", "text-white", "py-1", "px-8");
+  buildOnIdeaButton.classList.add("text-5xl", "lg:text-lg", "font-medium", "uppercase", "bg-black", "text-white", "py-8", "lg:py-1", "lg:px-8", "px-40", "my-8", "lg:my-2");
   buildOnIdeaButton.innerHTML = "Build on idea"
 
   let ideaText = document.createTextNode(data.content.text);
