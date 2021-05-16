@@ -16,7 +16,7 @@
 
       <%= form_for :brainstorm, url: send_ideas_email_brainstorm_path(@brainstorm.token), remote: true do |f| %>
       <div class="field my-2">
-        <%= text_field_tag "email", "", class:"w-full focus:outline-none border-solid border-2 border-black lg:h-12 h-32 my-shadow italic font-bold px-4"%>
+        <%= text_field_tag "email", "", class:"w-full focus:outline-none border-solid border-2 border-black lg:h-12 h-32 my-shadow italic font-bold px-4 lg:text-xl text-6xl"%>
       </div>
     </div>
     <div class="lg:mt-8 mt-12 flex flex-row justify-between w-11/12 lg:w-1/2">
