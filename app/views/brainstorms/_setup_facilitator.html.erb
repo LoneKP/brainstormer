@@ -125,7 +125,9 @@
       <option value=900>15 minutes</option>
       <option value=1200>20 minutes</option>
       <option value=1800>30 minutes</option>
-      <option value=10>10 secs</option>
+      <% if Rails.env.development? %> 
+        <option value=10>10 secs</option>
+      <% end %>
     </select>
   </div>
 
