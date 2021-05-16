@@ -1,6 +1,6 @@
 <div id="emailModalContainer" class="flex flex-row" x-data="{ 'showEmailModal': false}" @keydown.escape="showEmailModal = false">
   <!--Overlay-->
-  <div class="flex flex-col" style="background-color: rgba(49, 39, 131, 0.9);" x-show="showEmailModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showEmailModal }">
+  <div class="flex flex-col" style="background-color: rgba(49, 39, 131, 0.9);" x-show="showEmailModal" :class="{ 'fixed inset-0 z-10 flex items-center justify-center': showEmailModal }">
     <!--Dialog-->
     <div class="bg-white w-11/12 lg:w-1/2 mx-auto rounded shadow-lg lg:py-3 py-16 text-left px-6" x-show="showEmailModal" @click.away="showEmailModal = false">
 

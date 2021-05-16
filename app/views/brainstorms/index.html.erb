@@ -9,8 +9,8 @@
         </h1>
       </div>
       <div class="hidden lg:flex flex-col w-1/3 mt-8 bg-blurple">
-        <button @click="{ showNewBrainstormModal = true, showNewBrainstormModalDialog = 1, topFunction() }" class="text-lg my-shadow py-4 bg-white focus:outline-none active:bg-blurple-gray hvr-underline-from-left">SETUP BRAINSTORM</button>
-        <button @click="{ showJoinSessionModal = true, topFunction() }" class="bg-blurple text-lg my-shadow py-4 mt-4 text-white border-solid border-white border-4 focus:outline-none active:bg-dark-blurple hvr-underline-from-left">JOIN SESSION</button>
+        <button @click="{ showNewBrainstormModal = true, showNewBrainstormModalDialog = 1 }" class="text-lg my-shadow py-4 bg-white focus:outline-none active:bg-blurple-gray hvr-underline-from-left">SETUP BRAINSTORM</button>
+        <button @click="{ showJoinSessionModal = true }" class="bg-blurple text-lg my-shadow py-4 mt-4 text-white border-solid border-white border-4 focus:outline-none active:bg-dark-blurple hvr-underline-from-left">JOIN SESSION</button>
       </div>
       <div class="lg:hidden flex flex-col h-full">
         <h1 class="my-32 py-4 px-4 bg-blurple text-white text-7xl font-semibold leading-normal">EVERYTHING BEGINS WITH AN IDEA
@@ -237,7 +237,7 @@
     </div>
   </div>
   <!--Overlay-->
-  <div style=" background-color: rgba(49,39,131,0.9)" x-show="showNewBrainstormModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showNewBrainstormModal }">
+  <div style=" background-color: rgba(49,39,131,0.9)" x-show="showNewBrainstormModal" :class="{ 'fixed inset-0 z-10 flex items-center justify-center': showNewBrainstormModal }">
     <!--Dialog 1-->
     <div class="flex-col w-11/12 xl:w-3/4 max-w-screen-lg" @click.away="showNewBrainstormModal = false" x-show="showNewBrainstormModalDialog == 1 || 2">
       <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left px-6" x-show="showNewBrainstormModal">
@@ -374,7 +374,7 @@
   </div>
   <!-- /Overlay -->
   <!--Overlay-->
-  <div class="" style=" background-color: rgba(49,39,131,0.9)" x-show="showJoinSessionModal" :class="{ 'absolute inset-0 z-10 flex items-center justify-center': showJoinSessionModal }">
+  <div class="" style=" background-color: rgba(49,39,131,0.9)" x-show="showJoinSessionModal" :class="{ 'fixed inset-0 z-10 flex items-center justify-center': showJoinSessionModal }">
     <!--Dialog-->
     <div class=" flex-col w-1/2" @click.away="showJoinSessionModal = false">
       <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left px-6" x-show="showJoinSessionModal">
@@ -422,13 +422,6 @@
 </div>
 
 <script>
-  topFunction = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0
-    });
-  }
-
   function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
