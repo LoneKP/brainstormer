@@ -16,6 +16,14 @@ module.exports = {
       '8xl': '6rem',
     },
     extend: {
+      keyframes: {
+        "ping-once": {
+          "0%, 100%": { transform: "scale(1.3)" }
+        }
+      },
+      animation: {
+        "ping-once": 'ping-once ease 200ms 1',
+      },
       height: theme => ({
         "screen/2": "50vh",
         "screen/3": "calc(100vh / 3)",

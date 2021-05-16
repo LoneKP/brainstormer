@@ -1,11 +1,13 @@
 if ('<%= @idea_has_a_vote %>' == "true") {
   document.getElementById("star-idea-<%=@idea.id %>").setAttribute("fill", "");
+  document.getElementById("star-idea-<%=@idea.id %>").closest("svg").classList.remove("animate-ping-once");
   if (currentUser.votesCastIdeas.indexOf(<%=@idea.id %>) !== -1){
     currentUser.votesCastIdeas.splice(currentUser.votesCastIdeas.indexOf(<%=@idea.id %>), 1); 
   };
 }
 else if ('<%= @idea_has_a_vote %>' == "false")  {
   document.getElementById("star-idea-<%=@idea.id %>").setAttribute("fill", "#312783");
+  document.getElementById("star-idea-<%=@idea.id %>").closest("svg").classList.add("animate-ping-once");
   if (currentUser.votesCastIdeas.indexOf(<%=@idea.id %>) == -1){
     currentUser.votesCastIdeas.push(<%=@idea.id %>);
   };
