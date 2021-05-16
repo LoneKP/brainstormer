@@ -76,7 +76,7 @@
                <% end %>
                <% idea.idea_builds.each do |idea_build| %>
                <%= link_to idea_idea_build_vote_path(idea, idea_build), remote: true, method: :post do %>
-               <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic font-bold lg:px-4 px-10">
+               <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic font-bold lg:px-4 px-10 cursor-default">
 
                  <div class="flex flex-row justify-between w-full items-center">
                    <h2 class="py-4 mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
