@@ -45,7 +45,7 @@
             <%= link_to "Start timer", start_timer_brainstorm_path(@brainstorm.token), remote: true, method: :post, id: "startTimer", class: "hvr-underline-from-left-thin lg:border-2 lg:border-black lg:border-solid text-white lg:text-black uppercase p-6 lg:p-2 w-full justify-center flex text-5xl lg:text-base bg-blurple active:bg-darker-blurple lg:bg-transparent lg:active:bg-blurple-gray my-shadow-lg" %>
           </div>
           <div class="my-shadow w-full flex lg:mb-0 mb-16">
-            <%= link_to "Done brainstorming", done_brainstorming_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "hvr-underline-from-left-thin lg:border-2 lg:border-black lg:border-solid text-white lg:text-black uppercase p-6 lg:p-2 w-full justify-center flex text-5xl lg:text-base md:mt-8 lg:mt-2 bg-blurple active:bg-darker-blurple lg:bg-transparent lg:active:bg-blurple-gray my-shadow-lg" %>
+            <%= link_to "Go to voting", done_brainstorming_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "hvr-underline-from-left-thin lg:border-2 lg:border-black lg:border-solid text-white lg:text-black uppercase p-6 lg:p-2 w-full justify-center flex text-5xl lg:text-base md:mt-8 lg:mt-2 bg-blurple active:bg-darker-blurple lg:bg-transparent lg:active:bg-blurple-gray my-shadow-lg" %>
           </div>
         <% end %>
         <div class="hidden lg:flex lg:flex-col text-white font-bold w-full mt-8">
