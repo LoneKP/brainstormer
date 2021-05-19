@@ -89,6 +89,7 @@ module.exports = {
   variants: {
     extend: {
       backgroundColor: ['active'],
+      animation: ['hover'],
     }
   },
 }
