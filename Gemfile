@@ -14,7 +14,8 @@ gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 5.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-
+gem 'ahoy_matey'
+gem 'maxminddb'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 
