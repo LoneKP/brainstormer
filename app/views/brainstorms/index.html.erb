@@ -1,9 +1,11 @@
 <div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl" x-data=" { 'showNewBrainstormModal' : false, 'showJoinSessionModal' : false, 'showNewBrainstormModalDialog' : null}" @keydown.escape="showNewBrainstormModal = false" @keydown.escape="showJoinSessionModal = false">
   <div class="flex-col flex bg-blurple p-12 mt-4 lg:mt-8 h-full">
     <div class="bg-dots p-12 h-full">
-      <div class="-ml-28 -mt-12 italic bg-black w-32 h-32 lg:w-16 lg:h-16 text-white text-7xl lg:text-5xl flex font-bold items-center justify-center">
-        <span>B</span>
-      </div>
+      <%= link_to root_path do %>
+        <div class="-ml-28 -mt-12 italic bg-black w-32 h-32 lg:w-16 lg:h-16 text-white text-7xl lg:text-5xl flex font-bold items-center justify-center">
+          <span>B</span>
+        </div>
+      <% end %>
       <div class="hidden lg:block w-1/2 mt-16 mt-56">
         <h1 class="py-4 px-4 lg:p-0 bg-blurple text-white text-7xl lg:text-5xl font-semibold leading-normal lg:leading-normal">EVERYTHING BEGINS WITH AN IDEA
         </h1>
@@ -243,7 +245,10 @@
         </svg>
       </a>
     </div>
-    <p class="hover:underline"><a target="_blank" href="https://www.privacypolicies.com/live/3d8c4e3b-9858-45ca-8565-2cb260ee20fe">Privacy policy</a></p>
+    <div class=" flex flex-row space-x-8">
+      <p class="hover:underline"><a href="/about">About</a></p>
+      <p class="hover:underline"><a target="_blank" href="https://www.privacypolicies.com/live/3d8c4e3b-9858-45ca-8565-2cb260ee20fe">Privacy policy</a></p>
+    </div>
   </div>
   <!--Overlay-->
   <div style=" background-color: rgba(49,39,131,0.9)" x-show="showNewBrainstormModal" :class="{ 'fixed inset-0 z-10 flex items-center justify-center': showNewBrainstormModal }">
