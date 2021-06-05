@@ -94,6 +94,7 @@ GEM
     erubi (1.10.0)
     ffi (1.15.0)
     geocoder (1.6.7)
+    geoip (1.6.4)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     i18n (1.8.9)
@@ -247,6 +248,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.2)
   byebug
   capybara (>= 2.15)
+  geoip
   jbuilder (~> 2.7)
   letter_opener
   listen (~> 3.0.8)
