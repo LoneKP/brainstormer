@@ -1,15 +1,15 @@
 .slider-thumb::-webkit-slider-thumb {
-  @apply appearance-none bg-blurple h-4 w-4 transform focus:outline-none scale-300 lg:scale-200;
+  @apply appearance-none bg-blurple h-4 w-4 transform focus:outline-none scale-400 lg:scale-200;
 }
 
 .slider-thumb::-webkit-slider-thumb:hover {
   cursor: ew-resize;
-  @apply justify-center transform scale-250 ease-in-out transition duration-100;
+  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
 }
 
 .slider-thumb::-webkit-slider-thumb:active {
   cursor: ew-resize;
-  @apply justify-center transform scale-250 ease-in-out transition duration-100;
+  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
 }
 
 .slider-thumb::-webkit-slider-runnable-track {
@@ -17,17 +17,17 @@
 }
 
 .slider-thumb::-moz-range-thumb {
-  @apply appearance-none bg-blurple h-4 w-4 rounded-none focus:outline-none border-none transform scale-300 lg:scale-200;
+  @apply appearance-none bg-blurple h-4 w-4 rounded-none focus:outline-none border-none transform scale-400 lg:scale-200;
 }
 
 .slider-thumb::-moz-range-thumb:hover {
   cursor: ew-resize;
-  @apply justify-center transform scale-250 ease-in-out transition duration-100;
+  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
 }
 
 .slider-thumb::-moz-range-thumb:active {
   cursor: ew-resize;
-  @apply justify-center transform scale-250 ease-in-out transition duration-100;
+  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
 }
 
 .slider-thumb::-moz-range-track {
@@ -35,17 +35,17 @@
 }
 
 .slider-thumb::-ms-track {
-  @apply appearance-none bg-blurple h-4 w-4 rounded-none focus:outline-none border-none transform scale-300 lg:scale-200;
+  @apply appearance-none bg-blurple h-4 w-4 rounded-none focus:outline-none border-none transform scale-400 lg:scale-200;
 }
 
 .slider-thumb::-ms-track:hover {
   cursor: ew-resize;
-  @apply justify-center transform scale-250 ease-in-out transition duration-100;
+  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
 }
 
 .slider-thumb::-ms-track:active {
   cursor: ew-resize;
-  @apply justify-center transform scale-250 ease-in-out transition duration-100;
+  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
 }
 
 .slider-thumb::-ms-track {
