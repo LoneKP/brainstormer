@@ -117,18 +117,14 @@
     </div>
   </div>
 
-  <div class="bg-white mt-8 my-shadow-lg flex flex-col lg:flex-row p-8 lg:justify-between lg:gap-2">
+  <div class="bg-white mt-8 my-shadow-lg flex flex-col p-8 lg:justify-between lg:gap-2">
     <p class="w-full mt-8 lg:mt-0 italic text-blurple text-6xl lg:text-2xl font-semibold lg:mb-0 mb-8">Duration of brainstorm</p>
-    <select class="w-full min-w-0 rounded outline-none md:p-8 lg:p-2 font-bold md:text-5xl lg:text-lg border-2 border-blurple flex flex-col" name="time-selection" id="time-selection" onchange="setValueForBrainstormDuration()">
-      <option value=300>5 minutes</option>
-      <option selected value=600>10 minutes</option>
-      <option value=900>15 minutes</option>
-      <option value=1200>20 minutes</option>
-      <option value=1800>30 minutes</option>
-      <% if Rails.env.development? %> 
-        <option value=10>10 secs</option>
-      <% end %>
-    </select>
+    <form class="flex flex-row w-full" name="timeSelectionForm">
+      <input class="w-full appearance-none slider-thumb" onchange="setValueForBrainstormDuration()" type="range" name="timeSelectionName" id="timeSelectionInputId" value="600" min="300" max="1800" step="300" oninput="timeSelectionOutputId.value = (timeSelectionInputId.value/60).toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false}) ">
+      <div class="justify-center ml-20 flex text-6xl">
+        <output name="timeSelectionOutputName" id="timeSelectionOutputId">10</output><span>:00</span>
+      </div>
+    </form>
   </div>
 
   <div class="flex flex-col bg-light-yellowy justify-between mb-56 mt-12 my-shadow-lg">
@@ -152,8 +148,8 @@
 <script>
   const setValueForBrainstormDuration = () => {
     let url = new URL(document.getElementById("start-brainstorm-link").href)
-    let value = document.getElementById("time-selection").value
+    let value = document.getElementById("timeSelectionInputId").value
     url.searchParams.set("brainstorm_duration", value)
-    document.getElementById("start-brainstorm-link").href = url    
+    document.getElementById("start-brainstorm-link").href = url 
   } 
 </script>
