@@ -54,8 +54,10 @@ class BrainstormsController < ApplicationController
   def send_ideas_email
     if IdeasMailer.with(token: params[:token], email: params[:email]).ideas_email.deliver_later
       flash.now[:success] = "Your email was successfully sent to #{params[:email]}"
+      ahoy.track "Email sent successfully"
     else
       flash.now[:error] = "Sorry! Something went wrong, and we can't send your email right now."
+      ahoy.track "Email sent error"
     end
   end
 
@@ -145,6 +147,7 @@ class BrainstormsController < ApplicationController
   end
 
   def download_pdf
+    ahoy.track "Download pdf"
     respond_to do |format|
       format.pdf do
         render pdf: "Brainstorm session ideas",
