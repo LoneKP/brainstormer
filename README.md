@@ -38,8 +38,4 @@ To run server, redis and webpacker locally, run:
 
 Thank you for reaching this far in the readme. You are already awesome!
 
-If you have an idea for a feature, if you noticed a bug or ideas for how this readme could be improved (I think it could!) you are welcome to open an issue using github issues: https://github.com/LoneKP/brainstormer.online/issues
-
-If you already have a solution to your problem in mind, feel free to create a pull request with your suggested changes. Anything merged to the main branch in this repository will be deployed to brainstormer.online. 
-
-You are welcome to host the project yourself if you want to develop it in a different direction, as long as you make sure to keep code open source.  
+Read more about how to contribute here: https://github.com/LoneKP/brainstormer.online/blob/main/CONTRIBUTING.md
