@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
-  def about
+  def pages_template
+    @page = request.path.sub("/", "")
   end
 end

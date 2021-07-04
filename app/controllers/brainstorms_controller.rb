@@ -13,6 +13,7 @@ class BrainstormsController < ApplicationController
 
   def index
     @brainstorm = Brainstorm.new
+    @page = "index"
   end
 
   def create
