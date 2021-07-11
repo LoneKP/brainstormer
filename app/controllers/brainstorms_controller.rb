@@ -16,6 +16,10 @@ class BrainstormsController < ApplicationController
     @page = "index"
   end
 
+  def new
+    @brainstorm = Brainstorm.new
+  end
+
   def create
     @brainstorm = Brainstorm.new(brainstorm_params)
     @brainstorm.token = generate_token

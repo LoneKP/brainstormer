@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   mount Blazer::Engine, at: "blazer"
   
-  resources :brainstorms, param: :token, only: :create do
+  resources :brainstorms, param: :token, only: [:create, :new] do
     member do
       post :set_user_name, :start_timer, :done_brainstorming, :send_ideas_email, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
     end
