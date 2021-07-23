@@ -30,6 +30,14 @@ Install js dependencies
 
 ``npm install``
 
+Install redis
+
+Follow instructions [here](https://redis.io/topics/quickstart)
+
+To install foreman, run:
+
+``gem install foreman``
+
 To run server, redis and webpacker locally, run: 
 
 ``foreman start -f Procfile.dev``
