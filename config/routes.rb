@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get 'brainstorms/join-session', to: 'brainstorms#join_session'
 
+  root 'brainstorms#new'
+
   resources :ideas, only: [:create] do
       post :show_idea_build_form, :vote
     resources :idea_builds, only: [:create] do
@@ -20,8 +22,6 @@ Rails.application.routes.draw do
   get '/contribute', to: 'pages#pages_template'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-
-  root 'brainstorms#index'
 
   get '/:token', to: 'brainstorms#show', as: 'brainstorm'
   
