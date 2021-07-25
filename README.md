@@ -22,7 +22,11 @@ The project is using ruby on rails and tailwind. That means that you will need t
 
 You need to make sure that you have the correct versions of ruby and rails. 
 
-clone the project and set up the database with:
+If you don't have postgres installed, you will need to do that. You can do that with brew: 
+
+``brew install postgres``
+
+Then you can create the database with:
 
 ``rails db:setup``
 
@@ -30,9 +34,26 @@ Install js dependencies
 
 ``npm install``
 
-To run server, redis and webpacker locally, run: 
+Install redis
+
+``brew install redis``
+
+## Start the local server
+
+You can install foreman in order to run rails server, redis and webpacker locally with one command, run:
+
+``gem install foreman``
 
 ``foreman start -f Procfile.dev``
+
+Otherwise you can run these commands separately:
+
+``rails server``
+
+``redis-server``
+
+``bin/webpack-dev-server``
+
 
 ## How to contribute?
 
