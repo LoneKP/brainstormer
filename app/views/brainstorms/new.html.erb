@@ -1,4 +1,26 @@
-<div style="background-color: rgba(49,39,131,0.9)" class="inset-0 fixed">
+<div class="lg:hidden flex flex-col">
+  <div class="bg-blurple px-6 h-screen flex flex-col justify-center">
+    <%= form_with model: @brainstorm do |f| %>
+    <div class="flex flex-row justify-between items-baseline mb-2">
+      <%= f.label :problem, "PROBLEM TO SOLVE", class: "italic text-3xl font-bold flex flex-row justify-between items-baseline text-white leading-none " %>
+    </div>
+    <%= f.text_field :problem, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none text-black font-bold text-5xl my-shadow-lg", autocomplete: "off" %>
+    <div id="error-field-problem-mobile">
+      <%= render 'shared/validation_error' %>
+    </div>
+    <div class="flex flex-row justify-between items-baseline mb-2">
+      <%= f.label :name, "YOUR NAME", class: "mt-8 italic text-3xl font-bold  flex flex-row justify-between items-baseline text-white leading-none" %>
+    </div>
+    <%= f.text_field :name, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none text-black font-bold text-5xl my-shadow-lg", autocomplete: "off" %>
+    <div id="error-field-name-mobile">
+      <%= render 'shared/validation_error' %>
+    </div>
+    <%= f.submit 'CREATE BRAINSTORM', class: "mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer" %>
+    <% end %>
+  </div>
+</div>
+
+<div style="background-color: rgba(49,39,131,0.9)" class="inset-0 fixed hidden lg:block">
   <div>
     <div class="items-center max-w-screen-lg lg:mx-auto lg:my-0 lg:mt-12 2xl:mt-36">  
       <!--Dialog 1-->
