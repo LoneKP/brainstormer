@@ -1,3 +1,11 @@
+GIT
+  remote: https://github.com/rails/kredis.git
+  revision: 90176e63609414171b6fff3c1e3919c7f710d138
+  specs:
+    kredis (0.2.3)
+      activesupport (>= 6.0.0)
+      redis (~> 4.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -120,6 +128,8 @@ GEM
     minitest (5.14.4)
     msgpack (1.4.2)
     nio4r (2.5.7)
+    nokogiri (1.11.7-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.11.7-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.11.7-x86_64-linux)
@@ -239,6 +249,7 @@ GEM
     zeitwerk (2.4.2)
 
 PLATFORMS
+  arm64-darwin-20
   x86_64-darwin-20
   x86_64-linux
 
@@ -250,6 +261,7 @@ DEPENDENCIES
   capybara (>= 2.15)
   geoip
   jbuilder (~> 2.7)
+  kredis!
   letter_opener
   listen (~> 3.0.8)
   maxminddb
