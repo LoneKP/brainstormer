@@ -7,6 +7,12 @@ class Brainstorm < ApplicationRecord
 
   before_validation(on: :create) { self.token ||= generate_token }
 
+  def self.find_sole_by_token(token)
+    where("token ilike ?", "%#{token}").then do |relation|
+      relation.first if relation.one?
+    end
+  end
+
   private
 
   def generate_token

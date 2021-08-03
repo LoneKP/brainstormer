@@ -68,8 +68,9 @@ class BrainstormsController < ApplicationController
   end
 
   def go_to_brainstorm
-    token = params[:token].gsub("#", "")
-    brainstorm = Brainstorm.where('token ilike ?', "%#{token}").first if Brainstorm.where('token ilike ?', "%#{token}").count == 1
+    token = params[:token].remove("#")
+    brainstorm = Brainstorm.find_sole_by_token(token)
+
     respond_to do |format|
       if !brainstorm.nil? && token.length >= 6
         format.js { render :js => "window.location.href = '#{brainstorm_path(brainstorm.token)}'" }
