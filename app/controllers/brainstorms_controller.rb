@@ -21,7 +21,6 @@ class BrainstormsController < ApplicationController
 
   def create
     @brainstorm = Brainstorm.new(brainstorm_params)
-    @brainstorm.token = generate_token
     @facilitation = Facilitation.new(@brainstorm)
 
     respond_to do |format|
@@ -185,10 +184,6 @@ class BrainstormsController < ApplicationController
 
     return true if users_online == users_done_voting
     false
-  end
-
-  def generate_token
-    "BRAIN" + SecureRandom.hex(3).to_s
   end
 
   def set_brainstorm
