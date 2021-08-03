@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount Blazer::Engine, at: "blazer"
-  
+
   resources :brainstorms, param: :token, only: [:create, :new] do
     member do
       post :set_user_name, :start_timer, :done_brainstorming, :send_ideas_email, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
@@ -24,8 +24,8 @@ Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   get '/:token', to: 'brainstorms#show', as: 'brainstorm'
-  
-  get '/:token/download_pdf', to: 'brainstorms#download_pdf', as: 'download_pdf'
+
+  get '/:token/downloads', to: 'brainstorms/downloads#show', as: 'download_brainstorm', format: 'pdf'
 
   post '/go_to_brainstorm', to: 'brainstorms#go_to_brainstorm'
 end

@@ -163,20 +163,6 @@ class BrainstormsController < ApplicationController
     end
   end
 
-  def download_pdf
-    ahoy.track "Download pdf"
-    respond_to do |format|
-      format.pdf do
-        render pdf: "Brainstorm session ideas",
-        page_size: "A4",
-        template: "brainstorms/download_pdf.html.erb",
-        layout: "pdf.html",
-        lowquality: true,
-        dpi: 75
-      end
-    end
-  end
-
   private
 
   def all_online_users_done_voting?
