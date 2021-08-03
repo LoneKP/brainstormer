@@ -1,8 +1,6 @@
 class BrainstormsController < ApplicationController
   before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :end_voting, :done_brainstorming, :download_pdf, :change_state]
   before_action :set_session_id, only: [:show, :create, :done_voting]
-  before_action :facilitator?, only: [:show]
-  before_action :facilitator_name, only: [:show]
   before_action :votes_left, only: [:show]
   before_action :set_votes_cast_count, only: [:show]
   before_action :idea_votes, only: [:show]
@@ -26,8 +24,8 @@ class BrainstormsController < ApplicationController
       if @brainstorm.save
         REDIS.set @session_id, @brainstorm.name
         @facilitation.brainstorm_stage.value = :setup
+        @facilitation.facilitator_session_id = @session_id
 
-        set_facilitator
         format.js { render js: "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
       else
         @brainstorm.errors.messages.each do |message|
@@ -41,7 +39,9 @@ class BrainstormsController < ApplicationController
   def show
     @ideas = @brainstorm.ideas
     @idea  = @ideas.new
-    @current_user_name = REDIS.get(@session_id)
+
+    @current_facilitator = @facilitation.facilitated_by_session?(@session_id)
+    @current_user_name   = @facilitation.facilitator_name
   end
 
   def set_user_name
@@ -161,6 +161,25 @@ class BrainstormsController < ApplicationController
     def brainstorm_stage
       @brainstorm_stage ||= Kredis.enum("brainstorm_state_#{@brainstorm.token}", values: %i[ setup ideation vote voting_done ], default: nil)
     end
+
+
+    def facilitator_session_id=(session_id)
+      facilitator.value = session_id
+    end
+
+    def facilitated_by_session?(session_id)
+      facilitator.value == session_id
+    end
+
+    def facilitator_name
+      Kredis.proxy(facilitator.value).get
+    end
+
+    private
+
+    def facilitator
+      @facilitator ||= Kredis.string("brainstorm_facilitator_#{@brainstorm.token}")
+    end
   end
 
   private
@@ -184,22 +203,6 @@ class BrainstormsController < ApplicationController
 
   def set_user_name_params
     params.require(:set_user_name).permit(:user_name, :session_id)
-  end
-
-  def set_facilitator
-    REDIS.set brainstorm_facilitator_key, @session_id
-  end
-
-  def facilitator?
-    @is_user_facilitator = REDIS.get(brainstorm_facilitator_key) == @session_id
-  end
-
-  def facilitator_name
-    @brainstorm_facilitator_name = REDIS.get(REDIS.get(brainstorm_facilitator_key))
-  end
-
-  def brainstorm_facilitator_key
-    "brainstorm_facilitator_#{@brainstorm.token}"
   end
 
   def brainstorm_timer_running_key

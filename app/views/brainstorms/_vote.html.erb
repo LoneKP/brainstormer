@@ -43,7 +43,7 @@
              <% end %>
            </div>
          </div>
-          <% if @is_user_facilitator %>
+          <% if @current_facilitator %>
             <%= link_to end_voting_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "lg:inline-flex lg:justify-end md:flex md:justify-center" do %>
             <p class="hover:bg-yellowy active:bg-dark-yellowy underline text-blurple lg:text-xl md:text-4xl lg:my-0 md:my-16">Finish voting for everyone</p>
             <% end %>
