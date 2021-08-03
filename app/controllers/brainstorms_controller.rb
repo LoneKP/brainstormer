@@ -1,6 +1,5 @@
 class BrainstormsController < ApplicationController
   before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :end_voting, :done_brainstorming, :download_pdf, :change_state]
-  before_action :set_brainstorm_ideas, only: [:show, :download_pdf]
   before_action :set_session_id, only: [:show, :create, :done_voting]
   before_action :facilitator?, only: [:show]
   before_action :facilitator_name, only: [:show]
@@ -40,7 +39,8 @@ class BrainstormsController < ApplicationController
   end
 
   def show
-    @idea = Idea.new
+    @ideas = @brainstorm.ideas
+    @idea  = @ideas.new
     @current_user_name = REDIS.get(@session_id)
   end
 
@@ -193,10 +193,6 @@ class BrainstormsController < ApplicationController
 
   def brainstorm_params
     params.require(:brainstorm).permit(:problem, :name)
-  end
-
-  def set_brainstorm_ideas
-    @ideas = @brainstorm.ideas
   end
 
   def set_user_name_params
