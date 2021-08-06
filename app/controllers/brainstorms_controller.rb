@@ -1,10 +1,6 @@
 class BrainstormsController < ApplicationController
   before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :end_voting, :done_brainstorming, :download_pdf, :change_state]
-  before_action :set_brainstorm_ideas, only: [:show, :download_pdf]
   before_action :set_session_id, only: [:show, :create, :done_voting]
-  before_action :facilitator?, only: [:show]
-  before_action :facilitator_name, only: [:show]
-  before_action :get_state, only: [:show]
   before_action :votes_left, only: [:show]
   before_action :set_votes_cast_count, only: [:show]
   before_action :idea_votes, only: [:show]
@@ -22,13 +18,15 @@ class BrainstormsController < ApplicationController
 
   def create
     @brainstorm = Brainstorm.new(brainstorm_params)
-    @brainstorm.token = generate_token
+    @facilitation = Facilitation.new(@brainstorm)
+
     respond_to do |format|
       if @brainstorm.save
         REDIS.set @session_id, @brainstorm.name
-        REDIS.set brainstorm_state_key, "setup"
-        set_facilitator
-          format.js { render :js => "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
+        @facilitation.brainstorm_stage.value = :setup
+        @facilitation.facilitator_session_id = @session_id
+
+        format.js { render js: "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
       else
         @brainstorm.errors.messages.each do |message|
           flash.now[message.first] = message[1].first
@@ -39,8 +37,11 @@ class BrainstormsController < ApplicationController
   end
 
   def show
-    @idea = Idea.new
-    @current_user_name = REDIS.get(@session_id)
+    @ideas = @brainstorm.ideas
+    @idea  = @ideas.new
+
+    @current_facilitator = @facilitation.facilitated_by_session?(@session_id)
+    @current_user_name   = @facilitation.facilitator_name
   end
 
   def set_user_name
@@ -67,10 +68,11 @@ class BrainstormsController < ApplicationController
   end
 
   def go_to_brainstorm
-    token = params[:token].gsub("#", "")
-    brainstorm = Brainstorm.where('token ilike ?', "%#{token}").first if Brainstorm.where('token ilike ?', "%#{token}").count == 1
+    token = params[:token].remove("#")
+    brainstorm = Brainstorm.find_sole_by_token(token)
+
     respond_to do |format|
-      if !brainstorm.nil? && token.length >= 6    
+      if !brainstorm.nil? && token.length >= 6
         format.js { render :js => "window.location.href = '#{brainstorm_path(brainstorm.token)}'" }
       elsif token.length == 0
         flash.now["token"] = "You forgot to write an ID! If you don't have one you should ask the facilitator"
@@ -112,13 +114,13 @@ class BrainstormsController < ApplicationController
   end
 
   def start_brainstorm
-    REDIS.set(brainstorm_state_key, "ideation")
+    @facilitation.brainstorm_stage.value = :ideation
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "ideation" })
     start_timer(params[:brainstorm_duration])
   end
 
   def start_voting
-    REDIS.set(brainstorm_state_key, "vote")
+    @facilitation.brainstorm_stage.value = :vote
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "vote" })
     transmit_ideas(sort_by_id_desc)
   end
@@ -140,28 +142,43 @@ class BrainstormsController < ApplicationController
   end
 
   def end_voting
-    REDIS.set(brainstorm_state_key, "voting_done")
+    @facilitation.brainstorm_stage.value = :voting_done
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-presence", { event: "remove_done_tags_on_user_badges" })
     ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", { event: "set_brainstorm_state", state: "voting_done" })
     transmit_ideas(sort_by_votes_desc)
   end
 
   def change_state
-    REDIS.set(brainstorm_state_key, params[:new_state])
+    @facilitation.brainstorm_stage.value = params[:new_state].to_sym
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: params[:new_state] })
   end
 
-  def download_pdf
-    ahoy.track "Download pdf"
-    respond_to do |format|
-      format.pdf do
-        render pdf: "Brainstorm session ideas",
-        page_size: "A4",
-        template: "brainstorms/download_pdf.html.erb",
-        layout: "pdf.html",
-        lowquality: true,
-        dpi: 75
-      end
+  class Facilitation
+    def initialize(brainstorm)
+      @brainstorm = brainstorm
+    end
+
+    def brainstorm_stage
+      @brainstorm_stage ||= Kredis.enum("brainstorm_state_#{@brainstorm.token}", values: %i[ setup ideation vote voting_done ], default: nil)
+    end
+
+
+    def facilitator_session_id=(session_id)
+      facilitator.value = session_id
+    end
+
+    def facilitated_by_session?(session_id)
+      facilitator.value == session_id
+    end
+
+    def facilitator_name
+      Kredis.proxy(facilitator.value).get
+    end
+
+    private
+
+    def facilitator
+      @facilitator ||= Kredis.string("brainstorm_facilitator_#{@brainstorm.token}")
     end
   end
 
@@ -175,40 +192,17 @@ class BrainstormsController < ApplicationController
     false
   end
 
-  def generate_token
-    "BRAIN" + SecureRandom.hex(3).to_s
-  end
-
   def set_brainstorm
-    @brainstorm = Brainstorm.find_by token: params[:token]
+    @brainstorm   = Brainstorm.find_by token: params[:token]
+    @facilitation = Facilitation.new(@brainstorm)
   end
 
   def brainstorm_params
     params.require(:brainstorm).permit(:problem, :name)
   end
 
-  def set_brainstorm_ideas
-    @ideas = @brainstorm.ideas
-  end
-
   def set_user_name_params
     params.require(:set_user_name).permit(:user_name, :session_id)
-  end
-
-  def set_facilitator
-    REDIS.set brainstorm_facilitator_key, @session_id
-  end
-
-  def facilitator?
-    @is_user_facilitator = REDIS.get(brainstorm_facilitator_key) == @session_id
-  end
-
-  def facilitator_name
-    @brainstorm_facilitator_name = REDIS.get(REDIS.get(brainstorm_facilitator_key))
-  end
-
-  def brainstorm_facilitator_key
-    "brainstorm_facilitator_#{@brainstorm.token}"
   end
 
   def brainstorm_timer_running_key
@@ -217,14 +211,6 @@ class BrainstormsController < ApplicationController
 
   def brainstorm_duration_key
     "brainstorm_id_duration_#{@brainstorm.token}"
-  end
-
-  def brainstorm_state_key
-    "brainstorm_state_#{@brainstorm.token}"
-  end
-
-  def get_state
-    @state = REDIS.get(brainstorm_state_key)
   end
 
   def brainstorm_key
@@ -238,11 +224,11 @@ class BrainstormsController < ApplicationController
   def ideas_and_idea_builds_object(sorting_choice)
     @brainstorm.ideas.order(sorting_choice).as_json(
       methods: [:vote_in_plural_or_singular, :number],
-      only: [:id, :text, :votes], 
-      include: { 
+      only: [:id, :text, :votes],
+      include: {
         idea_builds: {
           methods: [:vote_in_plural_or_singular, :decimal, :opacity_lookup],
-          only: [:id, :idea_build_text, :votes]                                     
+          only: [:id, :idea_build_text, :votes]
         }
       })
   end

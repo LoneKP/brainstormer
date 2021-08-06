@@ -28,17 +28,17 @@
   currentUser = {
     id: '<%= @session_id %>',
     currentUserName: '<%= @current_user_name %>',
-    facilitator: '<%= @is_user_facilitator %>',
+    facilitator: '<%= @current_facilitator %>',
     votesCastIdeas: <%= @idea_votes %>,
     votesCastIdeaBuilds: <%= @idea_build_votes %>,
     userIsDoneVoting: '<%= @user_is_done_voting %>'
   };
 
   brainstormStore = {
-    state: '<%= @state %>',
+    state: '<%= @facilitation.brainstorm_stage.value %>',
     maxVotesPerUser: '<%= ApplicationController::MAX_VOTES_PER_USER %>'
   };
-  
+
   const openModalToSetName = () => {
     if (!currentUser.currentUserName || currentUser.currentUserName == "Anonymous Brainstormer") {
       document.getElementById("modalContainer").classList.remove("hidden");
@@ -46,7 +46,7 @@
       document.getElementById("set_user_name_user_name").setAttribute("value", createRandomUserName());
     }
   }
-  
+
   const createRandomUserName = () => {
     const adjectives = ["Sleeping", "Hungry", "Purple", "Hairy", "Wet", "Hungarian", "Australian", "Cross-eyed", "Mind-reading", "Fierce", "Wig-wearing", "Busy", "Bingo-playing", "Talking", "Smart", "Cool", "Amazing", "Happy", "Lovely", "Tomb Raiding", "Self-aware", "Flying", "Bald", "The Best", "Space-exploring", "To-the-point", "Forgetful", "Visionary", "Well-behaved", "Totally Awesome", "Hilarious", "Mild", "Charming"]
     const nouns = ["Tiger", "Turtle", "Cat", "Sloth", "Hedgehog", "Space Explorer", "Mouse", "Hamster", "Tea Pot", "Alien", "Traveller", "Bear", "Fish", "Donkey", "Horse", "Zebra", "Lion", "Otter", "Spider", "Architect", "Surgeon", "Friend", "Coffee Cup", "Computer", "Super Hero", "Boy", "Girl", "Ant", "Dinosaur", "Bird"]
