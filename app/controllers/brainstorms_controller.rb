@@ -1,11 +1,6 @@
 class BrainstormsController < ApplicationController
   before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :end_voting, :done_brainstorming, :download_pdf, :change_state]
   before_action :set_session_id, only: [:show, :create, :done_voting]
-  before_action :votes_left, only: [:show]
-  before_action :set_votes_cast_count, only: [:show]
-  before_action :idea_votes, only: [:show]
-  before_action :idea_build_votes, only: [:show]
-  before_action :user_is_done_voting?, only: [:show]
 
   def index
     @brainstorm = Brainstorm.new
@@ -42,6 +37,8 @@ class BrainstormsController < ApplicationController
 
     @current_facilitator = @facilitation.facilitated_by_session?(@session_id)
     @current_user_name   = @facilitation.facilitator_name
+
+    @voting = Session::Voting.new(@brainstorm, @session_id)
   end
 
   def set_user_name

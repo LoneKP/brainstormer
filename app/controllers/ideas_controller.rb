@@ -30,19 +30,8 @@ class IdeasController < ApplicationController
 
   def vote
     @brainstorm = @idea.brainstorm
-    set_votes_cast_count
-    respond_to do |format|
-      if !idea_has_a_vote? && @votes_cast < MAX_VOTES_PER_USER && !user_is_done_voting?
-        add_vote
-        format.js
-      elsif idea_has_a_vote? && !user_is_done_voting?
-        subtract_vote
-        format.js
-      else
-        format.js { render :action => "unable_to_vote" }
-      end
-    end
-    set_votes_cast_count
+    @voting = Session::Voting.new(@brainstorm, @session_id)
+    @voting.toggle_vote_for(@idea)
   end
 
   private
