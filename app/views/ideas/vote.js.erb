@@ -2,9 +2,8 @@ document.getElementById("star-idea-<%=@idea.id %>").setAttribute("fill", "<%= @v
 document.getElementById("star-idea-<%=@idea.id %>").closest("svg").classList.toggle("animate-ping-once")
 currentUser.votesCastIdeas.delete(<%= @idea.id %>) || currentUser.votesCastIdeas.add(<%= @idea.id %>)
 
-<% votes_cast_count = @voting.votes_cast_count %>
-<% Session::Voting::MAX_VOTES_PER_SESSION.times do |vote_index| %>
-  document.getElementsByClassName("starVoteFill")[<%= vote_index %>].setAttribute("fill", "<%= vote_index >= votes_cast_count ? "#FFFFFF" : "" %>")
+<% @voting.each_available_vote do |vote| %>
+  document.getElementsByClassName("starVoteFill")[<%= vote.index %>].setAttribute("fill", "<%= vote.used? ? "#FFFFFF" : "" %>")
 <% end %>
 
-changeHeadlineAccordingToVotesLeft('<%= votes_cast_count %>', '<%= Session::Voting::MAX_VOTES_PER_SESSION %>')
+changeHeadlineAccordingToVotesLeft('<%= @voting.votes_cast_count %>', '<%= Session::Voting::MAX_VOTES_PER_SESSION %>')

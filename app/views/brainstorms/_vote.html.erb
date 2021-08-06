@@ -4,8 +4,7 @@
            <div class="justify-between p-4 mt-8 lg:flex-1 flex lg:flex-row flex-col bg-greeny my-shadow-lg w-full">
              <h1 id="votingHeadline" class="md:text-4xl lg:text-2xl text-white font-semibold uppercase leading-tight ">Vote on your favourite ideas</h1>
              <div class="flex space-x-2 md:mt-4 lg:mt-0 justify-start">
-               <% votes_cast_count = @voting.votes_cast_count %>
-               <% Session::Voting::MAX_VOTES_PER_SESSION.times do |vote_index| %>
+               <% @voting.each_available_vote do |vote| %>
                <svg class="flex lg:h-8 lg:w-8 h-20 w-20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
                  <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>
                  <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -14,7 +13,7 @@
                        <g transform="translate(48.000000, 0.000000)">
                          <polygon id="Path" points="0 0 36 0 36 36 0 36" />
                          <polygon id="Path" points="0 0 36 0 36 36 0 36" />
-                         <polygon class="starVoteFill" id="Path" <%= "fill='#FFFFFF'" if vote_index >= votes_cast_count %> stroke="#FFFFFF" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
+                         <polygon class="starVoteFill" id="Path" <%= "fill=#FFFFFF" if vote.used? %> stroke="#FFFFFF" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
                        </g>
                      </g>
                    </g>

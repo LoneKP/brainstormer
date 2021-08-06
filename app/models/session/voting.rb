@@ -38,6 +38,13 @@ class Session::Voting
     end
   end
 
+  def each_available_vote
+    votes_cast = votes_cast_count
+    MAX_VOTES_PER_SESSION.times do |index|
+      yield Vote.new(index: index, used: index >= votes_cast)
+    end
+  end
+
   def can_vote?
     votes_left_count.positive?
   end
@@ -59,6 +66,10 @@ class Session::Voting
   end
 
   private
+
+  Vote = Struct.new(:index, :used, keyword_init: true) do
+    alias used? used
+  end
 
   def votes_for(votable)
     votable.is_a?(Idea) ? idea_votes : idea_build_votes
