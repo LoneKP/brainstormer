@@ -30,7 +30,7 @@
     currentUserName: '<%= @current_user_name %>',
     facilitator: '<%= @current_facilitator %>',
     votesCastIdeas: new Set(<%= @voting.idea_votes.members %>),
-    votesCastIdeaBuilds: <%= @voting.idea_votes.members %>,
+    votesCastIdeaBuilds: new Set(<%= @voting.idea_votes.members %>),
     userIsDoneVoting: '<%= @voting.done? %>'
   };
 

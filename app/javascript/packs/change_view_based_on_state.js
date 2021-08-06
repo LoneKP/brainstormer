@@ -61,12 +61,10 @@ fillStarsWithUserVotes = function () {
     Array.from(elements).forEach((element) => element.setAttribute("fill", "#312783"))
   })
 
-  for (i = 0; i < currentUser.votesCastIdeaBuilds.length; i++) {
-    let elems = document.getElementsByClassName(`star-idea-build-${currentUser.votesCastIdeaBuilds[i]}`);
-    for (x = 0; x < elems.length; x++) {
-      elems[x].setAttribute("fill", "#312783");
-    }
-  };
+  currentUser.votesCastIdeaBuilds.forEach((id) => {
+    let elements = document.getElementsByClassName(`star-idea-build-${id}`)
+    Array.from(elements).forEach((element) => element.setAttribute("fill", "#312783"))
+  })
 }
 
 changeHeadlineAccordingToVotesLeft = function (votesCast, maxVotesPerUser) {

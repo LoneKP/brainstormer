@@ -22,18 +22,9 @@ class IdeaBuildsController < ApplicationController
   def vote
     @idea = Idea.find(params[:idea_id])
     @brainstorm = @idea.brainstorm
-    set_votes_cast_count
-    respond_to do |format|
-      if !idea_build_has_a_vote? && @votes_cast < MAX_VOTES_PER_USER && !user_is_done_voting?
-        add_idea_build
-        format.js
-      elsif idea_build_has_a_vote? && !user_is_done_voting?
-        subtract_idea_build
-        format.js
-      end
-    set_votes_cast_count
-    format.js { render :action => "unable_to_vote" }
-    end
+
+    @voting = Session::Voting.new(@brainstorm, @session_id)
+    @voting.toggle_vote_for(@idea_build)
   end
 
   private
@@ -48,19 +39,5 @@ class IdeaBuildsController < ApplicationController
 
   def set_idea_build
     @idea_build = IdeaBuild.find(params[:idea_build_id])
-  end
-
-  def idea_build_has_a_vote?
-    @idea_build_has_a_vote = REDIS.sismember(user_idea_build_votes_key, @idea_build.id)
-  end
-
-  def add_idea_build
-    @idea_build.update(votes: @idea_build.votes + 1)
-    REDIS.sadd(user_idea_build_votes_key, @idea_build.id)
-  end
-
-  def subtract_idea_build
-    @idea_build.update(votes: @idea_build.votes - 1)
-    REDIS.srem(user_idea_build_votes_key, @idea_build.id)
   end
 end

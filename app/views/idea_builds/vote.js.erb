@@ -1,26 +1,10 @@
-if ('<%= @idea_build_has_a_vote %>' == "true") {
-  document.getElementById("star-idea-build-<%=@idea_build.id %>").setAttribute("fill", "");
-  document.getElementById("star-idea-build-<%=@idea_build.id %>").closest("svg").classList.remove("animate-ping-once");
-  if (currentUser.votesCastIdeaBuilds.indexOf(<%=@idea_build.id %>) !== -1){
-    currentUser.votesCastIdeaBuilds.splice(currentUser.votesCastIdeaBuilds.indexOf(<%=@idea_build.id %>), 1); 
-  };
-}
-else if ('<%= @idea_build_has_a_vote %>' == "false")  {
-  document.getElementById("star-idea-build-<%=@idea_build.id %>").setAttribute("fill", "#312783");
-  document.getElementById("star-idea-build-<%=@idea_build.id %>").closest("svg").classList.add("animate-ping-once");
-  if (currentUser.votesCastIdeaBuilds.indexOf(<%=@idea_build.id %>) == -1){
-    currentUser.votesCastIdeaBuilds.push(<%=@idea_build.id %>);
-  };
-};
+document.getElementById("star-idea-build-<%=@idea_build.id %>").setAttribute("fill", "<%= @voting.voted_for?(@idea_build) ? "#312783" : "" %>")
+document.getElementById("star-idea-build-<%=@idea_build.id %>").closest("svg").classList.toggle("animate-ping-once")
+currentUser.votesCastIdeaBuilds.delete(<%= @idea_build.id %>) || currentUser.votesCastIdeaBuilds.add(<%= @idea_build.id %>)
 
-for (i=0;i < '<%= @votes_cast %>'; i++) {
-  document.getElementsByClassName("starVoteFill")[i].setAttribute("fill", "");
-};
+<% votes_cast_count = @voting.votes_cast_count %>
+<% Session::Voting::MAX_VOTES_PER_SESSION.times do |vote_index| %>
+  document.getElementsByClassName("starVoteFill")[<%= vote_index %>].setAttribute("fill", "<%= vote_index >= votes_cast_count ? "#FFFFFF" : "" %>")
+<% end %>
 
-if ('<%= @votes_cast %>' < <%= ApplicationController::MAX_VOTES_PER_USER %>) {
-  for (i='<%= @votes_cast %>';i < '<%= ApplicationController::MAX_VOTES_PER_USER %> '; i++) {
-    document.getElementsByClassName("starVoteFill")[i].setAttribute("fill", "#FFFFFF")
-  }
-};
-
-changeHeadlineAccordingToVotesLeft('<%= @votes_cast %>', '<%= ApplicationController::MAX_VOTES_PER_USER %>' )
+changeHeadlineAccordingToVotesLeft('<%= votes_cast_count %>', '<%= Session::Voting::MAX_VOTES_PER_SESSION %>')
