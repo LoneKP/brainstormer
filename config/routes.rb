@@ -3,8 +3,12 @@ Rails.application.routes.draw do
 
   resources :brainstorms, param: :token, only: [:create, :new] do
     member do
-      post :set_user_name, :start_timer, :done_brainstorming, :send_ideas_email, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
+      post :start_timer, :done_brainstorming, :send_ideas_email, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
     end
+  end
+
+  resource :session, only: [] do
+    resource :name, only: :update, module: "sessions"
   end
 
   get 'brainstorms/join-session', to: 'brainstorms#join_session'
