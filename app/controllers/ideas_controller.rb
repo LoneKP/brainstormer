@@ -47,18 +47,4 @@ class IdeasController < ApplicationController
   def set_idea
     @idea = Idea.find(params[:idea_id])
   end
-
-  def add_vote
-    @idea.update(votes: @idea.votes + 1)
-    REDIS.sadd(user_idea_votes_key, @idea.id)
-  end
-
-  def subtract_vote
-    @idea.update(votes: @idea.votes - 1)
-    REDIS.srem(user_idea_votes_key, @idea.id)
-  end
-
-  def idea_has_a_vote?
-    @idea_has_a_vote = REDIS.sismember(user_idea_votes_key, @idea.id)
-  end
 end
