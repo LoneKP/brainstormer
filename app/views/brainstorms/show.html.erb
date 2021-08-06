@@ -29,14 +29,14 @@
     id: '<%= @session_id %>',
     currentUserName: '<%= @current_user_name %>',
     facilitator: '<%= @current_facilitator %>',
-    votesCastIdeas: <%= @idea_votes %>,
-    votesCastIdeaBuilds: <%= @idea_build_votes %>,
-    userIsDoneVoting: '<%= @user_is_done_voting %>'
+    votesCastIdeas: new Set(<%= @voting.idea_votes.members %>),
+    votesCastIdeaBuilds: <%= @voting.idea_votes.members %>,
+    userIsDoneVoting: '<%= @voting.done? %>'
   };
 
   brainstormStore = {
     state: '<%= @facilitation.brainstorm_stage.value %>',
-    maxVotesPerUser: '<%= ApplicationController::MAX_VOTES_PER_USER %>'
+    maxVotesPerUser: '<%= Session::Voting::MAX_VOTES_PER_SESSION %>'
   };
 
   const openModalToSetName = () => {
