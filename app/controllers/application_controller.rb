@@ -1,14 +1,15 @@
 class ApplicationController < ActionController::Base
   MAX_VOTES_PER_USER = 6
+
   private
 
+  def set_session
+    set_session_id
+    @session = Session.new(@session_id)
+  end
+
   def set_session_id
-    if cookies[:user_id].nil?
-      cookies[:user_id] = SecureRandom.uuid
-      @session_id = cookies[:user_id]
-    else
-      @session_id = cookies[:user_id]
-    end
+    @session_id = cookies[:user_id] ||= SecureRandom.uuid
   end
 
   def idea_build_votes

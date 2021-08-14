@@ -1,6 +1,6 @@
 class BrainstormsController < ApplicationController
   before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :end_voting, :done_brainstorming, :download_pdf, :change_state]
-  before_action :set_session_id, only: [:show, :create, :done_voting]
+  before_action :set_session, only: [:show, :create, :done_voting]
   before_action :votes_left, only: [:show]
   before_action :set_votes_cast_count, only: [:show]
   before_action :idea_votes, only: [:show]
@@ -42,19 +42,6 @@ class BrainstormsController < ApplicationController
 
     @current_facilitator = @facilitation.facilitated_by_session?(@session_id)
     @current_user_name   = @facilitation.facilitator_name
-  end
-
-  def set_user_name
-    respond_to do |format|
-      if REDIS.set set_user_name_params[:session_id], set_user_name_params[:user_name]
-          ActionCable.server.broadcast("brainstorm-#{params[:token]}-presence", { event: "name_changed", name: set_user_name_params[:user_name] })
-          format.html {}
-          format.js
-      else
-          format.html {}
-          format.js
-      end
-    end
   end
 
   def send_ideas_email
@@ -199,10 +186,6 @@ class BrainstormsController < ApplicationController
 
   def brainstorm_params
     params.require(:brainstorm).permit(:problem, :name)
-  end
-
-  def set_user_name_params
-    params.require(:set_user_name).permit(:user_name, :session_id)
   end
 
   def brainstorm_timer_running_key

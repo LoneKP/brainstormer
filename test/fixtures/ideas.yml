@@ -2,8 +2,6 @@
 
 one:
   text: MyString
-  belongs_to: 
 
 two:
   text: MyString
-  belongs_to: 
