@@ -15,12 +15,12 @@
         <div class="field text-5xl lg:text-xl">
           <%= form.text_field :name, value: session.name, class: "w-full focus:outline-none border-solid border-2 border-black lg:h-12 h-32 italic font-bold px-4 my-shadow text-black" %>
         </div>
-      <% end %>
       <!--/Dialog -->
     </div>
     <div class="lg:mt-8 mt-12 flex flex-row justify-end w-11/12 lg:w-1/2 outline-none">
       <button type=submit class="hvr-grow py-4 px-8 my-shadow-lg text-blurple lg:text-xl text-6xl font-bold bg-light-greeny cursor-pointer outline-none w-full lg:w-auto active:bg-light-greeny-darker focus:outline-none" @click="showModal = false">SET NAME!</button>
     </div>
+    <% end %>
     <!-- /Overlay -->
   </div>
 </div>
