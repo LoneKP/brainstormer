@@ -73,7 +73,7 @@ consumer.subscriptions.create({
         this.perform("update_name");
         setCurrentUserName(data.name);
         break;
-      case "toggle_voting":
+      case "toggle_done_voting_badge":
         toggleUserDoneVoting(data.user_id);
         break;
       case "resume_voting":
@@ -189,12 +189,7 @@ const showOnHover = (hoverElement, showElement) => {
 }
 
 const toggleUserDoneVoting = (userId) => {
-  if ( document.getElementById(`user-done-${userId}`).classList.contains("invisible") ) {
-    document.getElementById(`user-done-${userId}`).classList.remove("invisible")
-  } 
-  else {
-    document.getElementById(`user-done-${userId}`).classList.add("invisible");
-  }
+  document.getElementById(`user-done-${userId}`).classList.toggle("invisible");
 }
 
 const removeUserDoneVoting = (userId) => {
