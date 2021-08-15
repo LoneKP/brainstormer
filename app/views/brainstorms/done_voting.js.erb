@@ -1,4 +1,4 @@
-if ('<%= @user_is_done_voting %>' == "false") {
+if ('<%= @voting.done? %>' == "false") {
   document.getElementById("done-button").innerHTML = "DONE"
 }
 else {

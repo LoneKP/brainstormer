@@ -73,8 +73,8 @@ consumer.subscriptions.create({
         this.perform("update_name");
         setCurrentUserName(data.name);
         break;
-      case "done_voting":
-        showUserDoneVoting(data.user_id);
+      case "toggle_voting":
+        toggleUserDoneVoting(data.user_id);
         break;
       case "resume_voting":
         removeUserDoneVoting(data.user_id);
@@ -188,8 +188,13 @@ const showOnHover = (hoverElement, showElement) => {
   });
 }
 
-const showUserDoneVoting = (userId) => {
-  document.getElementById(`user-done-${userId}`).classList.remove("invisible");
+const toggleUserDoneVoting = (userId) => {
+  if ( document.getElementById(`user-done-${userId}`).classList.contains("invisible") ) {
+    document.getElementById(`user-done-${userId}`).classList.remove("invisible")
+  } 
+  else {
+    document.getElementById(`user-done-${userId}`).classList.add("invisible");
+  }
 }
 
 const removeUserDoneVoting = (userId) => {
