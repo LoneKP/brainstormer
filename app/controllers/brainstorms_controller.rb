@@ -41,19 +41,6 @@ class BrainstormsController < ApplicationController
     @voting = Session::Voting.new(@brainstorm, @session_id)
   end
 
-  def set_user_name
-    respond_to do |format|
-      if REDIS.set set_user_name_params[:session_id], set_user_name_params[:user_name]
-          ActionCable.server.broadcast("brainstorm-#{params[:token]}-presence", { event: "name_changed", name: set_user_name_params[:user_name] })
-          format.html {}
-          format.js
-      else
-          format.html {}
-          format.js
-      end
-    end
-  end
-
   def send_ideas_email
     if IdeasMailer.with(token: params[:token], email: params[:email]).ideas_email.deliver_later
       flash.now[:success] = "Your email was successfully sent to #{params[:email]}"
@@ -178,10 +165,6 @@ class BrainstormsController < ApplicationController
 
   def brainstorm_params
     params.require(:brainstorm).permit(:problem, :name)
-  end
-
-  def set_user_name_params
-    params.require(:set_user_name).permit(:user_name, :session_id)
   end
 
   def brainstorm_timer_running_key
