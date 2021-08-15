@@ -43,7 +43,7 @@
     if (!currentUser.currentUserName || currentUser.currentUserName == "Anonymous Brainstormer") {
       document.getElementById("modalContainer").classList.remove("hidden");
       document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }");
-      document.getElementById("set_user_name_user_name").setAttribute("value", createRandomUserName());
+      document.getElementById("session_name").setAttribute("value", createRandomUserName());
     }
   }
 
