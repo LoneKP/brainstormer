@@ -61,8 +61,16 @@ class Session::Voting
     brainstorm_voting_status[session_id] = true
   end
 
+  def open
+    brainstorm_voting_status[session_id] = false
+  end
+
   def done?
     brainstorm_voting_status[session_id]
+  end
+
+  def toggle_voting_done
+    done? ? open : finish
   end
 
   private
