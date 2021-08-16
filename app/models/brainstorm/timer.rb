@@ -34,6 +34,10 @@ class Brainstorm::Timer
     started_at.exists?
   end
 
+  def elapsed_seconds
+    Time.now.to_i - @brainstorm.timer.started_at.value.to_i
+  end
+
 
   def id() = brainstorm.token
 
