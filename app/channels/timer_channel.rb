@@ -10,14 +10,11 @@ class TimerChannel < ApplicationCable::Channel
   private
 
   def transmit_list!
-
-    data = {
+    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-timer", {
       event: "transmit_timer_status",
       timer_status: timer_status,
-      brainstorm_duration: REDIS.get(brainstorm_duration_key)
-    }
-
-    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-timer", data)
+      brainstorm_duration: @brainstorm.timer.duration
+    })
   end
 
   def timer_status
