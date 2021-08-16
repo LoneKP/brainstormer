@@ -99,7 +99,7 @@ class BrainstormsController < ApplicationController
   def start_brainstorm
     @brainstorm.state = :ideation
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "ideation" })
-    start_timer(params[:brainstorm_duration])
+    start_timer(@brainstorm.timer.duration)
   end
 
   def start_voting
