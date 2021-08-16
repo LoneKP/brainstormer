@@ -34,9 +34,8 @@ class BrainstormsController < ApplicationController
   def show
     @ideas = @brainstorm.ideas
     @idea  = @ideas.new
+
     @current_facilitator = @facilitation.facilitated_by_session?(@session_id)
-    @current_facilitator_name   = @facilitation.facilitator_name
-    @current_user_name = REDIS.get(@session_id)
 
     @voting = Session::Voting.new(@brainstorm, @session_id)
   end
@@ -142,10 +141,6 @@ class BrainstormsController < ApplicationController
 
     def facilitated_by_session?(session_id)
       facilitator.value == session_id
-    end
-
-    def facilitator_name
-      Kredis.proxy(facilitator.value).get
     end
 
     private

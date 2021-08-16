@@ -27,7 +27,7 @@
 <script>
   currentUser = {
     id: '<%= @session_id %>',
-    currentUserName: '<%= @current_user_name %>',
+    currentUserName: '<%= @session.name %>',
     facilitator: '<%= @current_facilitator %>',
     votesCastIdeas: new Set(<%= @voting.idea_votes.members %>),
     votesCastIdeaBuilds: new Set(<%= @voting.idea_build_votes.members %>),
