@@ -5,7 +5,7 @@ class TimerChannel < ApplicationCable::Channel
     @timer = @brainstorm.timer
 
     stream_from "brainstorm-#{params[:token]}-timer"
-    update_redis_if_time_has_run_out
+    move_to_vote_if_timer_expired
     transmit_list!
   end
 
@@ -28,7 +28,7 @@ class TimerChannel < ApplicationCable::Channel
     end
   end
 
-  def update_redis_if_time_has_run_out
+  def move_to_vote_if_timer_expired
     @brainstorm.state = :vote if @brainstorm.state.ideation? && @timer.expired?
   end
 end
