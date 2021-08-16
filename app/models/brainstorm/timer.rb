@@ -12,15 +12,15 @@ class Brainstorm::Timer
 
   def start
     if REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp").nil?
-      ActionCable.server.broadcast("brainstorm-#{brainstorm.token}-timer", { event: "start_timer", brainstorm_duration: duration })
       REDIS.hset(brainstorm_timer_running_key, "timer_start_timestamp", Time.now)
+      broadcast_timer_event :start
     else
       reset
     end
   end
 
   def reset
-    ActionCable.server.broadcast("brainstorm-#{brainstorm.token}-timer", { event: "reset_timer", brainstorm_duration: duration })
+    broadcast_timer_event :reset
     REDIS.hdel(brainstorm_timer_running_key, "timer_start_timestamp")
   end
 
@@ -33,4 +33,8 @@ class Brainstorm::Timer
   private
 
   attr_reader :brainstorm
+
+  def broadcast_timer_event(event)
+    ActionCable.server.broadcast("brainstorm-#{brainstorm.token}-timer", { event: "#{event}_timer", brainstorm_duration: duration })
+  end
 end
