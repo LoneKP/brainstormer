@@ -18,12 +18,12 @@ class TimerChannel < ApplicationCable::Channel
   end
 
   def timer_status
-    if REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp").nil?
-      return "ready_to_start_timer"
-    elsif timer_time_elapsed_in_seconds > REDIS.get(brainstorm_duration_key).to_i
-      return "time_has_run_out"
+    if !@brainstorm.timer.running?
+      "ready_to_start_timer"
+    elsif timer_time_elapsed_in_seconds > @brainstorm.timer.duration
+      "time_has_run_out"
     else
-      return timer_time_elapsed_in_seconds
+      timer_time_elapsed_in_seconds
     end
   end
 
@@ -35,18 +35,6 @@ class TimerChannel < ApplicationCable::Channel
     if REDIS.get(brainstorm_state_key) == "ideation" && timer_status == "time_has_run_out"
       REDIS.set(brainstorm_state_key, "vote")
     end
-  end
-
-  def brainstorm_key
-    "brainstorm_id_#{@brainstorm.token}"
-  end
-
-  def brainstorm_timer_running_key
-    "brainstorm_id_timer_running_#{@brainstorm.token}"
-  end
-
-  def brainstorm_duration_key
-    "brainstorm_id_duration_#{@brainstorm.token}"
   end
 
   def brainstorm_state_key
