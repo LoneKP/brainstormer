@@ -11,23 +11,19 @@ consumer.subscriptions.create({
   received(data) {
     brainstormDuration = data.brainstorm_duration
 
-    switch (data.event) {
-      case "transmit_timer_status":
-        evaluateTimer(data);
-        formatTime();
-        setStateOfTimerButton();
-        break;
-      case "start_timer":
-        timerState.timeLeftSecondsTotal = brainstormDuration
+    if (data.event == "transmit_timer_status") {
+      evaluateTimer(data)
+      formatTime()
+      setStateOfTimerButton()
+    } else if (data.event == "start_timer") {
+      timerState.timeLeftSecondsTotal = brainstormDuration
 
-        formatTime();
-        timerState.status = "running"
-        startTimer();
-        break;
-      case "reset_timer":
-        timerState.status = "readyToStart"
-        resetTimer()
-        break;
+      formatTime()
+      timerState.status = "running"
+      startTimer()
+    } else if (data.event == "reset_timer") {
+      timerState.status = "readyToStart"
+      resetTimer()
     }
   },
 })
