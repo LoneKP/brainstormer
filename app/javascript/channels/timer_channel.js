@@ -17,10 +17,9 @@ consumer.subscriptions.create({
         brainstormDuration = data.brainstorm_duration
         break;
       case "start_timer":
-        if (data.brainstorm_duration !== "already_set") {
-          timerState.timeLeftSecondsTotal = data.brainstorm_duration
-          brainstormDuration = data.brainstorm_duration
-        }
+        timerState.timeLeftSecondsTotal = data.brainstorm_duration
+        brainstormDuration = data.brainstorm_duration
+
         formatTime();
         timerState.status = "running"
         startTimer();
@@ -28,7 +27,7 @@ consumer.subscriptions.create({
       case "reset_timer":
         brainstormDuration = data.brainstorm_duration
         timerState.status = "readyToStart"
-        resetTimer(data);
+        resetTimer()
         break;
     }
   },
@@ -66,9 +65,9 @@ const startTimer = () => {
   timer = setInterval(countDown, 1000);
 }
 
-const resetTimer = (data) => {
+const resetTimer = () => {
   clearInterval(timer);
-  timerState = { status: "readyToStart", timeLeftSecondsTotal: data.brainstorm_duration };
+  timerState = { status: "readyToStart", timeLeftSecondsTotal: brainstormDuration };
   formatTime();
   setTimerStart()
 }
