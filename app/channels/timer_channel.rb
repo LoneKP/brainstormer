@@ -31,7 +31,7 @@ class TimerChannel < ApplicationCable::Channel
   end
 
   def timer_time_elapsed_in_seconds
-    Time.now.to_i - DateTime.parse(REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp")).to_i
+    Time.now.to_i - @brainstorm.timer.started_at.value
   end
 
   def update_redis_if_time_has_run_out

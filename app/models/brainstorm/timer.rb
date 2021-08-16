@@ -1,34 +1,41 @@
 class Brainstorm::Timer
   include Kredis::Attributes
 
-  kredis_integer :duration_proxy, key: ->(t) { "brainstorm_id_duration_#{t.to_kredis_id}" }
+  kredis_integer  :duration_proxy, key: ->(t) { "brainstorm_id_duration_#{t.id}" }
+  kredis_datetime :started_at
 
   def initialize(brainstorm)
     @brainstorm = brainstorm
+
+    if previous_started_at = Kredis.hash("brainstorm_id_timer_running_#{id}").hget("timer_start_timestamp").presence
+      started_at.value = DateTime.parse(previous_started_at)
+    end
   end
 
   def duration() = duration_proxy.value || 10.minutes.to_i
   def duration=(duration); duration_proxy.value = duration; end
 
   def start
-    if REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp").nil?
-      REDIS.hset(brainstorm_timer_running_key, "timer_start_timestamp", Time.now)
-      broadcast_timer_event :start
-    else
+    if running?
       reset
+    else
+      started_at.value = Time.now
+      broadcast_timer_event :start
     end
   end
 
   def reset
+    started_at.clear
     broadcast_timer_event :reset
-    REDIS.hdel(brainstorm_timer_running_key, "timer_start_timestamp")
   end
 
-  def brainstorm_timer_running_key
-    "brainstorm_id_timer_running_#{brainstorm.token}"
+
+  def running?
+    started_at.exists?
   end
 
-  def to_kredis_id() = brainstorm.token
+
+  def id() = brainstorm.token
 
   private
 
