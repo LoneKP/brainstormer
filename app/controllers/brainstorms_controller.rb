@@ -143,6 +143,10 @@ class BrainstormsController < ApplicationController
       facilitator.value == session_id
     end
 
+    def facilitator_name
+      Kredis.proxy(facilitator.value).get
+    end
+
     private
 
     def facilitator
