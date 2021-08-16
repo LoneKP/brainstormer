@@ -22,7 +22,7 @@ consumer.subscriptions.create({
       timerState.status = "running"
       startTimer()
     } else if (data.event == "reset_timer") {
-      timerState.status = "readyToStart"
+      timerState.status = "ready"
       resetTimer()
     }
   },
@@ -31,7 +31,7 @@ consumer.subscriptions.create({
 const evaluateTimer = (data) => {
   if (data.timer_status == "ready_to_start_timer") {
     timerState = {
-      status: "readyToStart",
+      status: "ready",
       timeLeftSecondsTotal: data.brainstorm_duration
     }
   }
@@ -62,13 +62,13 @@ const startTimer = () => {
 
 const resetTimer = () => {
   clearInterval(timer);
-  timerState = { status: "readyToStart", timeLeftSecondsTotal: brainstormDuration };
+  timerState = { status: "ready", timeLeftSecondsTotal: brainstormDuration };
   formatTime();
   setTimerStart()
 }
 
 const setStateOfTimerButton = () => {
-  if (timerState.status == "readyToStart") return setTimerStart()
+  if (timerState.status == "ready") return setTimerStart()
   setTimerReset()
 }
 
@@ -86,7 +86,7 @@ const formatTime = () => {
     }
     timerOnMobile.setAttribute("style", `width: ${100 - timerState.timeLeftSecondsTotal / brainstormDuration * 100}%`)
   }
-  else if (timerState.status == "readyToStart") {
+  else if (timerState.status == "ready") {
     timerOnMobile.classList.remove("bg-blurple")
   }
   else if (timerState.status == "timeElapsed") {
