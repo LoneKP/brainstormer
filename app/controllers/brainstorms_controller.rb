@@ -13,12 +13,11 @@ class BrainstormsController < ApplicationController
 
   def create
     @brainstorm = Brainstorm.new(brainstorm_params)
-    @facilitation = Facilitation.new(@brainstorm)
 
     respond_to do |format|
       if @brainstorm.save
         REDIS.set @session_id, @brainstorm.name
-        @facilitation.brainstorm_stage.value = :setup
+        @brainstorm.state = :setup
         @brainstorm.facilitator_session_id = @session_id
 
         format.js { render js: "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
@@ -97,13 +96,13 @@ class BrainstormsController < ApplicationController
   end
 
   def start_brainstorm
-    @facilitation.brainstorm_stage.value = :ideation
+    @brainstorm.state = :ideation
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "ideation" })
     start_timer(params[:brainstorm_duration])
   end
 
   def start_voting
-    @facilitation.brainstorm_stage.value = :vote
+    @brainstorm.state = :vote
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "vote" })
     transmit_ideas(sort_by_id_desc)
   end
@@ -115,32 +114,21 @@ class BrainstormsController < ApplicationController
   end
 
   def end_voting
-    @facilitation.brainstorm_stage.value = :voting_done
+    @brainstorm.state = :voting_done
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-presence", { event: "remove_done_tags_on_user_badges" })
     ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-state", { event: "set_brainstorm_state", state: "voting_done" })
     transmit_ideas(sort_by_votes_desc)
   end
 
   def change_state
-    @facilitation.brainstorm_stage.value = params[:new_state].to_sym
+    @brainstorm.state = params[:new_state].to_sym
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: params[:new_state] })
-  end
-
-  class Facilitation
-    def initialize(brainstorm)
-      @brainstorm = brainstorm
-    end
-
-    def brainstorm_stage
-      @brainstorm_stage ||= Kredis.enum("brainstorm_state_#{@brainstorm.token}", values: %i[ setup ideation vote voting_done ], default: nil)
-    end
   end
 
   private
 
   def set_brainstorm
-    @brainstorm   = Brainstorm.find_by token: params[:token]
-    @facilitation = Facilitation.new(@brainstorm)
+    @brainstorm = Brainstorm.find_by token: params[:token]
   end
 
   def brainstorm_params
