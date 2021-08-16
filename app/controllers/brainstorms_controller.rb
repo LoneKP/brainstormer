@@ -74,13 +74,9 @@ class BrainstormsController < ApplicationController
     @brainstorm.timer.start_or_reset
   end
 
-  def reset_timer
-    @brainstorm.timer.reset
-  end
-
   def done_brainstorming
     start_voting
-    reset_timer
+    @brainstorm.timer.reset
   end
 
   def start_brainstorm
