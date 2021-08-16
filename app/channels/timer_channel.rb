@@ -18,17 +18,15 @@ class TimerChannel < ApplicationCable::Channel
   end
 
   def timer_status
-    seconds = @brainstorm.timer.elapsed_seconds
-
     case
-    when !@brainstorm.timer.running?          then "ready_to_start_timer"
-    when seconds > @brainstorm.timer.duration then "time_has_run_out"
+    when @brainstorm.timer.expired? then "time_has_run_out"
+    when @brainstorm.timer.ready?   then "ready_to_start_timer"
     else
-      seconds
+      @brainstorm.timer.elapsed_seconds
     end
   end
 
   def update_redis_if_time_has_run_out
-    @brainstorm.state = :vote if @brainstorm.state.ideation? && timer_status == "time_has_run_out"
+    @brainstorm.state = :vote if @brainstorm.state.ideation? && @brainstorm.timer.expired?
   end
 end

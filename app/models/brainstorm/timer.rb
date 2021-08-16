@@ -30,8 +30,16 @@ class Brainstorm::Timer
   end
 
 
+  def ready?
+    !running?
+  end
+
   def running?
     started_at.exists?
+  end
+
+  def expired?
+    elapsed_seconds > duration
   end
 
   def elapsed_seconds
