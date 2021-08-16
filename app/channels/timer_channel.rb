@@ -32,12 +32,6 @@ class TimerChannel < ApplicationCable::Channel
   end
 
   def update_redis_if_time_has_run_out
-    if REDIS.get(brainstorm_state_key) == "ideation" && timer_status == "time_has_run_out"
-      REDIS.set(brainstorm_state_key, "vote")
-    end
-  end
-
-  def brainstorm_state_key
-    "brainstorm_state_#{@brainstorm.token}"
+    @brainstorm.state = :vote if @brainstorm.state.ideation? && timer_status == "time_has_run_out"
   end
 end
