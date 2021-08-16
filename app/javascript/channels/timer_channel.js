@@ -8,9 +8,8 @@ let brainstormDuration;
 consumer.subscriptions.create({
   channel: "TimerChannel", token: location.pathname.replace("/", "")
 }, {
-  received(data) {
-    console.log(data)
-    switch (data.event) {
+  received({ event }) {
+    switch (event) {
       case "transmit_timer_status":
         evaluateTimer(data);
         formatTime();
