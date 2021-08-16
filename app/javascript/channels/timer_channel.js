@@ -8,24 +8,23 @@ let brainstormDuration;
 consumer.subscriptions.create({
   channel: "TimerChannel", token: location.pathname.replace("/", "")
 }, {
-  received({ event }) {
-    switch (event) {
+  received(data) {
+    brainstormDuration = data.brainstorm_duration
+
+    switch (data.event) {
       case "transmit_timer_status":
         evaluateTimer(data);
         formatTime();
         setStateOfTimerButton();
-        brainstormDuration = data.brainstorm_duration
         break;
       case "start_timer":
-        timerState.timeLeftSecondsTotal = data.brainstorm_duration
-        brainstormDuration = data.brainstorm_duration
+        timerState.timeLeftSecondsTotal = brainstormDuration
 
         formatTime();
         timerState.status = "running"
         startTimer();
         break;
       case "reset_timer":
-        brainstormDuration = data.brainstorm_duration
         timerState.status = "readyToStart"
         resetTimer()
         break;
