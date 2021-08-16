@@ -1,4 +1,6 @@
 class Brainstorm < ApplicationRecord
+  include Facilitated
+
   has_many :ideas
   attr_accessor :name
 

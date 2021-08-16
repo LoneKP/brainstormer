@@ -1,4 +1,6 @@
 class Session
+  attr_reader :id
+
   def initialize(id)
     @id, @name_proxy = id, Kredis.string(id)
   end
@@ -13,5 +15,5 @@ class Session
 
   private
 
-  attr_reader :id, :name_proxy
+  attr_reader :name_proxy
 end

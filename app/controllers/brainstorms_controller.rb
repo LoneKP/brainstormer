@@ -19,7 +19,7 @@ class BrainstormsController < ApplicationController
       if @brainstorm.save
         REDIS.set @session_id, @brainstorm.name
         @facilitation.brainstorm_stage.value = :setup
-        @facilitation.facilitator_session_id = @session_id
+        @brainstorm.facilitator_session_id = @session_id
 
         format.js { render js: "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
       else
@@ -35,7 +35,7 @@ class BrainstormsController < ApplicationController
     @ideas = @brainstorm.ideas
     @idea  = @ideas.new
 
-    @current_facilitator = @facilitation.facilitated_by_session?(@session_id)
+    @current_facilitator = @brainstorm.facilitator.id == @session_id
 
     @voting = Session::Voting.new(@brainstorm, @session_id)
   end
@@ -133,24 +133,6 @@ class BrainstormsController < ApplicationController
 
     def brainstorm_stage
       @brainstorm_stage ||= Kredis.enum("brainstorm_state_#{@brainstorm.token}", values: %i[ setup ideation vote voting_done ], default: nil)
-    end
-
-    def facilitator_session_id=(session_id)
-      facilitator.value = session_id
-    end
-
-    def facilitated_by_session?(session_id)
-      facilitator.value == session_id
-    end
-
-    def facilitator_name
-      Kredis.proxy(facilitator.value).get
-    end
-
-    private
-
-    def facilitator
-      @facilitator ||= Kredis.string("brainstorm_facilitator_#{@brainstorm.token}")
     end
   end
 
