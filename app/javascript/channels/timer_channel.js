@@ -63,9 +63,7 @@ const evaluateTimer = (data) => {
 }
 
 const startTimer = () => {
-  if (document.getElementById("startTimer")) {
-    document.getElementById("startTimer").textContent = "Reset timer"
-  }
+  setTimerReset()
   timer = setInterval(countDown, 1000);
 }
 
@@ -73,25 +71,12 @@ const resetTimer = (data) => {
   clearInterval(timer);
   timerState = { status: "readyToStart", timeLeftSecondsTotal: data.brainstorm_duration };
   formatTime();
-  if (document.getElementById("startTimer")) {
-    document.getElementById("startTimer").textContent = "Start timer"
-  }
+  setTimerStart()
 }
 
 const setStateOfTimerButton = () => {
-  if (document.getElementById("startTimer")) {
-    switch (timerState.status) {
-      case "timeElapsed":
-        document.getElementById("startTimer").textContent = "Reset timer"
-        break;
-      case "readyToStart":
-        document.getElementById("startTimer").textContent = "Start timer"
-        break;
-      case "running":
-        document.getElementById("startTimer").textContent = "Reset timer"
-        break;
-    }
-  }
+  if (timerState.status == "readyToStart") return setTimerStart()
+  setTimerReset()
 }
 
 const formatTime = () => {
@@ -114,6 +99,14 @@ const formatTime = () => {
   else if (timerState.status == "timeElapsed") {
     timerOnMobile.classList.remove("bg-blurple")
   }
+}
+
+const setTimerStart = () => setTimerText("Start timer")
+const setTimerReset = () => setTimerText("Reset timer")
+
+const setTimerText = (text) => {
+  const element = document.getElementById("startTimer")
+  if (element) element.textContent = text
 }
 
 const countDown = () => {
