@@ -15,13 +15,13 @@ class Brainstorm::Timer
   def duration() = duration_proxy.value || 10.minutes.to_i
   def duration=(duration); duration_proxy.value = duration; end
 
+  def start_or_reset
+    running? ? reset : start
+  end
+
   def start
-    if running?
-      reset
-    else
-      started_at.value = Time.now
-      broadcast_timer_event :start
-    end
+    started_at.value = Time.now
+    broadcast_timer_event :start
   end
 
   def reset
