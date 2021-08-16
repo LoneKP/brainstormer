@@ -119,14 +119,6 @@ class BrainstormsController < ApplicationController
     params.require(:brainstorm).permit(:problem, :name)
   end
 
-  def brainstorm_timer_running_key
-    "brainstorm_id_timer_running_#{@brainstorm.token}"
-  end
-
-  def brainstorm_duration_key
-    "brainstorm_id_duration_#{@brainstorm.token}"
-  end
-
   def brainstorm_key
     "brainstorm_id_#{@brainstorm.token}"
   end
