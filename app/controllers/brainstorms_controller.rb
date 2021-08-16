@@ -1,5 +1,6 @@
 class BrainstormsController < ApplicationController
-  before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :end_voting, :done_brainstorming, :download_pdf, :change_state]
+  include BrainstormScoped
+
   before_action :set_session, only: [:show, :create, :done_voting]
 
   def index
@@ -126,10 +127,6 @@ class BrainstormsController < ApplicationController
   end
 
   private
-
-  def set_brainstorm
-    @brainstorm = Brainstorm.find_by token: params[:token]
-  end
 
   def brainstorm_params
     params.require(:brainstorm).permit(:problem, :name)

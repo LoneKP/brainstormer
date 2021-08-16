@@ -5,6 +5,10 @@ Rails.application.routes.draw do
     member do
       post :start_timer, :done_brainstorming, :send_ideas_email, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
     end
+
+    resource :timer, only: [] do
+      resource :duration, only: :update, module: "brainstorms/timers"
+    end
   end
 
   resource :session, only: [] do
