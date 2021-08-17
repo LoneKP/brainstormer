@@ -42,16 +42,14 @@ consumer.subscriptions.create({
 
     if (data.event == "transmit_timer_status") {
       evaluateTimer(data)
-      formatTime()
     } else if (data.event == "start_timer") {
       timer.reset()
-
-      formatTime()
       timer.start()
     } else if (data.event == "reset_timer") {
       timer.reset()
-      formatTime()
     }
+
+    formatTime()
   },
 })
 
@@ -68,7 +66,6 @@ const evaluateTimer = (data) => {
   }
   else {
     timer.reset()
-    formatTime()
   }
 }
 
