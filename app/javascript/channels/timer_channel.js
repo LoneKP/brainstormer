@@ -1,8 +1,9 @@
 import consumer from "./consumer"
 
-let timer;
-let timerState;
-let brainstormDuration;
+let timer
+let timerTick
+let timerState
+let brainstormDuration
 
 
 consumer.subscriptions.create({
@@ -39,10 +40,10 @@ const evaluateTimer = (data) => {
       status: "timeElapsed",
       timeLeftSecondsTotal: 0
     }
-    clearInterval(timer);
+    clearInterval(timerTick)
   }
   else if (data.timer_status > 0 && data.timer_status < data.brainstorm_duration) {
-    clearInterval(timer);
+    clearInterval(timerTick)
     timerState = {
       status: "running",
       timeLeftSecondsTotal: data.brainstorm_duration - data.timer_status
@@ -55,13 +56,13 @@ const evaluateTimer = (data) => {
 }
 
 const startTimer = () => {
-  timer = setInterval(countDown, 1000)
+  timerTick = setInterval(countDown, 1000)
 }
 
 const resetTimer = () => {
-  clearInterval(timer);
-  timerState = { status: "ready", timeLeftSecondsTotal: brainstormDuration };
-  formatTime();
+  clearInterval(timerTick)
+  timerState = { status: "ready", timeLeftSecondsTotal: brainstormDuration }
+  formatTime()
 }
 
 const formatTime = () => {
@@ -90,7 +91,7 @@ const countDown = () => {
   timerState.timeLeftSecondsTotal--;
   formatTime();
   if (timerState.timeLeftSecondsTotal <= 0) {
-    clearInterval(timer);
+    clearInterval(timerTick)
     timerState.status = "timeElapsed";
     document.getElementById("timerPhoneElement").classList.remove("bg-blurple")
     setAndChangeBrainstormState("vote");
