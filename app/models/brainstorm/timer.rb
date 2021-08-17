@@ -30,10 +30,6 @@ class Brainstorm::Timer
   end
 
 
-  def ready?
-    !running?
-  end
-
   def running?
     started_at.exists?
   end

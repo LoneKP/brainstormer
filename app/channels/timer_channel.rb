@@ -20,12 +20,7 @@ class TimerChannel < ApplicationCable::Channel
   end
 
   def timer_status
-    case
-    when @timer.expired? then "time_has_run_out"
-    when @timer.ready?   then "ready_to_start_timer"
-    else
-      @timer.elapsed_seconds
-    end
+    @timer.expired? ? "time_has_run_out" : @timer.elapsed_seconds
   end
 
   def move_to_vote_if_timer_expired
