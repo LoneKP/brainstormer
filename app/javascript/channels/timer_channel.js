@@ -49,7 +49,8 @@ consumer.subscriptions.create({
       formatTime()
       timer.start()
     } else if (data.event == "reset_timer") {
-      resetTimer()
+      timer.reset()
+      formatTime()
     }
   },
 })
@@ -66,13 +67,9 @@ const evaluateTimer = (data) => {
     timer.start()
   }
   else {
-    resetTimer();
+    timer.reset()
+    formatTime()
   }
-}
-
-const resetTimer = () => {
-  timer.reset()
-  formatTime()
 }
 
 const formatTime = () => {
