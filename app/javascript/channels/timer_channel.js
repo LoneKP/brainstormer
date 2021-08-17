@@ -4,13 +4,11 @@ class Timer {
   static duration = 0
   static secondsLeft = null
 
-  get isReady() { return !this.secondsLeft || this.secondsLeft == this.duration }
   get isRunning() { return this.secondsLeft > 0 }
 }
 
 let timer = new Timer()
 let timerTick
-let timerState
 
 consumer.subscriptions.create({
   channel: "TimerChannel", token: location.pathname.replace("/", "")
@@ -36,9 +34,6 @@ const evaluateTimer = (data) => {
   if (data.timer_status == "ready_to_start_timer") {
   } else if (data.timer_status == "time_has_run_out") {
     timer.secondsLeft = 0
-    timerState = {
-      status: "timeElapsed"
-    }
     clearInterval(timerTick)
   }
   else if (data.timer_status > 0 && data.timer_status < data.brainstorm_duration) {
@@ -75,10 +70,7 @@ const formatTime = () => {
     }
     timerOnMobile.setAttribute("style", `width: ${100 - timer.secondsLeft / timer.duration * 100}%`)
   }
-  else if (timer.isReady) {
-    timerOnMobile.classList.remove("bg-blurple")
-  }
-  else if (timerState.status == "timeElapsed") {
+  else {
     timerOnMobile.classList.remove("bg-blurple")
   }
 }
@@ -88,7 +80,6 @@ const countDown = () => {
   formatTime();
   if (timer.secondsLeft <= 0) {
     clearInterval(timerTick)
-    timerState.status = "timeElapsed";
     document.getElementById("timerPhoneElement").classList.remove("bg-blurple")
     setAndChangeBrainstormState("vote");
     showTimeIsUpModal()
