@@ -11,6 +11,12 @@ class Timer {
     this.ticking = setInterval(countDown, 1000)
   }
 
+  stop() {
+    clearInterval(this.ticking)
+    this.ticking = null
+  }
+
+
   formattedTimeLeft() {
     const secondsLeft = this.secondsLeft % 60
     const minutesLeftInSeconds = (this.secondsLeft - secondsLeft) / 60
@@ -51,10 +57,10 @@ const evaluateTimer = (data) => {
   if (data.timer_status == "ready_to_start_timer") {
   } else if (data.timer_status == "time_has_run_out") {
     timer.secondsLeft = 0
-    clearInterval(timer.ticking)
+    timer.stop()
   }
   else if (data.timer_status > 0 && data.timer_status < data.brainstorm_duration) {
-    clearInterval(timer.ticking)
+    timer.stop()
     timer.secondsLeft = data.brainstorm_duration - data.timer_status
     timer.start()
   }
@@ -64,7 +70,7 @@ const evaluateTimer = (data) => {
 }
 
 const resetTimer = () => {
-  clearInterval(timer.ticking)
+  timer.stop()
   timer.reset()
   formatTime()
 }
@@ -86,7 +92,7 @@ const countDown = () => {
   timer.secondsLeft--;
   formatTime();
   if (timer.secondsLeft <= 0) {
-    clearInterval(timer.ticking)
+    timer.stop()
     document.getElementById("timerPhoneElement").classList.remove("bg-blurple")
     setAndChangeBrainstormState("vote");
     showTimeIsUpModal()
