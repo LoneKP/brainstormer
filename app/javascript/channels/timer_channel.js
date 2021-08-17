@@ -3,6 +3,8 @@ import consumer from "./consumer"
 class Timer {
   static duration = 0
   static secondsLeft = null
+
+  get isReady() { return !secondsLeft || secondsLeft == duration }
 }
 
 let timer = new Timer()
@@ -25,7 +27,6 @@ consumer.subscriptions.create({
       timerState.status = "running"
       startTimer()
     } else if (data.event == "reset_timer") {
-      timerState.status = "ready"
       resetTimer()
     }
   },
@@ -33,12 +34,7 @@ consumer.subscriptions.create({
 
 const evaluateTimer = (data) => {
   if (data.timer_status == "ready_to_start_timer") {
-    timerState = {
-      status: "ready",
-      timeLeftSecondsTotal: data.brainstorm_duration
-    }
-  }
-  else if (data.timer_status == "time_has_run_out") {
+  } else if (data.timer_status == "time_has_run_out") {
     timer.secondsLeft = 0
     timerState = {
       status: "timeElapsed"
@@ -65,7 +61,6 @@ const startTimer = () => {
 const resetTimer = () => {
   clearInterval(timerTick)
   timer.secondsLeft = timer.duration
-  timerState = { status: "ready" }
   formatTime()
 }
 
@@ -83,7 +78,7 @@ const formatTime = () => {
     }
     timerOnMobile.setAttribute("style", `width: ${100 - timer.secondsLeft / timer.duration * 100}%`)
   }
-  else if (timerState.status == "ready") {
+  else if (timer.isReady) {
     timerOnMobile.classList.remove("bg-blurple")
   }
   else if (timerState.status == "timeElapsed") {
