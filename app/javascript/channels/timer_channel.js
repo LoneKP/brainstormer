@@ -3,8 +3,13 @@ import consumer from "./consumer"
 class Timer {
   static duration = 0
   static secondsLeft = null
+  static ticking = null
 
   get isRunning() { return this.secondsLeft > 0 }
+
+  start() {
+    this.ticking = setInterval(countDown, 1000)
+  }
 
   formattedTimeLeft() {
     const secondsLeft = this.secondsLeft % 60
@@ -21,7 +26,6 @@ class Timer {
 const withLeadingZeros = (unit) => ("0" + unit).slice(-2)
 
 let timer = new Timer()
-let timerTick
 
 consumer.subscriptions.create({
   channel: "TimerChannel", token: location.pathname.replace("/", "")
@@ -36,7 +40,7 @@ consumer.subscriptions.create({
       timer.reset()
 
       formatTime()
-      startTimer()
+      timer.start()
     } else if (data.event == "reset_timer") {
       resetTimer()
     }
@@ -47,24 +51,20 @@ const evaluateTimer = (data) => {
   if (data.timer_status == "ready_to_start_timer") {
   } else if (data.timer_status == "time_has_run_out") {
     timer.secondsLeft = 0
-    clearInterval(timerTick)
+    clearInterval(timer.ticking)
   }
   else if (data.timer_status > 0 && data.timer_status < data.brainstorm_duration) {
-    clearInterval(timerTick)
+    clearInterval(timer.ticking)
     timer.secondsLeft = data.brainstorm_duration - data.timer_status
-    startTimer()
+    timer.start()
   }
   else {
     resetTimer();
   }
 }
 
-const startTimer = () => {
-  timerTick = setInterval(countDown, 1000)
-}
-
 const resetTimer = () => {
-  clearInterval(timerTick)
+  clearInterval(timer.ticking)
   timer.reset()
   formatTime()
 }
@@ -74,9 +74,7 @@ const formatTime = () => {
 
   let timerOnMobile = document.getElementById("timerPhoneElement")
   if (timer.isRunning) {
-    if (timerOnMobile.classList.contains("bg-blurple") == false) {
-      timerOnMobile.classList.add("bg-blurple")
-    }
+    timerOnMobile.classList.add("bg-blurple")
     timerOnMobile.setAttribute("style", `width: ${100 - timer.secondsLeft / timer.duration * 100}%`)
   }
   else {
@@ -88,7 +86,7 @@ const countDown = () => {
   timer.secondsLeft--;
   formatTime();
   if (timer.secondsLeft <= 0) {
-    clearInterval(timerTick)
+    clearInterval(timer.ticking)
     document.getElementById("timerPhoneElement").classList.remove("bg-blurple")
     setAndChangeBrainstormState("vote");
     showTimeIsUpModal()
