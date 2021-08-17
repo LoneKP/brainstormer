@@ -5,6 +5,10 @@ class Timer {
   static secondsLeft = null
 
   get isRunning() { return this.secondsLeft > 0 }
+
+  reset() {
+    this.secondsLeft = this.duration
+  }
 }
 
 let timer = new Timer()
@@ -20,7 +24,7 @@ consumer.subscriptions.create({
       evaluateTimer(data)
       formatTime()
     } else if (data.event == "start_timer") {
-      timer.secondsLeft = timer.duration
+      timer.reset()
 
       formatTime()
       startTimer()
@@ -52,7 +56,7 @@ const startTimer = () => {
 
 const resetTimer = () => {
   clearInterval(timerTick)
-  timer.secondsLeft = timer.duration
+  timer.reset()
   formatTime()
 }
 
