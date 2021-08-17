@@ -42,7 +42,9 @@
         </div>
         <% if @current_facilitator %>
           <div class="my-shadow w-full flex">
-            <%= link_to "Start timer", brainstorm_timer_path(@brainstorm.token), remote: true, method: :patch, id: "startTimer", class: "hvr-underline-from-left-thin lg:border-2 lg:border-black lg:border-solid text-white lg:text-black uppercase p-6 lg:p-2 w-full justify-center flex text-5xl lg:text-base bg-blurple active:bg-darker-blurple lg:bg-transparent lg:active:bg-blurple-gray my-shadow-lg" %>
+            <%= link_to brainstorm_timer_path(@brainstorm.token), remote: true, method: :patch, id: "startTimer", class: "hvr-underline-from-left-thin lg:border-2 lg:border-black lg:border-solid text-white lg:text-black uppercase p-6 lg:p-2 w-full justify-center flex text-5xl lg:text-base bg-blurple active:bg-darker-blurple lg:bg-transparent lg:active:bg-blurple-gray my-shadow-lg" do %>
+              <%= @brainstorm.timer.running? ? "Reset timer" : "Start timer" %>
+            <% end %>
           </div>
           <div class="my-shadow w-full flex lg:mb-0 mb-16">
             <%= link_to "Go to voting", done_brainstorming_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "hvr-underline-from-left-thin lg:border-2 lg:border-black lg:border-solid text-white lg:text-black uppercase p-6 lg:p-2 w-full justify-center flex text-5xl lg:text-base md:mt-8 lg:mt-2 bg-blurple active:bg-darker-blurple lg:bg-transparent lg:active:bg-blurple-gray my-shadow-lg" %>

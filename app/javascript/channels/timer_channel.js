@@ -14,7 +14,6 @@ consumer.subscriptions.create({
     if (data.event == "transmit_timer_status") {
       evaluateTimer(data)
       formatTime()
-      setStateOfTimerButton()
     } else if (data.event == "start_timer") {
       timerState.timeLeftSecondsTotal = brainstormDuration
 
@@ -56,20 +55,13 @@ const evaluateTimer = (data) => {
 }
 
 const startTimer = () => {
-  setTimerReset()
-  timer = setInterval(countDown, 1000);
+  timer = setInterval(countDown, 1000)
 }
 
 const resetTimer = () => {
   clearInterval(timer);
   timerState = { status: "ready", timeLeftSecondsTotal: brainstormDuration };
   formatTime();
-  setTimerStart()
-}
-
-const setStateOfTimerButton = () => {
-  if (timerState.status == "ready") return setTimerStart()
-  setTimerReset()
 }
 
 const formatTime = () => {
@@ -92,14 +84,6 @@ const formatTime = () => {
   else if (timerState.status == "timeElapsed") {
     timerOnMobile.classList.remove("bg-blurple")
   }
-}
-
-const setTimerStart = () => setTimerText("Start timer")
-const setTimerReset = () => setTimerText("Reset timer")
-
-const setTimerText = (text) => {
-  const element = document.getElementById("startTimer")
-  if (element) element.textContent = text
 }
 
 const countDown = () => {
