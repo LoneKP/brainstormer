@@ -43,7 +43,11 @@ class Brainstorm::Timer
   end
 
   def elapsed_seconds
-    Time.now.to_i - started_at.value.to_i
+    if value = started_at.value
+      Time.now.to_i - value.to_i
+    else
+      0
+    end
   end
 
 
