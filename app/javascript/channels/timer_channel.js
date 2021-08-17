@@ -2,6 +2,7 @@ import consumer from "./consumer"
 
 class Timer {
   static duration = 0
+  static secondsLeft = null
 }
 
 let timer = new Timer()
@@ -18,7 +19,7 @@ consumer.subscriptions.create({
       evaluateTimer(data)
       formatTime()
     } else if (data.event == "start_timer") {
-      timerState.timeLeftSecondsTotal = timer.duration
+      timer.secondsLeft = timer.duration
 
       formatTime()
       timerState.status = "running"
@@ -38,17 +39,17 @@ const evaluateTimer = (data) => {
     }
   }
   else if (data.timer_status == "time_has_run_out") {
+    timer.secondsLeft = 0
     timerState = {
-      status: "timeElapsed",
-      timeLeftSecondsTotal: 0
+      status: "timeElapsed"
     }
     clearInterval(timerTick)
   }
   else if (data.timer_status > 0 && data.timer_status < data.brainstorm_duration) {
     clearInterval(timerTick)
+    timer.secondsLeft = data.brainstorm_duration - data.timer_status
     timerState = {
       status: "running",
-      timeLeftSecondsTotal: data.brainstorm_duration - data.timer_status
     }
     startTimer();
   }
@@ -63,13 +64,14 @@ const startTimer = () => {
 
 const resetTimer = () => {
   clearInterval(timerTick)
-  timerState = { status: "ready", timeLeftSecondsTotal: timer.duration }
+  timer.secondsLeft = timer.duration
+  timerState = { status: "ready" }
   formatTime()
 }
 
 const formatTime = () => {
-  let timeLeftSeconds = timerState.timeLeftSecondsTotal % 60;
-  let timeLeftSecondsInMinutes = (timerState.timeLeftSecondsTotal - timeLeftSeconds) / 60;
+  let timeLeftSeconds = timer.secondsLeft % 60;
+  let timeLeftSecondsInMinutes = (timer.secondsLeft - timeLeftSeconds) / 60;
   let timeLeftMinutes = timeLeftSecondsInMinutes % 60;
   let formattedTimeLeftMinutes = ("0" + timeLeftMinutes).slice(-2);
   let formattedTimeLeftSeconds = ("0" + timeLeftSeconds).slice(-2);
@@ -79,7 +81,7 @@ const formatTime = () => {
     if (timerOnMobile.classList.contains("bg-blurple") == false) {
       timerOnMobile.classList.add("bg-blurple")
     }
-    timerOnMobile.setAttribute("style", `width: ${100 - timerState.timeLeftSecondsTotal / timer.duration * 100}%`)
+    timerOnMobile.setAttribute("style", `width: ${100 - timer.secondsLeft / timer.duration * 100}%`)
   }
   else if (timerState.status == "ready") {
     timerOnMobile.classList.remove("bg-blurple")
@@ -90,9 +92,9 @@ const formatTime = () => {
 }
 
 const countDown = () => {
-  timerState.timeLeftSecondsTotal--;
+  timer.secondsLeft--;
   formatTime();
-  if (timerState.timeLeftSecondsTotal <= 0) {
+  if (timer.secondsLeft <= 0) {
     clearInterval(timerTick)
     timerState.status = "timeElapsed";
     document.getElementById("timerPhoneElement").classList.remove("bg-blurple")
