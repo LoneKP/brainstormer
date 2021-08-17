@@ -4,7 +4,8 @@ class Timer {
   static duration = 0
   static secondsLeft = null
 
-  get isReady() { return !secondsLeft || secondsLeft == duration }
+  get isReady() { return !this.secondsLeft || this.secondsLeft == this.duration }
+  get isRunning() { return this.secondsLeft > 0 }
 }
 
 let timer = new Timer()
@@ -24,7 +25,6 @@ consumer.subscriptions.create({
       timer.secondsLeft = timer.duration
 
       formatTime()
-      timerState.status = "running"
       startTimer()
     } else if (data.event == "reset_timer") {
       resetTimer()
@@ -44,10 +44,7 @@ const evaluateTimer = (data) => {
   else if (data.timer_status > 0 && data.timer_status < data.brainstorm_duration) {
     clearInterval(timerTick)
     timer.secondsLeft = data.brainstorm_duration - data.timer_status
-    timerState = {
-      status: "running",
-    }
-    startTimer();
+    startTimer()
   }
   else {
     resetTimer();
@@ -72,7 +69,7 @@ const formatTime = () => {
   let formattedTimeLeftSeconds = ("0" + timeLeftSeconds).slice(-2);
   timeDisplay.textContent = `${formattedTimeLeftMinutes}:${formattedTimeLeftSeconds}`;
   let timerOnMobile = document.getElementById("timerPhoneElement")
-  if (timerState.status == "running") {
+  if (timer.isRunning) {
     if (timerOnMobile.classList.contains("bg-blurple") == false) {
       timerOnMobile.classList.add("bg-blurple")
     }
