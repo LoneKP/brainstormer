@@ -6,10 +6,19 @@ class Timer {
 
   get isRunning() { return this.secondsLeft > 0 }
 
+  formattedTimeLeft() {
+    const secondsLeft = this.secondsLeft % 60
+    const minutesLeftInSeconds = (this.secondsLeft - secondsLeft) / 60
+    const minutesLeft = minutesLeftInSeconds % 60
+    return `${withLeadingZeros(minutesLeft)}:${withLeadingZeros(secondsLeft)}`
+  }
+
   reset() {
     this.secondsLeft = this.duration
   }
 }
+
+const withLeadingZeros = (unit) => ("0" + unit).slice(-2)
 
 let timer = new Timer()
 let timerTick
@@ -61,12 +70,8 @@ const resetTimer = () => {
 }
 
 const formatTime = () => {
-  let timeLeftSeconds = timer.secondsLeft % 60;
-  let timeLeftSecondsInMinutes = (timer.secondsLeft - timeLeftSeconds) / 60;
-  let timeLeftMinutes = timeLeftSecondsInMinutes % 60;
-  let formattedTimeLeftMinutes = ("0" + timeLeftMinutes).slice(-2);
-  let formattedTimeLeftSeconds = ("0" + timeLeftSeconds).slice(-2);
-  timeDisplay.textContent = `${formattedTimeLeftMinutes}:${formattedTimeLeftSeconds}`;
+  timeDisplay.textContent = timer.formattedTimeLeft()
+
   let timerOnMobile = document.getElementById("timerPhoneElement")
   if (timer.isRunning) {
     if (timerOnMobile.classList.contains("bg-blurple") == false) {
