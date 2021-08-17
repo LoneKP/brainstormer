@@ -25,6 +25,7 @@ class Timer {
   }
 
   reset() {
+    this.stop()
     this.secondsLeft = this.duration
   }
 }
@@ -70,7 +71,6 @@ const evaluateTimer = (data) => {
 }
 
 const resetTimer = () => {
-  timer.stop()
   timer.reset()
   formatTime()
 }
