@@ -1,22 +1,24 @@
 import consumer from "./consumer"
 
-let timer
+class Timer {
+  static duration = 0
+}
+
+let timer = new Timer()
 let timerTick
 let timerState
-let brainstormDuration
-
 
 consumer.subscriptions.create({
   channel: "TimerChannel", token: location.pathname.replace("/", "")
 }, {
   received(data) {
-    brainstormDuration = data.brainstorm_duration
+    timer.duration = data.brainstorm_duration
 
     if (data.event == "transmit_timer_status") {
       evaluateTimer(data)
       formatTime()
     } else if (data.event == "start_timer") {
-      timerState.timeLeftSecondsTotal = brainstormDuration
+      timerState.timeLeftSecondsTotal = timer.duration
 
       formatTime()
       timerState.status = "running"
@@ -61,7 +63,7 @@ const startTimer = () => {
 
 const resetTimer = () => {
   clearInterval(timerTick)
-  timerState = { status: "ready", timeLeftSecondsTotal: brainstormDuration }
+  timerState = { status: "ready", timeLeftSecondsTotal: timer.duration }
   formatTime()
 }
 
@@ -77,7 +79,7 @@ const formatTime = () => {
     if (timerOnMobile.classList.contains("bg-blurple") == false) {
       timerOnMobile.classList.add("bg-blurple")
     }
-    timerOnMobile.setAttribute("style", `width: ${100 - timerState.timeLeftSecondsTotal / brainstormDuration * 100}%`)
+    timerOnMobile.setAttribute("style", `width: ${100 - timerState.timeLeftSecondsTotal / timer.duration * 100}%`)
   }
   else if (timerState.status == "ready") {
     timerOnMobile.classList.remove("bg-blurple")
