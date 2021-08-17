@@ -79,13 +79,8 @@ const formatTime = () => {
   timeDisplay.textContent = timer.formattedTimeLeft()
 
   let timerOnMobile = document.getElementById("timerPhoneElement")
-  if (timer.isRunning) {
-    timerOnMobile.classList.add("bg-blurple")
-    timerOnMobile.setAttribute("style", `width: ${100 - timer.secondsLeft / timer.duration * 100}%`)
-  }
-  else {
-    timerOnMobile.classList.remove("bg-blurple")
-  }
+  timerOnMobile.classList.toggle("bg-blurple", timer.isRunning)
+  if (timer.isRunning) timerOnMobile.setAttribute("style", `width: ${100 - timer.secondsLeft / timer.duration * 100}%`)
 }
 
 const countDown = () => {
