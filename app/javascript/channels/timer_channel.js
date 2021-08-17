@@ -54,8 +54,7 @@ consumer.subscriptions.create({
 })
 
 const evaluateTimer = (data) => {
-  if (data.timer_status == "ready_to_start_timer") {
-  } else if (data.timer_status == "time_has_run_out") {
+  if (data.timer_status == "time_has_run_out") {
     timer.secondsLeft = 0
     timer.stop()
   }
