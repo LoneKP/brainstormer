@@ -38,6 +38,10 @@ class Brainstorm::Timer
     elapsed_seconds > duration
   end
 
+  def remaining_seconds
+    [ duration - elapsed_seconds, 0 ].max
+  end
+
   def elapsed_seconds
     if value = started_at.value
       Time.now.to_i - value.to_i

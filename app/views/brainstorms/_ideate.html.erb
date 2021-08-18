@@ -38,7 +38,7 @@
       <div class="flex flex-col items-center w-full lg:w-64 lg:bg-white bg-transparent my-shadow-only-desktop mr-16 lg:p-6">
         <h2 class="hidden lg:flex italic font-semibold text-xl text-blurple">Time</h2>
         <div class="hidden lg:flex text-3xl font-bold bg-white text-black border-2 border-dashed border-black rounded-full h-40 w-40 flex items-center justify-center my-4">
-          <p id="timeDisplay"></p>
+          <p id="timeDisplay" data-duration="<%= @brainstorm.timer.duration %>" data-seconds-left="<%= @brainstorm.timer.remaining_seconds %>"></p>
         </div>
         <% if @current_facilitator %>
           <div class="my-shadow w-full flex">
@@ -65,6 +65,16 @@
 </div>
 
 <script>
+  const connectTimer = (element) => {
+    const { timer } = window
+    timer.element = element
+    timer.duration = element.getAttribute("data-duration")
+    timer.secondsLeft = element.getAttribute("data-seconds-left")
+    timer.start()
+  }
+
+  connectTimer(document.getElementById("timeDisplay"))
+
   const toggleBuildOnIdea = (ideaId) => {
     if (document.getElementById(`buildOnIdea-${ideaId}`).classList.contains("hidden")) {
       document.getElementById(`buildOnIdea-${ideaId}`).classList.remove("hidden")
