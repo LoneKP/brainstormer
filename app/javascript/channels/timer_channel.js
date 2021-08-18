@@ -13,18 +13,17 @@ class Timer {
     this.ticking = null
   }
 
+  reset() {
+    formatTime()
+    this.stop()
+    this.secondsLeft = this.duration
+  }
 
   formattedTimeLeft() {
     const secondsLeft = this.secondsLeft % 60
     const minutesLeftInSeconds = (this.secondsLeft - secondsLeft) / 60
     const minutesLeft = minutesLeftInSeconds % 60
     return `${withLeadingZeros(minutesLeft)}:${withLeadingZeros(secondsLeft)}`
-  }
-
-  reset() {
-    formatTime()
-    this.stop()
-    this.secondsLeft = this.duration
   }
 }
 
