@@ -1,10 +1,6 @@
 import consumer from "./consumer"
 
 class Timer {
-  static duration = 0
-  static secondsLeft = null
-  static ticking = null
-
   get isRunning() { return this.secondsLeft > 0 }
 
   start() {
