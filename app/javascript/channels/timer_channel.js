@@ -3,8 +3,13 @@ import consumer from "./consumer"
 class Timer {
   get isRunning() { return this.secondsLeft > 0 }
 
-  start() {
+  get secondsLeft() { return this.secondsLeftValue }
+  set secondsLeft(secondsLeft) {
+    this.secondsLeftValue = secondsLeft
     this.render()
+  }
+
+  start() {
     this.ticking = setInterval(this.tick.bind(this), 1000)
   }
 
@@ -14,14 +19,12 @@ class Timer {
   }
 
   reset() {
-    this.render()
     this.stop()
     this.secondsLeft = this.duration
   }
 
   tick() {
     this.secondsLeft--
-    this.render()
     if (this.secondsLeft <= 0) {
       this.stop()
       showTimeIsUpModal()
