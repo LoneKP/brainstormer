@@ -11,12 +11,8 @@ class TimerChannel < ApplicationCable::Channel
   def transmit_list!
     broadcast_to @brainstorm, {
       event: "transmit_timer_status",
-      timer_status: timer_status,
+      timer_status: @timer.elapsed_seconds,
       brainstorm_duration: @timer.duration
     }
-  end
-
-  def timer_status
-    @timer.expired? ? "time_has_run_out" : @timer.elapsed_seconds
   end
 end
