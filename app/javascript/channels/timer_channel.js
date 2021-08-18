@@ -37,7 +37,8 @@ consumer.subscriptions.create({
     timer.duration = data.brainstorm_duration
 
     if (data.event == "transmit_timer_status") {
-      evaluateTimer(data)
+      timer.secondsLeft = timer.duration - data.timer_status
+      timer.start()
     } else if (data.event == "start_timer") {
       timer.reset()
       timer.start()
@@ -48,15 +49,6 @@ consumer.subscriptions.create({
     formatTime()
   },
 })
-
-const evaluateTimer = (data) => {
-  if (data.timer_status > 0 && data.timer_status < data.brainstorm_duration) {
-    timer.secondsLeft = data.brainstorm_duration - data.timer_status
-    timer.start()
-  } else {
-    timer.reset()
-  }
-}
 
 const formatTime = () => {
   timeDisplay.textContent = timer.formattedTimeLeft()
