@@ -11,7 +11,7 @@
       </div>
 
     </div>
-    <%= form_with url: start_voting_brainstorm_path(@brainstorm.token), local: true, class: "self-end hvr-grow mt-20 lg:mt-8 w-full lg:w-auto" do %>
+    <%= link_to brainstorm_path(@brainstorm.token), class: "self-end hvr-grow mt-20 lg:mt-8 w-full lg:w-auto" do %>
       <button class="flex items-center justify-center lg:justify-between lg:text-base text-6xl my-shadow-lg bg-blurple text-white font-bold w-full lg:w-48 py-8 lg:py-2 lg:pl-8 lg:pr-4">
         <p>CONTINUE</p>
         <div class="hidden lg:flex h-8 w-8">
