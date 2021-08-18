@@ -5,7 +5,7 @@ class Timer {
 
   start() {
     this.render()
-    this.ticking = setInterval(countDown, 1000)
+    this.ticking = setInterval(this.tick.bind(this), 1000)
   }
 
   stop() {
@@ -17,6 +17,15 @@ class Timer {
     this.render()
     this.stop()
     this.secondsLeft = this.duration
+  }
+
+  tick() {
+    this.secondsLeft--
+    this.render()
+    if (this.secondsLeft <= 0) {
+      this.stop()
+      showTimeIsUpModal()
+    }
   }
 
   render() {
@@ -53,13 +62,4 @@ const updateMobilePhoneProgress = () => {
   let timerOnMobile = document.getElementById("timerPhoneElement")
   timerOnMobile.classList.toggle("bg-blurple", timer.isRunning)
   if (timer.isRunning) timerOnMobile.setAttribute("style", `width: ${100 - timer.secondsLeft / timer.duration * 100}%`)
-}
-
-const countDown = () => {
-  timer.secondsLeft--
-  timer.render()
-  if (timer.secondsLeft <= 0) {
-    timer.stop()
-    showTimeIsUpModal()
-  }
 }
