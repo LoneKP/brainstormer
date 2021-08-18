@@ -29,10 +29,7 @@ class Timer {
 
   tick() {
     this.secondsLeft--
-    if (this.secondsLeft <= 0) {
-      this.stop()
-      this.onExpire()
-    }
+    if (this.secondsLeft <= 0) this.stop()
   }
 
   render() {
@@ -61,6 +58,8 @@ consumer.subscriptions.create({
       timer.start()
     } else if (data.event == "reset") {
       timer.reset()
+    } else if (data.event == "expired") {
+      showTimeIsUpModal()
     }
   },
 })

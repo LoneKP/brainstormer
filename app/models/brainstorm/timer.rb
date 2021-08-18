@@ -21,12 +21,24 @@ class Brainstorm::Timer
 
   def start
     started_at.value = Time.now
+    check_expiry_later
     broadcast :start
   end
 
   def reset
     started_at.clear
     broadcast :reset
+  end
+
+  def check_expiry_later
+    ExpiryJob.set(wait: duration).perform_later(brainstorm)
+  end
+
+  def check_expiry
+    if expired?
+      brainstorm.timer_expired
+      broadcast :expired
+    end
   end
 
 
