@@ -34,9 +34,8 @@ consumer.subscriptions.create({
   channel: "TimerChannel", token: location.pathname.replace("/", "")
 }, {
   received(data) {
-    timer.duration = data.brainstorm_duration
-
     if (data.event == "transmit_timer_status") {
+      timer.duration = data.brainstorm_duration
       timer.secondsLeft = timer.duration - data.timer_status
       timer.start()
     } else if (data.event == "start_timer") {
