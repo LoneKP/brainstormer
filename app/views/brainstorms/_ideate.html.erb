@@ -76,10 +76,6 @@
   connectTimer(document.getElementById("timeDisplay"))
 
   const toggleBuildOnIdea = (ideaId) => {
-    if (document.getElementById(`buildOnIdea-${ideaId}`).classList.contains("hidden")) {
-      document.getElementById(`buildOnIdea-${ideaId}`).classList.remove("hidden")
-    } else {
-      document.getElementById(`buildOnIdea-${ideaId}`).classList.add("hidden")
-    }
+    document.getElementById(`buildOnIdea-${ideaId}`).classList.toggle("hidden")
   }
 </script>
