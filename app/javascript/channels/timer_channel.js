@@ -4,7 +4,7 @@ class Timer {
   get isRunning() { return this.secondsLeft > 0 }
 
   start() {
-    formatTime()
+    this.render()
     this.ticking = setInterval(countDown, 1000)
   }
 
@@ -14,9 +14,14 @@ class Timer {
   }
 
   reset() {
-    formatTime()
+    this.render()
     this.stop()
     this.secondsLeft = this.duration
+  }
+
+  render() {
+    this.element.textContent = this.formattedTimeLeft()
+    updateMobilePhoneProgress()
   }
 
   formattedTimeLeft() {
@@ -44,9 +49,7 @@ consumer.subscriptions.create({
   },
 })
 
-const formatTime = () => {
-  timeDisplay.textContent = timer.formattedTimeLeft()
-
+const updateMobilePhoneProgress = () => {
   let timerOnMobile = document.getElementById("timerPhoneElement")
   timerOnMobile.classList.toggle("bg-blurple", timer.isRunning)
   if (timer.isRunning) timerOnMobile.setAttribute("style", `width: ${100 - timer.secondsLeft / timer.duration * 100}%`)
@@ -54,7 +57,7 @@ const formatTime = () => {
 
 const countDown = () => {
   timer.secondsLeft--
-  formatTime()
+  timer.render()
   if (timer.secondsLeft <= 0) {
     timer.stop()
     showTimeIsUpModal()
