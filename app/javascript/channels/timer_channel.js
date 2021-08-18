@@ -1,7 +1,7 @@
 import consumer from "./consumer"
 
 class Timer {
-  get isRunning() { return this.secondsLeft > 0 }
+  get isRunning() { return this.ticking }
 
   get percentage() {
     return 100 - (this.secondsLeft / this.duration * 100)
