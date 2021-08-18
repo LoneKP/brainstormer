@@ -38,10 +38,10 @@ consumer.subscriptions.create({
       timer.duration = data.brainstorm_duration
       timer.secondsLeft = timer.duration - data.timer_status
       timer.start()
-    } else if (data.event == "start_timer") {
+    } else if (data.event == "start") {
       timer.reset()
       timer.start()
-    } else if (data.event == "reset_timer") {
+    } else if (data.event == "reset") {
       timer.reset()
     }
 

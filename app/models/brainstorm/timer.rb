@@ -54,6 +54,6 @@ class Brainstorm::Timer
   attr_reader :brainstorm
 
   def broadcast(event)
-    TimerChannel.broadcast_to brainstorm, { event: "#{event}_timer", brainstorm_duration: duration }
+    TimerChannel.broadcast_to brainstorm, { event: event }
   end
 end
