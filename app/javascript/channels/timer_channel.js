@@ -77,12 +77,10 @@ const formatTime = () => {
 }
 
 const countDown = () => {
-  timer.secondsLeft--;
-  formatTime();
+  timer.secondsLeft--
+  formatTime()
   if (timer.secondsLeft <= 0) {
     timer.stop()
-    document.getElementById("timerPhoneElement").classList.remove("bg-blurple")
-    setAndChangeBrainstormState("vote");
     showTimeIsUpModal()
   }
 }
