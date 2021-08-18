@@ -43,11 +43,11 @@ class Brainstorm::Timer
 
 
   def running?
-    started_at.exists?
+    remaining_seconds.positive?
   end
 
   def expired?
-    elapsed_seconds > duration
+    remaining_seconds.zero?
   end
 
   def remaining_seconds
