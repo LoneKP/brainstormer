@@ -52,14 +52,10 @@ consumer.subscriptions.create({
 const evaluateTimer = (data) => {
   if (data.timer_status == "time_has_run_out") {
     timer.secondsLeft = 0
-    timer.stop()
-  }
-  else if (data.timer_status > 0 && data.timer_status < data.brainstorm_duration) {
-    timer.stop()
+  } else if (data.timer_status > 0 && data.timer_status < data.brainstorm_duration) {
     timer.secondsLeft = data.brainstorm_duration - data.timer_status
     timer.start()
-  }
-  else {
+  } else {
     timer.reset()
   }
 }
