@@ -21,12 +21,12 @@ class Brainstorm::Timer
 
   def start
     started_at.value = Time.now
-    broadcast_timer_event :start
+    broadcast :start
   end
 
   def reset
     started_at.clear
-    broadcast_timer_event :reset
+    broadcast :reset
   end
 
 
@@ -53,7 +53,7 @@ class Brainstorm::Timer
 
   attr_reader :brainstorm
 
-  def broadcast_timer_event(event)
-    ActionCable.server.broadcast("brainstorm-#{brainstorm.token}-timer", { event: "#{event}_timer", brainstorm_duration: duration })
+  def broadcast(event)
+    TimerChannel.broadcast_to brainstorm, { event: "#{event}_timer", brainstorm_duration: duration }
   end
 end

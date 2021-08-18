@@ -1,10 +1,9 @@
 class TimerChannel < ApplicationCable::Channel
 
   def subscribed
-    @brainstorm = Brainstorm.find_by(token: params[:token])
+    stream_or_reject_for @brainstorm = Brainstorm.find_by(token: params[:token])
     @timer = @brainstorm.timer
 
-    stream_from "brainstorm-#{params[:token]}-timer"
     move_to_vote_if_timer_expired
     transmit_list!
   end
@@ -12,11 +11,11 @@ class TimerChannel < ApplicationCable::Channel
   private
 
   def transmit_list!
-    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-timer", {
+    broadcast_to @brainstorm, {
       event: "transmit_timer_status",
       timer_status: timer_status,
       brainstorm_duration: @timer.duration
-    })
+    }
   end
 
   def timer_status
