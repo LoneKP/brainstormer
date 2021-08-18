@@ -31,7 +31,7 @@ class Timer {
     this.secondsLeft--
     if (this.secondsLeft <= 0) {
       this.stop()
-      showTimeIsUpModal()
+      this.onExpire()
     }
   }
 

@@ -70,6 +70,7 @@
     timer.element = element
     timer.duration = element.getAttribute("data-duration")
     timer.secondsLeft = element.getAttribute("data-seconds-left")
+    timer.onExpire = () => showTimeIsUpModal()
     if (element.getAttribute("data-running") == "true") timer.start()
   }
 
