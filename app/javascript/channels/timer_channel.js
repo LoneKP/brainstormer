@@ -4,6 +4,7 @@ class Timer {
   get isRunning() { return this.secondsLeft > 0 }
 
   start() {
+    formatTime()
     this.ticking = setInterval(countDown, 1000)
   }
 
@@ -21,6 +22,7 @@ class Timer {
   }
 
   reset() {
+    formatTime()
     this.stop()
     this.secondsLeft = this.duration
   }
@@ -40,8 +42,6 @@ consumer.subscriptions.create({
     } else if (data.event == "reset") {
       timer.reset()
     }
-
-    formatTime()
   },
 })
 
