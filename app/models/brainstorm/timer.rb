@@ -15,19 +15,10 @@ class Brainstorm::Timer
   def duration() = duration_proxy.value || 10.minutes.to_i
   def duration=(duration); duration_proxy.value = duration; end
 
-  def start_or_reset
-    running? ? reset : start
-  end
-
   def start
     started_at.value = Time.now
     check_expiry_later
     broadcast :start, duration
-  end
-
-  def reset
-    started_at.clear
-    broadcast :reset
   end
 
   def check_expiry_later

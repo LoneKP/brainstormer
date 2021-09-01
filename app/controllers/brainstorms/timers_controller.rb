@@ -2,6 +2,6 @@ class Brainstorms::TimersController < ApplicationController
   include BrainstormScoped
 
   def update
-    @brainstorm.timer.start_or_reset
+    @brainstorm.timer.start
   end
 end
