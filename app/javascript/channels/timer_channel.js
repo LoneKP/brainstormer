@@ -54,6 +54,7 @@ consumer.subscriptions.create({
 }, {
   received(data) {
     if (data.event == "start") {
+      timer.duration = data.duration
       timer.reset()
       timer.start()
     } else if (data.event == "reset") {

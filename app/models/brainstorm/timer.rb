@@ -22,7 +22,7 @@ class Brainstorm::Timer
   def start
     started_at.value = Time.now
     check_expiry_later
-    broadcast :start
+    broadcast :start, duration
   end
 
   def reset
@@ -69,7 +69,7 @@ class Brainstorm::Timer
 
   attr_reader :brainstorm
 
-  def broadcast(event)
-    TimerChannel.broadcast_to brainstorm, { event: event }
+  def broadcast(event, duration = nil)
+    TimerChannel.broadcast_to brainstorm, { event: event, duration: duration }
   end
 end
