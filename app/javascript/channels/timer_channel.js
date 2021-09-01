@@ -29,7 +29,9 @@ class Timer {
 
   tick() {
     this.secondsLeft--
-    if (this.secondsLeft <= 0) this.stop()
+    if (this.secondsLeft <= 0) {
+      this.stop()
+    } 
   }
 
   render() {
@@ -61,6 +63,7 @@ consumer.subscriptions.create({
       timer.reset()
     } else if (data.event == "expired") {
       showTimeIsUpModal()
+      setAndChangeBrainstormState("vote");
     }
   },
 })
