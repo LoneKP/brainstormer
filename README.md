@@ -40,7 +40,7 @@ Install redis
 
 ## Start the local server
 
-You can install foreman in order to run rails server, redis and webpacker locally with one command, run:
+You can install foreman in order to run rails server, redis, sidekiq and webpacker locally with one command, run:
 
 ``gem install foreman``
 
@@ -53,6 +53,8 @@ Otherwise you can run these commands separately:
 ``redis-server``
 
 ``bin/webpack-dev-server``
+
+``sidekiq``
 
 
 ## How to contribute?
