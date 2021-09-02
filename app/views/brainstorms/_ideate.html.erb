@@ -37,7 +37,7 @@
     <div class="flex-col <% @current_facilitator ? "" : "hidden" %> lg:flex md:mt-12 lg:mt-0">
       <div class="flex flex-col items-center w-full lg:w-64 lg:bg-white bg-transparent my-shadow-only-desktop mr-16 lg:p-6">
         <h2 class="hidden lg:flex italic font-semibold text-xl text-blurple">Time</h2>
-        <div class="hidden lg:flex text-3xl font-bold bg-white text-black border-2 border-dashed border-black rounded-full h-40 w-40 flex items-center justify-center my-4">
+        <div class="hidden lg:flex text-3xl font-bold bg-white text-black border-2 border-dashed border-black rounded-full h-40 w-40 items-center justify-center my-4">
           <p id="timeDisplay" data-running="<%= @brainstorm.timer.running? %>" data-duration="<%= @brainstorm.timer.duration %>" data-seconds-left="<%= @brainstorm.timer.remaining_seconds %>"></p>
         </div>
         <% if @current_facilitator %>
