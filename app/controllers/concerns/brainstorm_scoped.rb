@@ -2,7 +2,7 @@ module BrainstormScoped
   extend ActiveSupport::Concern
 
   included do
-    before_action :scope_by_brainstorm
+    before_action :scope_by_brainstorm, except: :go_to_brainstorm 
   end
 
   private
