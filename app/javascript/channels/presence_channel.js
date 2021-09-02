@@ -50,7 +50,6 @@ consumer.subscriptions.create({
   },
 
   received(data) {
-    console.log(data)
     switch (data.event) {
       case "transmit_presence_list":
         if (typeof currentUser == "undefined") {
@@ -198,7 +197,6 @@ const removeUserDoneVoting = (userId) => {
 
 const removeUsersDoneVoting = (userIds) => {
   for (let i = 0; i < userIds.length; i++) {
-    console.log(document.getElementById(`user-done-${userIds[i]}`))
     document.getElementById(`user-done-${userIds[i]}`).classList.add("invisible");
   }
 }

@@ -12,16 +12,13 @@ consumer.subscriptions.create({ channel: "IdeasChannel", token: location.pathnam
   received(data) {
     switch (data.event) {
       case "create_idea":
-        console.log(data)
         createNewIdea(data);
         addIdeasCount(data);
         break;
       case "create_idea_build":
-        console.log(data)
         createNewIdeaBuild(data);
         break;
       case "transmit_ideas":
-        console.log(data)
         buildHTML(data.ideas, brainstormStore.state);
         if (brainstormStore.state == "voting_done") {
           fillStarsWithUserVotes();

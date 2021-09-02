@@ -51,7 +51,6 @@ changeView = function (state) {
 }
 
 showTimeIsUpModal = function () {
-  console.log("SHOW TIME IS UP MODAL")
   document.getElementById("time_is_up").classList.remove("hidden");
 }
 
@@ -77,7 +76,6 @@ changeHeadlineAccordingToVotesLeft = function (votesCast, maxVotesPerUser) {
 }
 
 setAndChangeBrainstormState = function (state) {
-  console.log("state is now: ", state)
   brainstormStore.state = state;
   changeView(state);
 }
