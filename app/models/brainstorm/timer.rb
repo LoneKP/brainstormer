@@ -21,6 +21,11 @@ class Brainstorm::Timer
     broadcast :start, duration
   end
 
+  def reset
+    started_at.clear
+    broadcast :reset
+  end
+
   def check_expiry_later
     ExpiryJob.set(wait: duration).perform_later(brainstorm)
   end
