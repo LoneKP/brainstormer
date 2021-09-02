@@ -1,5 +1,5 @@
 class Brainstorm < ApplicationRecord
-  include Facilitated, States
+  include Facilitated, States, Timed
 
   has_many :ideas
   attr_accessor :name

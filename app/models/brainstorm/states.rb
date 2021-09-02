@@ -8,7 +8,7 @@ module Brainstorm::States
   end
 
   def state
-    state_proxy.value
+    state_proxy.value.to_s.inquiry
   end
 
   def state=(state)

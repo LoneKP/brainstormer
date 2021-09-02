@@ -75,10 +75,6 @@ class PresenceChannel < ApplicationCable::Channel
     "brainstorm_id_#{@brainstorm.token}"
   end
 
-  def brainstorm_timer_running_key
-    "brainstorm_id_timer_running_#{@brainstorm.token}"
-  end
-
   def user_key
     "#{@session_id}"
   end

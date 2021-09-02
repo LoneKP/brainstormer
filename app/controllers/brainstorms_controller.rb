@@ -1,5 +1,6 @@
 class BrainstormsController < ApplicationController
-  before_action :set_brainstorm, only: [:show, :start_timer, :reset_timer, :start_brainstorm, :start_voting, :done_voting, :end_voting, :done_brainstorming, :download_pdf, :change_state]
+  include BrainstormScoped
+
   before_action :set_session, only: [:show, :create, :done_voting]
 
   def new
@@ -64,36 +65,15 @@ class BrainstormsController < ApplicationController
     end
   end
 
-  def start_timer(brainstorm_duration = "already_set")
-    unless brainstorm_duration == "already_set"
-      REDIS.set(brainstorm_duration_key, brainstorm_duration)
-    end
-    respond_to do |format|
-      if REDIS.hget(brainstorm_timer_running_key, "timer_start_timestamp").nil?
-        ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", { event: "start_timer", brainstorm_duration: brainstorm_duration })
-        REDIS.hset(brainstorm_timer_running_key, "timer_start_timestamp", Time.now)
-          format.js
-      else
-        reset_timer
-        format.js
-      end
-    end
-  end
-
-  def reset_timer
-    ActionCable.server.broadcast("brainstorm-#{params[:token]}-timer", { event: "reset_timer", brainstorm_duration: REDIS.get(brainstorm_duration_key) })
-    REDIS.hdel(brainstorm_timer_running_key, "timer_start_timestamp")
-  end
-
   def done_brainstorming
     start_voting
-    reset_timer
+    @brainstorm.timer.reset
   end
 
   def start_brainstorm
     @brainstorm.state = :ideation
     ActionCable.server.broadcast("brainstorm-#{params[:token]}-state", { event: "set_brainstorm_state", state: "ideation" })
-    start_timer(params[:brainstorm_duration])
+    @brainstorm.timer.start
   end
 
   def start_voting
@@ -122,20 +102,8 @@ class BrainstormsController < ApplicationController
 
   private
 
-  def set_brainstorm
-    @brainstorm = Brainstorm.find_by token: params[:token]
-  end
-
   def brainstorm_params
     params.require(:brainstorm).permit(:problem, :name)
-  end
-
-  def brainstorm_timer_running_key
-    "brainstorm_id_timer_running_#{@brainstorm.token}"
-  end
-
-  def brainstorm_duration_key
-    "brainstorm_id_duration_#{@brainstorm.token}"
   end
 
   def brainstorm_key

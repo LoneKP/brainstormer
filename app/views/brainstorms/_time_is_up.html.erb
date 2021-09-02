@@ -11,21 +11,15 @@
       </div>
 
     </div>
-    <%= link_to start_voting_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "self-end hvr-grow mt-20 lg:mt-8 w-full lg:w-auto" do %>
-    <button onclick="closeTimeIsUpModal()" class="flex items-center justify-center lg:justify-between lg:text-base text-6xl my-shadow-lg bg-blurple text-white font-bold w-full lg:w-48 py-8 lg:py-2 lg:pl-8 lg:pr-4">
-      <p>CONTINUE</p>
-      <div class="hidden lg:flex h-8 w-8">
-        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_right" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-          <path fill="#FFFFFF" d="M11,10L7.859,6.58c-0.268-0.27-0.268-0.707,0-0.978c0.268-0.27,0.701-0.27,0.969,0l3.83,3.908  c0.268,0.271,0.268,0.709,0,0.979l-3.83,3.908c-0.267,0.272-0.701,0.27-0.969,0c-0.268-0.269-0.268-0.707,0-0.978L11,10z" />
-        </svg>
-      </div>
-    </button>
+    <%= link_to brainstorm_path(@brainstorm.token), class: "self-end hvr-grow mt-20 lg:mt-8 w-full lg:w-auto" do %>
+      <button class="flex items-center justify-center lg:justify-between lg:text-base text-6xl my-shadow-lg bg-blurple text-white font-bold w-full lg:w-48 py-8 lg:py-2 lg:pl-8 lg:pr-4">
+        <p>CONTINUE</p>
+        <div class="hidden lg:flex h-8 w-8">
+          <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_right" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+            <path fill="#FFFFFF" d="M11,10L7.859,6.58c-0.268-0.27-0.268-0.707,0-0.978c0.268-0.27,0.701-0.27,0.969,0l3.83,3.908  c0.268,0.271,0.268,0.709,0,0.979l-3.83,3.908c-0.267,0.272-0.701,0.27-0.969,0c-0.268-0.269-0.268-0.707,0-0.978L11,10z" />
+          </svg>
+        </div>
+      </button>
     <% end %>
   </div>
 </div>
-
-<script>
-closeTimeIsUpModal = function () {
-  document.getElementById("time_is_up").classList.add("hidden");
-}
-</script>

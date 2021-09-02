@@ -1,9 +1,15 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
   mount Blazer::Engine, at: "blazer"
+  mount Sidekiq::Web => "/sidekiq"
 
   resources :brainstorms, param: :token, only: [:create, :new] do
     member do
       post :start_timer, :done_brainstorming, :send_ideas_email, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
+    end
+
+    resource :timer, only: :update, module: "brainstorms" do
+      resource :duration, only: :update, module: "timers"
     end
   end
 
