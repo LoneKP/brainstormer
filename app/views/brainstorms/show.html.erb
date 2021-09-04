@@ -128,6 +128,18 @@
     tooltip.innerHTML = "Copy to clipboard";
   }
 
+  const togglePdfButtonSpinner = () => {
+    element1 = document.getElementById(`save-to-pdf-button-icon`);
+    element2 = document.getElementById(`save-to-pdf-button-spinner`);
+    element1.classList.toggle("hidden")
+    element2.classList.toggle("hidden")
+  }
+
+  const clickPdfButton = () => {
+    pdfButton = document.getElementById(`save-to-pdf-button`);
+    pdfButton.click();
+  }
+
   if (currentUser.userIsDoneVoting == "false") {
     document.getElementById("done-button").innerHTML = "DONE"
   } else if (currentUser.userIsDoneVoting == "true") {
