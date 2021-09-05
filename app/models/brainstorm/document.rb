@@ -11,15 +11,10 @@ class Brainstorm::Document
 
   def done(session_id)
     broadcast :done, session_id
-    delete
-  end
-  
-  def delete
-    DeletePdfJob.set(wait: 1.minute).perform_later(brainstorm)
   end
 
   def pdf_path
-    Rails.root.join("public/export/#{brainstorm.token}.pdf")
+    Rails.root.join("tmp/#{brainstorm.token}.pdf")
   end
 
   private
