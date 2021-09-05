@@ -13,10 +13,6 @@ class Brainstorm::Document
     broadcast :done, session_id
   end
 
-  def pdf_path
-    Rails.root.join("tmp/#{brainstorm.token}.pdf")
-  end
-
   private
 
   attr_reader :brainstorm

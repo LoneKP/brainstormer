@@ -1,6 +1,7 @@
 class Brainstorm < ApplicationRecord
   include Facilitated, States, Timed, Printer
 
+  has_one_attached :pdf
   has_many :ideas
   attr_accessor :name
 

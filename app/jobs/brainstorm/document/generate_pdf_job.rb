@@ -1,13 +1,11 @@
 class Brainstorm::Document::GeneratePdfJob < ApplicationJob
 
   def perform(html, brainstorm, session_id)
-    save_path = Rails.root.join("tmp/#{brainstorm.token}.pdf")
-    pdf = WickedPdf.new.pdf_from_string(html)
- 
-      File.open(save_path, 'wb') do |file|
-        file << pdf
-      end
 
+    brainstorm_pdf = WickedPdf.new.pdf_from_string(html)
+
+    brainstorm.pdf.attach(io: StringIO.new(brainstorm_pdf), filename: "#{brainstorm.token}.pdf", content_type: "application/pdf")
+    brainstorm.pdf.save
   end
 
   after_perform do |job|

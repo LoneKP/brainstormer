@@ -15,11 +15,28 @@ local:
 #   bucket: your_own_bucket
 
 # Remember not to checkin your GCS keyfile to a repository
-# google:
-#   service: GCS
-#   project: your_project
-#   credentials: <%= Rails.root.join("path/to/gcs.keyfile") %>
-#   bucket: your_own_bucket
+
+google:
+  service: GCS
+  project: Brainstormer
+  credentials:
+    type: "service_account"
+    project_id: <%= ENV['GOOGLE_CLOUD_PROJECT_ID'] %>
+    private_key_id: <%= ENV['GOOGLE_CLOUD_PRIVATE_KEY_ID'] %>
+    private_key: <%= ENV['GOOGLE_CLOUD_PRIVATE_KEY'].dump %>
+    client_email: <%= ENV['GOOGLE_CLOUD_CLIENT_EMAIL'] %>
+    client_id: <%= ENV['GOOGLE_CLOUD_CLIENT_ID'] %>
+    client_x509_cert_url: <%= ENV['GOOGLE_CLOUD_CLIENT_X509_CERT_URL'] %>
+    auth_uri: https://accounts.google.com/o/oauth2/auth
+    token_uri: https://oauth2.googleapis.com/token
+    auth_provider_x509_cert_url: https://www.googleapis.com/oauth2/v1/certs,
+  bucket: brainstormer-bucket
+
+google_dev:
+  service: GCS
+  project: Brainstormer
+  credentials: <%= Rails.root.join("config/secrets/google_cloud_creds.json") %>
+  bucket: brainstormer-bucket
 
 # Use rails credentials:edit to set the Azure Storage secret (as azure_storage:storage_access_key)
 # microsoft:

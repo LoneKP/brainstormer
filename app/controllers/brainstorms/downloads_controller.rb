@@ -4,13 +4,13 @@ class Brainstorms::DownloadsController < ApplicationController
   def download_pdf
     ahoy.track "Download pdf"
     session_id = params[:session_id]
-    if @brainstorm.document.pdf_path.exist?
-      send_file @brainstorm.document.pdf_path
+    if @brainstorm.pdf.attached?
+      redirect_to rails_blob_path(@brainstorm.pdf, disposition: 'attachment')
     else
       @brainstorm.document.generate_pdf(html, session_id)
     end
   end
-
+ 
   private
 
   def html
