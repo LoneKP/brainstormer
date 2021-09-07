@@ -34,9 +34,6 @@ Rails.application.routes.draw do
     end
   end
 
-  get '/about', to: 'pages#pages_template'
-  get '/contribute', to: 'pages#pages_template'
-
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   get '/:token', to: 'brainstorms#show', as: 'brainstorm'
