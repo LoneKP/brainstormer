@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   resources :brainstorms, param: :token, only: [:create, :new] do
     member do
-      post :start_timer, :done_brainstorming, :send_ideas_email, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
+      post :done_brainstorming, :send_ideas_email, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
     end
 
     resource :timer, only: :update, module: "brainstorms" do
