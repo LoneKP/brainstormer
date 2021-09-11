@@ -11,12 +11,14 @@ Rails.application.routes.draw do
 
   resources :brainstorms, param: :token, only: [:create, :new] do
     member do
-      post :done_brainstorming, :send_ideas_email, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
+      post :done_brainstorming, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
     end
 
     resource :timer, only: :update, module: "brainstorms" do
       resource :duration, only: :update, module: "timers"
     end
+
+    resource :email, only: :create, module: "brainstorms"
   end
 
   resource :session, only: [] do
@@ -28,7 +30,7 @@ Rails.application.routes.draw do
   root 'brainstorms#new'
 
   resources :ideas, only: [:create] do
-      post :show_idea_build_form, :vote
+    post :show_idea_build_form, :vote
     resources :idea_builds, only: [:create] do
       post :vote
     end

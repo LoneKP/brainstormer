@@ -35,16 +35,6 @@ class BrainstormsController < ApplicationController
     @voting = Session::Voting.new(@brainstorm, @session_id)
   end
 
-  def send_ideas_email
-    if IdeasMailer.with(token: params[:token], email: params[:email]).ideas_email.deliver_later
-      flash.now[:success] = "Your email was successfully sent to #{params[:email]}"
-      ahoy.track "Email sent successfully"
-    else
-      flash.now[:error] = "Sorry! Something went wrong, and we can't send your email right now."
-      ahoy.track "Email sent error"
-    end
-  end
-
   def go_to_brainstorm
     token = params[:token].remove("#")
     brainstorm = Brainstorm.find_sole_by_token(token)

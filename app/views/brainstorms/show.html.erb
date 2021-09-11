@@ -21,7 +21,7 @@
 </div>
 <div class="hidden" id="voting_done">
   <%= render 'voting_done' %>
-  <%= render 'send_email_popup' %>
+  <%= render 'brainstorms/emails/form' %>
 </div>
 
 <script>
@@ -59,6 +59,8 @@
 
   const openSendEmailModal = () => {
     document.getElementById("emailModalContainer").setAttribute("x-data", "{ 'showEmailModal': true }")
+    document.getElementById("notice").innerHTML = ""
+    document.getElementById("error-field-email-address").innerHTML = ""
   }
 
   const showCurrentUser = () => {
