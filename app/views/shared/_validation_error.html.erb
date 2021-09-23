@@ -1,7 +1,5 @@
 <% flash.each do |message_type, message| %>
-<% if message_type == type %>
-<div class="leading-none p-2 mt-1 <%= local_assigns[:phone] ? "text-3xl " : "text-sm " %>  font-bold italic text-white bg-wine fade-out ">
-  <span><%= message %></span>
-</div>
-<% end %>
+  <div class="leading-none p-2 mt-1 <%= local_assigns[:phone] ? "text-3xl " : "text-sm " %>  font-bold italic text-white bg-wine fade-out ">
+    <span><%= message %></span>
+  </div>
 <% end %>

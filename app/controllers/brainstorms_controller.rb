@@ -9,21 +9,15 @@ class BrainstormsController < ApplicationController
 
   def create
     @brainstorm = Brainstorm.new(brainstorm_params)
-
-    respond_to do |format|
       if @brainstorm.save
         REDIS.set @session_id, @brainstorm.name
         @brainstorm.state = :setup
         @brainstorm.facilitator_session_id = @session_id
-
-        format.js { render js: "window.location.href = '#{brainstorm_path(@brainstorm.token)}'" }
+        redirect_to "/#{@brainstorm.token}"
       else
-        @brainstorm.errors.messages.each do |message|
-          flash.now[message.first] = message[1].first
-          format.js
-        end
+        render :new
       end
-    end
+
   end
 
   def show

@@ -1,28 +1,35 @@
 <div class="lg:hidden flex flex-col">
   <div class="bg-blurple px-6 h-screen flex flex-col justify-center">
-    <%= form_with model: @brainstorm do |f| %>
+    <%= form_with model: @brainstorm, local: true do |f| %>
     <div class="flex flex-row justify-between items-baseline mb-2">
       <%= f.label :problem, "PROBLEM TO SOLVE", class: "italic text-3xl font-bold flex flex-row justify-between items-baseline text-white leading-none " %>
     </div>
     <%= f.text_field :problem, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none text-black font-bold text-5xl my-shadow-lg", autocomplete: "off" %>
-    <div id="error-field-problem-mobile">
-      <%= render 'shared/validation_error' %>
-    </div>
+    <% if @brainstorm.errors[:problem].any? %>
+        <div class="leading-none p-2 mt-1 text-3xl font-bold italic text-white bg-wine">
+          <span><%= @brainstorm.errors[:problem][0] %></span>
+        </div>
+    <% end %>
     <div class="flex flex-row justify-between items-baseline mb-2">
       <%= f.label :name, "YOUR NAME", class: "mt-8 italic text-3xl font-bold  flex flex-row justify-between items-baseline text-white leading-none" %>
     </div>
     <%= f.text_field :name, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none text-black font-bold text-5xl my-shadow-lg", autocomplete: "off" %>
-    <div id="error-field-name-mobile">
-      <%= render 'shared/validation_error' %>
-    </div>
+    <% if @brainstorm.errors[:name].any? %>
+      <div class="leading-none p-2 mt-1 text-3xl font-bold italic text-white bg-wine">
+        <span><%= @brainstorm.errors[:name][0] %></span>
+      </div>
+    <% end %>
     <%= f.submit 'CREATE BRAINSTORM', class: "mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer" %>
     <% end %>
   </div>
 </div>
 
 <div class="hidden lg:flex lg:flex-col lg:h-screen">
+  
   <div>
+  
     <div class="items-center max-w-screen-lg lg:mx-auto lg:my-12 2xl:mt-36">  
+    <a href="/users/sign_in" class="my-shadow-sm lg:hover:bg-light-greeny lg:active:bg-light-greeny-darker bg-white py-2 px-4 lg:py-0 lg:px-2">My Brainstormer</a>
       <!--Dialog 1-->
         <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left">
           <!--Title-->
@@ -42,15 +49,18 @@
             </div>
           </div>
           <!-- content -->
-          <%= form_with model: @brainstorm, class: "flex flex-col" do |f| %>
+          <%= form_with model: @brainstorm, local: true, class: "flex flex-col" do |f| %>
           <div class="flex flex-row justify-between items-baseline mb-2">
             <%= f.label :problem_to_solve, class: "italic text-2xl font-bold leading-none" %>
             <p class="opacity-50 text-black italic font-semibold">Need help? See TIPS & TRICKS</p>
           </div>
-          <%= f.text_field :problem, class: "focus:outline-none border-solid border-2 border-black h-12 italic font-bold px-4", autocomplete: "off" %>
-          <div id="error-field-problem">
-            <%= render 'shared/validation_error' %>
-          </div>
+          <%= f.text_field :problem, class: "focus:outline-none border-solid border-2 border-black h-12 italic font-bold px-4 w-full", autocomplete: "off" %>
+
+          <% if @brainstorm.errors[:problem].any? %>
+            <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+              <span><%= @brainstorm.errors[:problem][0] %></span>
+            </div>
+          <% end %>
         </div>
 
         <div class="bg-white flex flex-col px-16 pb-8">
@@ -140,10 +150,13 @@
             <%= f.label :name, class: "italic text-lg font-bold leading-none"  %>
             <p class="opacity-50 text-black italic font-semibold">Let your participants know who you are</p>
           </div>
-          <%= f.text_field :name, class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4", autocomplete: "off" %>
-          <div id="error-field-name">
-            <%= render 'shared/validation_error' %>
-          </div>
+          <%= f.text_field :name, class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full", autocomplete: "off" %>
+
+          <% if @brainstorm.errors[:name].any? %>
+            <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+              <span><%= @brainstorm.errors[:name][0] %></span>
+            </div>
+          <% end %>
         </div>
         <div class="mt-8 flex flex-row justify-between">
           <%= link_to 'https://www.brainstormer.online' do %>
