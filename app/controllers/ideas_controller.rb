@@ -7,7 +7,7 @@ class IdeasController < ApplicationController
     @idea = Idea.new(idea_params)
     respond_to do |format|
       if @idea.save
-          ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-idea", { content: @idea, ideas_total: @brainstorm.ideas.count, idea_number: @idea.number, build_on_idea_link: idea_show_idea_build_form_path(@idea), event: "create_idea" })
+          IdeasChannel.broadcast_to @brainstorm, { content: @idea, ideas_total: @brainstorm.ideas.count, idea_number: @idea.number, build_on_idea_link: idea_show_idea_build_form_path(@idea), event: "create_idea" }
         format.js
       else
         @idea.errors.messages.each do |message|

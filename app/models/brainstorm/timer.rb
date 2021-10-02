@@ -1,5 +1,5 @@
 class Brainstorm::Timer
-  include Kredis::Attributes
+  include Kredis::Attributes, Ideated
 
   kredis_integer  :duration_proxy, key: ->(t) { "brainstorm_id_duration_#{t.id}" }
   kredis_datetime :started_at
@@ -34,6 +34,7 @@ class Brainstorm::Timer
     if expired?
       brainstorm.timer_expired
       broadcast :expired
+      broadcast_ideas :transmit_ideas, transmit_ideas(sort_by_id_desc)
     end
   end
 

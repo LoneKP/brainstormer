@@ -1,6 +1,5 @@
 class IdeasChannel < ApplicationCable::Channel
   def subscribed
-    @brainstorm = Brainstorm.find_by(token: params[:token])
-    stream_from "brainstorm-#{@brainstorm.token}-idea"
+    stream_or_reject_for Brainstorm.find_by(token: params[:token])
   end
 end

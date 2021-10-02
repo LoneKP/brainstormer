@@ -1,6 +1,7 @@
 class StateChannel < ApplicationCable::Channel
   def subscribed
-    @brainstorm = Brainstorm.find_by(token: params[:token])
-    stream_from "brainstorm-#{params[:token]}-state"
+    stream_or_reject_for Brainstorm.find_by(token: params[:token])
   end
 end
+
+
