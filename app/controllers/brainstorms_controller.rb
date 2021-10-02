@@ -69,12 +69,12 @@ class BrainstormsController < ApplicationController
   def done_voting
     @voting = Session::Voting.new(@brainstorm, @session_id)
     @voting.toggle_voting_done
-    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-presence", { event: "toggle_done_voting_badge", state: "vote", user_id: @session_id })
+    PresenceChannel.broadcast_to @brainstorm, { event: "toggle_done_voting_badge", state: "vote", user_id: @session_id }
   end
 
   def end_voting
     @brainstorm.state = :voting_done
-    ActionCable.server.broadcast("brainstorm-#{params[:token]}-presence", { event: "remove_done_tags_on_user_badges" })
+    PresenceChannel.broadcast_to @brainstorm, { event: "remove_done_tags_on_user_badges" }
     StateChannel.broadcast_to @brainstorm, { event: "set_brainstorm_state", state: "voting_done" }
     transmit_ideas(sort_by_votes_desc)
   end

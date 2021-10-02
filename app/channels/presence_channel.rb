@@ -2,7 +2,7 @@ class PresenceChannel < ApplicationCable::Channel
 
   def subscribed
     @brainstorm = Brainstorm.find_by(token: params[:token])
-    stream_from "brainstorm-#{params[:token]}-presence"
+    stream_or_reject_for @brainstorm
     add_to_list_and_transmit!
   end
 
@@ -64,7 +64,7 @@ class PresenceChannel < ApplicationCable::Channel
       done_voting_list: done_voting_list
     }
 
-    ActionCable.server.broadcast("brainstorm-#{@brainstorm.token}-presence", data)
+    PresenceChannel.broadcast_to @brainstorm, data
   end
 
   def last_user_activity_more_than_one_hour_ago?(user_id)
