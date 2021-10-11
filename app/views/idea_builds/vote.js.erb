@@ -1,5 +1,13 @@
 document.getElementById("star-idea-build-<%=@idea_build.id %>").setAttribute("fill", "<%= @voting.voted_for?(@idea_build) ? "#312783" : "" %>")
-document.getElementById("star-idea-build-<%=@idea_build.id %>").closest("svg").classList.toggle("animate-ping-once")
+
+if (<%= !@voting.done? && @voting.can_vote? %>) {
+  document.getElementById("star-idea-build-<%=@idea_build.id %>").closest("svg").classList.toggle("animate-ping-once")
+}
+if (<%= !@voting.can_vote? %>) {
+  document.getElementById("votingHeadline").classList.add("buzz");
+  setTimeout(function(){ document.getElementById("votingHeadline").classList.remove("buzz"); }, 400);
+}
+
 currentUser.votesCastIdeaBuilds.delete(<%= @idea_build.id %>) || currentUser.votesCastIdeaBuilds.add(<%= @idea_build.id %>)
 
 <% votes_cast_count = @voting.votes_cast_count %>
