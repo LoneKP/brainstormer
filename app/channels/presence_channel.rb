@@ -37,32 +37,24 @@ class PresenceChannel < ApplicationCable::Channel
   def transmit_list!
     users = REDIS.hgetall(brainstorm_key).keys
 
-    names = []
-    initials = []
-    user_ids = []
-    done_voting_list = []
-    user_colors = []
+    data = { 
+      event: "transmit_presence_list",
+      online_users: {} 
+    }
     users.each do |user_id|
       unless last_user_activity_more_than_one_hour_ago?(user_id)
         name = REDIS.get(user_id)
         user_color = REDIS.get("user_color_for_user_id_#{user_id}")
         done_voting = REDIS.hget(done_voting_brainstorm_status, "#{user_id}")
-        names << name
-        user_ids << user_id
-        user_colors << user_color
-        initials << name.split(nil,2).map(&:first).join.upcase
-        done_voting_list << done_voting
+        data[:online_users][user_id] = {
+          id: user_id, 
+          name: name, 
+          initials: name.split(nil,2).map(&:first).join.upcase, 
+          userColor: user_color, 
+          doneVoting: done_voting 
+        }
       end
     end
-
-    data = {
-      event: "transmit_presence_list",
-      users: names,
-      initials: initials,
-      user_colors: user_colors,
-      user_ids: user_ids,
-      done_voting_list: done_voting_list
-    }
 
     PresenceChannel.broadcast_to @brainstorm, data
   end

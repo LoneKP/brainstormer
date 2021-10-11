@@ -1,5 +1,5 @@
 class Brainstorm::Timer
-  include Kredis::Attributes, Ideated
+  include Kredis::Attributes, Ideated, DoneVoting
 
   kredis_integer  :duration_proxy, key: ->(t) { "brainstorm_id_duration_#{t.id}" }
   kredis_datetime :started_at
@@ -35,6 +35,7 @@ class Brainstorm::Timer
       brainstorm.timer_expired
       broadcast :expired
       broadcast_ideas :transmit_ideas, transmit_ideas(sort_by_id_desc)
+      PresenceChannel.broadcast_to brainstorm, {event: :update_number_of_users_done_voting_element, users_done_voting: users_done_voting_who_are_also_online, total_users_online: total_users_online}
     end
   end
 

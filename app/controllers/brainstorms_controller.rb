@@ -1,5 +1,5 @@
 class BrainstormsController < ApplicationController
-  include BrainstormScoped, Ideated
+  include BrainstormScoped, Ideated, DoneVoting
 
   before_action :set_session, only: [:show, :create, :done_voting]
 
@@ -27,6 +27,10 @@ class BrainstormsController < ApplicationController
     @current_facilitator = @brainstorm.facilitator.id == @session_id
 
     @voting = Session::Voting.new(@brainstorm, @session_id)
+
+    @total_users_online = REDIS.hgetall(brainstorm_key).keys.count
+
+    @users_done_voting = REDIS.hgetall(done_voting_brainstorm_status).values.count("true")
   end
 
   def go_to_brainstorm
@@ -63,6 +67,7 @@ class BrainstormsController < ApplicationController
   def start_voting
     @brainstorm.state = :vote
     StateChannel.broadcast_to @brainstorm, { event: "set_brainstorm_state", state: "vote" }
+    PresenceChannel.broadcast_to @brainstorm, {event: :update_number_of_users_done_voting_element, users_done_voting: users_done_voting_who_are_also_online, total_users_online: total_users_online}
     transmit_ideas(sort_by_id_desc)
   end
 

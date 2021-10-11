@@ -2,19 +2,6 @@ changeView(brainstormStore.state);
 fillStarsWithUserVotes();
 changeHeadlineAccordingToVotesLeft(currentUser.votesCastIdeas.length + currentUser.votesCastIdeaBuilds.length, brainstormStore.maxVotesPerUser )
 
-const removeOverflowingUsers = (onlineUsers) => {
-  for (let i = 0; i < onlineUsers - 7; i++) {
-    document.getElementById("name-list").removeChild(document.getElementById("name-list").childNodes[i]);
-  }
-  let div = document.createElement("div");
-  div.classList.add("flex", "flex-col", "justify-center", "items-center", "rounded-full", "h-12", "w-12", "m-4", "text-black", "text-2xl", "border-2", "border-solid", "border-black", "font-bold");
-  document.getElementById("name-list").prepend(div);
-  let paragraph = document.createElement("P");
-  div.appendChild(paragraph);
-  let text = document.createTextNode("+" + (onlineUsers - 7));
-  paragraph.appendChild(text);
-}
-
 // These could be summed up in a single "copy()" function
 // that accepts the relevant element id and the value as arguments
 const copyAction = (value) => {
