@@ -1,8 +1,6 @@
 import consumer from "./consumer"
 
 class Timer {
-  get isRunning() { return this.ticking }
-
   get percentage() {
     return 100 - (this.secondsLeft / this.duration * 100)
   }
@@ -35,8 +33,8 @@ class Timer {
   }
 
   render() {
-    this.element.textContent = this.formattedTimeLeft()
-    updateMobilePhoneProgress()
+    this.elementDesktop.textContent = this.formattedTimeLeft()
+    this.elementPhone.textContent = this.formattedTimeLeft()
   }
 
   formattedTimeLeft() {
@@ -67,9 +65,3 @@ consumer.subscriptions.create({
     }
   },
 })
-
-const updateMobilePhoneProgress = () => {
-  let timerOnMobile = document.getElementById("timerPhoneElement")
-  timerOnMobile.classList.toggle("bg-blurple", timer.isRunning)
-  if (timer.isRunning) timerOnMobile.setAttribute("style", `width: ${timer.percentage}%`)
-}
