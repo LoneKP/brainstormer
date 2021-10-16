@@ -12,8 +12,8 @@
       </div>
       <!-- content -->
       <%= form_with scope: :session, url: session_name_path(token: brainstorm.token), method: :patch do |form| %>
-        <div class="field text-5xl lg:text-xl">
-          <%= form.text_field :name, value: session.name, class: "w-full focus:outline-none border-solid border-2 border-black lg:h-12 h-32 italic font-bold px-4 my-shadow text-black" %>
+        <div class="field">
+          <%= form.text_field :name, value: session.name, class: "w-full focus:outline-none border-solid border-2 border-black lg:h-12 h-32 italic font-bold px-4 my-shadow text-black text-5xl lg:text-xl" %>
         </div>
       <!--/Dialog -->
     </div>
