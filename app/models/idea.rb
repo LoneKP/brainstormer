@@ -5,7 +5,7 @@ class Idea < ApplicationRecord
   validates :text, presence: {message: "You forgot to write an idea!"}
 
   def number
-    brainstorm.ideas.ids.index(id) + 1
+    brainstorm.ideas.order(:id).index(self) + 1
   end
 
   def vote_in_plural_or_singular

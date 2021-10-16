@@ -12,7 +12,7 @@ class IdeaBuild < ApplicationRecord
   end
 
   def decimal
-    idea.idea_builds.index(self) + 1
+    idea.idea_builds.order(:id).index(self) + 1
   end
 
   def vote_in_plural_or_singular
