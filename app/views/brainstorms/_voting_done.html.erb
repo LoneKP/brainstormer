@@ -41,7 +41,7 @@
           <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl"></h2>
           <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal"><%= idea.text %></p>
         </div>
-        <% idea.idea_builds.each do |idea_build| %>
+        <% idea.idea_builds.order(:id).each do |idea_build| %>
         <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic font-bold lg:px-4 px-10">
           <div class="flex flex-row justify-between w-full items-center">
             <h2 class="py-4 mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %>.<%= idea_build.decimal %></h2>
