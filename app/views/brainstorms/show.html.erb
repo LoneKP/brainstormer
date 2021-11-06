@@ -100,6 +100,18 @@
     tooltip.innerHTML = "Copied!";
   }
 
+  const copyUrlMobile = (value) => {
+  let tempInput = document.createElement("input");
+  tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+  tempInput.value = value;
+  document.body.appendChild(tempInput);
+  tempInput.select();
+  tempInput.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(tempInput.value);
+  tempInput.remove()
+  document.getElementById("notice-mobile").innerHTML = '<div class="text-3xl bg-greeny fade-out inset-x-0 fixed text-white text-center py-4 z-50 font-bold my-shadow"><span>Brainstorm link copied to clipboard</span></div>'
+}
+
   const copyToken = (value) => {
     let tempInput = document.createElement("input");
     tempInput.style = "position: absolute; left: -1000px; top: -1000px";
