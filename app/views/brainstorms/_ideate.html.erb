@@ -1,6 +1,6 @@
 <div>
   <div class="flex md:flex-col lg:flex-row md:p-4 lg:p-0 justify-center mx-auto lg:max-w-screen-xl">
-    <div class="text-5xl mb-8 my-shadow-lg py-8 w-full bg-white flex lg:hidden items-center justify-between">
+    <div id="timerPhoneSection" class="text-5xl mb-8 my-shadow-lg py-8 w-full bg-white flex lg:hidden items-center justify-between">
     <% if @current_facilitator %>
       <div onclick="copyUrlMobile(getURL())" class="active:bg-greeny-gray ml-4 w-24 h-24 flex flex-col justify-center items-center">
         <svg class="h-20 w-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24px" fill="#000"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M3.96 11.38C4.24 9.91 5.62 8.9 7.12 8.9h2.93c.52 0 .95-.43.95-.95S10.57 7 10.05 7H7.22c-2.61 0-4.94 1.91-5.19 4.51C1.74 14.49 4.08 17 7 17h3.05c.52 0 .95-.43.95-.95s-.43-.95-.95-.95H7c-1.91 0-3.42-1.74-3.04-3.72zM9 13h6c.55 0 1-.45 1-1s-.45-1-1-1H9c-.55 0-1 .45-1 1s.45 1 1 1zm7.78-6h-2.83c-.52 0-.95.43-.95.95s.43.95.95.95h2.93c1.5 0 2.88 1.01 3.16 2.48.38 1.98-1.13 3.72-3.04 3.72h-3.05c-.52 0-.95.43-.95.95s.43.95.95.95H17c2.92 0 5.26-2.51 4.98-5.49-.25-2.6-2.59-4.51-5.2-4.51z"/></svg>
@@ -54,22 +54,22 @@
     </div>
     <div class="flex-col <% @current_facilitator ? "" : "hidden" %> lg:flex md:mt-12 lg:mt-0">
       <div class="flex flex-col items-center w-full lg:w-64 lg:bg-white bg-transparent my-shadow-only-desktop mr-16 lg:p-6">
-        <h2 class="hidden lg:flex italic font-semibold text-xl text-blurple">Time</h2>
-        <div class="hidden lg:flex text-3xl font-bold bg-white text-black border-2 border-dashed border-black rounded-full h-40 w-40 items-center justify-center my-4">
+        <h2 id="timerSectionTitle" class="hidden lg:flex italic font-semibold text-xl text-blurple">Time</h2>
+        <div id="timerSection" class="hidden lg:flex text-3xl font-bold bg-white text-black border-2 border-dashed border-black rounded-full h-40 w-40 items-center justify-center my-4">
           <p id="timeDisplay" data-running="<%= @brainstorm.timer.running? %>" data-duration="<%= @brainstorm.timer.duration %>" data-seconds-left="<%= @brainstorm.timer.remaining_seconds %>"></p>
         </div>
         <% if @current_facilitator %>
-          <div class="my-shadow w-full hidden lg:flex">
+          <div id="restartTimerButton" class="my-shadow w-full hidden lg:flex">
             <%= link_to brainstorm_timer_path(@brainstorm.token), remote: true, method: :patch, class: "hvr-underline-from-left-thin lg:border-2 lg:border-black lg:border-solid text-white lg:text-black uppercase p-6 lg:p-2 w-full justify-center flex text-5xl lg:text-base bg-blurple active:bg-darker-blurple lg:bg-transparent lg:active:bg-blurple-gray my-shadow-lg" do %>
               Restart timer
             <% end %>
           </div>
-          <div class="my-shadow w-full flex lg:mb-0 mb-16">
+          <div class="my-shadow w-full flex lg:mb-16 mb-32">
             <%= link_to "Go to voting", done_brainstorming_brainstorm_path(@brainstorm.token), remote: true, method: :post, class: "hvr-underline-from-left-thin lg:border-2 lg:border-black lg:border-solid text-white lg:text-black uppercase p-6 lg:p-2 w-full justify-center flex text-5xl lg:text-base md:mt-8 lg:mt-2 bg-blurple active:bg-darker-blurple lg:bg-transparent lg:active:bg-blurple-gray my-shadow-lg" %>
           </div>
         <% end %>
-        <div class="hidden lg:flex lg:flex-col text-white font-bold w-full mt-8">
-          <div class="bg-blurple flex items-end justify-around mt-8 pt-16 pb-4">
+        <div class="hidden lg:flex lg:flex-col text-white font-bold w-full">
+          <div class="bg-blurple flex items-end justify-around pt-16 pb-4">
             <p class="uppercase italic text-lg w-1/2">Your ideas</p>
             <p class="text-6xl leading-none" id="ideasCount"><%= @ideas.count %></p>
           </div>
@@ -83,13 +83,30 @@
 </div>
 
 <script>
+
+  const hideTimerElements = () => {
+    //hide timer section on desktop
+    document.getElementById("timeDisplay").classList.remove("lg:flex")
+    document.getElementById("timerSectionTitle").classList.remove("lg:flex")
+    document.getElementById("timerSection").classList.remove("lg:flex")
+    document.getElementById("restartTimerButton").classList.remove("lg:flex")
+    
+    //hide timer section on phone
+    document.getElementById("timerPhoneSection").classList.add("hidden")
+  }
+
   const connectTimer = (elementDesktop, elementPhone) => {
     const { timer } = window
     timer.elementDesktop = elementDesktop
     timer.elementPhone = elementPhone
     timer.duration = elementDesktop.getAttribute("data-duration")
     timer.secondsLeft = elementDesktop.getAttribute("data-seconds-left")
-    if ((elementDesktop.getAttribute("data-running") == "true") && (elementPhone.getAttribute("data-running") == "true")) timer.start()
+    if ((elementDesktop.getAttribute("data-running") == "true") && (elementPhone.getAttribute("data-running") == "true")) {
+      timer.start()
+    }
+    if (elementDesktop.getAttribute("data-duration") == "0") {
+      hideTimerElements()
+    }  
   }
 
   connectTimer(document.getElementById("timeDisplay"), document.getElementById("timerPhoneElement"))

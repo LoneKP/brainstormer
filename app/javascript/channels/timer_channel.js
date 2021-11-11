@@ -62,6 +62,10 @@ consumer.subscriptions.create({
     } else if (data.event == "expired") {
       showTimeIsUpModal()
       setAndChangeBrainstormState("vote");
+    } else if (data.event == "no_timer") {
+      timer.duration = data.duration
+      timer.reset()
+      hideTimerElements()
     }
   },
 })

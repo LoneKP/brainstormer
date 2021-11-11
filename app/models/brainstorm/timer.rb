@@ -16,9 +16,17 @@ class Brainstorm::Timer
   def duration=(duration); duration_proxy.value = duration; end
 
   def start
-    started_at.value = Time.now
-    check_expiry_later
-    broadcast :start, duration
+    if no_timer?
+      broadcast :no_timer
+    else
+      started_at.value = Time.now
+      check_expiry_later
+      broadcast :start, duration
+    end
+  end
+
+  def no_timer?
+    duration == 0
   end
 
   def reset
