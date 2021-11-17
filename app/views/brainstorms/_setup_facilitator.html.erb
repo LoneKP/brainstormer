@@ -1,6 +1,6 @@
 <div class="md:p-4 lg:p-0 flex-col flex w-full mx-auto lg:max-w-screen-lg">
   <div>
-    <h1 class="p-3 text-8xl lg:text-5xl text-white font-bold uppercase bg-blurple leading-tight my-shadow-lg break-words"><%=@brainstorm.problem %></h1>
+    <%= render 'problem' %>
   </div>
   <div class="bg-white mt-8 my-shadow-lg flex flex-col p-8">
     <p class="md:mt-8 lg:mt-0 italic text-blurple text-6xl lg:text-2xl font-semibold">What to do now?</p>
@@ -167,5 +167,4 @@ timerRange.oninput = function() {
     durationOutput.value = this.value + ":00"
   }
 }
-
 </script>

@@ -33,6 +33,22 @@ class BrainstormsController < ApplicationController
     @users_done_voting = REDIS.hgetall(done_voting_brainstorm_status).values.count("true")
   end
 
+  def edit_problem
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
+  def update
+    problem = params[:problem].gsub("\r\n", "")
+    respond_to do |format|
+      if @brainstorm.update(problem: problem )
+        format.turbo_stream
+        ProblemChannel.broadcast_to @brainstorm, { problem: problem }
+      end
+    end
+  end
+
   def go_to_brainstorm
     token = params[:token].remove("#")
     brainstorm = Brainstorm.find_sole_by_token(token)

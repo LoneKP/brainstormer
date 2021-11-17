@@ -1,0 +1,13 @@
+
+  <%= form_with url: brainstorm_path(@brainstorm.token), local: true, method: :patch, class: "flex flex-row items-end text-7xl lg:text-5xl uppercase break-words", id: "edit_problem_form", data: { "turbo": true }  do |f| %>
+    <div class="lg:w-3/4 w-full flex">
+    <%= f.text_area :problem, :value => @brainstorm.problem, class: "break-words leading-tight my-shadow-lg border-4 border-blurple border-solid text-7xl lg:text-5xl uppercase text-black font-bold w-full", autocomplete: "off", rows: number_of_lines(@brainstorm.problem) %>
+    </div>
+    <%= button_tag type: 'submit', method: :patch, class: "focus:outline-none" do %>
+      <div class="my-shadow-lg border-solid border-greeny border-4 lg:h-14 h-26 ml-4">
+        <div class="flex justify-center items-center bg-greeny lg:h-12 lg:w-12 h-24 w-24 border-solid border-white border-2">
+          <svg class="lg:h-12 lg:w-12 h-20 w-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg>
+        </div>
+      </div>
+    <% end %>
+  <% end %>

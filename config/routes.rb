@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web, at: "/sidekiq"
   mount Blazer::Engine, at: "blazer"
 
-  resources :brainstorms, param: :token, only: [:create, :new] do
+  resources :brainstorms, param: :token, only: [:create, :new, :edit, :update] do
     member do
       post :done_brainstorming, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
     end
@@ -43,4 +43,6 @@ Rails.application.routes.draw do
   post '/:token/downloads', to: 'brainstorms/downloads#download_pdf', as: 'download_brainstorm'
 
   post '/go_to_brainstorm', to: 'brainstorms#go_to_brainstorm'
+  
+  post '/:token/edit_problem', to: 'brainstorms#edit_problem', as: 'edit_problem'
 end
