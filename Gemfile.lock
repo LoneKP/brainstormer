@@ -301,6 +301,8 @@ GEM
     thor (1.1.0)
     tilt (2.0.10)
     trailblazer-option (0.1.1)
+    turbo-rails (0.8.3)
+      rails (>= 6.0.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
@@ -359,6 +361,7 @@ DEPENDENCIES
   sidekiq (~> 6.2)
   spring
   spring-watcher-listen (~> 2.0.0)
+  turbo-rails
   tzinfo-data
   web-console (>= 3.3.0)
   webdrivers
