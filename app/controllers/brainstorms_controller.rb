@@ -45,6 +45,8 @@ class BrainstormsController < ApplicationController
       if @brainstorm.update(problem: problem )
         format.turbo_stream
         ProblemChannel.broadcast_to @brainstorm, { problem: problem }
+      else
+        format.turbo_stream { render turbo_stream: turbo_stream.append("problem_area", partial: "shared/validation_error_turbo", locals: { object: @brainstorm, attribute: :problem })}
       end
     end
   end
