@@ -13,7 +13,7 @@ class BrainstormsController < ApplicationController
         REDIS.set @session_id, @brainstorm.name
         @brainstorm.state = :setup
         @brainstorm.facilitator_session_id = @session_id
-        redirect_to "/#{@brainstorm.token}"
+        redirect_to brainstorm_show_path(@brainstorm.token)
       else
         render :new
       end
@@ -36,10 +36,9 @@ class BrainstormsController < ApplicationController
   def go_to_brainstorm
     token = params[:token].remove("#")
     brainstorm = Brainstorm.find_sole_by_token(token)
-
     respond_to do |format|
       if !brainstorm.nil? && token.length >= 6
-        format.js { render :js => "window.location.href = '#{brainstorm_path(brainstorm.token)}'" }
+        format.js { render :js => "window.location.href = '#{brainstorm_show_path(brainstorm.token)}'" }
       elsif token.length == 0
         flash.now["token"] = "You forgot to write an ID! If you don't have one you should ask the facilitator"
         format.js
