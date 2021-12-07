@@ -13,7 +13,7 @@ class BrainstormsController < ApplicationController
         REDIS.set @session_id, @brainstorm.name
         @brainstorm.state = :setup
         @brainstorm.facilitator_session_id = @session_id
-        redirect_to brainstorm_show_path(@brainstorm.token)
+        redirect_to "/#{@brainstorm.token}"
       else
         render :new
       end
