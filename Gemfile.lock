@@ -278,7 +278,7 @@ GEM
       childprocess (>= 0.5, < 4.0)
       rubyzip (>= 1.2.2)
     semantic_range (3.0.0)
-    sidekiq (6.2.2)
+    sidekiq (6.4.0)
       connection_pool (>= 2.2.2)
       rack (~> 2.0)
       redis (>= 4.2.0)
@@ -358,7 +358,7 @@ DEPENDENCIES
   rexml
   sass-rails (>= 6)
   selenium-webdriver
-  sidekiq (~> 6.2)
+  sidekiq (~> 6.4)
   spring
   spring-watcher-listen (~> 2.0.0)
   turbo-rails
