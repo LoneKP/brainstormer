@@ -1,7 +1,7 @@
 class BrainstormsController < ApplicationController
   include BrainstormScoped, Ideated, DoneVoting
 
-  before_action :set_session, only: [:show, :create, :done_voting]
+  before_action :set_session, only: [:new, :show, :create, :done_voting]
 
   def new
     @brainstorm = Brainstorm.new
