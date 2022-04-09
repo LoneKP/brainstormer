@@ -61,6 +61,8 @@ module.exports = {
         mono: ['IBM Plex Mono', ...defaultTheme.fontFamily.mono]
       },
       colors: {
+        'pinky': '#feeceb',
+        'darker-pinky': '#DECFCC',
         'blurple': '#312783',
         'blurple-gray': '#f4f2f7',
         'dark-blurple': '#28206e',
