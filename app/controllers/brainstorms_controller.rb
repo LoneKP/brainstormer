@@ -85,7 +85,7 @@ class BrainstormsController < ApplicationController
     @brainstorm.state = :vote
     StateChannel.broadcast_to @brainstorm, { event: "set_brainstorm_state", state: "vote" }
     PresenceChannel.broadcast_to @brainstorm, {event: :update_number_of_users_done_voting_element, users_done_voting: users_done_voting_who_are_also_online, total_users_online: total_users_online}
-    transmit_ideas(sort_by_id_desc)
+    transmit_ideas(sort_by_id_desc, Brainstorm::DynamicVoteCounter.new(@brainstorm).votes)
   end
 
   def done_voting

@@ -14,4 +14,4 @@ currentUser.votesCastIdeas.delete(<%= @idea.id %>) || currentUser.votesCastIdeas
   document.getElementsByClassName("starVoteFill")[<%= vote.index %>].setAttribute("fill", "<%= vote.used? ? "#FFFFFF" : "" %>")
 <% end %>
 
-changeHeadlineAccordingToVotesLeft('<%= @voting.votes_cast_count %>', '<%= Session::Voting::MAX_VOTES_PER_SESSION %>')
+changeHeadlineAccordingToVotesLeft('<%= @voting.votes_cast_count %>', '<%= @voting.dynamic_vote_count %>')

@@ -3,7 +3,7 @@
          <div class="sticky top-0 flex lg:flex-row flex-col w-full my-4 lg:space-x-8">
            <div class="justify-between p-4 mt-8 lg:flex-1 flex lg:flex-row flex-col bg-greeny my-shadow-lg w-full">
              <h1 id="votingHeadline" class="md:text-4xl lg:text-2xl text-white font-semibold uppercase leading-tight ">Vote on your favourite ideas</h1>
-             <div class="flex space-x-2 md:mt-4 lg:mt-0 justify-start">
+             <div id="starsContainer" class="flex space-x-2 md:mt-4 lg:mt-0 justify-start">
                <% @voting.each_available_vote do |vote| %>
                <svg class="flex lg:h-8 lg:w-8 h-20 w-20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
                  <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>

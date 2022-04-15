@@ -6,8 +6,8 @@ module Ideated
 
   private
 
-  def transmit_ideas(sorting_choice)
-    IdeasChannel.broadcast_to @brainstorm, { event: "transmit_ideas", ideas: ideas_and_idea_builds_object(sorting_choice) }
+  def transmit_ideas(sorting_choice, available_votes = nil)
+    IdeasChannel.broadcast_to @brainstorm, { event: "transmit_ideas", ideas: ideas_and_idea_builds_object(sorting_choice), available_votes: available_votes }
   end
 
   def ideas_and_idea_builds_object(sorting_choice)

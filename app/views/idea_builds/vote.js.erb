@@ -11,8 +11,8 @@ if (<%= !@voting.can_vote? %>) {
 currentUser.votesCastIdeaBuilds.delete(<%= @idea_build.id %>) || currentUser.votesCastIdeaBuilds.add(<%= @idea_build.id %>)
 
 <% votes_cast_count = @voting.votes_cast_count %>
-<% Session::Voting::MAX_VOTES_PER_SESSION.times do |vote_index| %>
+<% @voting.dynamic_vote_count.times do |vote_index| %>
   document.getElementsByClassName("starVoteFill")[<%= vote_index %>].setAttribute("fill", "<%= vote_index >= votes_cast_count ? "#FFFFFF" : "" %>")
 <% end %>
 
-changeHeadlineAccordingToVotesLeft('<%= votes_cast_count %>', '<%= Session::Voting::MAX_VOTES_PER_SESSION %>')
+changeHeadlineAccordingToVotesLeft('<%= votes_cast_count %>', '<%= @voting.dynamic_vote_count %>')

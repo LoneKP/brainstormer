@@ -36,7 +36,7 @@
 
   brainstormStore = {
     state: '<%= @brainstorm.state %>',
-    maxVotesPerUser: '<%= Session::Voting::MAX_VOTES_PER_SESSION %>'
+    maxVotesPerUser: '<%= @voting.dynamic_vote_count %>'
   };
 
   const openModalToSetName = () => {

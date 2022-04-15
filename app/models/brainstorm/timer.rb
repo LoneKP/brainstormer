@@ -42,7 +42,7 @@ class Brainstorm::Timer
     if expired?
       brainstorm.timer_expired
       broadcast :expired
-      broadcast_ideas :transmit_ideas, transmit_ideas(sort_by_id_desc)
+      broadcast_ideas :transmit_ideas, transmit_ideas(sort_by_id_desc, Brainstorm::DynamicVoteCounter.new(brainstorm).votes)
       PresenceChannel.broadcast_to brainstorm, {event: :update_number_of_users_done_voting_element, users_done_voting: users_done_voting_who_are_also_online, total_users_online: total_users_online}
     end
   end

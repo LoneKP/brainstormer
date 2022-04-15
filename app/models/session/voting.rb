@@ -4,7 +4,6 @@ class Session::Voting
   include Kredis::Attributes
   include Brainstorm::States, Ideated, DoneVoting
 
-
   kredis_set :idea_votes,       typed: :integer, key: ->(v) { "user_idea_votes_#{v.session_id}_#{v.brainstorm.token}" }
   kredis_set :idea_build_votes, typed: :integer, key: ->(v) { "user_idea_build_votes_#{v.session_id}_#{v.brainstorm.token}" }
 
@@ -14,6 +13,10 @@ class Session::Voting
 
   def initialize(brainstorm, session_id)
     @brainstorm, @session_id = brainstorm, session_id
+  end
+
+  def dynamic_vote_count
+    Brainstorm::DynamicVoteCounter.new(brainstorm).votes
   end
 
   def toggle_vote_for(votable)
@@ -42,7 +45,7 @@ class Session::Voting
 
   def each_available_vote
     votes_cast = votes_cast_count
-    MAX_VOTES_PER_SESSION.times do |index|
+    dynamic_vote_count.times do |index|
       yield Vote.new(index: index, used: index >= votes_cast)
     end
   end
@@ -52,7 +55,7 @@ class Session::Voting
   end
 
   def votes_left_count
-    [ MAX_VOTES_PER_SESSION - votes_cast_count, 0 ].max
+    [ dynamic_vote_count - votes_cast_count, 0 ].max
   end
 
   def votes_cast_count

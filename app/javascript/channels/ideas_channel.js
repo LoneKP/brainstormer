@@ -19,21 +19,30 @@ consumer.subscriptions.create({ channel: "IdeasChannel", token: location.pathnam
         createNewIdeaBuild(data);
         break;
       case "transmit_ideas":
-        buildHTML(data.ideas, brainstormStore.state);
-        if (brainstormStore.state == "voting_done") {
-          fillStarsWithUserVotes();
-        }
+        buildHTML(data.ideas, brainstormStore.state, data.available_votes);
+        console.log(data)
     }
   }
 });
 
-const buildHTML = (ideas, state) => {
+const buildHTML = (ideas, state, available_votes) => {
   if (state == "vote") {
-    buildVotePage(ideas)
+    buildVotePage(ideas);
+    showVotesAvailable(available_votes);
+    fillStarsWithUserVotes();
   }
   else if (state == "voting_done") {
-    buildVotingDonePage(ideas)
+    buildVotingDonePage(ideas);
   }
+}
+
+const showVotesAvailable = (votes) => {
+  let stars = ""
+  for (let i = 0; i < votes; i++) {
+    stars += `<svg class="flex lg:h-8 lg:w-8 h-20 w-20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1"><title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title><g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd"><g transform="translate(-701.000000, -551.000000)"><g transform="translate(653.000000, 551.000000)"><g transform="translate(48.000000, 0.000000)"><polygon id="Path" points="0 0 36 0 36 36 0 36" /><polygon id="Path" points="0 0 36 0 36 36 0 36" /><polygon class="starVoteFill" id="Path" fill="#FFFFFF" stroke="#FFFFFF" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" /></g></g></g></g></svg>`
+  }
+
+  document.getElementById("starsContainer").innerHTML = stars
 }
 
 const buildVotePage = (ideas) => {

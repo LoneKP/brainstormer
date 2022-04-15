@@ -64,6 +64,13 @@ fillStarsWithUserVotes = function () {
     let elements = document.getElementsByClassName(`star-idea-build-${id}`)
     Array.from(elements).forEach((element) => element.setAttribute("fill", "#312783"))
   })
+
+  let votesUsed = currentUser.votesCastIdeas.size + currentUser.votesCastIdeaBuilds.size
+  let stars = document.getElementsByClassName("starVoteFill")
+  
+  for (let i = 0; i < votesUsed; i++) {
+    stars[i].setAttribute("fill", "312783")
+  }
 }
 
 changeHeadlineAccordingToVotesLeft = function (votesCast, maxVotesPerUser) {
