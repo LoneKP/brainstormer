@@ -30,10 +30,3 @@ services:
           type: redis
           name: sidekiq-redis-2
           property: connectionString
-
-
-  databases:
-  - name: brainstormer-2
-    databaseName: brainstormer-2
-    user: brainstormer-2
-    region: frankfurt
