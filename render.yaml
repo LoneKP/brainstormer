@@ -33,6 +33,4 @@ services:
 
 databases:
   - name: brainstormer-2
-    databaseName: brainstormer-2
-    user: brainstormer-2
     region: frankfurt
