@@ -1,0 +1,36 @@
+services:
+  - type: redis
+    name: sidekiq-redis-2
+    region: frankfurt
+    maxmemoryPolicy: noeviction
+    ipAllowList: [] # only allow internal connections
+
+  - type: worker
+    name: sidekiq-worker-2
+    env: ruby
+    region: frankfurt
+    buildCommand: bundle install
+    startCommand: bundle exec sidekiq
+    envVars:
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: sidekiq-redis
+          property: connectionString
+
+  - type: web
+    name: brainstormer-2
+    env: ruby
+    region: frankfurt
+    buildCommand: bundle install; bundle exec rake assets:precompile; bundle exec rake assets:clean;
+    startCommand: bundle exec puma -t 5:5 -p ${PORT:-3000} -e ${RACK_ENV:-development}
+    envVars:
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: sidekiq-redis-2
+          property: connectionString
+
+databases:
+  - name: brainstormer-2
+    region: frankfurt
