@@ -25,6 +25,7 @@ gem 'blazer'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'turbo-rails'
+gem 'google_sign_in'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
