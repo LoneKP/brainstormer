@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+<h1 class="text-white">Register</h1>
+
+<%= form_with model: @user, local: true do |f| %>
+  <%= f.text_field :email %> 
+  <%= f.password_field :password %>
+  <%= f.submit %>
+<% end %>

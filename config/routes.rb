@@ -36,6 +36,13 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, only: [:create]
+  resources :sessions, only: [:create]
+
+  get '/users/register', to: 'users#new'
+  get '/users/sign_in', to: 'sessions#new'
+  get '/users/sign_out', to: 'sessions#destroy'
+
   #google login
   get 'login', to: 'logins#new'
   get 'login/create', to: 'logins#create', as: :create_login

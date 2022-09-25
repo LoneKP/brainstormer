@@ -27,6 +27,9 @@
     <meta property="twitter:image" content="<%= asset_path('some_image.png') %>">
   </head>
   <body class="font-mono <%= action_name == "show" ? "bg-pattern" : "bg-blurple" %>">
+    <% if current_user %>
+    Hi <%= current_user.email %>
+    <% end %>
     <%= render 'shared/feedback' %>
     <%= yield %>
   </body>

@@ -3,7 +3,7 @@ module ApplicationCable
     identified_by :session_id
 
     def connect
-      self.session_id = cookies[:user_id]
+      self.session_id = cookies[:guest_id]
     end
   end
 end
