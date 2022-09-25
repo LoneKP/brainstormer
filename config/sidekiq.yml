@@ -3,4 +3,5 @@
   - brainstormer_online_production_default
   - brainstormer_online_production_ahoy
   - brainstormer_online_production_mailers
+  - brainstormer_online_production_active_storage_purge
 
