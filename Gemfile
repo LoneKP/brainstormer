@@ -26,6 +26,9 @@ gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
 gem 'turbo-rails'
 
+#added after updating to ruby 3.1.2
+gem 'net-smtp' # to send email
+
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.7'
 
