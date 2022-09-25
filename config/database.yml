@@ -80,4 +80,6 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  database: brainstormer_online_production
+  username: brainstormer_online
+  password: <%= ENV['BRAINSTORMER_ONLINE_DATABASE_PASSWORD'] %>
