@@ -23,7 +23,9 @@ gem 'geoip'
 gem 'geocoder'
 gem 'blazer'
 gem 'wicked_pdf'
-gem 'wkhtmltopdf-binary'
+#gem 'wkhtmltopdf-binary'
+gem 'wkhtmltopdf-heroku', '2.12.6.1.pre.jammy'
+
 gem 'turbo-rails'
 
 #added after updating to ruby 3.1.2
