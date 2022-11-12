@@ -8,11 +8,11 @@ class Brainstorm::DynamicVoteCounter
   
   def votes
     case
-      when brainstorm.ideas.size > 20
+      when brainstorm.ideas.count > 20
         8
-      when brainstorm.ideas.size >= 10
+      when brainstorm.ideas.count >= 11
         6
-      when brainstorm.ideas.size < 9
+      when brainstorm.ideas.count <= 10
         3
     end
   end
