@@ -1,0 +1,74 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "h-full flex flex-col gap-4" }) do |f| %>
+
+  <div class="field">
+    <%= f.label :name, class: "italic text-lg font-bold leading-none mb-1" %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+    <%= render "users/shared/error_messages", resource: resource %>
+    <% if resource.errors[:name].any? %>
+      <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+        <span><%= resource.errors[:name][0] %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :email, class: "italic text-lg font-bold leading-none mb-1" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+    <% if resource.errors[:email].any? %>
+      <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+        <span><%= resource.errors[:email][0] %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :password, class: "italic text-lg font-bold leading-none mb-1" %> <i>(leave blank if you don't want to change it)</i><br />
+    <%= f.password_field :password, autocomplete: "new-password", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+    <% if resource.errors[:password].any? %>
+      <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+        <span><%= resource.errors[:password][0] %></span>
+      </div>
+    <% end %>
+    <% if @minimum_password_length %>
+      <br />
+      <em><%= @minimum_password_length %> characters minimum</em>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, class: "italic text-lg font-bold leading-none mb-1" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+    <% if resource.errors[:password_confirmation].any? %>
+      <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+        <span><%= resource.errors[:password_confirmation][0] %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :current_password, class: "italic text-lg font-bold leading-none mb-1" %> <i>(we need your current password to confirm your changes)</i><br />
+    <%= f.password_field :current_password, autocomplete: "current-password", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+    <% if resource.errors[:current_password].any? %>
+      <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+        <span><%= resource.errors.full_messages.last %></span>
+      </div>
+    <% end %>
+    
+  </div>
+
+  <div class="actions flex justify-end mt-10">
+    <%= f.submit "Update", class: "hvr-grow px-10 py-2 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer" %>
+  </div>
+<% end %>
+
+<h1 class="text-3xl lg:text-3xl font-semibold text-blurple mb-2 mt-32">Danger zone</h1>
+<div class="border-solid border-4 border-reddy py-12 px-4">
+  <div class="flex flex-row justify-between items-center">
+    <p class="italic text-lg font-bold leading-none">In case you want to say goodbye!</p>
+    <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "This can't be undone. Your brainstorms and all your data will be deleted. Are you sure?" }, method: :delete, class: "hvr-grow px-10 py-2 my-shadow-lg text-black text-lg font-bold bg-reddy active:bg-light-reddy cursor-pointer" %>
+  </div>
+</div>

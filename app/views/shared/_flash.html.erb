@@ -1,0 +1,5 @@
+<% flash.each do |message_type, message| %>
+<div class=" flex flex-row justify-center text-white z-50 font-bold ">
+  <span class="<%= if message_type === "success" or message_type === "notice"; "bg-greeny"; else "bg-wine"; end %> <%= local_assigns[:phone] ? "text-3xl " : "text-sm " %> fixed fade-out px-8 py-2 my-shadow text-center"><%= message %></span>
+</div>
+<% end %>

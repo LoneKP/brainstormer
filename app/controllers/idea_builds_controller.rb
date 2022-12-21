@@ -1,5 +1,5 @@
 class IdeaBuildsController < ApplicationController
-  before_action :set_session_id, only: [:vote]
+  before_action :set_visitor_id, only: [:vote]
   before_action :set_idea_build, only: [:vote]
 
   def create

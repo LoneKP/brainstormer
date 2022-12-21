@@ -1,19 +1,43 @@
 class Session
-  attr_reader :id
+  attr_reader :visitor_id, :guest_id, :user_id, :name
 
-  def initialize(id)
-    @id, @name_proxy = id, Kredis.string(id)
+  def initialize(visitor_id, guest_id=nil, user_id=nil, name)
+    @visitor_id, @guest_id, @user_id, @name = visitor_id, guest_id, user_id, name
+    set_hash
   end
 
-  def name
-    name_proxy.value
+  def set_hash
+    @key = Kredis.hash(visitor_id)
+    @key.update("visitor_id" => visitor_id, "guest_id" => guest_id, "user_id" => user_id, "name" => name)  
   end
 
-  def name=(new_name)
-    name_proxy.value = new_name
+  def id
+    @key["visitor_id"]
   end
 
-  private
+  def guest?
+    !@key["guest_id"].empty?
+  end
 
-  attr_reader :name_proxy
+  def user?
+    !@key["user_id"].empty?
+  end
+
+  def guest
+    @key["guest_id"]
+  end
+
+  def user
+    @key["user_id"]
+  end
+
+  def type
+    if guest?
+      "guest"
+    elsif user?
+      "user"
+    else
+      "visitor"
+    end
+  end
 end

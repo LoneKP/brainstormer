@@ -44,10 +44,6 @@ changeView = function (state) {
     document.querySelector("#setup_participant").style.display = currentUser.facilitator == "false" ? "block" : "none"
     document.querySelector("#setup_facilitator").style.display = currentUser.facilitator == "true" ? "block" : "none"
   }
-
-  if (state == "voting_done") {
-    document.getElementById("notice").innerHTML = '<div class="bg-greeny fade-out inset-x-0 fixed text-white text-center py-4 z-50 font-bold my-shadow"><span>Voting is done! Now you can review all your great ideas.</span></div>'
-  }
 }
 
 showTimeIsUpModal = function () {

@@ -1,0 +1,35 @@
+<div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl">
+<%= render 'shared/menu' %>
+  <div class="mb-12 my-shadow-lg grid grid-cols-2">
+    <div class="flex-col flex bg-white p-12 mb-4 h-full w-full">
+      <div class="flex flex-row justify-between">
+        <%= link_to root_path do %>
+          <div class="-ml-16 italic bg-black w-32 h-32 lg:w-16 lg:h-16 text-white text-7xl lg:text-5xl flex font-bold items-center justify-center">
+            <span>B</span>
+          </div>
+        <% end %>  
+      </div>
+      <div class="px-12">
+      <h1 class="text-3xl lg:text-3xl font-semibold w-72 text-blurple mb-8">Create your account</h1>
+      <%= render "form" %>
+      </div>
+    </div>
+    <div class="flex-col flex justify-center bg-blurple text-white p-12 mb-4 h-full w-full gap-12">
+      <div class="flex flex-col">
+        <div class="flex flex-row">
+          <p class="font-bold text-xl">Keep track</p>
+        </div>
+        <p class="text-sm">Access your past brainstorms easily so that perfect idea won’t get lost.</p>
+      </div>
+      <div class="flex flex-col">
+        <p class="font-bold text-xl">Be prepared</p>
+        <p class="text-sm">Create brainstorms in advance and find them in your account.</p>
+      </div>
+      <div class="flex flex-col">
+        <p class="font-bold text-xl">Facilitate</p>
+        <p class="text-sm">When you have an account, you will not lose facilitator rights when you leave and jump back in.</p>
+      </div>
+    </div>
+  </div>
+  <%= render 'shared/footer' %>
+</div>

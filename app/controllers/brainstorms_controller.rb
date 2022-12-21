@@ -1,30 +1,47 @@
 class BrainstormsController < ApplicationController
   include BrainstormScoped, Ideated, DoneVoting
 
-  before_action :set_session, only: [:new, :show, :create, :done_voting]
+  before_action :set_session_for_all_types, only: [:show, :done_voting]
 
   def new
     @brainstorm = Brainstorm.new
   end
 
   def create
+    if current_user.nil?
+      guest = Guest.create(name: brainstorm_params[:name]) 
+      session[:guest_id] = guest.id
+    else
+
+    end
+    current_user.update(name: brainstorm_params[:name]) if current_user
     @brainstorm = Brainstorm.new(brainstorm_params)
+    @brainstorm.facilitated_by = current_user || guest
       if @brainstorm.save
         REDIS.set @session_id, @brainstorm.name
         @brainstorm.state = :setup
-        @brainstorm.facilitator_session_id = @session_id
+        #@brainstorm.facilitator_session_id = @session_id
         redirect_to "/#{@brainstorm.token}"
       else
         render :new
       end
-
   end
 
   def show
     @ideas = @brainstorm.ideas
     @idea  = @ideas.new
-
-    @current_facilitator = @brainstorm.facilitator.id == @session_id
+    @session_id = @session.id
+    
+    #not sure type is needed
+    @type = @session.type
+    
+    if @brainstorm.facilitated_by_type == "Guest"
+      @current_facilitator = @brainstorm.facilitated_by_id == @session.guest.to_i
+    elsif @brainstorm.facilitated_by_type == "User"
+      @current_facilitator = @brainstorm.facilitated_by_id == @session.user.to_i
+    else
+      false
+    end
 
     @voting = Session::Voting.new(@brainstorm, @session_id)
 

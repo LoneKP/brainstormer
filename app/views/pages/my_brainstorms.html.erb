@@ -1,0 +1,54 @@
+<div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl">
+  <%= render 'shared/menu' %>
+    <div class="flex-col flex bg-white p-12 mb-4 h-full">
+      <div class="flex flex-row justify-between">
+        <%= link_to root_path do %>
+          <div class="-ml-16 italic bg-black w-32 h-32 lg:w-16 lg:h-16 text-white text-7xl lg:text-5xl flex font-bold items-center justify-center">
+            <span>B</span>
+          </div>
+        <% end %>  
+      </div>
+      <div class="px-12">
+        <h1 class="text-3xl lg:text-4xl font-semibold text-blurple mb-8">Great job facilitating! Here are all your brainstorms</h1>
+          <div class="flex flex-col gap-4">
+          <% if !@ready_for_ideation.empty? %>
+            <div class="flex flex-row mt-6">
+              <p class="bg-black text-white px-4 text-xl">Ready for ideation</p>
+            </div>
+            <% @ready_for_ideation.each do |brainstorm| %>
+              <%= link_to brainstorm_show_url(brainstorm.token) do %>
+                <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
+                  <p><%= brainstorm.problem %></p>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if !@in_progress.empty? %>
+            <div class="flex flex-row mt-6">
+              <p class="bg-black text-white px-4 text-xl">In progress</p>
+            </div>
+            <% @in_progress.each do |brainstorm| %>
+              <%= link_to brainstorm_show_url(brainstorm.token) do %>
+                <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
+                  <p><%= brainstorm.problem %></p>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if !@done.empty? %>
+            <div class="flex flex-row mt-6">
+              <p class="bg-black text-white px-4 text-xl">Done</p>
+            </div>
+            <% @done.each do |brainstorm| %>
+              <%= link_to brainstorm_show_url(brainstorm.token) do %>
+                <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
+                  <p><%= brainstorm.problem %></p>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+          </div>
+      </div>
+    </div>
+  <%= render 'shared/footer' %>
+</div>

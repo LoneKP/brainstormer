@@ -54,6 +54,7 @@ consumer.subscriptions.create({
   received(data) {
     switch (data.event) {
       case "transmit_presence_list":
+        console.log("presence list:", data)
         const onlineUsers = Object.values(data.online_users)
         if (typeof currentUser == "undefined") {
           location.reload();
@@ -72,7 +73,6 @@ consumer.subscriptions.create({
 
         clearNameListElement();
         createUserBadges(onlineUsers);
-        openModalToSetName();
         showCurrentUser();
         if (onlineUsers.length > THRESHOLD_FOR_OVERFLOWING_USERS) { 
           removeOverflowingUsers(onlineUsers) 
@@ -81,10 +81,6 @@ consumer.subscriptions.create({
           showOnHoverForOverflowingUsers(onlineUsers)
         };
         if (brainstormStore.state !== "vote") { removeUsersDoneVoting(onlineUsers) };
-        break;
-      case "name_changed":
-        this.perform("update_name");
-        setCurrentUserName(data.name);
         break;
       case "toggle_done_voting_badge":
         toggleUserDoneVoting(data.user_id);

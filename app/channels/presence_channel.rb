@@ -17,7 +17,8 @@ class PresenceChannel < ApplicationCable::Channel
   private
 
   def add_to_list_and_transmit!
-    set_random_name_if_user_has_no_name
+    #set_random_name_if_user_has_no_name
+    #byebug
     REDIS.set user_color_key, random_color_class
     REDIS.hset brainstorm_key, session_id, Time.now
     transmit_list!
@@ -28,34 +29,34 @@ class PresenceChannel < ApplicationCable::Channel
     transmit_list!
   end
 
-  def set_random_name_if_user_has_no_name
-    if REDIS.get(session_id).nil?
-      REDIS.set session_id, temporary_user_name
-    end
-  end
+  # def set_random_name_if_user_has_no_name
+  #   if REDIS.get(session_id).nil?
+  #     REDIS.set session_id, temporary_user_name
+  #   end
+  # end
 
   def transmit_list!
-    users = REDIS.hgetall(brainstorm_key).keys
-
+    visitors = REDIS.hgetall(brainstorm_key).keys
     data = { 
       event: "transmit_presence_list",
       online_users: {} 
     }
-    users.each do |user_id|
-      unless last_user_activity_more_than_one_hour_ago?(user_id)
-        name = REDIS.get(user_id)
-        user_color = REDIS.get("user_color_for_user_id_#{user_id}")
-        done_voting = REDIS.hget(done_voting_brainstorm_status, "#{user_id}")
-        data[:online_users][user_id] = {
-          id: user_id, 
+    
+    visitors.each do |visitor|
+      unless last_user_activity_more_than_one_hour_ago?(visitor)
+        name = REDIS.hgetall(visitor)["name"]
+        user_color = REDIS.get("user_color_for_user_id_#{visitor}")
+        done_voting = REDIS.hget(done_voting_brainstorm_status, "#{visitor}")
+        data[:online_users][visitor] = {
+          id: visitor, 
           name: name, 
           initials: name.split(nil,2).map(&:first).join.upcase, 
           userColor: user_color, 
-          doneVoting: done_voting 
+          doneVoting: done_voting  
         }
       end
     end
-
+    
     PresenceChannel.broadcast_to @brainstorm, data
   end
 
@@ -68,7 +69,7 @@ class PresenceChannel < ApplicationCable::Channel
   end
 
   def user_key
-    "#{@session_id}"
+    "#{session_id}"
   end
 
   def user_color_key
@@ -79,9 +80,9 @@ class PresenceChannel < ApplicationCable::Channel
     "done_voting_brainstorm_status_#{@brainstorm.token}"
   end
 
-  def temporary_user_name
-    "Anonymous Brainstormer"
-  end
+  # def temporary_user_name
+  #   "Anonymous Brainstormer"
+  # end
 
   def random_color_class
     color_classes = ["bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy"]

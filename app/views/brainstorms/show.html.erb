@@ -1,6 +1,5 @@
 <%= render 'nav' %>
 <%= render 'dev_nav' if Rails.env.development? %>
-<%= render 'sessions/names/form', brainstorm: @brainstorm, session: @session %>
 <div class="hidden" id="ideation">
   <%= render 'ideate' %>
 </div>
@@ -27,7 +26,7 @@
 <script>
   currentUser = {
     id: '<%= @session_id %>',
-    currentUserName: '<%= @session.name %>',
+    type: '<%= @session.type %>',
     facilitator: '<%= @current_facilitator %>',
     votesCastIdeas: new Set(<%= @voting.idea_votes.members %>),
     votesCastIdeaBuilds: new Set(<%= @voting.idea_build_votes.members %>),
@@ -38,14 +37,6 @@
     state: '<%= @brainstorm.state %>',
     maxVotesPerUser: '<%= @voting.dynamic_vote_count %>'
   };
-
-  const openModalToSetName = () => {
-    if (!currentUser.currentUserName || currentUser.currentUserName == "Anonymous Brainstormer") {
-      document.getElementById("modalContainer").classList.remove("hidden");
-      document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }");
-      document.getElementById("session_name").setAttribute("value", createRandomUserName());
-    }
-  }
 
   const createRandomUserName = () => {
     const adjectives = ["Sleeping", "Hungry", "Purple", "Hairy", "Wet", "Hungarian", "Australian", "Cross-eyed", "Mind-reading", "Fierce", "Wig-wearing", "Busy", "Bingo-playing", "Talking", "Cool", "Amazing", "Happy", "Lovely", "Tomb Raiding", "Self-aware", "Flying", "Bald", "The Best", "Space-exploring", "To-the-point", "Forgetful", "Visionary", "Well-behaved", "Totally Awesome", "Hilarious", "Charming", "Royal", "Rapid", "Adorable", "Cheerful", "Expert", "Wacky", "Fluffy", "Smart", "Well-articulated", "Sophisticated", "Tickly", "Wise", "Lucky", "The One True", "Unreal", "Silly", "Smooth", "Tongue-twisting", "Tiny", "Carnivorous", "Vegetarian", "Grounded", "Mischievous", "Tropical", "Arctic", "Polite", "Frivolous", "Tactical", "Organized", "Dazzled", "Jolly", "Diligent", "Famous", "Hip", "Bored", "Unmarried", "Travelling", "Brainy", "Blue-eyed", "Nosey", "Adventurous", "Acidic", "Important"]
@@ -59,8 +50,8 @@
 
   const openSendEmailModal = () => {
     document.getElementById("emailModalContainer").setAttribute("x-data", "{ 'showEmailModal': true }")
-    document.getElementById("notice").innerHTML = ""
-    document.getElementById("error-field-email-address").innerHTML = ""
+    // document.getElementById("notice").innerHTML = ""
+    // document.getElementById("error-field-email-address").innerHTML = ""
   }
 
   const showCurrentUser = () => {
@@ -77,11 +68,6 @@
 
     doneDivForCurrentUser = document.getElementById(`user-done-${currentUser.id}`)
     doneDivForCurrentUser.parentNode.appendChild(doneDivForCurrentUser);
-
-    currentUserBadge.onclick = () => {
-      document.getElementById("modalContainer").classList.remove("hidden");
-      document.getElementById("modalContainer").setAttribute("x-data", "{ 'showModal': true }")
-    }
   }
 
   const setCurrentUserName = (name) => {

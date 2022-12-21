@@ -1,6 +1,6 @@
 class IdeasController < ApplicationController
   before_action :set_brainstorm, only: [:create]
-  before_action :set_session_id, only: [:vote]
+  before_action :set_visitor_id, only: [:vote]
   before_action :set_idea, only: [:vote]
 
   def create

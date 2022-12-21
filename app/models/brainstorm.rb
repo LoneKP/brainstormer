@@ -3,6 +3,9 @@ class Brainstorm < ApplicationRecord
 
   has_one_attached :pdf
   has_many :ideas
+
+  belongs_to :facilitated_by, polymorphic: true
+  
   attr_accessor :name
 
   validates :problem, presence: { message: "You need to type in a problem to solve." }, :on => [:create, :update]
@@ -14,6 +17,24 @@ class Brainstorm < ApplicationRecord
     where("token ilike ?", "%#{token}").then do |relation|
       relation.first if relation.one?
     end
+  end
+
+  def ready_for_ideation
+   state === "setup"
+  end
+
+  def in_progress
+    if state === "ideation"
+      true
+    elsif state === "vote"
+      true
+    else
+      false
+    end
+  end
+
+  def done
+   state === "voting_done"
   end
 
   private

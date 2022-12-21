@@ -27,6 +27,8 @@ gem 'wkhtmltopdf-binary'
 
 gem 'turbo-rails'
 
+gem 'devise'
+
 #added after updating to ruby 3.1.2
 gem 'net-smtp' # to send email
 gem 'net-imap' # for rspec

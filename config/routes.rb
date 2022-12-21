@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  devise_for :users, controllers: { 
+    registrations: "users/registrations", 
+    sessions: "users/sessions",
+    confirmations: "users/confirmations" 
+  }
+  
   require "sidekiq/web"
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
@@ -9,7 +15,7 @@ Rails.application.routes.draw do
   mount Sidekiq::Web, at: "/sidekiq"
   mount Blazer::Engine, at: "blazer"
 
-  resources :brainstorms, param: :token, only: [:create, :new, :edit, :update] do
+  resources :brainstorms, param: :token, only: [:new, :edit, :update, :create] do
     member do
       post :done_brainstorming, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
     end
@@ -21,13 +27,7 @@ Rails.application.routes.draw do
     resource :email, only: :create, module: "brainstorms"
   end
 
-  resource :session, only: [] do
-    resource :name, only: :update, module: "sessions"
-  end
-
   get 'brainstorms/join-session', to: 'brainstorms#join_session'
-
-  root 'brainstorms#new'
 
   resources :ideas, only: [:create] do
     post :show_idea_build_form, :vote
@@ -35,6 +35,12 @@ Rails.application.routes.draw do
       post :vote
     end
   end
+
+  get '/about', to: 'pages#pages_template'
+  get '/privacy-policy', to: 'pages#pages_template'
+  get '/my-brainstorms', to: 'pages#my_brainstorms'
+
+  root 'pages#index'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 

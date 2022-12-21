@@ -1,0 +1,260 @@
+<div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl">
+<%= render 'shared/menu' %>
+  <div class="flex-col flex bg-blurple p-12 h-full">
+    <div class="bg-dots p-12 h-full">
+      <%= link_to root_path do %>
+        <div class="-ml-28 -mt-12 italic bg-black w-32 h-32 lg:w-16 lg:h-16 text-white text-7xl lg:text-5xl flex font-bold items-center justify-center">
+          <span>B</span>
+        </div>
+      <% end %>
+      <div class="hidden lg:block w-1/2 mt-16 mt-56">
+        <h1 class="py-4 px-4 lg:p-0 bg-blurple text-white text-7xl lg:text-5xl font-semibold leading-normal lg:leading-normal">EVERYTHING BEGINS WITH AN IDEA
+        </h1>
+      </div>
+      <div class="hidden lg:flex flex-col w-1/3 mt-8 bg-blurple">
+        <%= link_to new_brainstorm_path do %>
+          <button class="w-full text-lg my-shadow py-4 bg-white focus:outline-none active:bg-blurple-gray hvr-underline-from-left">SETUP BRAINSTORM</button>
+        <% end %>
+        <%= link_to brainstorms_join_session_path do %>
+          <button class="w-full bg-blurple text-lg my-shadow py-4 mt-4 text-white border-solid border-white border-4 focus:outline-none active:bg-dark-blurple hvr-underline-from-left">JOIN SESSION</button>
+        <% end %>
+      </div>
+      <div class="lg:hidden flex flex-col h-full">
+        <h1 class="my-32 py-4 px-4 bg-blurple text-white text-7xl font-semibold leading-normal">EVERYTHING BEGINS WITH AN IDEA
+        </h1>
+        <div class="bg-blurple text-left px-6 py-16">
+          <%= form_with(url: '/go_to_brainstorm', remote: true) do |f| %>
+          <div class="flex flex-row justify-between items-baseline mb-2 text-white">
+            <label class="italic text-3xl font-bold leading-none " for="">BRAINSTORM ID</label>
+          </div>
+          <%= f.text_field :token, class: "border-solid border-t-2 border-l-2 border-b-2 border-black h-32 italic px-4 w-full focus:outline-none focus:text-black font-bold text-5xl text-lighter-gray my-shadow-lg", value: "#", autocomplete: "off" %>
+
+          <div id="error-field-token-mobile">
+            <%= render "shared/validation_error" %>
+          </div>
+          <button type="submit" class="mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer">JOIN SESSION
+          </button>
+          <% end %>
+        </div>
+        <div class="mt-28 flex flex-row w-full items-center bg-blurple px-6">
+          <div class="bg-white h-2 w-full"></div>
+          <p class="text-white text-5xl font-bold px-8">OR</p>
+          <div class="bg-white h-2 w-full"></div>
+        </div>
+        <div class="my-32 bg-blurple text-left px-6 py-12">
+          <%= form_with model: @brainstorm do |f| %>
+          <div class="flex flex-row justify-between items-baseline mb-2">
+            <%= f.label :problem, "PROBLEM TO SOLVE", class: "italic text-3xl font-bold flex flex-row justify-between items-baseline text-white leading-none " %>
+          </div>
+          <%= f.text_field :problem, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none text-black font-bold text-5xl my-shadow-lg", autocomplete: "off" %>
+          <div id="error-field-problem-mobile">
+            <%= render "shared/validation_error" %>
+          </div>
+          <div class="flex flex-row justify-between items-baseline mb-2">
+            <%= f.label :name, "YOUR NAME", class: "mt-8 italic text-3xl font-bold  flex flex-row justify-between items-baseline text-white leading-none" %>
+          </div>
+          <%= f.text_field :name, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none text-black font-bold text-5xl my-shadow-lg", autocomplete: "off" %>
+          <div id="error-field-name-mobile">
+            <%= render "shared/validation_error" %>
+          </div>
+          <%= f.submit 'CREATE BRAINSTORM', class: "mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer" %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-between mt-24">
+    <div class="flex-col w-full lg:w-1/2 mr-48 ml-24 mb-8">
+      <div class="mb-8">
+        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="81px" height="81px" viewBox="0 0 81 81" version="1.1">
+          <title>Shape</title>
+          <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g id="LP" transform="translate(-182.000000, -1090.000000)" fill="#E5D151" fill-rule="nonzero">
+              <g id="offline_bolt-24px" transform="translate(182.000000, 1090.000000)">
+                <path d="M40.5,0 C18.1397796,0 0,18.1397796 0,40.5 C0,62.8602204 18.1397796,81 40.5,81 C62.8602204,81 81,62.8602204 81,40.5 C81,18.1397796 62.8602204,0 40.5,0 Z M38.3897796,72.9649299 L38.3897796,47.5611222 L24.2675351,47.5611222 L44.5581162,8.03507014 L44.5581162,33.4388778 L58.1528056,33.4388778 L38.3897796,72.9649299 Z" id="Shape" />
+              </g>
+            </g>
+          </g>
+        </svg>
+      </div>
+      <div class="mb-8">
+        <h1 class="text-yellowy text-7xl lg:text-5xl font-bold leading-tight uppercase">why brainstorm?</h1>
+      </div>
+      <div>
+        <p class="text-4xl lg:text-base font-bold leading-relaxed">Getting ONE good idea is hard! <br>
+          <br>
+          But with enough ideas targeted towards one specific problem, chances are pretty high that you have some really good ideas.<br>
+          <br>
+          With a structured approach to brainstorming, you might start connecting the dots in new ways. <br>
+          <br>
+          Maybe in ways that no one did before!</p>
+      </div>
+    </div>
+    <div id="index-post-it-container" class="hidden lg:flex flex-row w-1/2 flex-wrap gap-2 content-center">
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+      <div class="lg:hidden bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+        <div class="flex flex-col justify-center h-full">
+          <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none"></p>
+        </div>
+        <div class="bg-yellowy triangle self-end -mr-4"></div>
+      </div>
+    </div>
+  </div>
+  <div class="mt-24 bg-greeny flex flex-col p-24">
+    <div class="flex flex-col">
+      <h1 class="text-white text-7xl lg:text-5xl font-bold">How it works</h1>
+      <div class="border-solid border-white border-t-8 w-7/12 lg:w-1/4 mt-2"></div>
+    </div>
+    <div class="flex flex-col lg:flex-row mt-24 h-full justify-between">
+      <div class="w-full mb-12 lg:m-0 lg:w-1/4 my-shadow border-solid border-white border-4">
+        <div class="bg-white">
+          <p class="py-2 px-4 italic text-greeny text-5xl lg:text-2xl font-semibold text-center">STEP #1</p>
+        </div>
+        <div class="flex justify-center mt-12">
+          <svg class="h-28 w-28" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
+        </div>
+        <div class="p-4">
+          <p class="lg:text-base text-4xl text-white font-bold leading-loose text-center mb-12">Share brainstorm link with your team</p>
+        </div>
+      </div>
+      <div class="w-full mb-12 lg:m-0 lg:w-1/4 my-shadow border-solid border-white border-4">
+        <div class="bg-white">
+          <p class="py-2 px-4 italic text-greeny text-5xl lg:text-2xl font-semibold text-center">STEP #2</p>
+        </div>
+        <div class="flex justify-center mt-12">
+          <svg class="h-28 w-28" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 21c0 .55.45 1 1 1h4c.55 0 1-.45 1-1v-1H9v1zm3-19C8.14 2 5 5.14 5 9c0 2.38 1.19 4.47 3 5.74V17c0 .55.45 1 1 1h6c.55 0 1-.45 1-1v-2.26c1.81-1.27 3-3.36 3-5.74 0-3.86-3.14-7-7-7zm2.85 11.1l-.85.6V16h-4v-2.3l-.85-.6C7.8 12.16 7 10.63 7 9c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.63-.8 3.16-2.15 4.1z"/></svg>
+        </div>
+        <div class="p-4">
+          <p class="lg:text-base text-4xl text-white leading-loose font-bold text-center mb-12">Come up with as many ideas as you can</p>
+        </div>
+      </div>
+      <div class="w-full lg:w-1/4 my-shadow border-solid border-white border-4">
+        <div class="bg-white">
+          <p class="py-2 px-4 italic text-greeny text-5xl lg:text-2xl font-semibold text-center">STEP #3</p>
+        </div>
+        <div class="flex justify-center mt-12">
+          <svg class="h-28 w-28" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><g><path d="M0,0h24v24H0V0z" fill="none"/><path d="M0,0h24v24H0V0z" fill="none"/></g><g><path d="M12,17.27L18.18,21l-1.64-7.03L22,9.24l-7.19-0.61L12,2L9.19,8.63L2,9.24l5.46,4.73L5.82,21L12,17.27z"/></g></svg>
+        </div>
+        <div class="p-4">
+          <p class="lg:text-base text-4xl text-white leading-loose font-bold text-center mb-12">Vote for your favorite ones</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="flex flex-row mt-16 mb-8 text-white">
+    <div class="flex bg-blurple flex-col mr-0 lg:mr-8 w-full p-24">
+      <h2 class="font-bold text-7xl lg:text-5xl leading-tight">HELP SPREAD <br>
+        THE WORD</h2>
+      <p class="font-bold mt-6 w-auto lg:text-base text-3xl">Do you want to tell others about this tool? Or do you have ideas for improvements? Please don't hold back!</p>
+      <div class="flex flex-row mt-16 justify-between">
+        <div class="flex flex-row">
+          <a href="https://twitter.com/intent/tweet?text=Say%20something%20great%20about%20http%3A//www.brainstormer.online/%20-%20or%20don't%20-%20it's%20completely%20up%20to%20you!">
+            <div class="hvr-grow lg:mr-8 mr-12 bg-white my-shadow-dark lg:h-24 lg:w-24 h-32 w-32 p-4">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Twitter" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                <path fill="#312783" d="M17.316,6.246c0.008,0.162,0.011,0.326,0.011,0.488c0,4.99-3.797,10.742-10.74,10.742  c-2.133,0-4.116-0.625-5.787-1.697c0.296,0.035,0.596,0.053,0.9,0.053c1.77,0,3.397-0.604,4.688-1.615  c-1.651-0.031-3.046-1.121-3.526-2.621c0.23,0.043,0.467,0.066,0.71,0.066c0.345,0,0.679-0.045,0.995-0.131  C2.84,11.183,1.539,9.658,1.539,7.828c0-0.016,0-0.031,0-0.047c0.509,0.283,1.092,0.453,1.71,0.473  c-1.013-0.678-1.68-1.832-1.68-3.143c0-0.691,0.186-1.34,0.512-1.898C3.942,5.498,6.725,7,9.862,7.158  C9.798,6.881,9.765,6.594,9.765,6.297c0-2.084,1.689-3.773,3.774-3.773c1.086,0,2.067,0.457,2.756,1.191  c0.859-0.17,1.667-0.484,2.397-0.916c-0.282,0.881-0.881,1.621-1.66,2.088c0.764-0.092,1.49-0.293,2.168-0.594  C18.694,5.051,18.054,5.715,17.316,6.246z" />
+              </svg>
+            </div>
+          </a>
+          <a href="https://www.facebook.com/sharer/sharer.php?u=http%3A//www.brainstormer.online/">
+            <div class="hvr-grow lg:mr-8 mr-12 bg-white my-shadow-dark lg:h-24 lg:w-24 h-32 w-32 p-5">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path fill="#312783" d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z" />
+              </svg>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/shareArticle?mini=true&url=http%3A//www.brainstormer.online/&title=This%20is%20a%20cool%20tool%20for%20online%20brainstorming!&summary=&source=">
+            <div class="hvr-grow lg:mr-8 mr-12 bg-white my-shadow-dark lg:h-24 lg:w-24 h-32 w-32 p-5">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="LinkedIn" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                <path fill="#312783" d="M1,6h4v13H1V6z M3,1C1.8,1,1,2,1,3.1C1,4.1,1.8,5,3,5c1.3,0,2-0.9,2-2C5,1.9,4.2,1,3,1z M14.6,6.2  c-2.1,0-3.3,1.2-3.8,2h-0.1l-0.2-1.7H6.9C6.9,7.6,7,8.9,7,10.4V19h4v-7.1c0-0.4,0-0.7,0.1-1c0.3-0.7,0.8-1.6,1.9-1.6  c1.4,0,2,1.2,2,2.8V19h4v-7.4C19,7.9,17.1,6.2,14.6,6.2z" style="&#10;    background-color: red;&#10;" />
+              </svg>
+            </div>
+          </a>
+        </div>
+        <div>
+          <a href="mailto: brainstormer.online@gmail.com">
+            <div class="hvr-grow bg-blurple border-4 border-white border-solid my-shadow-dark lg:h-24 lg:w-24 h-32 w-32 p-3">
+              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Mail" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                <path fill="#ffffff" d="M1.574,5.286c0.488,0.262,7.248,3.894,7.5,4.029C9.326,9.45,9.652,9.514,9.98,9.514  c0.328,0,0.654-0.064,0.906-0.199s7.012-3.767,7.5-4.029C18.875,5.023,19.337,4,18.44,4H1.521C0.624,4,1.086,5.023,1.574,5.286z   M18.613,7.489c-0.555,0.289-7.387,3.849-7.727,4.027s-0.578,0.199-0.906,0.199s-0.566-0.021-0.906-0.199S1.941,7.777,1.386,7.488  C0.996,7.284,1,7.523,1,7.707S1,15,1,15c0,0.42,0.566,1,1,1h16c0.434,0,1-0.58,1-1c0,0,0-7.108,0-7.292S19.004,7.285,18.613,7.489z" />
+              </svg>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="hidden lg:flex bg-white flex-col w-1/3 bg-blurple p-8">
+      <div class="border-4 border-white border-solid w-full h-full hvr-bounce-to-top hvr-buzz">
+        <svg class="m-auto" xmlns="http://www.w3.org/2000/svg" height="150px" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Heart" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+          <path fill="#312783" d="M17.19,4.155c-1.672-1.534-4.383-1.534-6.055,0L10,5.197L8.864,4.155c-1.672-1.534-4.382-1.534-6.054,0  c-1.881,1.727-1.881,4.52,0,6.246L10,17l7.19-6.599C19.07,8.675,19.07,5.881,17.19,4.155z" />
+        </svg>
+        <svg class="m-auto" height="150px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Heart" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+          <path fill="#312783" d="M17.19,4.155c-1.672-1.534-4.383-1.534-6.055,0L10,5.197L8.864,4.155c-1.672-1.534-4.382-1.534-6.054,0  c-1.881,1.727-1.881,4.52,0,6.246L10,17l7.19-6.599C19.07,8.675,19.07,5.881,17.19,4.155z" />
+        </svg>
+        <svg class="m-auto" height="150px" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Heart" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+          <path fill="#312783" d="M17.19,4.155c-1.672-1.534-4.383-1.534-6.055,0L10,5.197L8.864,4.155c-1.672-1.534-4.382-1.534-6.054,0  c-1.881,1.727-1.881,4.52,0,6.246L10,17l7.19-6.599C19.07,8.675,19.07,5.881,17.19,4.155z" />
+        </svg>
+      </div>
+    </div>
+  </div>
+  <%= render 'shared/footer' %>
+<script>
+  function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async function writeTextInPostIts() {
+    let textSample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet metus in vestibulum feugiat. Vivamus ut augue finibus, viverra turpis vel, dignissim lacus. Integer et ipsum ac neque elementum laoreet. Praesent id imperdiet libero, non bibendum mauris. Aenean nec dapibus lorem, vel sagittis arcu. Etiam semper sem eget ullamcorper ultrices. Praesent quis pellentesque nibh. Vestibulum orci neque, vehicula ac massa non, luctus facilisis lorem. Nunc pellentesque venenatis libero, at ornare lectus euismod eu. Nunc tincidunt sit amet sem at gravida.".split(" ")
+    pTags = document.getElementById("index-post-it-container").getElementsByTagName("p")
+
+    for(i = 0; i < pTags.length; i++) {
+      for (x = i*6; x < (i+1)*6; x++ ) {
+        pTags[i].parentNode.parentNode.classList.remove("lg:hidden")
+        pTags[i].textContent += textSample[x] + " "
+        await sleep(50);
+      }
+    }
+  }
+
+  writeTextInPostIts()
+    
+</script>

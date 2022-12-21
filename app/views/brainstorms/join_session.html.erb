@@ -6,7 +6,7 @@
       </div>
       <%= f.text_field :token, class: "border-solid border-t-2 border-l-2 border-b-2 border-black h-32 italic px-4 w-full focus:outline-none focus:text-black font-bold text-5xl text-lighter-gray my-shadow-lg", value: "#", autocomplete: "off" %>
       <div id="error-field-token-mobile">
-        <%= render 'shared/validation_error' %>
+        <%= render "shared/validation_error" %>
       </div>
       <button type="submit" class="mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer">JOIN SESSION
       </button>
@@ -40,18 +40,18 @@
           <%= f.text_field :token, class: "border-solid border-2 border-black h-16 italic px-4 w-full focus:outline-none focus:text-black font-bold text-2xl text-lighter-gray", value: "#", autocomplete: "off" %>
         </div>
         <div id="error-field-token">
-          <%= render 'shared/validation_error' %>
+          <%= render "shared/validation_error" %>
         </div>
       </div>
       <div class="mt-8 flex flex-row justify-between">
-        <%= link_to 'https://www.brainstormer.online' do %>
-          <div class="cursor-pointer hover:scale-105 ease-in-out duration-200 transform my-shadow-lg bg-white active:bg-blurple-gray text-lg font-bold h-14 w-14">
+        <%= link_to root_path do %>
+          <div class="cursor-pointer hvr-grow my-shadow-lg bg-white active:bg-blurple-gray text-lg font-bold h-14 w-14">
             <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_left" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
               <path fill="#352288" d="M12.141,13.418c0.268,0.271,0.268,0.709,0,0.978c-0.268,0.27-0.701,0.272-0.969,0l-3.83-3.908  c-0.268-0.27-0.268-0.707,0-0.979l3.83-3.908c0.267-0.27,0.701-0.27,0.969,0c0.268,0.271,0.268,0.709,0,0.978L9,10L12.141,13.418z" />
             </svg>
           </div>
         <% end %>
-        <button type="submit" class="hover:scale-105 ease-in-out duration-200 transform px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer focus:outline-none">JOIN SESSION</button>
+        <button type="submit" class="hvr-grow px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer focus:outline-none">JOIN SESSION</button>
       </div>
     <% end %>
   </div>

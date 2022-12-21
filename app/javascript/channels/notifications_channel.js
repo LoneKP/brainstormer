@@ -2,7 +2,7 @@ import consumer from "./consumer"
 
 const session_id = document.cookie
   .split("; ")
-  .find(row => row.startsWith("user_id="))
+  .find(row => row.startsWith("visitor_id="))
   .split("=")[1];
 
 consumer.subscriptions.create({

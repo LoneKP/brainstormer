@@ -4,6 +4,7 @@
     <title>brainstormer.online</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
     <%= javascript_pack_tag 'application' %>
     <%= stylesheet_pack_tag 'application', media: 'all' %>
@@ -27,7 +28,8 @@
     <meta property="twitter:image" content="<%= asset_path('some_image.png') %>">
   </head>
   <body class="font-mono <%= action_name == "show" ? "bg-pattern" : "bg-beigy" %>">
-    <%= render 'shared/feedback' %>
+    <%= render "shared/flash" %>
+    <%= render "shared/feedback" %>
     <%= yield %>
   </body>
 </html>

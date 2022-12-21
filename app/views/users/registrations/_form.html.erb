@@ -1,0 +1,53 @@
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "h-full flex flex-col gap-4"}) do |f| %>
+
+  <div class="field">
+    <%= f.label :name, class: "italic text-lg font-bold leading-none mb-1" %><br />
+    <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+    <% if resource.errors[:name].any? %>
+      <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+        <span><%= resource.errors[:name][0] %></span>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class="field">
+    <%= f.label :email, class: "italic text-lg font-bold leading-none mb-1" %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+    <% if resource.errors[:email].any? %>
+      <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+        <span><%= resource.errors[:email].last %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password, class: "italic text-lg font-bold leading-none mb-1" %>
+    <% if @minimum_password_length %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+    <% if resource.errors[:password].any? %>
+      <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+        <span><%= resource.errors[:password].last %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="field">
+    <%= f.label :password_confirmation, class: "class: italic text-lg font-bold leading-none mb-1" %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+    <% if resource.errors[:password_confirmation].any? %>
+      <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+        <span><%= resource.errors.full_messages.last %></span>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="text-xs">
+    <%= render "users/shared/links" %>
+  </div>
+
+  <div class="actions flex justify-end mt-10">
+    <%= f.submit "Sign up", class: "hvr-grow px-10 py-2 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer" %>
+  </div>
+<% end %>

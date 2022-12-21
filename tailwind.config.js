@@ -1,5 +1,11 @@
 const defaultTheme = require('tailwindcss/defaultTheme')
 module.exports = {
+  mode: "jit",
+  purge: [
+    './app/views/**/*.html.erb',
+    './app/helpers/**/*.rb',
+    './app/javascript/**/*.js',
+  ],
   theme: {
     scale: {
       '0': '0',
@@ -37,10 +43,17 @@ module.exports = {
       keyframes: {
         "ping-once": {
           "0%, 100%": { transform: "scale(1.3)" }
-        }
+        },
+        openmenu: {
+          // initial position
+              '0%': {right:  '-300px'},
+          // final position
+              '100%': {right:  '0px'}
+          },
       },
       animation: {
         "ping-once": 'ping-once ease 200ms 1',
+        "openmenu": "openmenu 0.15s ease-in-out",
       },
       height: theme => ({
         "screen/2": "50vh",
@@ -110,6 +123,7 @@ module.exports = {
     extend: {
       backgroundColor: ['active'],
       animation: ['hover'],
+      visibility: ["group-hover"],
     }
   },
   plugins: [
