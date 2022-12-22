@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  has_many :brainstorms, as: :facilitated_by
+  has_many :brainstorms, as: :facilitated_by, dependent: :destroy
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
