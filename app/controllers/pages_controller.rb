@@ -1,4 +1,5 @@
 class PagesController < ApplicationController
+  before_action :set_session_for_all_types
   before_action :authenticate_user!, only: [:my_brainstorms]
 
   def pages_template
