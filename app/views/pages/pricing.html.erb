@@ -114,16 +114,20 @@
             </div>
           </div>
           <div class="border-dotted border-blurple border-4 h-20"></div>
-          <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-greeny active:bg-darker-greeny leading-tight my-shadow-sm w-full">
-            <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
-              <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">Get started</div>
-            </div>
-          </button>
-          <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-blurple active:bg-darker-blurple leading-tight my-shadow-sm w-full">
-            <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
-              <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">Get in touch</div>
-            </div>
-          </button>
+          <%= link_to "https://forms.gle/VknZq7tTUXUr7UXw7", target: :_blank do %>
+            <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-greeny active:bg-darker-greeny leading-tight my-shadow-sm w-full">
+              <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
+                <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">Get started</div>
+              </div>
+            </button>
+          <% end %>
+          <%= link_to "https://forms.gle/VknZq7tTUXUr7UXw7", target: :_blank do %>
+            <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-blurple active:bg-darker-blurple leading-tight my-shadow-sm w-full">
+              <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
+                <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">Get in touch</div>
+              </div>
+            </button>
+          <% end %>
         </div>
       </div>
       <div class="bg-dots-smaller mb-12 h-40 mx-6"></div>
