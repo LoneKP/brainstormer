@@ -11,4 +11,7 @@ class PagesController < ApplicationController
     @in_progress = current_user.brainstorms.select(&:in_progress)
     @done = current_user.brainstorms.select(&:done)
   end
+
+  def pricing
+  end
 end

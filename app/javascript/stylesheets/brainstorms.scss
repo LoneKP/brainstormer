@@ -69,6 +69,13 @@
   background-position: 0 0, 0px 0px;
 }
 
+.bg-dots-smaller {
+  background-image:
+    radial-gradient(#ffffff 12%, transparent 0),
+    radial-gradient(#ffffff 12%, transparent 0);
+  background-size: 40px 40px;
+}
+
 .bg-dots {
   background-image:
     radial-gradient(#ffffff 14%, transparent 0),

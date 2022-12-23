@@ -27,7 +27,7 @@
     <meta property="twitter:description" content="Easy facilitation of online brainstorming sessions">
     <meta property="twitter:image" content="<%= asset_path('some_image.png') %>">
   </head>
-  <body class="font-mono <%= action_name == "show" ? "bg-pattern" : "bg-beigy" %>">
+  <body class="font-mono <%= if action_name == "pricing"; "bg-blurple"; elsif action_name == "show"; "bg-pattern" else "bg-beigy"; end %>">
     <%= render "shared/flash" %>
     <%= render "shared/feedback" %>
     <%= yield %>
