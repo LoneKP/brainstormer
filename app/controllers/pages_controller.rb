@@ -10,8 +10,10 @@ class PagesController < ApplicationController
     @ready_for_ideation = current_user.brainstorms.select(&:ready_for_ideation)
     @in_progress = current_user.brainstorms.select(&:in_progress)
     @done = current_user.brainstorms.select(&:done)
+    ahoy.track "my_brainstorms_page"
   end
 
   def pricing
+    ahoy.track "pricing_page"
   end
 end
