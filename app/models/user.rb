@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   has_many :brainstorms, as: :facilitated_by, dependent: :destroy
+  has_many :visits, class_name: "Ahoy::Visit"
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
