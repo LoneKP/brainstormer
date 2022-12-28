@@ -144,6 +144,7 @@
             </div>
           </div>
           <!--/Dialog 2 -->
+          <% if !current_user %>
           <div class="my-shadow-lg bg-light-blurple flex flex-col py-12 px-16">
             <div class="flex flex-row justify-between items-baseline mb-2">
               <%= f.label :name, class: "italic text-lg font-bold leading-none"  %>
@@ -157,6 +158,9 @@
               </div>
             <% end %>
           </div>
+          <% else %>
+          <%= f.hidden_field :name, :value => current_user.name %>
+          <% end %>
           <div class="mt-8 flex flex-row justify-between">
             <%= link_to root_path do %>
               <div class="hvr-grow active:bg-blurple-gray cursor-pointer my-shadow-lg bg-white text-lg font-bold h-14 w-14">
