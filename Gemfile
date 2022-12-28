@@ -7,11 +7,11 @@ gem 'google-cloud-storage'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '6.1.5'
 # Use postgresql as the database for Active Record
-gem 'pg', '>= 0.18', '< 2.0'
+gem 'pg', '~> 1.4', '>= 1.4.5'
 # Use Puma as the app server
 gem 'puma', '~> 4.3'
 # Use Sidekiq as the Active Job adapter
-gem "sidekiq", "~> 6.4"
+gem 'sidekiq', '~> 7.0.2'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
@@ -38,7 +38,8 @@ gem 'net-pop'  # for rspec
 gem 'jbuilder', '~> 2.7'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis'
+gem 'redis', '~> 4.2'
+gem 'redis-client'
 gem 'redis-rails'
 gem 'kredis', github: 'rails/kredis'
 

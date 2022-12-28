@@ -18,7 +18,7 @@ class BrainstormsController < ApplicationController
     @brainstorm = Brainstorm.new(brainstorm_params)
     @brainstorm.facilitated_by = current_user || guest
       if @brainstorm.save
-        REDIS.set @session_id, @brainstorm.name
+        #REDIS.set @session_id, @brainstorm.name
         @brainstorm.state = :setup
         #@brainstorm.facilitator_session_id = @session_id
         redirect_to "/#{@brainstorm.token}"
