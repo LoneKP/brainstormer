@@ -65,20 +65,25 @@ class BrainstormsController < ApplicationController
   def go_to_brainstorm
     token = params[:token].remove("#")
     brainstorm = Brainstorm.find_sole_by_token(token)
-    respond_to do |format|
-      if !brainstorm.nil? && token.length >= 6
-        format.js { render :js => "window.location.href = '#{brainstorm_show_path(brainstorm.token)}'" }
-      elsif token.length == 0
-        flash.now["token"] = "You forgot to write an ID! If you don't have one you should ask the facilitator"
-        format.js
-      elsif token.length < 6
-        flash.now["token"] = "It looks like this ID is too short"
-        format.js
-      else
-        flash.now["token"] = "It looks like this ID doesn't exist"
-        format.js
-      end
+    if brainstorm
+      redirect_to brainstorm_show_path(token)
+    else
+      render :join_session
     end
+    # respond_to do |format|
+    #   if !brainstorm.nil? && token.length >= 6
+    #     format.js { render :js => "window.location.href = '#{brainstorm_show_path(brainstorm.token)}'" }
+    #   elsif token.length == 0
+    #     flash.now["token"] = "You forgot to write an ID! If you don't have one you should ask the facilitator"
+    #     format.js
+    #   elsif token.length < 6
+    #     flash.now["token"] = "It looks like this ID is too short"
+    #     format.js
+    #   else
+    #     flash.now["token"] = "It looks like this ID doesn't exist"
+    #     format.js
+    #   end
+    # end
   end
 
   def done_brainstorming
