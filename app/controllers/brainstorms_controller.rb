@@ -29,9 +29,6 @@ class BrainstormsController < ApplicationController
     @ideas = @brainstorm.ideas
     @idea  = @ideas.new
     
-    #not sure type is needed
-    @type = @session.type
-    
     if @brainstorm.facilitated_by_type == "Guest"
       @current_facilitator = @brainstorm.facilitated_by_id == @session.guest.to_i
     elsif @brainstorm.facilitated_by_type == "User"
