@@ -54,7 +54,6 @@ consumer.subscriptions.create({
   received(data) {
     switch (data.event) {
       case "transmit_presence_list":
-        console.log("presence list:", data)
         const onlineUsers = Object.values(data.online_users)
         if (typeof currentUser == "undefined") {
           location.reload();

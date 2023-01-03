@@ -20,7 +20,6 @@ consumer.subscriptions.create({ channel: "IdeasChannel", token: location.pathnam
         break;
       case "transmit_ideas":
         buildHTML(data.ideas, brainstormStore.state, data.available_votes);
-        console.log(data)
     }
   }
 });

@@ -4,7 +4,6 @@ consumer.subscriptions.create({
   channel: "ProblemChannel", token: location.pathname.replace("/", "")
 }, {
   received(data) {
-    console.log(data.problem)
     updateProblemBoxes(data.problem)
   },
 })
