@@ -23,7 +23,7 @@ class IdeaBuildsController < ApplicationController
     @idea = Idea.find(params[:idea_id])
     @brainstorm = @idea.brainstorm
 
-    @voting = Session::Voting.new(@brainstorm, @session_id)
+    @voting = Session::Voting.new(@brainstorm, @visitor_id)
     @voting.toggle_vote_for(@idea_build)
   end
 

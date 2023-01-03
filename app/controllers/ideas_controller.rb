@@ -30,7 +30,7 @@ class IdeasController < ApplicationController
 
   def vote
     @brainstorm = @idea.brainstorm
-    @voting = Session::Voting.new(@brainstorm, @session_id)
+    @voting = Session::Voting.new(@brainstorm, @visitor_id)
     @voting.toggle_vote_for(@idea)
   end
 
