@@ -106,9 +106,9 @@ class BrainstormsController < ApplicationController
   end
 
   def done_voting
-    @voting = Session::Voting.new(@brainstorm, @session_id)
+    @voting = Session::Voting.new(@brainstorm, @visitor_id)
     @voting.toggle_voting_done
-    PresenceChannel.broadcast_to @brainstorm, { event: "toggle_done_voting_badge", state: "vote", user_id: @session_id }
+    PresenceChannel.broadcast_to @brainstorm, { event: "toggle_done_voting_badge", state: "vote", user_id: @visitor_id }
   end
 
   def end_voting
