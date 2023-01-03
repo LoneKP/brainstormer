@@ -35,7 +35,7 @@
     <% end %>
   <% end %>
     <div class="flex lg:space-x-2">
-      <%= link_to download_brainstorm_path(token: @brainstorm.token, session_id: @session_id), method: :post, id: "save-to-pdf-button" do %>
+      <%= link_to download_brainstorm_path(token: @brainstorm.token, visitor_id: @visitor_id), method: :post, id: "save-to-pdf-button" do %>
         <button class="hidden lg:block hvr-grow lg:p-2 md:p-4 text-white font-semibold uppercase bg-blurple active:bg-darker-blurple leading-tight my-shadow-lg lg:w-56">
           <div class="border-solid border-white border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
               <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">SAVE TO PDF</div>

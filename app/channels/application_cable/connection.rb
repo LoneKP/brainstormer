@@ -1,9 +1,9 @@
 module ApplicationCable
   class Connection < ActionCable::Connection::Base
-    identified_by :session_id
+    identified_by :visitor_id
 
     def connect
-      self.session_id = cookies[:visitor_id]
+      self.visitor_id = cookies[:visitor_id]
     end
   end
 end

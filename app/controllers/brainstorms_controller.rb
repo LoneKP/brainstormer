@@ -18,9 +18,7 @@ class BrainstormsController < ApplicationController
     @brainstorm = Brainstorm.new(brainstorm_params)
     @brainstorm.facilitated_by = current_user || guest
       if @brainstorm.save
-        #REDIS.set @session_id, @brainstorm.name
         @brainstorm.state = :setup
-        #@brainstorm.facilitator_session_id = @session_id
         redirect_to "/#{@brainstorm.token}"
       else
         render :new
@@ -30,7 +28,6 @@ class BrainstormsController < ApplicationController
   def show
     @ideas = @brainstorm.ideas
     @idea  = @ideas.new
-    @session_id = @session.id
     
     #not sure type is needed
     @type = @session.type
@@ -43,7 +40,7 @@ class BrainstormsController < ApplicationController
       false
     end
 
-    @voting = Session::Voting.new(@brainstorm, @session_id)
+    @voting = Session::Voting.new(@brainstorm, @visitor_id)
 
     @total_users_online = REDIS.hgetall(brainstorm_key).keys.count
 

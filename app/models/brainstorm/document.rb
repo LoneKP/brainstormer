@@ -4,21 +4,21 @@ class Brainstorm::Document
     @brainstorm = brainstorm
   end
 
-  def generate_pdf(html, session_id)
-    GeneratePdfJob.perform_later(html, brainstorm, session_id)
-    broadcast :generating, session_id
+  def generate_pdf(html, visitor_id)
+    GeneratePdfJob.perform_later(html, brainstorm, visitor_id)
+    broadcast :generating, visitor_id
   end
 
-  def done(session_id)
-    broadcast :done, session_id
+  def done(visitor_id)
+    broadcast :done, visitor_id
   end
 
   private
 
   attr_reader :brainstorm
 
-  def broadcast(status, session_id)
-    NotificationsChannel.broadcast_to session_id, { status: status }
+  def broadcast(status, visitor_id)
+    NotificationsChannel.broadcast_to visitor_id, { status: status }
   end
 
 end

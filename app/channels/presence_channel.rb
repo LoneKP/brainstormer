@@ -20,20 +20,14 @@ class PresenceChannel < ApplicationCable::Channel
     #set_random_name_if_user_has_no_name
     #byebug
     REDIS.set user_color_key, random_color_class
-    REDIS.hset brainstorm_key, session_id, Time.now
+    REDIS.hset brainstorm_key, visitor_id, Time.now
     transmit_list!
   end
 
   def remove_from_list_and_transmit!
-    REDIS.hdel brainstorm_key, session_id
+    REDIS.hdel brainstorm_key, visitor_id
     transmit_list!
   end
-
-  # def set_random_name_if_user_has_no_name
-  #   if REDIS.get(session_id).nil?
-  #     REDIS.set session_id, temporary_user_name
-  #   end
-  # end
 
   def transmit_list!
     visitors = REDIS.hgetall(brainstorm_key).keys
@@ -69,20 +63,16 @@ class PresenceChannel < ApplicationCable::Channel
   end
 
   def user_key
-    "#{session_id}"
+    "#{visitor_id}"
   end
 
   def user_color_key
-    "user_color_for_user_id_#{session_id}"
+    "user_color_for_user_id_#{visitor_id}"
   end
 
   def done_voting_brainstorm_status
     "done_voting_brainstorm_status_#{@brainstorm.token}"
   end
-
-  # def temporary_user_name
-  #   "Anonymous Brainstormer"
-  # end
 
   def random_color_class
     color_classes = ["bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy"]

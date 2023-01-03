@@ -4,15 +4,15 @@ class Session::Voting
   include Kredis::Attributes
   include Brainstorm::States, Ideated, DoneVoting
 
-  kredis_set :idea_votes,       typed: :integer, key: ->(v) { "user_idea_votes_#{v.session_id}_#{v.brainstorm.token}" }
-  kredis_set :idea_build_votes, typed: :integer, key: ->(v) { "user_idea_build_votes_#{v.session_id}_#{v.brainstorm.token}" }
+  kredis_set :idea_votes,       typed: :integer, key: ->(v) { "user_idea_votes_#{v.visitor_id}_#{v.brainstorm.token}" }
+  kredis_set :idea_build_votes, typed: :integer, key: ->(v) { "user_idea_build_votes_#{v.visitor_id}_#{v.brainstorm.token}" }
 
   kredis_hash :brainstorm_voting_status, typed: :boolean, key: ->(v) { "done_voting_brainstorm_status_#{v.brainstorm.token}" }
 
-  attr_reader :brainstorm, :session_id
+  attr_reader :brainstorm, :visitor_id
 
-  def initialize(brainstorm, session_id)
-    @brainstorm, @session_id = brainstorm, session_id
+  def initialize(brainstorm, visitor_id)
+    @brainstorm, @visitor_id = brainstorm, visitor_id
   end
 
   def dynamic_vote_count
@@ -63,15 +63,15 @@ class Session::Voting
   end
 
   def finish
-    brainstorm_voting_status[session_id] = true
+    brainstorm_voting_status[visitor_id] = true
   end
 
   def open
-    brainstorm_voting_status[session_id] = false
+    brainstorm_voting_status[visitor_id] = false
   end
 
   def done?
-    brainstorm_voting_status[session_id]
+    brainstorm_voting_status[visitor_id]
   end
 
   def toggle_voting_done

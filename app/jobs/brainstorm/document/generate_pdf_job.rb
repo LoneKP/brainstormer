@@ -1,6 +1,6 @@
 class Brainstorm::Document::GeneratePdfJob < ApplicationJob
 
-  def perform(html, brainstorm, session_id)
+  def perform(html, brainstorm, visitor_id)
 
     brainstorm_pdf = WickedPdf.new.pdf_from_string(html)
 
@@ -10,9 +10,9 @@ class Brainstorm::Document::GeneratePdfJob < ApplicationJob
 
   after_perform do |job|
     brainstorm = job.arguments[1]
-    session_id = job.arguments[2]
+    visitor_id = job.arguments[2]
     
-    brainstorm.document.done(session_id)
+    brainstorm.document.done(visitor_id)
   end
 end
 
