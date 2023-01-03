@@ -2,7 +2,7 @@
 <div class="p-6 lg:mr-8 mt-8 bg-post-it-yellowy my-shadow-lg">
   <h2 class="italic text-6xl lg:text-2xl font-semibold font-bold">Add thought</h2>
   <div class="field mt-8">
-    <%= f.text_area :text, class:"italic font-bold w-full h-screen/5 lg:h-32 opacity-75 focus:outline-none border-dashed border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal md:text-5xl lg:text-xl lg:text-base" %>
+    <%= f.text_area :text, class:"italic font-bold w-full h-screen/5 lg:h-32 opacity-75 focus:outline-none border-dashed border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal break-words md:text-5xl lg:text-xl lg:text-base" %>
   </div>
   <%= f.hidden_field :brainstorm_id, :value => @brainstorm.id %>
   <div id="error-field-idea">

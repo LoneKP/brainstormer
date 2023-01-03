@@ -60,7 +60,7 @@
                      </g>
                    </svg>
                  </div>
-                 <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal"><%= idea.text %></p>
+                 <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full"><%= idea.text %></p>
                </div>
                <% end %>
                <% idea.idea_builds.order(:id).each do |idea_build| %>
@@ -84,7 +84,7 @@
                      </g>
                    </svg>
                  </div>
-                 <p class="py-4 text-4xl lg:text-base leading-loose lg:leading-normal "><%= idea_build.idea_build_text %></p>
+                 <p class="py-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full "><%= idea_build.idea_build_text %></p>
                </div>
                <% end %>
                <% end %>
