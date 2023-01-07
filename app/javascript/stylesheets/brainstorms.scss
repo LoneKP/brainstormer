@@ -56,6 +56,10 @@
   @apply hover:scale-105 ease-in-out duration-200 transform
 }
 
+.underlineSelection {
+  @apply border-solid border-b-2 border-blurple font-bold
+}
+
 .bg-post-it-yellowy-90 {
   background-color: rgba(246,229,115,0.9)
 }

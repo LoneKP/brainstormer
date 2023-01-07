@@ -16,13 +16,18 @@
           </div>
         </div>
 
+        <div onclick="togglePaymentInterval()" class="flex flex-row mt-8 self-center cursor-pointer">
+        <p id="billedMonthly" class="underlineSelection uppercase text-blurple px-4 pb-2">Billed Monthly</p>
+        <p id="billedYearly" class="uppercase text-blurple px-4 pb-2">Billed yearly</p>
+        </div>
+
         <div class="grid grid-cols-3 grid-flow-row gap-6 mt-10 mb-20">
-          <div class="my-shadow-sm text-blurple bg-beigy font-bold py-6 text-center text-lg">BASIC</div>
-          <div class="my-shadow-sm text-white bg-greeny font-bold py-6 text-center text-lg">PLUS</div>
-          <div class="my-shadow-sm text-white bg-blurple font-bold py-6 text-center text-lg">EDUCATION</div>
+          <div class="my-shadow-sm text-blurple bg-beigy font-bold py-6 text-center text-lg">HOBBYIST</div>
+          <div class="my-shadow-sm text-white bg-greeny font-bold py-6 text-center text-lg">FACILITATOR</div>
+          <div class="my-shadow-sm text-white bg-blurple font-bold py-6 text-center text-lg">ORGANIZATION</div>
           <div class="my-shadow-sm text-blurple bg-beigy italic text-lg py-4 text-center">Free</div>
-          <div class="my-shadow-sm text-white bg-greeny italic text-lg py-4 text-center">$8 / month</div>
-          <div class="my-shadow-sm text-white bg-blurple italic text-lg py-4 text-center">$4 / month</div>
+          <div id="secondTierPrice" class="my-shadow-sm text-white bg-greeny italic text-lg py-4 text-center">$7.99 / month</div>
+          <div id="thirdTierPrice" class="my-shadow-sm text-white bg-blurple italic text-lg py-4 text-center">$49.99 / month</div>
           <div class="my-shadow-sm text-blurple bg-beigy gap-6 py-4 text-xs flex flex-col">
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined text-sm pr-2">lightbulb</i>
@@ -30,15 +35,15 @@
             </div>
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined text-sm pr-2">people</i>
-              <p>Unlimited participants</p>
-            </div>
-            <div class="flex px-4 items-center">
-              <i class="material-icons-outlined text-sm pr-2">timer</i>
-              <p>Built-in timer</p>
+              <p>10 participants</p>
             </div>
             <div class="flex px-4 items-center">
               <i class="material-icons text-sm pr-2">favorite_border</i>
               <p>Voting</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">mail_outline</i>
+              <p>Email ideas</p>
             </div>
           </div>
           <div class="my-shadow-sm text-white bg-greeny gap-6 py-4 text-xs flex flex-col">
@@ -48,15 +53,15 @@
             </div>
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined text-sm pr-2">people</i>
-              <p>Unlimited participants</p>
-            </div>
-            <div class="flex px-4 items-center">
-              <i class="material-icons-outlined text-sm pr-2">timer</i>
-              <p>Built-in timer</p>
+              <p>25 participants</p>
             </div>
             <div class="flex px-4 items-center">
               <i class="material-icons text-sm pr-2">favorite_border</i>
               <p>Voting</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">mail_outline</i>
+              <p>Email ideas</p>
             </div>
           </div>
           <div class="my-shadow-sm text-white bg-blurple gap-6 py-4 text-xs flex flex-col">
@@ -66,51 +71,59 @@
             </div>
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined text-sm pr-2">people</i>
-              <p>Unlimited participants</p>
-            </div>
-            <div class="flex px-4 items-center">
-              <i class="material-icons-outlined text-sm pr-2">timer</i>
-              <p>Built-in timer</p>
+              <p>50 participants</p>
             </div>
             <div class="flex px-4 items-center">
               <i class="material-icons text-sm pr-2">favorite_border</i>
               <p>Voting</p>
             </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">mail_outline</i>
+              <p>Email ideas</p>
+            </div>
           </div>
           <div class="row-span-4 border-dotted border-4 border-beigy"></div>
           <div class="my-shadow-sm bg-greeny text-white gap-6 py-4 text-xs flex flex-col">
             <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">timer</i>
+              <p>Set duration</p>
+            </div>
+            <div class="flex px-4 items-center">
               <i class="material-icons-outlined text-sm pr-2">save</i>
-              <p>Brainstorms overview</p>
+              <p>Save brainstorms</p>
             </div>
             <div class="flex px-4 items-center">
               <i class="material-icons text-sm pr-2">picture_as_pdf</i>
-              <p>Export as PDF and more</p>
-            </div>
-            <div class="flex px-4 items-center">
-              <i class="material-icons-outlined text-sm pr-2">lock</i>
-              <p>Private brainstorms</p>
+              <p>Export as PDF</p>
             </div>
           </div>
           <div class="my-shadow-sm bg-blurple text-white gap-6 py-4 text-xs flex flex-col">
             <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">timer</i>
+              <p>Set duration</p>
+            </div>
+            <div class="flex px-4 items-center">
               <i class="material-icons-outlined text-sm pr-2">save</i>
-              <p>Brainstorms overview</p>
+              <p>Save brainstorms</p>
             </div>
             <div class="flex px-4 items-center">
               <i class="material-icons text-sm pr-2">picture_as_pdf</i>
-              <p>Export as PDF and more</p>
-            </div>
-            <div class="flex px-4 items-center">
-              <i class="material-icons-outlined text-sm pr-2">lock</i>
-              <p>Private brainstorms</p>
+              <p>Export as PDF</p>
             </div>
           </div>
           <div class="border-4 border-dotted border-greeny row-span-2"></div>
           <div class="my-shadow-sm bg-blurple text-white gap-6 py-4 text-xs flex flex-col">
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">lock</i>
+              <p>Private brainstorms</p>
+            </div>
             <div class="flex px-4 items-start">
-              <i class="material-icons-outlined text-sm pr-2">star_border</i>
-              <p>A special price for educators, because ideas and education belong together</p>
+              <i class="material-icons-outlined text-sm pr-2">headset_mic</i>
+              <p>Dedicated customer support</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">question_answer</i>
+              <p>Onboarding</p>
             </div>
           </div>
           <div class="border-dotted border-blurple border-4 h-20"></div>
@@ -135,3 +148,33 @@
   </div>
   <%= render 'shared/footer' %>
 </div>
+
+<script>
+const togglePaymentInterval = () => {
+  const billedMonthly = document.getElementById("billedMonthly")         
+  const billedYearly = document.getElementById("billedYearly")         
+  billedMonthly.classList.toggle("underlineSelection")
+  billedYearly.classList.toggle("underlineSelection")
+
+  const secondTierPrice = document.getElementById("secondTierPrice")  
+  const thirdTierPrice = document.getElementById("thirdTierPrice")
+
+  const secondTierMonthlyPrice = "$7.99 / month"
+  const secondTierYearlyPrice = "$19.99 / year"
+  const thirdTierMonthlyPrice = "$49.99 / month"
+  const thirdTierYearlyPrice = "$99.99 / year"
+  
+  if (secondTierPrice.innerHTML === secondTierMonthlyPrice) {
+    secondTierPrice.innerHTML = secondTierYearlyPrice
+  } else {
+    secondTierPrice.innerHTML = secondTierMonthlyPrice
+  }
+
+  if (thirdTierPrice.innerHTML === thirdTierMonthlyPrice) {
+    thirdTierPrice.innerHTML = thirdTierYearlyPrice
+  } else {
+    thirdTierPrice.innerHTML = thirdTierMonthlyPrice
+  }
+  
+}
+</script>
