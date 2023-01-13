@@ -3,7 +3,7 @@
     <div class="flex flex-row justify-end">
       <% if user_signed_in? %>
         <div class="flex">
-          <button onclick="toggleMenu()" class="justify-center uppercase hvr-grow inline-flex my-shadow py-2 px-4 lg:py-3 text-blurple focus:outline-none gap-8 flex-row items-center my-shadow lg:px-8 bg-white border-solid border-2 border-white">
+          <button onclick="toggleMenu()" class="font-bold justify-center uppercase hvr-grow inline-flex my-shadow py-2 px-4 lg:py-3 text-blurple focus:outline-none gap-8 flex-row items-center my-shadow lg:px-8 bg-white border-solid border-2 border-white">
             <p><%= "#{current_user.name}" %></p>
             <div class="flex flex-col gap-1.5">
               <div class="bg-blurple w-6 h-0.5"></div>
