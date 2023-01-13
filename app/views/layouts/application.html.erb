@@ -26,9 +26,12 @@
     <meta property="twitter:title" content="Come up with great ideas together!">
     <meta property="twitter:description" content="Easy facilitation of online brainstorming sessions">
     <meta property="twitter:image" content="<%= asset_path('some_image.png') %>">
+    <script src="https://js.stripe.com/v3"></script>
   </head>
   <body class="font-mono <%= if action_name == "pricing"; "bg-blurple"; elsif action_name == "show"; "bg-pattern" else "bg-beigy"; end %>">
-    <%= render "shared/flash" %>
+    <% unless move_flash_messages? %>
+      <%= render "shared/flash" %>
+    <% end %>
     <%= render "shared/feedback" %>
     <%= yield %>
   </body>

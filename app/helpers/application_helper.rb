@@ -5,4 +5,8 @@ module ApplicationHelper
     return "mobile" if agent =~ /Mobile/
     return "desktop"
   end
+
+  def move_flash_messages?
+    params[:controller] == "users/sessions" && params[:action] == "create"
+  end
 end

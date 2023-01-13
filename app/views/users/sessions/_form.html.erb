@@ -1,15 +1,15 @@
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "h-full flex flex-col"}) do |f| %>
+<% flash.each do |message_type, message| %>
+  <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+    <%= message %>
+  </div>
+<% end %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "h-full flex flex-col mt-2"}) do |f| %>
   <div class="field">
     <div class="mb-1">
       <%= f.label :email, class: "italic text-lg font-bold leading-none mb-1" %><br />
     </div>
     <div class="mb-4">
       <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
-      <% if resource.errors[:email].any? %>
-        <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
-          <span><%= resource.errors[:email].last %></span>
-        </div>
-      <% end %>
     </div>
   </div>
 
@@ -19,11 +19,6 @@
     </div>
     <div class="mb-3">
       <%= f.password_field :password, autocomplete: "current-password", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
-      <% if resource.errors[:password].any? %>
-        <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
-          <span><%= resource.errors[:password].last %></span>
-        </div>
-      <% end %>
     </div>
   </div>
 
