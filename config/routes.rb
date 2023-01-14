@@ -40,6 +40,9 @@ Rails.application.routes.draw do
   get '/privacy-policy', to: 'pages#pages_template'
   get '/my-brainstorms', to: 'pages#my_brainstorms'
   get '/pricing', to: 'pages#pricing'
+  
+  get '/checkouts', to: 'subscriptions#checkout'
+  get '/my-plan', to: 'subscriptions#my_plan'
 
   root 'pages#index'
 

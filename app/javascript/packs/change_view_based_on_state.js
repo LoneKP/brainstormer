@@ -85,7 +85,7 @@ setAndChangeBrainstormState = function (state) {
 
 removeNameListUserIdIfUserIsFacilitator = function () {
   if (currentUser.facilitator == "true") {
-    let userNameElement = document.getElementById(`name-list-user-id-${currentUser.id}`);
+    let userNameElement = document.getElementById(`name-list-user-id-${currentUser.visitorId}`);
     userNameElement.remove();
   }
 }

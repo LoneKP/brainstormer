@@ -8,7 +8,12 @@ class Session
 
   def set_hash
     @key = Kredis.hash(visitor_id)
-    @key.update("visitor_id" => visitor_id.to_s, "guest_id" => guest_id.to_s, "user_id" => user_id.to_s, "name" => name.to_s)  
+    @key.update(
+      "visitor_id" => visitor_id.to_s, 
+      "guest_id" => guest_id.to_s, 
+      "user_id" => user_id.to_s, 
+      "name" => name.to_s
+    )  
   end
 
   def id

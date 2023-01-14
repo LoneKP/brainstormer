@@ -12,7 +12,7 @@
         <div class="pt-20">
           <div class="flex flex-col gap-1 text-lg text-blurple">
             <p class="flex items-center gap-2">Brainstormer runs on love. <i class="text-xl material-icons cursor-default text-reddy hover:animate-ping">favorite</i></p>
-            <p>But you can help keep it going by subscribing.</p>
+            <p>But you can expect more by subscribing.</p>
           </div>
         </div>
 
@@ -127,14 +127,14 @@
             </div>
           </div>
           <div class="border-dotted border-blurple border-4 h-20"></div>
-          <%= link_to "https://forms.gle/VknZq7tTUXUr7UXw7", target: :_blank do %>
+          <%= link_to checkouts_path(plan: :monthly), id: "link-to-stripe" do %>
             <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-greeny active:bg-darker-greeny leading-tight my-shadow-sm w-full">
               <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
                 <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">Get started</div>
               </div>
             </button>
           <% end %>
-          <%= link_to "https://forms.gle/VknZq7tTUXUr7UXw7", target: :_blank do %>
+          <%= mail_to "brainstormer.online@gmail.com" do %>
             <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-blurple active:bg-darker-blurple leading-tight my-shadow-sm w-full">
               <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
                 <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">Get in touch</div>
@@ -151,11 +151,14 @@
 
 <script>
 const togglePaymentInterval = () => {
+
+  //View if it is monthly or yearly
   const billedMonthly = document.getElementById("billedMonthly")         
   const billedYearly = document.getElementById("billedYearly")         
   billedMonthly.classList.toggle("underlineSelection")
   billedYearly.classList.toggle("underlineSelection")
 
+  //Change the prices in the table
   const secondTierPrice = document.getElementById("secondTierPrice")  
   const thirdTierPrice = document.getElementById("thirdTierPrice")
 
@@ -175,6 +178,19 @@ const togglePaymentInterval = () => {
   } else {
     thirdTierPrice.innerHTML = thirdTierMonthlyPrice
   }
+
+  //change the parameter in the link to define monthly/yearly
+
+  const url = document.getElementById("link-to-stripe").href
+  const urlNoParams = url.split('?')[0]
+
+  const currentParam = url.split('?')[1]
+  let newParam = ""
+
+  currentParam === "plan=monthly" ? newParam = "plan=yearly" : newParam = "plan=monthly" 
+
+  const newURL = urlNoParams + "?" + newParam
   
+  document.getElementById("link-to-stripe").href = newURL
 }
 </script>

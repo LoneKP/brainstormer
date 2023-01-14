@@ -25,11 +25,13 @@
 
 <script>
   currentUser = {
-    id: '<%= @visitor_id %>',
+    visitorId: '<%= @visitor_id %>',
     facilitator: '<%= @current_facilitator %>',
     votesCastIdeas: new Set(<%= @voting.idea_votes.members %>),
     votesCastIdeaBuilds: new Set(<%= @voting.idea_build_votes.members %>),
-    userIsDoneVoting: '<%= @voting.done? %>'
+    userIsDoneVoting: '<%= @voting.done? %>',
+    type: '<%= @session.type %>',
+    plan: '<%= @plan %>'
   };
 
   brainstormStore = {
@@ -54,7 +56,7 @@
   }
 
   const showCurrentUser = () => {
-    let currentUserBadge = document.getElementById(currentUser.id)
+    let currentUserBadge = document.getElementById(currentUser.visitorId)
     let currentUserBadgesWrapper = document.getElementById("user-list")
     currentUserBadge.parentNode.appendChild(currentUserBadge);
     currentUserBadge.lastChild.remove()
@@ -65,7 +67,7 @@
     currentUserBadge.lastChild.classList.add("bg-black")
     currentUserBadge.lastChild.classList.remove("bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy")
 
-    doneDivForCurrentUser = document.getElementById(`user-done-${currentUser.id}`)
+    doneDivForCurrentUser = document.getElementById(`user-done-${currentUser.visitorId}`)
     doneDivForCurrentUser.parentNode.appendChild(doneDivForCurrentUser);
   }
 

@@ -43,6 +43,9 @@ gem 'redis-client'
 gem 'redis-rails'
 gem 'kredis', github: 'rails/kredis'
 
+gem "stripe", "~> 8.0"
+gem "pay", "~> 6.0"
+
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

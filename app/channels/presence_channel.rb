@@ -17,8 +17,6 @@ class PresenceChannel < ApplicationCable::Channel
   private
 
   def add_to_list_and_transmit!
-    #set_random_name_if_user_has_no_name
-    #byebug
     REDIS.set user_color_key, random_color_class
     REDIS.hset brainstorm_key, visitor_id, Time.now
     transmit_list!

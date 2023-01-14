@@ -34,7 +34,13 @@ class BrainstormsController < ApplicationController
     elsif @brainstorm.facilitated_by_type == "User"
       @current_facilitator = @brainstorm.facilitated_by_id == @session.user.to_i
     else
-      false
+      @current_facilitator = false
+    end
+
+    if current_user
+      @plan = current_user.plan
+    else
+      @plan = "no_account"
     end
 
     @voting = Session::Voting.new(@brainstorm, @visitor_id)

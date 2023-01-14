@@ -1,6 +1,11 @@
 class User < ApplicationRecord
+  
   has_many :brainstorms, as: :facilitated_by, dependent: :destroy
   has_many :visits, class_name: "Ahoy::Visit"
+
+  pay_customer stripe_attributes: :stripe_attributes
+  pay_customer default_payment_processor: :stripe
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -17,26 +22,41 @@ class User < ApplicationRecord
   validates_length_of       :password, if: :password_required?, within: 6..128, allow_blank: true, message: "Don't make you password too easy to guess. It needs to contain at least 6 characters"
   validates_confirmation_of :password, if: :password_required?, message: "It looks like your password confirmation doesn't match the password"
 
-  #validates_presence_of     :current_password, unless: :encrypted_password_changed?, message: "We need your current password to confirm your changes"
+  def hobbyist_plan?
+    !payment_processor.subscribed?
+  end
+
+  def facilitator_plan?
+    payment_processor.subscribed?
+  end
+
+  def plan
+    if hobbyist_plan?
+      "hobbyist_plan"
+    elsif facilitator_plan?
+      "facilitator_plan"
+    else
+      "hobbyist_plan"
+    end
+  end
+
+  def stripe_attributes(pay_customer)
+    {
+      address: {
+        #city: pay_customer.owner.city,
+        #country: pay_customer.owner.country
+      },
+      metadata: {
+        pay_customer_id: pay_customer.id,
+        user_id: id # or pay_customer.owner_id
+      }
+    }
+  end
 
   protected
   
   def password_required?
     !persisted? || !password.nil? || !password_confirmation.nil?
   end
-
-  #validates_presence_of   :current_password, message: "You need to write your current password"
-
-
-         
-
-        #  validates :password, length: { message: "Don't make you password too easy to guess. It needs to contain at least 6 characters"}, :on => :create
-
-         
-       
-
-        #  validates_presence_of     :password,
-        #  validates_confirmation_of :password
-        #  validates_length_of       :password, within: 6..8, 
   
 end

@@ -29,4 +29,9 @@ class ApplicationController < ActionController::Base
 
     "#{adjectives.sample} #{nouns.sample}"
   end
+
+  def set_portal_session
+    return if current_user.payment_processor.nil?
+    @portal_session = current_user.payment_processor.billing_portal
+  end
 end

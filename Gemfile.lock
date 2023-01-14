@@ -208,6 +208,8 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     os (1.1.4)
+    pay (6.2.3)
+      rails (>= 6.0.0)
     pg (1.4.5)
     public_suffix (5.0.1)
     puma (4.3.12)
@@ -317,6 +319,7 @@ GEM
       actionpack (>= 5.2)
       activesupport (>= 5.2)
       sprockets (>= 3.0.0)
+    stripe (8.0.0)
     thor (1.2.1)
     tilt (2.0.11)
     timeout (0.3.1)
@@ -378,6 +381,7 @@ DEPENDENCIES
   net-imap
   net-pop
   net-smtp
+  pay (~> 6.0)
   pg (~> 1.4, >= 1.4.5)
   puma (~> 4.3)
   rails (= 7.0.4)
@@ -390,6 +394,7 @@ DEPENDENCIES
   sidekiq (~> 7.0.2)
   spring
   spring-watcher-listen (~> 2.0.0)
+  stripe (~> 8.0)
   turbo-rails
   tzinfo-data
   web-console (>= 3.3.0)

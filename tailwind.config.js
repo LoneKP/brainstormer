@@ -109,7 +109,8 @@ module.exports = {
         'light-greeny': '#DBFFC1',
         'light-greeny-darker': '#cff2b6',
         'light-blurple': '#DFD8FF',
-        'beigy': '#FBEDEB'
+        'beigy': '#FBEDEB',
+        'dark-beigy': '#EDBDB7'
       },
       maxWidth: theme => ({
         'screen-sm': theme('screens.sm'),

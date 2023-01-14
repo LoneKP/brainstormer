@@ -1,0 +1,41 @@
+<div>
+  <div class="flex flex-col">
+    <div class="grid grid-cols-3 grid-flow-row gap-6 mt-10 mb-12">
+      <div class="<%= current_user.facilitator_plan? ? "invisible" : "" %> -mb-4 font-semibold text-xs bg-blurple text-white w-max my-shadow-sm px-2">Current plan</div>
+      <div class="<%= !current_user.facilitator_plan? ? "invisible" : "" %> -mb-4 font-semibold text-xs bg-blurple text-white w-max my-shadow-sm px-2">Current plan</div>
+      <div class="invisible -mb-4 font-semibold text-xs bg-blurple text-white w-max my-shadow-sm px-2">Current plan</div>
+      <div class="my-shadow-sm text-blurple <%= current_user.facilitator_plan? ? "bg-white" : "bg-beigy" %> font-bold py-6 text-center text-lg">HOBBYIST</div>
+      <%= link_to pricing_path do %>
+        <div class="my-shadow-sm text-white <%= current_user.facilitator_plan? ? "bg-greeny text-white" : "bg-white text-blurple" %> font-bold py-6 text-center text-lg">FACILITATOR</div>
+      <% end %>
+      <%= link_to pricing_path do %>
+        <div class="my-shadow-sm bg-white text-blurple font-bold py-6 text-center text-lg">ORGANIZATION</div>
+      <% end %>
+      <div class="text-center italic">Free</div>
+      <div class="text-center italic">Paid</div>
+      <div class="text-center italic">Paid</div>
+    </div>
+    <% if current_user.facilitator_plan? %>
+      <h2 class="text-2xl lg:text-2xl font-semibold text-blurple mb-2">Plan details</h2>
+    <% end %>
+    <% current_user.subscriptions.where(status: :active).each do |subscription| %>
+      <div class="mb-4">
+        <div class="flex flex-col">
+          <p class="uppercase text-lg font-semibold">Facilitator - <%= subscription.data.dig("subscription_items")[0].dig("price", "recurring", "interval") %>ly <span class="text-sm font-normal <%= subscription.ends_at.nil? ? "bg-greeny" : "bg-reddy"  %> text-white px-1"><%= subscription.ends_at.nil? ? "active" : "cancelled"  %></span></p>
+        </div>
+        <% if subscription.ends_at.nil? %>
+          <p>Your plan will be renewed again in <%=(subscription.current_period_end.to_date - Date.today).to_i %> days. &#127881;</p>
+        <% end %>
+        <% if subscription.ends_at? %>
+          <p>You have cancelled your plan, but you still have access for <%= (subscription.ends_at.to_date - Date.today).to_i %> days.</p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if current_user.facilitator_plan? %>
+     <%= link_to "Manage plan", @portal_session.url, class: "hvr-grow px-10 py-2 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer w-max self-end" %>
+    <% else %>
+      <%= link_to "Upgrade", checkouts_path(plan: :monthly), class: "hvr-grow px-10 py-2 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer w-max self-end" %>
+    <% end %>
+  </div>
+</div>
