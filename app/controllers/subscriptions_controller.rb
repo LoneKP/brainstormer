@@ -8,10 +8,18 @@ class SubscriptionsController < ApplicationController
 
     case
       when params[:plan] === "monthly"
-        price = "price_1MQGQZBkWgBbsxE3yq6UtyUJ"
+        if Rails.env.development?
+          price = "price_1MNvKeBkWgBbsxE3uGOeoC8T"
+        else
+          price = "price_1MQGQZBkWgBbsxE3yq6UtyUJ"
+        end
         name = "Facilitator - monthly"
       when params[:plan]=== "yearly"
-        price = "price_1MQGQZBkWgBbsxE3AKrVIAwX"
+        if Rails.env.development?
+          price = "price_1MNv1dBkWgBbsxE3L7bCqq8M"
+        else
+          price = "price_1MQGQZBkWgBbsxE3AKrVIAwX"
+        end
         name = "Facilitator - yearly"
     end
 
