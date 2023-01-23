@@ -4,6 +4,7 @@ class PresenceChannel < ApplicationCable::Channel
     @brainstorm = Brainstorm.find_by(token: params[:token])
     stream_or_reject_for @brainstorm
     add_to_list_and_transmit!
+    @brainstorm.update(max_participants: online_participant_count) if online_participant_count > @brainstorm.max_participants
   end
 
   def unsubscribed
@@ -76,5 +77,9 @@ class PresenceChannel < ApplicationCable::Channel
     color_classes = ["bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy"]
 
     color_classes.sample
+  end
+
+  def online_participant_count
+    REDIS.hgetall(brainstorm_key).keys.count
   end
 end
