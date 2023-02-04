@@ -1,0 +1,14 @@
+  <div class="flex-col flex bg-white p-2 lg:p-12 h-full mb-4 mt-6">
+    <a href="https://www.brainstormer.online" class="lg:-ml-16 lg:-mt-0 z-50 -ml-4 mt-4 italic bg-black w-12 h-12 lg:w-16 lg:h-16 text-white text-3xl lg:text-5xl flex font-bold items-center justify-center"><span>B</span></a>
+    <div class="flex-row text-links text-center py-24 p-2">
+    <p class="text-xl font-bold">It's too crowded in the brainstorm room you're trying to enter!</p>
+      <p class="font-bold text-8xl my-12"><%= link_to 'GO BACK ', brainstorm_show_path %>&#128536;</p>
+      <p class="italic">(Psst... Just tell your facilitator to upgrade to a bigger room. <%= link_to 'This is the link to the pricing page', pricing_path, class:"underline" %>)</p>
+    </div>
+  </div>
+
+<script>
+    brainstormStore = {
+    state: "room-full",
+  };
+  </script>

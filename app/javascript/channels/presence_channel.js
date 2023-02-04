@@ -3,7 +3,9 @@ import consumer from "./consumer"
 const THRESHOLD_FOR_OVERFLOWING_USERS = 9
 
 consumer.subscriptions.create({
-  channel: "PresenceChannel", token: location.pathname.replace("/", "")
+  channel: "PresenceChannel", 
+  token: location.pathname.split("/")[1],
+  waiting_room: location.pathname.split("/")[2] === "room-full"
 }, {
 
   // Called once when the subscription is created.
@@ -55,9 +57,15 @@ consumer.subscriptions.create({
     switch (data.event) {
       case "transmit_presence_list":
         const onlineUsers = Object.values(data.online_users)
-        if (typeof currentUser == "undefined") {
-          location.reload();
-        }
+        const maxAllowedParticipants = data.max_allowed_participants
+        const numberOfUsersInWaitingRoom = data.number_of_users_in_waiting_room
+
+        handleRedirectionAndShowUpgradePrompt(
+          onlineUsers, 
+          maxAllowedParticipants, 
+          numberOfUsersInWaitingRoom
+        )
+
         if (brainstormStore.state == "setup") {
           clearListOfParticipants();
           HideOrShowListOfParticipantsContainer(onlineUsers);
@@ -80,6 +88,7 @@ consumer.subscriptions.create({
           showOnHoverForOverflowingUsers(onlineUsers)
         };
         if (brainstormStore.state !== "vote") { removeUsersDoneVoting(onlineUsers) };
+        //showNumberOfUsersInWaitingRoom(maxAllowedParticipants, numberOfUsersInWaitingRoom, onlineUsers.length)
         break;
       case "toggle_done_voting_badge":
         toggleUserDoneVoting(data.user_id);
@@ -272,4 +281,42 @@ const shownUsersIds = () => {
 const updateNumberOfUsersDoneVotingElement = (totalUsersOnline, usersDoneVoting) => {
   let el = document.getElementById("number-of-users-done-voting-element");
   el.innerHTML = `${usersDoneVoting}/${totalUsersOnline} participants are done voting`
+}
+
+const handleRedirectionAndShowUpgradePrompt = (onlineUsers, maxAllowedParticipants, numberOfUsersInWaitingRoom) => {
+  if (onlineUsers.length > maxAllowedParticipants) {
+    showNoticeToFacilitator()
+    redirectUsersNotAllowed(onlineUsers)
+  }
+
+  if (numberOfUsersInWaitingRoom > 0) {
+    showNoticeToFacilitator()
+  } else if (numberOfUsersInWaitingRoom === 0) {
+    removeNoticeToFacilitator()
+  }
+}
+
+const showNoticeToFacilitator = () => {
+  if (currentUser.facilitator === "true") {
+    document.getElementById("someone-tried-to-join").classList.remove("hidden") 
+  }
+}
+
+const removeNoticeToFacilitator = () => {
+  if (currentUser.facilitator === "true") {
+    document.getElementById("someone-tried-to-join").classList.add("hidden") 
+  }
+}
+
+const redirectUsersNotAllowed = (onlineUsers) => {
+    let lastUser = onlineUsers[Object.keys(onlineUsers).length-1];
+    
+    if ((currentUser.facilitator === "true") && (currentUser.visitorId === lastUser.id)) {
+      lastUser = onlineUsers[Object.keys(onlineUsers).length-2]
+    }
+
+    if (currentUser.visitorId === lastUser.id) {
+      const url = window.location.origin + window.location.pathname
+      window.location.href = url + "/room-full"
+    }
 }

@@ -1,7 +1,8 @@
 class BrainstormsController < ApplicationController
-  include BrainstormScoped, Ideated, DoneVoting
+  include BrainstormScoped, Ideated, DoneVoting, PlanLimits, ActionView::RecordIdentifier
 
   before_action :set_session_for_all_types, only: [:show, :done_voting, :new]
+  before_action :set_current_facilitator, only: :show
 
   def new
     @brainstorm = Brainstorm.new
@@ -37,12 +38,6 @@ class BrainstormsController < ApplicationController
       @current_facilitator = false
     end
 
-    if current_user
-      @plan = current_user.plan
-    else
-      @plan = "no_account"
-    end
-
     @voting = Session::Voting.new(@brainstorm, @visitor_id)
 
     @total_users_online = REDIS.hgetall(brainstorm_key).keys.count
@@ -66,6 +61,10 @@ class BrainstormsController < ApplicationController
         format.turbo_stream { render turbo_stream: turbo_stream.append("problem_area", partial: "shared/validation_error_turbo", locals: { object: @brainstorm, attribute: :problem })}
       end
     end
+  end
+
+  def room_full
+    console
   end
 
   def go_to_brainstorm
@@ -136,5 +135,9 @@ class BrainstormsController < ApplicationController
 
   def brainstorm_key
     "brainstorm_id_#{@brainstorm.token}"
+  end
+
+  def in_brainstorm_waiting_room
+    "in_brainstorm_waiting_room_#{@brainstorm.token}"
   end
 end

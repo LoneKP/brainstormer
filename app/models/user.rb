@@ -32,11 +32,11 @@ class User < ApplicationRecord
 
   def plan
     if hobbyist_plan?
-      "hobbyist_plan"
+      1
     elsif facilitator_plan?
-      "facilitator_plan"
+      2
     else
-      "hobbyist_plan"
+      1
     end
   end
 

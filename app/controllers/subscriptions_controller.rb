@@ -37,7 +37,7 @@ class SubscriptionsController < ApplicationController
             plan: price
           }]
         },
-        success_url: root_url,
+        success_url: my_plan_url,
         cancel_url: root_url
       )
     
