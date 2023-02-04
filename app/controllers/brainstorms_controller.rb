@@ -64,7 +64,6 @@ class BrainstormsController < ApplicationController
   end
 
   def room_full
-    console
   end
 
   def go_to_brainstorm
