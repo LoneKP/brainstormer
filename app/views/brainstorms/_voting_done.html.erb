@@ -2,31 +2,26 @@
   <h1 class="p-4 text-4xl lg:text-2xl text-white font-semibold uppercase bg-blurple leading-tight my-shadow-lg inline-flex">* VOTING DONE *</h1>
   <h1 class="problem mt-4 p-8 text-6xl lg:text-4xl text-white font-semibold uppercase bg-black leading-tight my-shadow-lg w-full"><%=@brainstorm.problem %></h1>
   <div class="lg:mb-4 mb-16 lg:mt-4 mt-8 flex lg:flex-row flex-col justify-between">
-  <% if current_user %>
-    <%= link_to new_brainstorm_path do %>
-      <button class="lg:block hvr-grow lg:p-2 md:p-4 font-semibold uppercase bg-pinky active:bg-darker-pinky leading-tight my-shadow-lg lg:w-64 w-full">
-        <div class="border-solid border-blurple border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
-            <div class="flex text-blurple font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">NEW BRAINSTORM</div>
+
+  <% if Current.facilitator %>
+    <%= link_to my_brainstorms_path, class: "#{"tooltip" if !@access_to_my_brainstorms}" do %>
+      <button onmouseout="outFunc()" class="<%= @access_to_my_brainstorms ? "hvr-grow bg-pinky active:bg-darker-pinky text-blurple" : "cursor-default bg-gray-200 text-gray-400" %> lg:block  lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-64 w-full">
+        <% if !@access_to_my_brainstorms%>
+          <span class="tooltiptext flex flex-col align-middle mb-2"><i class="material-icons">lock</i>You need to upgrade to access your saved brainstorms.</span>
+        <% end %>
+        <div class="<%= @access_to_my_brainstorms ? "border-blurple" : "border-gray-400" %> border-solid border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
+          <div class="flex font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">YOUR BRAINSTORMS</div>
           <div class="flex">
-            <svg class="lg:h-6 lg:w-6 md:h-12 md:w-12 md:ml-4 lg:ml-0" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="44px" viewBox="0 0 22 44" version="1.1">
-              <title>0A8AFE57-5D7F-4A41-BCD4-6E6B8A8CA7CB</title>
-              <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                <g id="Desktop-HD" transform="translate(-1045.000000, -208.000000)" fill="#312783" fill-rule="nonzero">
-                  <g id="flash_on-24px" transform="translate(1045.000000, 208.000000)">
-                    <polygon id="Path" points="0 0 0 24.2 6.6 24.2 6.6 44 22 17.6 13.2 17.6 19.8 0" />
-                  </g>
-                </g>
-              </g>
-            </svg>
+          <i class="material-icons lg:h-6 lg:w-6 md:h-12 md:w-12 md:ml-4 lg:ml-0">save</i>
           </div>
         </div>
       </button>
     <% end %>
   <% else %>
-    <%= link_to new_user_registration_path do %>
+    <%= link_to new_brainstorm_path do %>
       <button class="lg:block hvr-grow lg:p-2 md:p-4 font-semibold uppercase bg-pinky active:bg-darker-pinky leading-tight my-shadow-lg lg:w-64 w-full">
         <div class="border-solid border-blurple border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
-            <div class="flex text-blurple font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">CREATE ACCOUNT</div>
+            <div class="flex text-blurple font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">NEW BRAINSTORM</div>
           <div class="flex">
             <svg xmlns="http://www.w3.org/2000/svg" class="lg:h-6 lg:w-6 md:h-12 md:w-12 md:ml-4 lg:ml-0" height="24px" viewBox="0 0 24 24" width="24px" fill="#312783"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
           </div>
@@ -36,11 +31,11 @@
   <% end %>
     <div class="flex lg:space-x-2">
       <%= link_to download_brainstorm_path(token: @brainstorm.token, visitor_id: @visitor_id), method: :post, id: "save-to-pdf-button", class: "#{"tooltip" if !@access_to_pdf_export}" do %>
-        <button onmouseout="outFunc()" class="<%= @access_to_pdf_export ? "bg-blurple active:bg-darker-blurple hvr-grow text-white" : "cursor-default bg-gray-600 text-gray-500" %> hidden lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-56">
+        <button onmouseout="outFunc()" class="<%= @access_to_pdf_export ? "bg-blurple active:bg-darker-blurple hvr-grow text-white" : "cursor-default bg-gray-200 text-gray-400" %> hidden lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-56">
         <% if !@access_to_pdf_export %>
-          <span class="tooltiptext">You need to upgrade to save to pdf &#128536;</span>
+          <span class="tooltiptext flex flex-col align-middle mb-2"><i class="material-icons">lock</i>You need to upgrade to save to pdf.</span>
         <% end %>
-          <div class="<%= @access_to_pdf_export ? "border-white" : "border-gray-500" %> border-solid font-semibold h-full text-base focus:outline-none md:text-4xl lg:text-lg border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
+          <div class="<%= @access_to_pdf_export ? "border-white" : "border-gray-400" %> border-solid font-semibold h-full text-base focus:outline-none md:text-4xl lg:text-lg border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
               <div class="flex py-2">SAVE TO PDF</div>
             <div class="flex">
               <span id="save-to-pdf-button-icon"  class="material-icons lg:h-6 lg:w-6 md:h-12 md:w-12 md:ml-4 lg:ml-0">picture_as_pdf</span>
