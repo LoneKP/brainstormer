@@ -19,6 +19,11 @@ module PlanLimits
         1 => false,
         2 => true,
         3 => true
+      },
+      :access_to_pdf_export => {
+        1 => false,
+        2 => true,
+        3 => true
       }
     }
     h[use_case][plan]

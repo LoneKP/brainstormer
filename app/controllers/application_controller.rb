@@ -48,5 +48,6 @@ class ApplicationController < ActionController::Base
 
   def set_access
     @access_to_brainstorms_duration = plan_data(:access_to_brainstorm_duration, @brainstorm.facilitated_by.plan)
+    @access_to_pdf_export = plan_data(:access_to_pdf_export, @brainstorm.facilitated_by.plan)
   end
 end

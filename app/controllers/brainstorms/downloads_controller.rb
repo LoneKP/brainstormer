@@ -1,7 +1,8 @@
 class Brainstorms::DownloadsController < ApplicationController
-  include BrainstormScoped
+  include BrainstormScoped, PlanLimits
 
   def download_pdf
+    return if !@access_to_pdf_export
     ahoy.track "Download pdf"
     visitor_id = params[:visitor_id]
     if @brainstorm.pdf.attached?
