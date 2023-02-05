@@ -181,6 +181,147 @@
       </div>
     </div>
   </div>
+
+   <div class="flex flex-col">
+    <div class="bg-beigy flex flex-col">
+      <div class="bg-white w-full flex flex-col my-shadow px-14">
+        <div class="pt-20">
+          <div class="flex flex-col gap-1 text-lg text-blurple">
+            <p class="flex items-center gap-2">Brainstormer runs on love. <i class="text-xl material-icons cursor-default text-reddy hover:animate-ping">favorite</i></p>
+            <p>But you can expect more by subscribing.</p>
+          </div>
+        </div>
+
+
+        <div onclick="togglePaymentInterval()" class="flex flex-row mt-8 self-center cursor-pointer">
+          <p id="billedMonthly" class="underlineSelection uppercase text-blurple px-4 pb-2">Billed Monthly</p>
+          <p id="billedYearly" class="uppercase text-blurple px-4 pb-2">Billed yearly</p>
+        </div>
+
+        <div class="grid grid-cols-3 grid-flow-row gap-6 mt-10 mb-20">
+          <div class="my-shadow-sm text-blurple bg-beigy font-bold py-6 text-center text-lg">HOBBYIST</div>
+          <div class="my-shadow-sm text-white bg-greeny font-bold py-6 text-center text-lg">FACILITATOR</div>
+          <div class="my-shadow-sm text-white bg-blurple font-bold py-6 text-center text-lg">ORGANIZATION</div>
+          <div class="my-shadow-sm text-blurple bg-beigy italic text-lg py-4 text-center">Free</div>
+          <div id="secondTierPrice" class="my-shadow-sm text-white bg-greeny italic text-lg py-4 text-center">$7.99 / month</div>
+          <div id="thirdTierPrice" class="my-shadow-sm text-white bg-blurple italic text-lg py-4 text-center">$49.99 / month</div>
+          <div class="my-shadow-sm text-blurple bg-beigy gap-6 py-4 text-xs flex flex-col">
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">lightbulb</i>
+              <p>Unlimited brainstorms</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">people</i>
+              <p>10 participants</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">favorite_border</i>
+              <p>Voting</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">mail_outline</i>
+              <p>Email ideas</p>
+            </div>
+          </div>
+          <div class="my-shadow-sm text-white bg-greeny gap-6 py-4 text-xs flex flex-col">
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">lightbulb</i>
+              <p>Unlimited brainstorms</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">people</i>
+              <p>25 participants</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">favorite_border</i>
+              <p>Voting</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">mail_outline</i>
+              <p>Email ideas</p>
+            </div>
+          </div>
+          <div class="my-shadow-sm text-white bg-blurple gap-6 py-4 text-xs flex flex-col">
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">lightbulb</i>
+              <p>Unlimited brainstorms</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">people</i>
+              <p>50 participants</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">favorite_border</i>
+              <p>Voting</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">mail_outline</i>
+              <p>Email ideas</p>
+            </div>
+          </div>
+          <div class="row-span-4 border-dotted border-4 border-beigy"></div>
+          <div class="my-shadow-sm bg-greeny text-white gap-6 py-4 text-xs flex flex-col">
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">timer</i>
+              <p>Set duration</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">save</i>
+              <p>Save brainstorms</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">picture_as_pdf</i>
+              <p>Export as PDF</p>
+            </div>
+          </div>
+          <div class="my-shadow-sm bg-blurple text-white gap-6 py-4 text-xs flex flex-col">
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">timer</i>
+              <p>Set duration</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">save</i>
+              <p>Save brainstorms</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons text-sm pr-2">picture_as_pdf</i>
+              <p>Export as PDF</p>
+            </div>
+          </div>
+          <div class="border-4 border-dotted border-greeny row-span-2"></div>
+          <div class="my-shadow-sm bg-blurple text-white gap-6 py-4 text-xs flex flex-col">
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">lock</i>
+              <p>Private brainstorms</p>
+            </div>
+            <div class="flex px-4 items-start">
+              <i class="material-icons-outlined text-sm pr-2">headset_mic</i>
+              <p>Dedicated customer support</p>
+            </div>
+            <div class="flex px-4 items-center">
+              <i class="material-icons-outlined text-sm pr-2">question_answer</i>
+              <p>Onboarding</p>
+            </div>
+          </div>
+          <div class="border-dotted border-blurple border-4 h-20"></div>
+          <%= link_to checkouts_path(plan: :monthly), id: "link-to-stripe" do %>
+            <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-greeny active:bg-darker-greeny leading-tight my-shadow-sm w-full">
+              <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
+                <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">Get started</div>
+              </div>
+            </button>
+          <% end %>
+          <%= mail_to "brainstormer.online@gmail.com" do %>
+            <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-blurple active:bg-darker-blurple leading-tight my-shadow-sm w-full">
+              <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
+                <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">Get in touch</div>
+              </div>
+            </button>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
   
   <div class="flex flex-row mt-24 mb-8 text-white">
     <div class="flex bg-blurple flex-col mr-0 lg:mr-8 w-full p-24">
@@ -257,4 +398,47 @@
 
   writeTextInPostIts()
     
+  const togglePaymentInterval = () => {
+
+    //View if it is monthly or yearly
+    const billedMonthly = document.getElementById("billedMonthly")         
+    const billedYearly = document.getElementById("billedYearly")         
+    billedMonthly.classList.toggle("underlineSelection")
+    billedYearly.classList.toggle("underlineSelection")
+
+    //Change the prices in the table
+    const secondTierPrice = document.getElementById("secondTierPrice")  
+    const thirdTierPrice = document.getElementById("thirdTierPrice")
+
+    const secondTierMonthlyPrice = "$7.99 / month"
+    const secondTierYearlyPrice = "$19.99 / year"
+    const thirdTierMonthlyPrice = "$49.99 / month"
+    const thirdTierYearlyPrice = "$99.99 / year"
+    
+    if (secondTierPrice.innerHTML === secondTierMonthlyPrice) {
+      secondTierPrice.innerHTML = secondTierYearlyPrice
+    } else {
+      secondTierPrice.innerHTML = secondTierMonthlyPrice
+    }
+
+    if (thirdTierPrice.innerHTML === thirdTierMonthlyPrice) {
+      thirdTierPrice.innerHTML = thirdTierYearlyPrice
+    } else {
+      thirdTierPrice.innerHTML = thirdTierMonthlyPrice
+    }
+
+    //change the parameter in the link to define monthly/yearly
+
+    const url = document.getElementById("link-to-stripe").href
+    const urlNoParams = url.split('?')[0]
+
+    const currentParam = url.split('?')[1]
+    let newParam = ""
+
+    currentParam === "plan=monthly" ? newParam = "plan=yearly" : newParam = "plan=monthly" 
+
+    const newURL = urlNoParams + "?" + newParam
+    
+    document.getElementById("link-to-stripe").href = newURL
+  }
 </script>
