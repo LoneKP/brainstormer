@@ -4,12 +4,9 @@
   <div class="lg:mb-4 mb-16 lg:mt-4 mt-8 flex lg:flex-row flex-col justify-between">
 
   <% if Current.facilitator %>
-    <%= link_to my_brainstorms_path, class: "#{"tooltip" if !@access_to_my_brainstorms}" do %>
-      <button onmouseout="outFunc()" class="<%= @access_to_my_brainstorms ? "hvr-grow bg-pinky active:bg-darker-pinky text-blurple" : "cursor-default bg-gray-200 text-gray-400" %> lg:block  lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-64 w-full">
-        <% if !@access_to_my_brainstorms%>
-          <span class="tooltiptext flex flex-col align-middle mb-2"><i class="material-icons">lock</i>You need to upgrade to access your saved brainstorms.</span>
-        <% end %>
-        <div class="<%= @access_to_my_brainstorms ? "border-blurple" : "border-gray-400" %> border-solid border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
+    <%= link_to my_brainstorms_path do %>
+      <button class="hvr-grow bg-pinky active:bg-darker-pinky text-blurple lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-64 w-full">
+        <div class="border-blurple border-solid border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
           <div class="flex font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">YOUR BRAINSTORMS</div>
           <div class="flex">
           <i class="material-icons lg:h-6 lg:w-6 md:h-12 md:w-12 md:ml-4 lg:ml-0">save</i>

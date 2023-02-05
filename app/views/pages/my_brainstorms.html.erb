@@ -8,14 +8,28 @@
           </div>
         <% end %>  
       </div>
+
+      <% if @access_to_my_brainstorms %>
       <div class="px-12">
         <h1 class="text-3xl lg:text-4xl font-semibold text-blurple mb-8">Great job facilitating! Here are all your brainstorms</h1>
           <div class="flex flex-col gap-4">
-          <% if !@ready_for_ideation.empty? %>
+          <% if !@most_recent_brainstorms&.empty? %>
+            <div class="flex flex-row mt-6">
+              <p class="bg-black text-white px-4 text-xl">Your most recent brainstorms</p>
+            </div>
+            <% @most_recent_brainstorms&.each do |brainstorm| %>
+              <%= link_to brainstorm_show_url(brainstorm.token) do %>
+                <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
+                  <p><%= brainstorm.problem %></p>
+                </div>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if !@ready_for_ideation&.empty? %>
             <div class="flex flex-row mt-6">
               <p class="bg-black text-white px-4 text-xl">Ready for ideation</p>
             </div>
-            <% @ready_for_ideation.each do |brainstorm| %>
+            <% @ready_for_ideation&.each do |brainstorm| %>
               <%= link_to brainstorm_show_url(brainstorm.token) do %>
                 <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
                   <p><%= brainstorm.problem %></p>
@@ -23,11 +37,11 @@
               <% end %>
             <% end %>
           <% end %>
-          <% if !@in_progress.empty? %>
+          <% if !@in_progress&.empty? %>
             <div class="flex flex-row mt-6">
               <p class="bg-black text-white px-4 text-xl">In progress</p>
             </div>
-            <% @in_progress.each do |brainstorm| %>
+            <% @in_progress&.each do |brainstorm| %>
               <%= link_to brainstorm_show_url(brainstorm.token) do %>
                 <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
                   <p><%= brainstorm.problem %></p>
@@ -35,11 +49,11 @@
               <% end %>
             <% end %>
           <% end %>
-          <% if !@done.empty? %>
+          <% if !@done&.empty? %>
             <div class="flex flex-row mt-6">
               <p class="bg-black text-white px-4 text-xl">Done</p>
             </div>
-            <% @done.each do |brainstorm| %>
+            <% @done&.each do |brainstorm| %>
               <%= link_to brainstorm_show_url(brainstorm.token) do %>
                 <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
                   <p><%= brainstorm.problem %></p>
@@ -49,6 +63,21 @@
           <% end %>
           </div>
       </div>
+      <% elsif !@access_to_my_brainstorms %>
+      <h1 class="text-3xl lg:text-4xl font-semibold text-blurple mb-8">Your brainstorms</h1>
+        <div class="flex flex-col gap-6">
+          <% if current_user.brainstorms.count === 0 %>
+            <p class="text-2xl lg:text-base font-bold leading-relaxed">You haven't facilitated any brainstorms yet! &#128558;</p>
+            <p class="text-2xl lg:text-base font-bold leading-relaxed">What are you waiting for!?</p>
+            <p class="text-2xl lg:text-base font-bold leading-relaxed"><%= link_to "Create your first brainstorm", new_brainstorm_path, class:"underline" %></p>
+            <p class="text-2xl lg:text-base font-bold leading-relaxed italic">(Btw - this is where you can get an overview of all your brainstorms if you have facilitated any AND if you choose to <%= link_to "upgrade your plan.)", pricing_path, class:"underline" %> </p>
+          <% else %>
+            <p class="text-2xl lg:text-base font-bold leading-relaxed mb-2">The <%= pluralize(current_user.brainstorms.count, "brainstorm")  %> you have facilitated are saved here.</p>
+            <p class="text-2xl lg:text-base font-bold leading-relaxed">Unlock access to all the brainstorms you've created by <%= link_to "upgrading your plan", pricing_path, class:"underline" %></p>
+          <% end %>
+        </div>
+      <% end %>
+
     </div>
   <%= render 'shared/footer' %>
 </div>
