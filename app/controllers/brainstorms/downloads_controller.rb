@@ -1,6 +1,8 @@
 class Brainstorms::DownloadsController < ApplicationController
   include BrainstormScoped, PlanLimits
 
+  before_action :set_access, only: :download_pdf
+
   def download_pdf
     return if !@access_to_pdf_export
     ahoy.track "Download pdf"
