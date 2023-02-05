@@ -3,6 +3,7 @@ class BrainstormsController < ApplicationController
 
   before_action :set_session_for_all_types, only: [:show, :done_voting, :new]
   before_action :set_current_facilitator, only: :show
+  before_action :set_access, only: :show
 
   def new
     @brainstorm = Brainstorm.new

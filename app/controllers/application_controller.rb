@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include PlanLimits
 
   before_action :set_visitor_id
   
@@ -43,5 +44,9 @@ class ApplicationController < ActionController::Base
   def set_portal_session
     return if current_user.payment_processor.nil?
     @portal_session = current_user.payment_processor.billing_portal
+  end
+
+  def set_access
+    @access_to_brainstorms_duration = plan_data(:access_to_brainstorm_duration, @brainstorm.facilitated_by.plan)
   end
 end
