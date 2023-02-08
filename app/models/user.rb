@@ -22,6 +22,8 @@ class User < ApplicationRecord
   validates_length_of       :password, if: :password_required?, within: 6..128, allow_blank: true, message: "Don't make you password too easy to guess. It needs to contain at least 6 characters"
   validates_confirmation_of :password, if: :password_required?, message: "It looks like your password confirmation doesn't match the password"
 
+  validates_acceptance_of :privacy_policy_agreement, allow_nil: false, on: :create
+
   def hobbyist_plan?
     !payment_processor.subscribed?
   end

@@ -47,6 +47,18 @@
     <%= render "users/shared/links" %>
   </div>
 
+  <div class="field">
+    <div class="flex flex-row items-center gap-4">
+      <%= f.check_box :privacy_policy_agreement, as: :boolean %>
+      <p>I agree to Brainstormer's <%= link_to "privacy policy", privacy_policy_path, target: "_blank", class: "underline" %></p>
+    </div>
+    <% if resource.errors[:privacy_policy_agreement].any? %>
+      <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
+        <span><%= resource.errors.full_messages.last %></span>
+      </div>
+    <% end %>
+  </div>
+
   <div class="actions flex justify-end mt-10">
     <%= f.submit "Sign up", class: "hvr-grow px-10 py-2 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer" %>
   </div>
