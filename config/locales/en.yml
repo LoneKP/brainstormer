@@ -30,4 +30,19 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  pay:
+    user_mailer:
+      receipt:
+        subject: "Brainstormer - Payment receipt"
+      refund:
+        subject: "Brainstormer - Payment refunded"
+      subscription_renewing:
+        subject: "Brainstormer - Your upcoming subscription renewal"
+      payment_action_required:
+        subject: "Brainstormer - Confirm your payment"
+      payment_failed:
+        subject: "Brainstormer - Action Required – Your payment failed"
+      subscription_trial_will_end:
+        subject: "Brainstormer - Your trial is ending soon"
+      subscription_trial_ended:
+        subject: "Brainstormer - Your trial has ended"
