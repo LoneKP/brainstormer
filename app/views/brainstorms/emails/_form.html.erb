@@ -17,7 +17,7 @@
 
         <%= form_with url: brainstorm_email_path(@brainstorm.token), method: :post, local: false do |f| %>
         <div class="field my-2">
-          <%= f.text_field :email_address, class:"w-full focus:outline-none border-solid border-2 border-black lg:h-12 h-32 my-shadow italic font-bold px-4 lg:text-xl text-6xl"%>
+          <%= f.text_field :email_address, class:"w-full focus:outline-none border-solid border-2 border-black lg:h-12 h-32 my-shadow italic font-bold px-4 lg:text-xl text-6xl", value: current_user&.email %>
           <div id="error-field-email-address">
             <%= render "shared/validation_error" %>
           </div>
