@@ -9,7 +9,7 @@
         <% end %>  
       </div>
 
-      <% if @access_to_my_brainstorms %>
+      <% if @access_to_your_brainstorms %>
       <div class="px-12">
         <h1 class="text-3xl lg:text-4xl font-semibold text-blurple mb-8">Great job facilitating! Here are all your brainstorms</h1>
           <div class="flex flex-col gap-4">
@@ -63,7 +63,7 @@
           <% end %>
           </div>
       </div>
-      <% elsif !@access_to_my_brainstorms %>
+      <% elsif !@access_to_your_brainstorms %>
       <h1 class="text-3xl lg:text-4xl font-semibold text-blurple mb-8">Your brainstorms</h1>
         <div class="flex flex-col gap-6">
           <% if current_user.brainstorms.count === 0 %>

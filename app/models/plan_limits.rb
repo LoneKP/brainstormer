@@ -10,7 +10,7 @@ module PlanLimits
         2 => "facilitator",
         3 => "organization"
       },
-      :access_to_my_brainstorms => {
+      :access_to_your_brainstorms => {
         1 => false,
         2 => true,
         3 => true

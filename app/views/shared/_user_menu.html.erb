@@ -9,9 +9,9 @@
     <div class="w-full items-center flex flex-col justify-between h-full pb-24 pt-40 font-semibold uppercase text-xl">
       <div class="flex flex-col gap-8">
         <%= link_to "Front Page", root_path, class: "hvr-grow" %>
-        <%= link_to "My brainstorms", my_brainstorms_path, class: "hvr-grow" %>
-        <%= link_to "My account", edit_user_registration_path, class: "hvr-grow" %>
-        <%= link_to "My plan", my_plan_path, class: "hvr-grow" %>
+        <%= link_to "Your brainstorms", your_brainstorms_path, class: "hvr-grow" %>
+        <%= link_to "Your account", edit_user_registration_path, class: "hvr-grow" %>
+        <%= link_to "Your plan", your_plan_path, class: "hvr-grow" %>
       </div>
       <%= link_to destroy_user_session_path, method: :delete, class:"justify-self-end" do %>
       <div class="flex flex-row gap-4 items-center hvr-grow text-xl">

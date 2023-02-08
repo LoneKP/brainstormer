@@ -52,7 +52,7 @@ class ApplicationController < ActionController::Base
       @access_to_pdf_export = plan_data(:access_to_pdf_export, @brainstorm.facilitated_by.plan)
     end
     unless current_user.nil?
-      @access_to_my_brainstorms = plan_data(:access_to_my_brainstorms, current_user.plan)
+      @access_to_your_brainstorms = plan_data(:access_to_your_brainstorms, current_user.plan)
     end
   end
 end

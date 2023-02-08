@@ -38,11 +38,11 @@ Rails.application.routes.draw do
 
   get '/about', to: 'pages#pages_template'
   get '/privacy-policy', to: 'pages#pages_template'
-  get '/my-brainstorms', to: 'pages#my_brainstorms'
+  get '/your-brainstorms', to: 'pages#your_brainstorms'
   get '/pricing', to: 'pages#pricing'
   
   get '/checkouts', to: 'subscriptions#checkout'
-  get '/my-plan', to: 'subscriptions#my_plan'
+  get '/your-plan', to: 'subscriptions#your_plan'
 
   root 'pages#index'
 
