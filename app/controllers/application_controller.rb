@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
 
   def set_current_facilitator
     if @brainstorm.facilitated_by_type === "Guest"
-      Current.facilitator = Guest.find_by(id: session[:guest_id]) if @brainstorm.facilitated_by === Guest.find_by(id: session[:guest_id])
+      Current.facilitator = Guest.find_by(id: @session.guest_id) if @brainstorm.facilitated_by === Guest.find_by(id: @session.guest_id)
     elsif @brainstorm.facilitated_by_type === "User"
-      Current.facilitator = User.find_by(id: session[:user_id]) if @brainstorm.facilitated_by === User.find_by(id: session[:user_id])
+      Current.facilitator = User.find_by(id: @session.user_id) if @brainstorm.facilitated_by === User.find_by(id: @session.user_id)
     end
   end
 

@@ -72,8 +72,8 @@
             <p class="text-2xl lg:text-base font-bold leading-relaxed"><%= link_to "Create your first brainstorm", new_brainstorm_path, class:"underline" %></p>
             <p class="text-2xl lg:text-base font-bold leading-relaxed italic">(Btw - this is where you can get an overview of all your brainstorms if you have facilitated any AND if you choose to <%= link_to "upgrade your plan.)", pricing_path, class:"underline" %> </p>
           <% else %>
-            <p class="text-2xl lg:text-base font-bold leading-relaxed mb-2">The <%= pluralize(current_user.brainstorms.count, "brainstorm")  %> you have facilitated are saved here.</p>
-            <p class="text-2xl lg:text-base font-bold leading-relaxed">Unlock access to all the brainstorms you've created by <%= link_to "upgrading your plan", pricing_path, class:"underline" %></p>
+            <p class="text-2xl lg:text-base font-bold leading-relaxed mb-2">The generated ideas for the <%= pluralize(current_user.brainstorms.count, "brainstorm") %> you have facilitated can be found here.</p>
+            <p class="text-2xl lg:text-base font-bold leading-relaxed mb-2">To see the overview, you need to unlock access by <%= link_to "upgrading your plan", pricing_path, class:"underline" %></p>
           <% end %>
         </div>
       <% end %>

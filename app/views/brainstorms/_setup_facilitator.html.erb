@@ -129,10 +129,13 @@
         </div>
       <% end %>
     <% else %>
-    <div class="flex flex-row items-center">
-      <div class="bg-light-blurple p-8">
-        <p>You need to upgrade to <%= link_to "the facilitator plan", pricing_path, class: "underline font-bold" %> to change the brainstorm duration.</p>
-      </div>
+    <div class="flex flex-row items-center gap-8">
+      <%= link_to pricing_path do %>
+        <div class="bg-light-blurple p-8 flex flex-row items-center gap-8">
+          <span class="material-icons text-4xl">lock</span>
+          <p>You need to upgrade to <span class="underline font-bold">the facilitator plan</span> to set the timer. With the facilitator plan you can also brainstorm with unlimited time.</p>
+        </div>
+      <% end %>
       <div class="justify-end w-1/3 flex text-6xl">
         <p class="h-24 flex items-center text-right">10:00</p>
       </div>
