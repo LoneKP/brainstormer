@@ -32,6 +32,10 @@ class User < ApplicationRecord
     payment_processor.subscribed?
   end
 
+  def paid_plan?
+    payment_processor.subscribed?
+  end
+
   def plan
     if hobbyist_plan?
       1

@@ -2,6 +2,13 @@ class ApplicationController < ActionController::Base
   include PlanLimits
 
   before_action :set_visitor_id
+  before_action :set_return_path
+
+  def set_return_path
+    return if devise_controller? || !request.method === "GET"
+
+    session["user_return_to"] = request.url unless current_user
+  end
   
   private
 
