@@ -33,8 +33,10 @@
             <% end %>
           </div>
         <% else %>
-          <%= link_to "Create account", new_user_registration_path, class: "hvr-grow" %>
-          <%= link_to "Log in", new_user_session_path, class: "hvr-grow" %>
+          <div class="flex flex-col gap-8 mb-40">
+            <%= link_to "Create account", new_user_registration_path, class: "hvr-grow" %>
+            <%= link_to "Log in", new_user_session_path, class: "hvr-grow" %>
+          </div>
         <% end %>
       </div>
     </div>
