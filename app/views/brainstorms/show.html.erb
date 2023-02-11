@@ -1,6 +1,7 @@
 <div class="hidden" id="someone-tried-to-join">
   <%= render "someone_tried_to_join" %>
 </div>
+<%= render "shared/user_menu" %>
 <%= render 'nav' %>
 <%= render 'dev_nav' if Rails.env.development? %>
 <div class="hidden" id="ideation">
@@ -65,10 +66,12 @@
     currentUserBadge.lastChild.remove()
     currentUserBadge.lastChild.remove()
     currentUserBadge.classList.add("bg-black", "cursor-pointer")
+    currentUserBadge.classList.remove("cursor-default")
     currentUserBadge.firstChild.classList.add("bg-white", "text-black")
     currentUserBadge.firstChild.classList.remove("bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy", "text-white")
     currentUserBadge.lastChild.classList.add("bg-black")
     currentUserBadge.lastChild.classList.remove("bg-purply", "bg-greeny", "bg-yellowy", "bg-reddy")
+    currentUserBadge.addEventListener("click", toggleMenu)
 
     doneDivForCurrentUser = document.getElementById(`user-done-${currentUser.visitorId}`)
     doneDivForCurrentUser.parentNode.appendChild(doneDivForCurrentUser);
