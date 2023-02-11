@@ -34,6 +34,7 @@
           </div>
         <% else %>
           <div class="flex flex-col gap-8 mb-40">
+            <%= link_to "Front page", root_url, class: "hvr-grow" %>
             <%= link_to "Create account", new_user_registration_path, class: "hvr-grow" %>
             <%= link_to "Log in", new_user_session_path, class: "hvr-grow" %>
           </div>
