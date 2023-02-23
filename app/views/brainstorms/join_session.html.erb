@@ -1,6 +1,6 @@
 <div class="lg:hidden flex flex-col">
   <div class="bg-blurple px-6 h-screen flex flex-col justify-center">
-    <%= form_with url: go_to_brainstorm_path, method: :post, local: false, data: { turbo: false } do |f| %>
+    <%= form_with url: "/go_to_brainstorm", remote: true do |f| %>
       <div class="flex flex-row justify-between items-baseline mb-2 text-white">
         <label class="italic text-3xl font-bold leading-none " for="">BRAINSTORM ID</label>
       </div>
