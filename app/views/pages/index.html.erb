@@ -236,7 +236,7 @@
               <p>Email ideas</p>
             </div>
           </div>
-          <div class="row-span-4 border-dotted border-4 border-beigy"></div>
+          <div class="row-span-3 border-dotted border-4 border-beigy"></div>
           <div class="my-shadow-sm bg-greeny text-white gap-6 py-4 text-xs flex flex-col">
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined text-sm pr-2">timer</i>
@@ -281,6 +281,13 @@
             </div>
           </div>
           <div class="border-dotted border-blurple border-4 h-20"></div>
+          <%= link_to new_brainstorm_path do %>
+            <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-beigy active:bg-dark-beigy leading-tight my-shadow-sm w-full">
+              <div class="border-solid border-blurple border-2 flex lg:py-0 md:py-4 justify-center">
+                <div class="flex text-blurple font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">Try for free</div>
+              </div>
+            </button>
+          <% end %>
           <%= link_to checkouts_path(plan: :monthly), id: "link-to-stripe" do %>
             <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-greeny active:bg-darker-greeny leading-tight my-shadow-sm w-full">
               <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
