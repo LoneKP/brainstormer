@@ -46,6 +46,10 @@ gem 'kredis', github: 'rails/kredis'
 gem "stripe", "~> 8.0"
 gem "pay", "~> 6.0"
 
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
+
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

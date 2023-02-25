@@ -9,8 +9,9 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable,
-         :confirmable, :lockable, :trackable
+         :recoverable, :rememberable, 
+         :confirmable, :lockable, :trackable,
+         :omniauthable, omniauth_providers: [:google_oauth2]
 
   validates_presence_of     :name, message: "Don't forget to let other brainstormers know what to call you. Write your name!"
   
@@ -57,6 +58,26 @@ class User < ApplicationRecord
         user_id: id # or pay_customer.owner_id
       }
     }
+  end
+
+  def self.from_omniauth(auth)
+    user = User.find_by(email: auth.info.email)
+    
+    if user
+      user.skip_confirmation! 
+      user.provider = auth.provider
+      user.uid = auth.uid
+      user.name = auth.info.name
+      return user
+    end
+
+    find_or_create_by(provider: auth.provider, uid: auth.uid) do |user|
+      user.email = auth.info.email
+      user.password = Devise.friendly_token[0, 20]
+      user.name = auth.info.name
+      user.privacy_policy_agreement = true
+      user.skip_confirmation!
+    end
   end
 
   protected

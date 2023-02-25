@@ -10,8 +10,21 @@
         <% end %>  
       </div>
       <div class="px-12">
-      <h1 class="text-3xl lg:text-3xl font-semibold w-72 text-blurple mb-8">Create your account</h1>
-      <%= render "form" %>
+        <h1 class="text-3xl lg:text-3xl font-semibold text-blurple">Sign up and take brainstorming to the next level!</h1>
+        <div class="my-16">
+          <div class="hidden" id="credentials-form">
+            <%= render "sign_up_with_credentials_form" %>
+          </div>
+          <div class="hidden" id="google-button">
+            <%= render "sign_up_with_google" %>
+          </div>
+          <div id="sign-up-selection">
+            <%= render "sign_up_selection" %>
+          </div>
+        </div>
+        <div class="text-xs">
+          <%= render "users/shared/links" %>
+        </div>
       </div>
     </div>
     <div class="flex-col flex justify-center bg-blurple text-white p-12 mb-4 h-full w-full gap-12">
@@ -31,3 +44,24 @@
   </div>
   <%= render 'shared/footer' %>
 </div>
+
+<script>
+
+const toggleGoogle = () => {
+  const google = document.getElementById("google-button")
+  const selection = document.getElementById("sign-up-selection")     
+  
+  google.classList.toggle("hidden")
+  selection.classList.toggle("hidden")
+}
+
+const toggleCredentials = () => {
+  const credentials = document.getElementById("credentials-form")    
+  const selection = document.getElementById("sign-up-selection")     
+  
+  credentials.classList.toggle("hidden")
+  selection.classList.toggle("hidden")
+}
+
+
+</script>
