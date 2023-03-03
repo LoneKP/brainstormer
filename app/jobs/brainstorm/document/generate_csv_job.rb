@@ -26,7 +26,8 @@ class Brainstorm::Document::GenerateCsvJob < ApplicationJob
         csv << %w[Ideas IdeaBuilds Votes]
 
         # CSV Rows, each row representing an idea
-        brainstorm.ideas.each do |idea|
+
+        brainstorm.ideas.order('votes DESC').each do |idea|
           builds = idea.idea_builds.map { |idea_build| idea_build.idea_build_text }
             csv << [
               "#" + idea.number.to_s + ": " + idea.text,
