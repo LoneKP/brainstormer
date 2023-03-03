@@ -20,7 +20,7 @@ module PlanLimits
         2 => true,
         3 => true
       },
-      :access_to_pdf_export => {
+      :access_to_export_features => {
         1 => false,
         2 => true,
         3 => true

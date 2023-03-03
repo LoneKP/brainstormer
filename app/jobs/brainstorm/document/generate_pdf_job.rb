@@ -12,7 +12,7 @@ class Brainstorm::Document::GeneratePdfJob < ApplicationJob
     brainstorm = job.arguments[1]
     visitor_id = job.arguments[2]
     
-    brainstorm.document.done(visitor_id)
+    brainstorm.document.done(visitor_id, :pdf)
   end
 end
 

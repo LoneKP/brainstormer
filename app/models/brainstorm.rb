@@ -2,6 +2,7 @@ class Brainstorm < ApplicationRecord
   include States, Timed, Printer
 
   has_one_attached :pdf
+  has_one_attached :csv
   has_many :ideas
 
   belongs_to :facilitated_by, polymorphic: true

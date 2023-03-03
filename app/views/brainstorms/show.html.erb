@@ -135,16 +135,16 @@
     tooltip.innerHTML = "Copy to clipboard";
   }
 
-  const togglePdfButtonSpinner = () => {
-    element1 = document.getElementById(`save-to-pdf-button-icon`);
-    element2 = document.getElementById(`save-to-pdf-button-spinner`);
+  const toggleDownloadButtonSpinner = (type) => {
+    element1 = document.getElementById(`save-to-${type}-button-icon`);
+    element2 = document.getElementById(`save-to-${type}-button-spinner`);
     element1.classList.toggle("hidden")
     element2.classList.toggle("hidden")
   }
 
-  const clickPdfButton = () => {
-    pdfButton = document.getElementById(`save-to-pdf-button`);
-    pdfButton.click();
+  const clickDownloadButton = (type) => {
+    let downloadButton = document.getElementById(`save-to-${type}-button`);
+    downloadButton.click();
   }
 
   if (currentUser.userIsDoneVoting == "false") {

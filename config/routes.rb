@@ -55,7 +55,8 @@ Rails.application.routes.draw do
   
   get '/:token', to: 'brainstorms#show', as: 'brainstorm_show'
 
-  post '/:token/downloads', to: 'brainstorms/downloads#download_pdf', as: 'download_brainstorm'
+  post '/:token/downloads/pdf', to: 'brainstorms/downloads#download_pdf', as: 'download_brainstorm_pdf'
+  post '/:token/downloads/csv', to: 'brainstorms/downloads#download_csv', as: 'download_brainstorm_csv'
 
   post '/go_to_brainstorm', to: 'brainstorms#go_to_brainstorm'
   

@@ -56,7 +56,7 @@ class ApplicationController < ActionController::Base
   def set_access
     unless @brainstorm.nil?
       @access_to_brainstorms_duration = plan_data(:access_to_brainstorm_duration, @brainstorm.facilitated_by.plan)
-      @access_to_pdf_export = plan_data(:access_to_pdf_export, @brainstorm.facilitated_by.plan)
+      @access_to_export_features = plan_data(:access_to_export_features, @brainstorm.facilitated_by.plan)
     end
     unless current_user.nil?
       @access_to_your_brainstorms = plan_data(:access_to_your_brainstorms, current_user.plan)

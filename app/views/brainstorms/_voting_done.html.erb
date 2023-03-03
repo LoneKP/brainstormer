@@ -4,7 +4,7 @@
   <div class="lg:mb-4 mb-16 lg:mt-4 mt-8 flex lg:flex-row flex-col justify-between">
 
   <% if Current.facilitator %>
-    <% if @access_to_pdf_export %>
+    <% if @access_to_export_features %>
       <%= link_to your_brainstorms_path do %>
         <button class="hvr-grow bg-pinky active:bg-darker-pinky text-blurple lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-64 w-full">
           <div class="border-blurple border-solid border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
@@ -56,16 +56,30 @@
 
   <% end %>
     <div class="flex lg:space-x-2">
-      <%= link_to download_brainstorm_path(token: @brainstorm.token, visitor_id: @visitor_id), method: :post, id: "save-to-pdf-button", class: "#{"tooltip" if !@access_to_pdf_export}" do %>
-        <button onmouseout="outFunc()" class="<%= @access_to_pdf_export ? "bg-blurple active:bg-darker-blurple hvr-grow text-white" : "cursor-default bg-gray-200 text-gray-400" %> hidden lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-56">
-        <% if !@access_to_pdf_export %>
-          <span class="tooltiptext flex flex-col align-middle mb-2"><i class="material-icons">lock</i><%= Current.facilitator ? "You need" : "Your facilitator needs" %> to upgrade to save to pdf.</span>
+      <%= link_to download_brainstorm_pdf_path(token: @brainstorm.token, visitor_id: @visitor_id), method: :post, id: "save-to-pdf-button", class: "#{"tooltip" if !@access_to_export_features}" do %>
+        <button onmouseout="outFunc()" class="<%= @access_to_export_features ? "bg-blurple active:bg-darker-blurple hvr-grow text-white" : "cursor-default bg-gray-200 text-gray-400" %> hidden lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-56">
+        <% if !@access_to_export_features %>
+          <span class="tooltiptext flex flex-col align-middle mb-2"><i class="material-icons">lock</i><%= Current.facilitator ? "You need" : "Your facilitator needs" %> to upgrade to export.</span>
         <% end %>
-          <div class="<%= @access_to_pdf_export ? "border-white" : "border-gray-400" %> border-solid font-semibold h-full text-base focus:outline-none md:text-4xl lg:text-lg border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
+          <div class="<%= @access_to_export_features ? "border-white" : "border-gray-400" %> border-solid font-semibold h-full text-base focus:outline-none md:text-4xl lg:text-lg border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
               <div class="flex py-2">SAVE TO PDF</div>
             <div class="flex">
               <span id="save-to-pdf-button-icon"  class="material-icons lg:h-6 lg:w-6 md:h-12 md:w-12 md:ml-4 lg:ml-0">picture_as_pdf</span>
               <div id="save-to-pdf-button-spinner" style="border-top-color:transparent" class="hidden h-5 w-5 rounded-full border-2 border-white animate-spin"></div>
+            </div>
+          </div>
+        </button>
+      <% end %>
+      <%= link_to download_brainstorm_csv_path(token: @brainstorm.token, visitor_id: @visitor_id), method: :post, id: "save-to-csv-button", class: "#{"tooltip" if !@access_to_export_features}" do %>
+        <button onmouseout="outFunc()" class="<%= @access_to_export_features ? "bg-blurple active:bg-darker-blurple hvr-grow text-white" : "cursor-default bg-gray-200 text-gray-400" %> hidden lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-56">
+        <% if !@access_to_export_features %>
+          <span class="tooltiptext flex flex-col align-middle mb-2"><i class="material-icons">lock</i><%= Current.facilitator ? "You need" : "Your facilitator needs" %> to upgrade to export.</span>
+        <% end %>
+          <div class="<%= @access_to_export_features ? "border-white" : "border-gray-400" %> border-solid font-semibold h-full text-base focus:outline-none md:text-4xl lg:text-lg border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
+              <div class="flex py-2">SAVE TO CSV</div>
+            <div class="flex">
+              <span id="save-to-csv-button-icon"  class="material-icons lg:h-6 lg:w-6 md:h-12 md:w-12 md:ml-4 lg:ml-0">file_download</span>
+              <div id="save-to-csv-button-spinner" style="border-top-color:transparent" class="hidden h-5 w-5 rounded-full border-2 border-white animate-spin"></div>
             </div>
           </div>
         </button>

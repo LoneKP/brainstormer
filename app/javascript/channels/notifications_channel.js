@@ -11,11 +11,11 @@ consumer.subscriptions.create({
   received(data) {
     switch (data.status) {
       case "generating":
-        togglePdfButtonSpinner();
+        toggleDownloadButtonSpinner(data.type);
         break;
       case "done":
-        togglePdfButtonSpinner();
-        clickPdfButton();
+        toggleDownloadButtonSpinner(data.type);
+        clickDownloadButton(data.type);
         break;
       }
   },
