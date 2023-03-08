@@ -14,7 +14,10 @@ Rails.application.routes.draw do
   end if Rails.env.production?
 
   mount Sidekiq::Web, at: "/sidekiq"
-  mount Blazer::Engine, at: "blazer"
+
+  authenticate :user, ->(user) { user.admin? } do
+    mount Blazer::Engine, at: "analytics/blazer"
+  end
 
   resources :brainstorms, param: :token, only: [:new, :edit, :update, :create] do
     member do
