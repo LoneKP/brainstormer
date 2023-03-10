@@ -22,6 +22,7 @@ class BrainstormsController < ApplicationController
       if @brainstorm.save
         @brainstorm.state = :setup
         redirect_to "/#{@brainstorm.token}"
+        ahoy.track "Brainstorm created"
       else
         render :new
       end
