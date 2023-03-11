@@ -5,6 +5,8 @@ class BrainstormsController < ApplicationController
   before_action :set_current_facilitator, only: :show
   before_action :set_access, only: :show
 
+  after_action :track_visitor_brainstormed, only: :show
+
   def new
     @brainstorm = Brainstorm.new
   end
@@ -140,5 +142,9 @@ class BrainstormsController < ApplicationController
 
   def in_brainstorm_waiting_room
     "in_brainstorm_waiting_room_#{@brainstorm.token}"
+  end
+
+  def track_visitor_brainstormed
+    ahoy.track "visitor_brainstormed", token: @brainstorm.token
   end
 end
