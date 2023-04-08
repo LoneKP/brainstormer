@@ -11,9 +11,22 @@
       </div>
       <div class="px-12">
         <h1 class="text-3xl lg:text-3xl font-semibold text-blurple">Sign up and take brainstorming to the next level!</h1>
-        <div class="my-16">
-          <%= render "sign_up_with_credentials_form" %>
+
+        <div class="flex flex-col gap-10 my-16">
+          <div class="flex flex-row gap-8 w-full">
+            <%= link_to select_sign_up_method_path do %>
+              <span class="material-icons border-solid border-2 border-blurple text-5xl text-blurple hvr-grow active:bg-blurple-gray cursor-pointer my-shadow bg-white font-bold">chevron_left</span>
+            <% end %>
+
+            <%- resource_class.omniauth_providers.each do |provider| %>
+              <%= link_to omniauth_authorize_path(resource_name, provider), method: :post, class: "w-full" do %>
+                <button class="w-full justify-center uppercase hvr-grow my-shadow py-2 px-4 lg:py-3 bg-blurple text-white font-bold border-solid border-2 border-blurple focus:outline-none">Sign up with Google</button>
+              <% end %>
+            <% end %>
+          </div>
+          <p class="text-sm">By signing up with Google you're agreeing to Brainstormer's <%= link_to "privacy policy", privacy_policy_path, target: "_blank", class: "underline" %></p>
         </div>
+
         <div class="text-xs">
           <%= render "users/shared/links" %>
         </div>

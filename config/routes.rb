@@ -48,6 +48,11 @@ Rails.application.routes.draw do
   get '/checkouts', to: 'subscriptions#checkout'
   get '/your-plan', to: 'subscriptions#your_plan'
 
+  devise_scope :user do
+    get '/select-sign-up-method', to: 'users/registrations#select_sign_up_method'
+    get '/sign-up-with-google', to: 'users/registrations#sign_up_with_google'
+  end
+
   root 'pages#index'
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

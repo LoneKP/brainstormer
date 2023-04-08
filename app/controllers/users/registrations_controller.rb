@@ -30,6 +30,12 @@ class Users::RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def select_sign_up_method
+  end
+
+  def sign_up_with_google
+  end
+
   # GET /resource/edit
   # def edit
   #   super
