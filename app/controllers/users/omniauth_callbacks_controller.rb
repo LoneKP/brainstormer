@@ -4,12 +4,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
-  before_action :store_current_location, :unless => :devise_controller?
-  
-  def store_current_location
-    store_location_for(:user, request.url)
-  end
-
   def google_oauth2
     user = User.from_omniauth(auth)
     if user.present?
