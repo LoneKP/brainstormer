@@ -4,6 +4,12 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
+  before_action :store_current_location, :unless => :devise_controller?
+  
+  def store_current_location
+    store_location_for(:user, request.url)
+  end
+
   def google_oauth2
     user = User.from_omniauth(auth)
     if user.present?
@@ -39,10 +45,13 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   def after_omniauth_failure_path_for(_scope)
     new_user_session_path
   end
+
   def after_sign_in_path_for(resource_or_scope)
-    stored_location_for(resource_or_scope) || root_path
+    stored_location_for(resource_or_scope) || new_brainstorm_path
   end
+
   private
+
   def auth
     @auth ||= request.env['omniauth.auth']
   end

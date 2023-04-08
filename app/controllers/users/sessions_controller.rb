@@ -26,6 +26,10 @@ class Users::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
+  def after_sign_in_path_for(resource)
+    stored_location_for(resource) || new_brainstorm_path
+  end
+
   def generate_quote
     options = 
       [["The value of an idea lies in the using of it."],["Thomas Edison (1847 – 1931), Inventor"]],
