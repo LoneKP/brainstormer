@@ -10,13 +10,13 @@
           </div>
         <% end %>
         <div class="pt-20">
-          <div class="flex flex-col gap-1 lg:text-lg text-3xl text-blurple">
-            <p class="flex items-center gap-2">Brainstormer runs on love. <i class="text-xl material-icons cursor-default text-reddy hover:animate-ping">favorite</i></p>
+          <div class="flex flex-col lg:gap-1 gap-10 lg:text-lg text-4xl text-blurple">
+            <p class="flex items-center gap-2">Brainstormer runs on love. <i class="lg:text-xl text-4xl material-icons cursor-default text-reddy hover:animate-ping">favorite</i></p>
             <p>But you can expect more by subscribing.</p>
           </div>
         </div>
 
-        <div onclick="togglePaymentInterval()" class="flex flex-row lg:mt-8 mt-20 self-center cursor-pointer lg:text-base text-2xl">
+        <div onclick="togglePaymentInterval()" class="flex flex-row lg:mt-8 mt-20 self-center cursor-pointer lg:text-base text-3xl">
           <p id="billedMonthly" class="underlineSelection uppercase text-blurple px-4 pb-2">Billed Monthly</p>
           <p id="billedYearly" class="uppercase text-blurple px-4 pb-2">Billed yearly</p>
         </div>
@@ -28,7 +28,7 @@
           <div class="my-shadow-sm text-blurple bg-beigy italic lg:text-lg text-2xl py-4 text-center">Free</div>
           <div id="secondTierPrice" class="my-shadow-sm text-white bg-greeny italic lg:text-lg text-2xl py-4 text-center">$7.99 / month</div>
           <div id="thirdTierPrice" class="my-shadow-sm text-white bg-blurple italic lg:text-lg text-2xl py-4 text-center">$49.99 / month</div>
-          <div class="my-shadow-sm text-blurple bg-beigy gap-6 py-4 lg:text-xs text-xl flex flex-col">
+          <div class="my-shadow-sm text-blurple bg-beigy gap-6 py-4 lg:text-xs text-2xl flex flex-col">
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined lg:text-sm text-2xl pr-2">lightbulb</i>
               <p>Unlimited brainstorms</p>
@@ -46,7 +46,7 @@
               <p>Email ideas</p>
             </div>
           </div>
-          <div class="my-shadow-sm text-white bg-greeny gap-6 py-4 lg:text-xs text-xl flex flex-col">
+          <div class="my-shadow-sm text-white bg-greeny gap-6 py-4 lg:text-xs text-2xl flex flex-col">
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined lg:text-sm text-2xl pr-2">lightbulb</i>
               <p>Unlimited brainstorms</p>
@@ -64,7 +64,7 @@
               <p>Email ideas</p>
             </div>
           </div>
-          <div class="my-shadow-sm text-white bg-blurple gap-6 py-4 lg:text-xs text-xl flex flex-col">
+          <div class="my-shadow-sm text-white bg-blurple gap-6 py-4 lg:text-xs text-2xl flex flex-col">
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined lg:text-sm text-2xl pr-2">lightbulb</i>
               <p>Unlimited brainstorms</p>
@@ -83,10 +83,10 @@
             </div>
           </div>
           <div class="row-span-3 border-dotted border-4 border-beigy"></div>
-          <div class="my-shadow-sm bg-greeny text-white gap-6 py-4 lg:text-xs text-xl flex flex-col">
+          <div class="my-shadow-sm bg-greeny text-white gap-6 py-4 lg:text-xs text-2xl flex flex-col">
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined lg:text-sm text-2xl pr-2">timer</i>
-              <p>Set timer (incl. unlimited time)</p>
+              <p>Set timer</p>
             </div>
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined lg:text-sm text-2xl pr-2">save</i>
@@ -97,10 +97,10 @@
               <p>Export to PDF & CSV</p>
             </div>
           </div>
-          <div class="my-shadow-sm bg-blurple text-white gap-6 py-4 lg:text-xs text-xl flex flex-col">
+          <div class="my-shadow-sm bg-blurple text-white gap-6 py-4 lg:text-xs text-2xl flex flex-col">
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined lg:text-sm text-2xl pr-2">timer</i>
-              <p>Set timer (incl. unlimited time)</p>
+              <p>Set timer</p>
             </div>
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined lg:text-sm text-2xl pr-2">save</i>
@@ -112,7 +112,7 @@
             </div>
           </div>
           <div class="border-4 border-dotted border-greeny row-span-2"></div>
-          <div class="my-shadow-sm bg-blurple text-white gap-6 py-4 lg:text-xs text-xl flex flex-col">
+          <div class="my-shadow-sm bg-blurple text-white gap-6 py-4 lg:text-xs text-2xl flex flex-col">
             <div class="flex px-4 items-center">
               <i class="material-icons-outlined lg:text-sm text-2xl pr-2">lock</i>
               <p>Private brainstorms</p>
@@ -130,21 +130,21 @@
           <%= link_to new_brainstorm_path do %>
             <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-beigy active:bg-dark-beigy leading-tight my-shadow-sm w-full">
               <div class="border-solid border-blurple border-2 flex lg:py-0 md:py-4 justify-center">
-                <div class="flex text-blurple font-semibold h-full focus:outline-none py-2 text-2xl lg:text-lg">Try for free</div>
+                <div class="flex text-blurple font-semibold h-full focus:outline-none py-2 text-2xl lg:text-lg uppercase">Try for free</div>
               </div>
             </button>
           <% end %>
           <%= link_to checkouts_path(plan: :monthly), id: "link-to-stripe" do %>
             <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-greeny active:bg-darker-greeny leading-tight my-shadow-sm w-full">
               <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
-                <div class="flex text-white font-semibold h-full focus:outline-none py-2 text-2xl lg:text-lg">Get started</div>
+                <div class="flex text-white font-semibold h-full focus:outline-none py-2 text-2xl lg:text-lg uppercase">Get started</div>
               </div>
             </button>
           <% end %>
           <%= mail_to "brainstormer.online@gmail.com" do %>
             <button class="hvr-grow lg:p-2 md:p-4 font-semibold bg-blurple active:bg-darker-blurple leading-tight my-shadow-sm w-full">
               <div class="border-solid border-white border-2 flex lg:py-0 md:py-4 justify-center">
-                <div class="flex text-white font-semibold h-full focus:outline-none py-2 text-2xl lg:text-lg">Get in touch</div>
+                <div class="flex text-white font-semibold h-full focus:outline-none py-2 text-2xl lg:text-lg uppercase">Get in touch</div>
               </div>
             </button>
           <% end %>
