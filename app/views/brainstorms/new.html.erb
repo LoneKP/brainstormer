@@ -21,7 +21,9 @@
     <% end %>
     <%= f.submit 'CREATE BRAINSTORM', class: "mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer" %>
     <% end %>
-    <p class="text-3xl mt-24">By using Brainstormer you are agreeing to the <%= link_to "privacy policy.", privacy_policy_path %>
+    <% unless current_user %>
+      <p class="text-3xl mt-24 text-white">By using Brainstormer you are agreeing to the <%= link_to "privacy policy.", privacy_policy_path %>
+    <% end %>
   </div> 
 </div>
 <div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl">
@@ -33,7 +35,7 @@
           <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left">
             <!--Title-->
             <div class="flex justify-between items-center">
-              <p class="pb-8 text-4xl font-bold text-blurple">NEW BRAINSTORM</p>
+              <p class="pb-8 text-4xl font-bold text-blurple">SETUP BRAINSTORM</p>
               <div class="cursor-pointer">
                 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="44px" viewBox="0 0 22 44" version="1.1">
                   <title>0A8AFE57-5D7F-4A41-BCD4-6E6B8A8CA7CB</title>
@@ -172,7 +174,9 @@
             <%= f.submit 'CREATE BRAINSTORM', class: "hvr-grow px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer" %>
             <% end %>
           </div>
-          <p class="text-xs mt-12">By using Brainstormer you are agreeing to the <%= link_to "privacy policy.", privacy_policy_path, class:"underline" %></p>
+          <% unless current_user %>
+            <p class="text-xs mt-12">By using Brainstormer you are agreeing to the <%= link_to "privacy policy.", privacy_policy_path, class:"underline" %></p>
+          <% end %>
         </div>
         <!--/Dialog 1 -->
       </div>
