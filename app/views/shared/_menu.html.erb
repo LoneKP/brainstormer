@@ -1,25 +1,25 @@
-<div class="text-xs lg:text-base -mb-6 mt-1 lg:mt-8 mr-8">
+<div class="text-5xl lg:text-base lg:-mb-6 -mb-12 mt-1 lg:mt-8 mr-8">
   <div class="flex flex-row space-x-12 lg:space-x-8 justify-end lg:text-black text-black">
     <div class="flex flex-row justify-end">
       <% if user_signed_in? %>
         <div class="flex">
-          <button onclick="toggleMenu()" class="font-bold justify-center uppercase hvr-grow inline-flex my-shadow py-2 px-4 lg:py-3 text-blurple focus:outline-none gap-8 flex-row items-center my-shadow lg:px-8 bg-white border-solid border-2 border-white">
+          <button onclick="toggleMenu()" class="font-bold justify-center uppercase hvr-grow inline-flex my-shadow lg:px-8 px-10 py-3 text-blurple focus:outline-none lg:gap-8 gap-10 flex-row items-center my-shadow bg-white border-solid border-2 border-white">
             <p><%= "#{current_user.name}" %></p>
-            <div class="flex flex-col gap-1.5">
-              <div class="bg-blurple w-6 h-0.5"></div>
-              <div class="bg-blurple w-6 h-0.5"></div>
-              <div class="bg-blurple w-6 h-0.5"></div>
+            <div class="flex flex-col gap-2.5 lg:gap-1.5">
+              <div class="bg-blurple lg:w-6 lg:h-0.5 w-12 h-1"></div>
+              <div class="bg-blurple lg:w-6 lg:h-0.5 w-12 h-1"></div>
+              <div class="bg-blurple lg:w-6 lg:h-0.5 w-12 h-1"></div>
             </div>
           </button>
             <%= render "shared/user_menu" %>
         </div>
       <% else %>
-        <div class="relative inline-block gap-2 flex-row items-center">
+        <div class="relative inline-block lg:gap-2 flex-row items-center">
             <%= link_to user_session_path do %>
-              <button class="justify-center uppercase hvr-grow inline-flex my-shadow py-2 px-4 w-44 lg:py-3 bg-beigy text-blurple border-solid border-2 border-blurple focus:outline-none">Sign in</button>
+              <button class="font-semibold lg:font-normal justify-center uppercase hvr-grow inline-flex my-shadow py-4 lg:px-4 px-12 lg:w-44 lg:py-3 bg-beigy text-blurple border-solid border-2 border-blurple focus:outline-none">Sign in</button>
             <% end %>
             <%= link_to select_sign_up_method_path do %>
-              <button class="justify-center uppercase hvr-grow inline-flex my-shadow py-2 px-4 w-44 lg:py-3 bg-blurple text-white border-solid border-2 border-blurple focus:outline-none">Sign up</button>
+              <button class="font-semibold lg:font-normal justify-center uppercase hvr-grow inline-flex my-shadow py-4 lg:px-4 px-12 lg:w-44 lg:py-3 bg-blurple text-white border-solid border-2 border-blurple focus:outline-none">Sign up</button>
             <% end %>
         </div>
       <% end %>
