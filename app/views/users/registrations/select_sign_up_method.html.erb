@@ -1,6 +1,6 @@
 <div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl">
 <%= render 'shared/menu' %>
-  <div class="mb-12 my-shadow-lg grid grid-cols-2">
+  <div class="mb-12 my-shadow-lg lg:grid lg:grid-cols-2">
     <div class="flex-col flex bg-white p-12 mb-4 h-full w-full">
       <div class="flex flex-row justify-between">
         <%= link_to root_path do %>
@@ -10,22 +10,22 @@
         <% end %>  
       </div>
       <div class="px-12">
-        <h1 class="text-3xl lg:text-3xl font-semibold text-blurple">Sign up and take brainstorming to the next level!</h1>
-        <div class="my-16">
-        <%= button_to "Sign up with google", sign_up_with_google_path, method: :get, class: "w-full justify-center uppercase hvr-grow my-shadow py-2 px-4 lg:py-3 bg-blurple text-white font-bold border-solid border-2 border-blurple focus:outline-none" %>
+        <h1 class="text-6xl lg:text-3xl font-semibold text-blurple mt-8 lg:mt-0">Sign up and take brainstorming to the next level!</h1>
+        <div class="lg:my-16 my-48">
+        <%= button_to "Sign up with google", sign_up_with_google_path, method: :get, class: "lg:text-base text-4xl w-full justify-center uppercase hvr-grow my-shadow lg:py-3 py-8 px-4 bg-blurple text-white font-bold border-solid border-2 border-blurple focus:outline-none" %>
           <div class="flex flex-row items-center">
-            <div class="border-dotted border-t-2 w-full border-blurple my-12"></div>
-            <p class="px-4 font-bold text-blurple">OR</p>
-            <div class="border-dotted border-t-2 w-full border-blurple my-12"></div>
+            <div class="border-dotted lg:border-t-2 border-t-8 w-full border-blurple lg:my-12 my-48"></div>
+            <p class="px-4 font-bold lg:text-base text-3xl text-blurple">OR</p>
+            <div class="border-dotted lg:border-t-2 border-t-8 w-full border-blurple lg:my-12 my-48"></div>
           </div>
-        <%= button_to "Sign up with email and password", new_user_registration_path, method: :get, class: "w-full justify-center uppercase hvr-grow my-shadow py-2 px-4 lg:py-3 bg-white text-blurple font-bold border-solid border-2 border-blurple focus:outline-none" %>
+        <%= button_to "Sign up with email and password", new_user_registration_path, method: :get, class: "lg:text-base text-4xl w-full justify-center uppercase hvr-grow my-shadow lg:py-3 py-8 px-4 bg-white text-blurple font-bold border-solid border-2 border-blurple focus:outline-none" %>
         </div>
         <div class="text-xs">
           <%= render "users/shared/links" %>
         </div>
       </div>
     </div>
-    <div class="flex-col flex justify-center bg-blurple text-white p-12 mb-4 h-full w-full gap-12">
+    <div class="flex-col lg:flex hidden justify-center bg-blurple text-white p-12 mb-4 h-full w-full gap-12">
       <div class="flex flex-col">
         <p class="font-bold text-xl">Facilitate</p>
         <p class="text-sm">When you facilitate using an account, you will not lose facilitator rights when you leave and jump back in.</p>
