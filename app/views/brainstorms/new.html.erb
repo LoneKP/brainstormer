@@ -1,186 +1,148 @@
-<div class="lg:hidden flex flex-col">
-  <div class="bg-blurple px-6 h-screen flex flex-col justify-center">
-    <%= form_with model: @brainstorm, local: true do |f| %>
-    <div class="flex flex-row justify-between items-baseline mb-2">
-      <%= f.label :problem, "PROBLEM TO SOLVE", class: "italic text-3xl font-bold flex flex-row justify-between items-baseline text-white leading-none " %>
-    </div>
-    <%= f.text_field :problem, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none text-black font-bold text-5xl my-shadow-lg", autocomplete: "off" %>
-    <% if @brainstorm.errors[:problem].any? %>
-        <div class="leading-none p-2 mt-1 text-3xl font-bold italic text-white bg-wine">
-          <span><%= @brainstorm.errors[:problem][0] %></span>
-        </div>
-    <% end %>
-    <div class="flex flex-row justify-between items-baseline mb-2">
-      <%= f.label :name, "YOUR NAME", class: "mt-8 italic text-3xl font-bold  flex flex-row justify-between items-baseline text-white leading-none" %>
-    </div>
-    <%= f.text_field :name, :value => current_user&.name, class: "border-solid border-2 border-black h-32 italic px-4 w-full focus:outline-none text-black font-bold text-5xl my-shadow-lg", autocomplete: "off" %>
-    <% if @brainstorm.errors[:name].any? %>
-      <div class="leading-none p-2 mt-1 text-3xl font-bold italic text-white bg-wine">
-        <span><%= @brainstorm.errors[:name][0] %></span>
-      </div>
-    <% end %>
-    <%= f.submit 'CREATE BRAINSTORM', class: "mt-16 py-4 w-full my-shadow-lg text-blurple text-6xl font-bold bg-yellowy cursor-pointer" %>
-    <% end %>
-    <% unless current_user %>
-      <p class="text-3xl mt-24 text-white">By using Brainstormer you are agreeing to the <%= link_to "privacy policy.", privacy_policy_path %>
-    <% end %>
-  </div> 
-</div>
 <div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl">
-  <%= render "shared/menu" %>
-  <div class="hidden lg:flex lg:flex-col lg:h-screen">
-    <div>
-      <div class="items-center max-w-screen-lg lg:mx-auto lg:my-12 2xl:mt-36">  
-        <!--Dialog 1-->
-          <div class="my-shadow-lg bg-white mx-auto py-12 px-16 text-left">
-            <!--Title-->
-            <div class="flex justify-between items-center">
-              <p class="pb-8 text-4xl font-bold text-blurple">SETUP BRAINSTORM</p>
-              <div class="cursor-pointer">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="22px" height="44px" viewBox="0 0 22 44" version="1.1">
-                  <title>0A8AFE57-5D7F-4A41-BCD4-6E6B8A8CA7CB</title>
-                  <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                    <g id="Desktop-HD" transform="translate(-1045.000000, -208.000000)" fill="#312783" fill-rule="nonzero">
-                      <g id="flash_on-24px" transform="translate(1045.000000, 208.000000)">
-                        <polygon id="Path" points="0 0 0 24.2 6.6 24.2 6.6 44 22 17.6 13.2 17.6 19.8 0" />
-                      </g>
-                    </g>
-                  </g>
-                </svg>
-              </div>
-            </div>
-            <!-- content -->
-            <%= form_with model: @brainstorm, local: true, class: "flex flex-col" do |f| %>
-            <div class="flex flex-row justify-between items-baseline mb-2">
-              <%= f.label :problem_to_solve, class: "italic text-2xl font-bold leading-none" %>
-              <p class="opacity-50 text-black italic font-semibold">Need help? See TIPS & TRICKS</p>
-            </div>
-            <%= f.text_field :problem, class: "focus:outline-none border-solid border-2 border-black h-12 italic font-bold px-4 w-full", autocomplete: "off" %>
+  <%= render 'shared/menu' %>
+  <div class="flex flex-col">
+    <div class="bg-blurple flex flex-col">
+      <div class="bg-dots-smaller mt-12 h-24 mx-6"></div>
+      <div class="bg-white w-full flex flex-col my-shadow px-14 pb-24 lg:pb-0">
+        <%= link_to root_path do %>
+          <div class="lg:-mt-10 -mt-16 italic bg-black w-32 h-32 lg:w-20 lg:h-20 text-white text-7xl lg:text-5xl flex font-bold items-center justify-center">
+            <span>B</span>
+          </div>
+        <% end %>
 
-            <% if @brainstorm.errors[:problem].any? %>
-              <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
-                <span><%= @brainstorm.errors[:problem][0] %></span>
-              </div>
-            <% end %>
-          </div>
+        <div class="flex justify-between items-center lg:mt-12 mt-24">
+          <p class="lg:text-4xl text-7xl font-bold text-blurple">SETUP BRAINSTORM</p>
+          <span class="material-icons-outlined lg:text-5xl text-10xl text-blurple">flash_on</span>
+        </div>
+          
 
-          <div class="bg-white flex flex-col px-16 pb-8 my-shadow-lg">
-            <div onclick="toggleTipsAndTricks()" class="cursor-pointer px-2 bg-light-blurple text-sm text-blurple flex flex-row self-end items-center">
-              <div class="mr-2 flex justify-center border-solid border border-black w-5 h-5">
-                <p class="leading-none self-center">i</p>
-              </div>
-              <p class="font-semibold">TIPS & TRICKS</p>
-              <div class="h-8 w-8">
-                <svg id="tipsAndTricksArrow" class="transform" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_down" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-                  <path fill="#352288" d="M13.418,7.859c0.271-0.268,0.709-0.268,0.978,0c0.27,0.268,0.272,0.701,0,0.969l-3.908,3.83  c-0.27,0.268-0.707,0.268-0.979,0l-3.908-3.83c-0.27-0.267-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.978,0L10,11L13.418,7.859z  " />
-                </svg>
-              </div>
-              
-            </div>
+        <%= form_with model: @brainstorm, local: true, class: "flex flex-col" do |f| %>
+        <div class="flex flex-col lg:my-12 my-20 mb-8 lg:mb-0 bg-white">
+          <div class="flex flex-row justify-between items-baseline mb-2">
+            <%= f.label :problem_to_solve, class: "italic lg:text-2xl text-4xl font-bold leading-none" %>
+            <p class="hidden lg:flex opacity-50 text-black italic font-semibold lg:text-base text-2xl">Need help? See TIPS & TRICKS</p>
           </div>
-          <!--Dialog 2-->
-          <div class="bg-white flex flex-col">
-            <div id="tipsAndTricksContainerNewPage" class="hidden flex-col px-16 pb-8 justify-between">
-              <div class="">
-                <p class="leading-loose italic font-bold text-lg uppercase mb-4">What makes a good problem statement?</p>
-              </div>
-              <div class="flex-col flex mx-8 justify-around mb-4">
-                <div class="items-center flex-row flex">
-                  <div class="h-2 w-2 bg-black mr-4"></div>
-                  <p class="mb-2"><span class="bg-yellowy">Make it <span class="font-bold">open</span> enough to inspire a lot of ideas.</span></p>
-                </div>
-                <div class="items-center flex-row flex">
-                  <div class="h-2 w-2 bg-black mr-4"></div>
-                  <p class="mb-2"><span class="bg-yellowy">Make it <span class="font-bold">closed</span> enough to give your team the direction they need.</span></p>
-                </div>
-                <div class="items-center flex-row flex">
-                  <div class="h-2 w-2 bg-black mr-4"></div>
-                  <p class="mb-2"><span class="bg-yellowy">Make sure that it can't be answered with a simple <span class="font-bold">yes or no</span>.</span></p>
-                </div>
-              </div>
-              <p class="leading-loose italic font-bold text-lg uppercase mb-3">To achieve this, you can start the statement with "HOW MIGHT WE..."</p>
-              <div class="flex-col flex ml-8 justify-around">
-                <div class="items-center flex-row flex justify-between">
-                  <div class="flex items-center">
-                    <div class="h-2 w-2 bg-black mr-4"></div>
-                    <p><span class="bg-yellowy"><span class="font-bold">How might we</span> prevent shopping carts from getting rusty.</span></p>
-                  </div>
-                  <div class="flex items-center">
-                    <div class="h-8 w-8">
-                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Cross" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-                        <path fill="#DC6660" d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0  c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183  l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15  C14.817,13.62,14.817,14.38,14.348,14.849z" />
-                      </svg>
-                    </div>
-                    <p class="text-reddy ml-2">TOO NARROW</p>
-                  </div>
-                </div>
-                <div class="items-center flex-row flex justify-between">
-                  <div class="flex items-center">
-                    <div class="h-2 w-2 bg-black mr-4"></div>
-                    <p><span class="bg-yellowy"><span class="font-bold">How might we</span> reinvent shopping.</span></p>
-                  </div>
-                  <div class="flex items-center">
-                    <div class="h-8 w-8">
-                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Cross" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-                        <path fill="#DC6660" d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0  c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183  l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15  C14.817,13.62,14.817,14.38,14.348,14.849z" />
-                      </svg>
-                    </div>
-                    <p class="text-reddy ml-2">TOO OPEN</p>
-                  </div>
-                </div>
-                <div class="items-center flex-row flex justify-between">
-                  <div class="flex items-center">
-                    <div class="h-2 w-2 bg-black mr-4"></div>
-                    <p><span class="bg-yellowy"><span class="font-bold">How might we</span> redesign shopping carts to last longer.</span></p>
-                  </div>
-                  <div class="flex items-center">
-                    <div class="h-8 w-8 ml-8">
-                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Check" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-                        <path fill="#027540" d="M8.294,16.998c-0.435,0-0.847-0.203-1.111-0.553L3.61,11.724c-0.465-0.613-0.344-1.486,0.27-1.951  c0.615-0.467,1.488-0.344,1.953,0.27l2.351,3.104l5.911-9.492c0.407-0.652,1.267-0.852,1.921-0.445  c0.653,0.406,0.854,1.266,0.446,1.92L9.478,16.34c-0.242,0.391-0.661,0.635-1.12,0.656C8.336,16.998,8.316,16.998,8.294,16.998z" />
-                      </svg>
-                    </div>
-                    <p class="text-greeny">PERFECT</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <!--/Dialog 2 -->
-          <% if !current_user %>
-          <div class="my-shadow-lg bg-light-blurple flex flex-col py-12 px-16">
-            <div class="flex flex-row justify-between items-baseline mb-2">
-              <%= f.label :name, class: "italic text-lg font-bold leading-none"  %>
-              <p class="opacity-50 text-black italic font-semibold">Let your participants know who you are</p>
-            </div>
-            <%= f.text_field :name, :value => current_user&.name, class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full", autocomplete: "off" %>
+          <%= f.text_field :problem, class: "lg:text-base text-4xl focus:outline-none border-solid border-2 border-black lg:h-12 italic font-bold px-4 w-full", autocomplete: "off" %>
 
-            <% if @brainstorm.errors[:name].any? %>
-              <div class="leading-none p-2 mt-1 text-sm font-bold italic text-white bg-wine">
-                <span><%= @brainstorm.errors[:name][0] %></span>
-              </div>
-            <% end %>
-          </div>
-          <% else %>
-          <%= f.hidden_field :name, :value => current_user.name %>
-          <% end %>
-          <div class="mt-8 flex flex-row justify-between">
-            <%= link_to root_path do %>
-              <div class="hvr-grow active:bg-blurple-gray cursor-pointer my-shadow-lg bg-white text-lg font-bold h-14 w-14">
-                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Chevron_small_left" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-                  <path fill="#352288" d="M12.141,13.418c0.268,0.271,0.268,0.709,0,0.978c-0.268,0.27-0.701,0.272-0.969,0l-3.83-3.908  c-0.268-0.27-0.268-0.707,0-0.979l3.83-3.908c0.267-0.27,0.701-0.27,0.969,0c0.268,0.271,0.268,0.709,0,0.978L9,10L12.141,13.418z" />
-                </svg>
-              </div>
-            <% end %>
-            <%= f.submit 'CREATE BRAINSTORM', class: "hvr-grow px-8 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer" %>
-            <% end %>
-          </div>
-          <% unless current_user %>
-            <p class="text-xs mt-12">By using Brainstormer you are agreeing to the <%= link_to "privacy policy.", privacy_policy_path, class:"underline" %></p>
+          <% if @brainstorm.errors[:problem].any? %>
+            <div class="leading-none p-2 mt-1 lg:text-sm text-2xl font-bold italic text-white bg-wine">
+              <span><%= @brainstorm.errors[:problem][0] %></span>
+            </div>
           <% end %>
         </div>
-        <!--/Dialog 1 -->
+
+        <div onclick="toggleTipsAndTricks()" class="lg:mb-6 mb-8 mt-4 lg:mt-4 cursor-pointer lg:px-2 px-6 bg-light-blurple lg:text-sm text-3xl text-blurple lg:flex hidden flex-row self-end items-center">
+          <div class="lg:mr-2 mr-6 flex justify-center border-solid border border-black lg:w-5 lg:h-5 w-10 h-10">
+            <p class="leading-none self-center">i</p>
+          </div>
+          <p class="font-semibold">TIPS & TRICKS</p>
+          <span id="tipsAndTricksArrow" class="transform material-icons-outlined lg:text-3xl text-6xl">expand_more</span>
+        </div>
       </div>
+
+        <div class="bg-white flex flex-col">
+          <div id="tipsAndTricksContainerNewPage" class="hidden flex-col px-16 pb-8 justify-between">
+            <div class="">
+              <p class="leading-loose italic font-bold lg:text-lg text-2xl uppercase mb-4">What makes a good problem statement?</p>
+            </div>
+            <div class="flex-col flex mx-8 justify-around mb-4 lg:text-base text-xl">
+              <div class="items-center flex-row flex">
+                <div class="h-2 w-2 bg-black mr-4"></div>
+                <p class="mb-2"><span class="bg-yellowy">Make it <span class="font-bold">open</span> enough to inspire a lot of ideas.</span></p>
+              </div>
+              <div class="items-center flex-row flex">
+                <div class="h-2 w-2 bg-black mr-4"></div>
+                <p class="mb-2"><span class="bg-yellowy">Make it <span class="font-bold">closed</span> enough to give your team the direction they need.</span></p>
+              </div>
+              <div class="items-center flex-row flex">
+                <div class="h-2 w-2 bg-black mr-4"></div>
+                <p class="mb-2"><span class="bg-yellowy">Make sure that it can't be answered with a simple <span class="font-bold">yes or no</span>.</span></p>
+              </div>
+            </div>
+            <p class="leading-loose italic font-bold lg:text-lg text-2xl uppercase mb-3">To achieve this, you can start the statement with "HOW MIGHT WE..."</p>
+            <div class="flex-col flex ml-8 justify-around">
+              <div class="items-center flex-row flex justify-between lg:text-base text-xl">
+                <div class="flex items-center">
+                  <div class="h-2 w-2 bg-black mr-4"></div>
+                  <p><span class="bg-yellowy"><span class="font-bold">How might we</span> prevent shopping carts from getting rusty.</span></p>
+                </div>
+                <div class="flex items-center">
+                  <div class="h-8 w-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Cross" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                      <path fill="#DC6660" d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0  c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183  l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15  C14.817,13.62,14.817,14.38,14.348,14.849z" />
+                    </svg>
+                  </div>
+                  <p class="text-reddy ml-2">TOO NARROW</p>
+                </div>
+              </div>
+              <div class="items-center flex-row flex justify-between">
+                <div class="flex items-center">
+                  <div class="h-2 w-2 bg-black mr-4"></div>
+                  <p><span class="bg-yellowy"><span class="font-bold">How might we</span> reinvent shopping.</span></p>
+                </div>
+                <div class="flex items-center">
+                  <div class="h-8 w-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Cross" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                      <path fill="#DC6660" d="M14.348,14.849c-0.469,0.469-1.229,0.469-1.697,0L10,11.819l-2.651,3.029c-0.469,0.469-1.229,0.469-1.697,0  c-0.469-0.469-0.469-1.229,0-1.697l2.758-3.15L5.651,6.849c-0.469-0.469-0.469-1.228,0-1.697s1.228-0.469,1.697,0L10,8.183  l2.651-3.031c0.469-0.469,1.228-0.469,1.697,0s0.469,1.229,0,1.697l-2.758,3.152l2.758,3.15  C14.817,13.62,14.817,14.38,14.348,14.849z" />
+                    </svg>
+                  </div>
+                  <p class="text-reddy ml-2">TOO OPEN</p>
+                </div>
+              </div>
+              <div class="items-center flex-row flex justify-between">
+                <div class="flex items-center">
+                  <div class="h-2 w-2 bg-black mr-4"></div>
+                  <p><span class="bg-yellowy"><span class="font-bold">How might we</span> redesign shopping carts to last longer.</span></p>
+                </div>
+                <div class="flex items-center">
+                  <div class="h-8 w-8 ml-8">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Check" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
+                      <path fill="#027540" d="M8.294,16.998c-0.435,0-0.847-0.203-1.111-0.553L3.61,11.724c-0.465-0.613-0.344-1.486,0.27-1.951  c0.615-0.467,1.488-0.344,1.953,0.27l2.351,3.104l5.911-9.492c0.407-0.652,1.267-0.852,1.921-0.445  c0.653,0.406,0.854,1.266,0.446,1.92L9.478,16.34c-0.242,0.391-0.661,0.635-1.12,0.656C8.336,16.998,8.316,16.998,8.294,16.998z" />
+                    </svg>
+                  </div>
+                  <p class="text-greeny">PERFECT</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      
+
+
+        <% if !current_user %>
+        <div class="my-shadow-lg bg-light-blurple flex flex-col py-12 px-16">
+          <div class="flex flex-row justify-between items-baseline mb-2">
+            <%= f.label :name, class: "italic lg:text-2xl text-4xl font-bold leading-none"  %>
+            <p class="opacity-50 text-black italic font-semibold lg:text-base text-2xl">Let your participants know who you are</p>
+          </div>
+          <%= f.text_field :name, :value => current_user&.name, class: "lg:text-base text-4xl focus:outline-none border-solid border-2 border-black lg:h-10 italic font-bold px-4 w-full", autocomplete: "off" %>
+
+          <% unless current_user %>
+            <p class="lg:text-xs text-xl mt-8">By using Brainstormer you are agreeing to the <%= link_to "privacy policy.", privacy_policy_path, class:"underline" %></p>
+          <% end %>
+
+          <% if @brainstorm.errors[:name].any? %>
+            <div class="leading-none p-2 mt-1 lg:text-sm text-2xl font-bold italic text-white bg-wine">
+              <span><%= @brainstorm.errors[:name][0] %></span>
+            </div>
+          <% end %>
+        </div>
+        <% else %>
+        <%= f.hidden_field :name, :value => current_user.name %>
+        <% end %>
+        <div class="my-8 flex flex-row justify-between">
+          <%= link_to root_path do %>
+          <span class="material-icons lg:p-3 p-1 lg:text-5xl text-8xl text-blurple hvr-grow active:bg-blurple-gray cursor-pointer my-shadow bg-white font-bold">chevron_left</span>
+          <% end %>
+          <%= f.submit 'CREATE BRAINSTORM', class: "hvr-grow my-shadow-lg text-blurple lg:text-lg text-4xl lg:px-10 px-16 font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer" %>
+          <% end %>
+        </div>
+      
+
+      </div>
+      <div class="bg-dots-smaller mb-12 mt-8 h-40 mx-6"></div>
     </div>
+    <%= render 'shared/footer' %>
   </div>
 </div>
 
