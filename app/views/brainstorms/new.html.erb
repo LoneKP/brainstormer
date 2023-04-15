@@ -113,18 +113,18 @@
         <div class="my-shadow-lg bg-light-blurple flex flex-col py-12 px-16">
           <div class="flex flex-row justify-between items-baseline lg:mb-2 mb-6">
             <%= f.label :name, class: "italic lg:text-2xl text-5xl font-bold leading-none"  %>
-            <p class="opacity-50 text-black italic font-semibold lg:text-base text-2xl">Let your participants know who you are</p>
+            <p class="opacity-50 text-black italic font-semibold lg:text-base text-3xl">Let your participants know who you are</p>
           </div>
           <%= f.text_field :name, :value => current_user&.name, class: "lg:text-base text-6xl focus:outline-none border-solid border-2 border-black lg:h-10 italic font-bold px-4 w-full", autocomplete: "off" %>
-
-          <% unless current_user %>
-            <p class="lg:text-xs text-xl mt-8">By using Brainstormer you are agreeing to the <%= link_to "privacy policy.", privacy_policy_path, class:"underline" %></p>
-          <% end %>
 
           <% if @brainstorm.errors[:name].any? %>
             <div class="leading-none p-2 mt-1 lg:text-sm text-2xl font-bold italic text-white bg-wine">
               <span><%= @brainstorm.errors[:name][0] %></span>
             </div>
+          <% end %>
+
+          <% unless current_user %>
+            <p class="lg:text-xs text-2xl mt-8">By using Brainstormer you are agreeing to the <%= link_to "privacy policy.", privacy_policy_path, class:"underline" %></p>
           <% end %>
         </div>
         <% else %>
