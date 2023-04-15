@@ -1,16 +1,14 @@
- <div class="lg:mt-0 flex justify-between text-2xl lg:text-sm items-start mb-16 mt-4 flex-col lg:flex-row">
-  <div class="flex flex-col gap-2">
+ <div class="lg:mt-0 flex justify-between text-3xl lg:text-sm items-start mb-16 mt-16 flex-col lg:flex-row <%= request.path == "/pricing" || request.path == "/brainstorms/new" ? "text-white" : "text-black" %>">
+  <div class="flex flex-col lg:gap-2 gap-10">
     <p class="hover:underline"><a href="/pricing">Pricing</p></a>
     <p class="hover:underline"><a href="/about">About</p></a>
     <p class="hover:underline"><a href="https://www.blog.brainstormer.online/brainstormers-around-the-world/">Video tutorials</a></p>
+    <p class="hover:underline"><a href="https://www.blog.brainstormer.online">Blog</a></p>
     <%= link_to "privacy policy", privacy_policy_path, class: "hover:underline" %>
-    <p class="hover:underline"><a target="_blank" href="https://checkout.stripe.com/c/pay/cs_live_a1kDOzRrTeORjqtycmDN9MphyTSKKV2X70v0YLhtjsd0fWrsPfDz8iCpmC#fidkdWxOYHwnPyd1blppbHNgWjA0T0ROX2FHblJiR2d2fUA2ZzZQNkB3NWhpZFRESEhrZEBVd1BNXXc0amA0TzxBaXBDRGldNUw3MmhnbkRzb2RrdGB8U21KMWZAd1dLUHRTYVNVcWFBQ2xiNTVzNkpiXUZgUycpJ3VpbGtuQH11anZgYUxhJz8nNDFuN2QyMUt2N1ZqZmREZ0xMJyknd2BjYHd3YHdKd2xibGsnPydtcXF1dj8qKnJycitnd2Rsa3ZxandoYHcramtpbGtgKid4JSUl">Buy me a coffee</a></p>
-  </div>
-    <div class="flex space-x-4 lg:space-x-1 items-center">
+    <div class="flex space-x-4 lg:space-x-1 items-center lg:mt-4 mt-6">
       <p>&copy; 2023, Made with</p>
-      <svg class="h-8 w-8 lg:h-4 lg:h-4 hover:animate-ping" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" id="Heart" x="0px" y="0px" viewBox="0 0 20 20" enable-background="new 0 0 20 20" xml:space="preserve">
-        <path fill="#DC6660" d="M17.19,4.155c-1.672-1.534-4.383-1.534-6.055,0L10,5.197L8.864,4.155c-1.672-1.534-4.382-1.534-6.054,0  c-1.881,1.727-1.881,4.52,0,6.246L10,17l7.19-6.599C19.07,8.675,19.07,5.881,17.19,4.155z" />
-      </svg>
+      <i class="lg:text-xl text-4xl material-icons cursor-default text-reddy hover:animate-ping">favorite</i>
       <p>by <a class="hover:underline" target="_blank" href="https://twitter.com/Lonekp">Lone Kjeldgaard</a></p>
     </div>
   </div>
+</div>
