@@ -47,6 +47,7 @@ Rails.application.routes.draw do
   
   get '/checkouts', to: 'subscriptions#checkout'
   get '/your-plan', to: 'subscriptions#your_plan'
+  get '/free-trial', to: 'subscriptions#free_trial'
 
   devise_scope :user do
     get '/select-sign-up-method', to: 'users/registrations#select_sign_up_method'

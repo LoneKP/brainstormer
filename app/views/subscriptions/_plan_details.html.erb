@@ -18,16 +18,22 @@
     <% if current_user.facilitator_plan? %>
       <h2 class="text-4xl lg:text-2xl font-semibold text-blurple lg:my-2 my-12">Plan details</h2>
     <% end %>
-    <% current_user.subscriptions.where(status: :active).each do |subscription| %>
+    <% current_user.subscriptions.where(status: :active).or(current_user.subscriptions.where(status: :trialing)).each do |subscription| %>
       <div class="lg:mb-4 mb-12">
         <div class="flex flex-col">
-          <p class="uppercase lg:text-lg text-3xl font-semibold">Facilitator - <%= subscription.data.dig("subscription_items")[0].dig("price", "recurring", "interval") %>ly <span class="text-sm font-normal <%= subscription.ends_at.nil? ? "bg-greeny" : "bg-reddy"  %> text-white px-1"><%= subscription.ends_at.nil? ? "active" : "cancelled"  %></span></p>
+          <p class="uppercase lg:text-lg text-3xl font-semibold">Facilitator - <%= subscription.data.dig("subscription_items")[0].dig("price", "recurring", "interval") %>ly 
+            <span class="text-sm font-normal <%= subscription.ends_at.nil? ? "bg-greeny" : "bg-reddy"  %> text-white px-1"><%= subscription.ends_at.nil? ? "active" : "cancelled"  %></span>
+            <span class=" <%= subscription.trial_ends_at? ? 'text-sm font-normal bg-blurple text-white px-1' : ""%>">TRIAL</span>
+          </p>
         </div>
         <% if subscription.ends_at.nil? %>
-          <p class="lg:text-base text-xl">>Your plan will be renewed again in <%=(subscription.current_period_end.to_date - Date.today).to_i %> days. &#127881;</p>
+          <p class="lg:text-base text-xl">Your plan will be renewed again in <%=(subscription.current_period_end.to_date - Date.today).to_i %> days. &#127881;</p>
         <% end %>
         <% if subscription.ends_at? %>
           <p class="lg:text-base text-xl">You have cancelled your plan, but you still have access for <%= (subscription.ends_at.to_date - Date.today).to_i %> days.</p>
+        <% end %>
+        <% if subscription.status == "trialing" %>
+          <p class="mt-2 lg:text-base text-xl">You're currently on a  trial! If you have entered your credit card details, the trial will continue as a normal subscription in <%= (subscription.trial_ends_at.to_date - Date.today).to_i %> days.  </p>
         <% end %>
       </div>
     <% end %>
@@ -35,7 +41,7 @@
     <% if current_user.facilitator_plan? %>
      <%= link_to "Manage plan", @portal_session.url, class: "lg:mt-2 mt-12 hvr-grow px-10 py-2 my-shadow-lg text-blurple lg:text-lg text-3xl font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer w-max self-end" %>
     <% else %>
-      <%= link_to "Upgrade", checkouts_path(plan: :monthly), class: "lg:mt-2 mt-12 hvr-grow px-10 py-2 my-shadow-lg text-blurple lg:text-lg text-3xl font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer w-max self-end" %>
+      <%= link_to "Upgrade", checkouts_path(plan: :monthly), class: "lg:mt-2 mt-12cur hvr-grow px-10 py-2 my-shadow-lg text-blurple lg:text-lg text-3xl font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer w-max self-end" %>
     <% end %>
   </div>
 </div>
