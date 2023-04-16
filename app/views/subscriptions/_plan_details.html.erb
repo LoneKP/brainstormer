@@ -18,7 +18,8 @@
     <% if current_user.facilitator_plan? %>
       <h2 class="text-4xl lg:text-2xl font-semibold text-blurple lg:my-2 my-12">Plan details</h2>
     <% end %>
-    <% current_user.subscriptions.where(status: :active).or(current_user.subscriptions.where(status: :trialing)).each do |subscription| %>
+    <% current_user.subscriptions.active.each do |subscription| %>
+
       <div class="lg:mb-4 mb-12">
         <div class="flex flex-col">
           <p class="uppercase lg:text-lg text-3xl font-semibold">Facilitator - <%= subscription.data.dig("subscription_items")[0].dig("price", "recurring", "interval") %>ly 
@@ -29,13 +30,14 @@
           </p>
         </div>
         <% if subscription.ends_at.nil? %>
-          <p class="lg:text-base text-xl">Your plan will be renewed again in <%=(subscription.current_period_end.to_date - Date.today).to_i %> days. &#127881;</p>
+          <p class="lg:text-base text-xl">Your plan will be renewed again in <%=(subscription.current_period_end.to_date - Date.today).to_i %> days. &#127881;</p></br>
         <% end %>
         <% if subscription.ends_at? %>
-          <p class="lg:text-base text-xl">You have cancelled your plan, but you still have access for <%= (subscription.ends_at.to_date - Date.today).to_i %> days.</p>
+          <p class="lg:text-base text-xl">You have cancelled your plan, but you still have access for <%= (subscription.ends_at.to_date - Date.today).to_i %> days.</p></br>
         <% end %>
         <% if subscription.status == "trialing" %>
-          <p class="mt-2 lg:text-base text-xl">You're currently on a free trial! If you have entered your credit card details, the trial will continue as a normal subscription in <%= (subscription.trial_ends_at.to_date - Date.today).to_i %> days.  </p>
+          <p class="lg:text-base text-xl">You're currently on a free trial! If you have entered your credit card details, the trial will continue as a normal subscription in <%= (subscription.trial_ends_at.to_date - Date.today).to_i %> days.</p></br>
+          <p>If you haven't entered your credit card details, you can do that by clicking "manage plan".</p>
         <% end %>
       </div>
     <% end %>
