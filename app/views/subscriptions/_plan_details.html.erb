@@ -35,7 +35,7 @@
         <% if subscription.ends_at? %>
           <p class="lg:text-base text-xl">You have cancelled your plan, but you still have access for <%= (subscription.ends_at.to_date - Date.today).to_i %> days.</p></br>
         <% end %>
-        <% if subscription.status == "trialing" %>
+        <% if subscription.on_trial? %>
           <p class="lg:text-base text-xl">You're currently on a free trial! If you have entered your credit card details, the trial will continue as a normal subscription in <%= (subscription.trial_ends_at.to_date - Date.today).to_i %> days.</p></br>
           <p>If you haven't entered your credit card details, you can do that by clicking "manage plan".</p>
         <% end %>
