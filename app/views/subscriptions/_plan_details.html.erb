@@ -23,7 +23,9 @@
         <div class="flex flex-col">
           <p class="uppercase lg:text-lg text-3xl font-semibold">Facilitator - <%= subscription.data.dig("subscription_items")[0].dig("price", "recurring", "interval") %>ly 
             <span class="text-sm font-normal <%= subscription.ends_at.nil? ? "bg-greeny" : "bg-reddy"  %> text-white px-1"><%= subscription.ends_at.nil? ? "active" : "cancelled"  %></span>
-            <span class=" <%= subscription.trial_ends_at? ? 'text-sm font-normal bg-blurple text-white px-1' : ""%>">TRIAL</span>
+            <% if subscription.status == "trialing" %>
+              <span class="text-sm font-normal bg-blurple text-white px-1">TRIAL</span>
+            <% end %>
           </p>
         </div>
         <% if subscription.ends_at.nil? %>
@@ -33,7 +35,7 @@
           <p class="lg:text-base text-xl">You have cancelled your plan, but you still have access for <%= (subscription.ends_at.to_date - Date.today).to_i %> days.</p>
         <% end %>
         <% if subscription.status == "trialing" %>
-          <p class="mt-2 lg:text-base text-xl">You're currently on a  trial! If you have entered your credit card details, the trial will continue as a normal subscription in <%= (subscription.trial_ends_at.to_date - Date.today).to_i %> days.  </p>
+          <p class="mt-2 lg:text-base text-xl">You're currently on a free trial! If you have entered your credit card details, the trial will continue as a normal subscription in <%= (subscription.trial_ends_at.to_date - Date.today).to_i %> days.  </p>
         <% end %>
       </div>
     <% end %>
