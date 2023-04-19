@@ -80,6 +80,5 @@ class SubscriptionsController < ApplicationController
   end
 
   def your_plan
-    console
   end
 end
