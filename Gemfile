@@ -44,7 +44,7 @@ gem 'redis-rails'
 gem 'kredis', github: 'rails/kredis'
 
 gem "stripe", "~> 8.0"
-gem "pay", "~> 6.0"
+gem "pay", "~> 6.3"
 
 gem "omniauth"
 gem "omniauth-google-oauth2"
