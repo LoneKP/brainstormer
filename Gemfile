@@ -11,7 +11,7 @@ gem 'pg', '~> 1.4', '>= 1.4.5'
 # Use Puma as the app server
 gem 'puma', '~> 4.3'
 # Use Sidekiq as the Active Job adapter
-gem 'sidekiq', '~> 7.0.2'
+gem 'sidekiq', '~> 7.0.8'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
