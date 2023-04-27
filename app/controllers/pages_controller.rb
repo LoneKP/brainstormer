@@ -7,6 +7,7 @@ class PagesController < ApplicationController
 
   def pages_template
     @page = request.path.sub("/", "").sub("-","_")
+    ahoy.track "Visit on #{request.path} 
   end
 
   def your_brainstorms
