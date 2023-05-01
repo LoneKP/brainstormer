@@ -1,6 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_portal_session
+  before_action :track_path_visit, :authenticate_user!, :set_portal_session 
 
   def checkout
     # Make sure the user's payment processor is Stripe
