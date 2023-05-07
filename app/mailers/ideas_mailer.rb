@@ -1,6 +1,6 @@
 class IdeasMailer < ApplicationMailer
   
-  default from: 'brainstormer.online@gmail.com'
+  default from: 'hello@brainstormer.online'
 
   def ideas_email
     @brainstorm = Brainstorm.find_by(token: params[:token])

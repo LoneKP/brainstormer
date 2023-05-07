@@ -1,5 +1,5 @@
 Pay.setup do |config|
-  config.support_email = "Brainstormer <brainstormer.online@gmail.com>"
+  config.support_email = "Brainstormer <hello@brainstormer.online>"
   config.application_name = "Brainstormer"
   config.business_name = "Brainstormer"
 
