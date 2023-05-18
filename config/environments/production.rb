@@ -84,14 +84,24 @@ Rails.application.configure do
   # authentication:       'plain',
   # enable_starttls_auto: true }
 
+  # config.action_mailer.smtp_settings = {
+  # user_name:            ENV['SENDGRID_USER_NAME'],
+  # password:             ENV['SENDGRID_API_KEY'],
+  # domain:               ENV['SENDGRID_DOMAIN'],
+  # address:              ENV['SENDGRID_SMTP_SERVER'],
+  # port:                 ENV['SENDGRID_SMTP_PORT'],
+  # authentication:       'plain',
+  # enable_starttls_auto: true }
+
   config.action_mailer.smtp_settings = {
-  user_name:            ENV['SENDGRID_USER_NAME'],
-  password:             ENV['SENDGRID_API_KEY'],
-  domain:               ENV['SENDGRID_DOMAIN'],
-  address:              ENV['SENDGRID_SMTP_SERVER'],
-  port:                 ENV['SENDGRID_SMTP_PORT'],
-  authentication:       'plain',
-  enable_starttls_auto: true }
+    user_name:            'apikey',
+    password:             ENV['SENDGRID_API_KEY'],
+    domain:               ENV['SENDGRID_DOMAIN'],
+    address:              'smtp.sendgrid.net',
+    port:                 587,
+    authentication:       :plain,
+    enable_starttls_auto: true
+  }
 
 
   # Ignore bad email addresses and do not raise email delivery errors.
