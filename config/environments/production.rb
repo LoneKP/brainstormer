@@ -85,7 +85,7 @@ Rails.application.configure do
   # enable_starttls_auto: true }
 
   config.action_mailer.smtp_settings = {
-  user_name:            "apikey",
+  user_name:            ENV['SENDGRID_USER_NAME'],
   password:             ENV['SENDGRID_API_KEY'],
   domain:               ENV['SENDGRID_DOMAIN'],
   address:              ENV['SENDGRID_SMTP_SERVER'],
