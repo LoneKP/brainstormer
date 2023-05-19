@@ -5,6 +5,8 @@ Rails.application.routes.draw do
     confirmations: "users/confirmations" ,
     omniauth_callbacks: "users/omniauth_callbacks",
   }
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   
   require "sidekiq/web"
 
