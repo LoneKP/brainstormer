@@ -84,14 +84,23 @@ Rails.application.configure do
   # authentication:       'plain',
   # enable_starttls_auto: true }
 
+  # config.action_mailer.smtp_settings = {
+  # user_name:            ENV['SENDGRID_USER_NAME'],
+  # password:             ENV['SENDGRID_API_KEY'],
+  # domain:               ENV['SENDGRID_DOMAIN'],
+  # address:              ENV['SENDGRID_SMTP_SERVER'],
+  # port:                 ENV['SENDGRID_SMTP_PORT'],
+  # authentication:       'plain',
+  # enable_starttls_auto: true }
+
   config.action_mailer.smtp_settings = {
-  user_name:            ENV['SENDGRID_USER_NAME'],
-  password:             ENV['SENDGRID_API_KEY'],
-  domain:               ENV['SENDGRID_DOMAIN'],
-  address:              ENV['SENDGRID_SMTP_SERVER'],
-  port:                 ENV['SENDGRID_SMTP_PORT'],
-  authentication:       'plain',
-  enable_starttls_auto: true }
+    user_name:            ENV['MAILTRAP_USER_NAME'],
+    password:             ENV['MAILTRAP_PASSWORD'],
+    domain:               ENV['MAILTRAP_DOMAIN'],
+    address:              ENV['MAILTRAP_SMTP_SERVER'],
+    port:                 ENV['MAILTRAP_SMTP_PORT'],
+    authentication:       'plain',
+    enable_starttls_auto: true }
 
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -101,7 +110,7 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { :host => "www.brainstormer.online" }
 
   config.action_mailer.default_options = {
-    from: '"Brainstormer" <hello@mail.brainstormer.online>',
+    from: '"Lone from Brainstormer" <lone@brainstormer.online>',
     reply_to: "hello@brainstormer.online",
   }
 
