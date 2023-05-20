@@ -25,6 +25,12 @@ class User < ApplicationRecord
 
   validates_acceptance_of :privacy_policy_agreement, allow_nil: false, on: :create
 
+  def after_confirmation
+    send_welcome_email
+  end
+
+  after_create :send_welcome_email_oauth
+
   def hobbyist_plan?
     !payment_processor.subscribed?
   end
@@ -45,6 +51,10 @@ class User < ApplicationRecord
     else
       1
     end
+  end
+
+  def oauth_user?
+    provider.present? && uid.present?
   end
 
   def stripe_attributes(pay_customer)
@@ -78,6 +88,16 @@ class User < ApplicationRecord
       user.privacy_policy_agreement = true
       user.skip_confirmation!
     end
+  end
+
+  def send_welcome_email_oauth
+    if oauth_user?
+      OnboardingMailer.with(email_address: self.email).welcome_email.deliver_later
+    end
+  end
+
+  def send_welcome_email
+    OnboardingMailer.with(email_address: self.email).welcome_email.deliver_later
   end
 
   protected
