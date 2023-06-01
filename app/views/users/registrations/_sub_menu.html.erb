@@ -1,0 +1,5 @@
+<div class="lg:flex lg:flex-row inline-flex flex-col lg:mt-8 mt-16 self-center cursor-pointer lg:text-base text-3xl lg:gap-8 gap-16 lg:border-solid lg:border-b lg:border-blurple lg:mb-6 mb-16">
+  <%= link_to 'Account details', edit_user_registration_path, class: "#{current_page?(edit_user_registration_path) ? "font-semibold underlineSelection" : ""} uppercase text-blurple pb-2" %>
+  <%= link_to 'Notifications', users_edit_notifications_path, class: "#{current_page?(users_edit_notifications_path) ? "font-semibold underlineSelection" : ""} uppercase text-blurple pb-2" %>
+  <%= link_to 'Delete your account', users_edit_delete_account_path, class: "#{current_page?(users_edit_delete_account_path) ? "font-semibold underlineSelection" : ""} uppercase text-blurple pb-2" %>
+</div>

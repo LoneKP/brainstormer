@@ -12,8 +12,8 @@
           <div class="flex flex-col lg:gap-8 gap-28 mt-10">
             <%= link_to "Front Page", root_path, class: "hvr-grow uppercase" %>
             <%= link_to "Your brainstorms", your_brainstorms_path, class: "hvr-grow uppercase" %>
-            <%= link_to "Your account", edit_user_registration_path, class: "hvr-grow uppercase" %>
             <%= link_to "Your plan", your_plan_path, class: "hvr-grow uppercase" %>
+            <%= link_to "Settings", edit_user_registration_path, class: "hvr-grow uppercase" %>
           </div>
           <div class="flex flex-col gap-10 lg:mb-10 mb-56">
             <%= link_to destroy_user_session_path, method: :delete, class:"uppercase" do %>

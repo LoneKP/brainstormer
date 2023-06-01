@@ -9,11 +9,10 @@
           </div>
         <% end %>  
       </div>
-      <div class="lg:px-40">
-        <h1 class="text-6xl lg:text-3xl font-semibold text-blurple mb-8 mt-10 lg:mt-0">Settings</h1>
-        <%= render "sub_menu" %>
-        <%= render "edit_form" %>
-      </div>
+    <div class="flex-row text-links text-center py-24 p-2">
+      <p class="font-bold lg:text-4xl text-5xl">You have successfully unsubscribed!</p> </br>
+      <p class="lg:text-lg text-3xl">If you wish to subscribe again, you are always welcome to go to <%= link_to 'your settings', users_edit_notifications_path, class: "underline" %> and subscribe again.</p>
+    </div>
     </div>
   </div>
   <%= render 'shared/footer' %>

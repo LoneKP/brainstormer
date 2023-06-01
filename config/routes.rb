@@ -42,6 +42,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :mailer_unsubscribes, only: [:show] 
+
   get '/about', to: 'pages#pages_template'
   get '/privacy-policy', to: 'pages#pages_template'
   get '/your-brainstorms', to: 'pages#your_brainstorms'
@@ -54,6 +56,8 @@ Rails.application.routes.draw do
   devise_scope :user do
     get '/select-sign-up-method', to: 'users/registrations#select_sign_up_method'
     get '/sign-up-with-google', to: 'users/registrations#sign_up_with_google'
+    get 'users/edit/notifications', to: 'users/registrations#edit_notifications'
+    get 'users/edit/delete-account', to: 'users/registrations#delete_account'
   end
 
   root 'pages#index'

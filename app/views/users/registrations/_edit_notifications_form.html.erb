@@ -1,0 +1,14 @@
+<h2 class="text-5xl lg:text-2xl font-semibold text-blurple mt-8 mb-4">Notifications</h2>
+
+<h3 class="lg:text-lg text-3xl font-semibold mb-2">Brainstormer updates</h3>
+
+<p class="lg:text-base text-xl mb-4">Brainstormer will occasionally send an email with tips & tricks, product updates and special offers.</p>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "h-full flex flex-col lg:gap-4 gap-12"}) do |f| %>
+    <div class="flex flex-row items-center lg:gap-4 gap-12 lg:text-base text-3xl">
+      <%= f.check_box :send_onboarding_emails, as: :boolean, class: "w-20 h-20 lg:h-6 lg:w-6" %>
+      <p>Yes please, send me this type of emails</p>
+    </div>
+    <div class="actions flex justify-end mt-10">
+      <%= f.submit "Update", class: "hvr-grow px-10 py-2 my-shadow-lg text-blurple lg:text-lg text-3xl font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer" %>
+    </div>
+  <% end %>

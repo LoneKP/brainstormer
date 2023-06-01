@@ -97,7 +97,7 @@ class User < ApplicationRecord
   end
 
   def send_welcome_email
-    OnboardingMailer.with(email_address: self.email).welcome_email.deliver_later
+    OnboardingMailer.with(user: self).welcome_email.deliver_later
   end
 
   protected
