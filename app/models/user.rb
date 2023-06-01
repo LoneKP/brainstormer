@@ -1,5 +1,5 @@
 class User < ApplicationRecord
-  
+
   has_many :brainstorms, as: :facilitated_by, dependent: :destroy
   has_many :visits, class_name: "Ahoy::Visit"
 
@@ -92,7 +92,7 @@ class User < ApplicationRecord
 
   def send_welcome_email_oauth
     if oauth_user?
-      OnboardingMailer.with(email_address: self.email).welcome_email.deliver_later
+      OnboardingMailer.with(user: self).welcome_email.deliver_later
     end
   end
 
