@@ -13,10 +13,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   before_action :track_path_visit
 
   def update_resource(resource, params)
-    if params.has_key?(:send_onboarding_emails)
+    if params.has_key?(:agree_to_brainstormer_updates)
       params.delete(:password)
       params.delete(:password_confirmation) if params[:password_confirmation].blank?
-      resource.update(send_onboarding_emails: params[:send_onboarding_emails])
+      resource.update(agree_to_brainstormer_updates: params[:agree_to_brainstormer_updates])
     elsif resource.provider == "google_oauth2"
       params.delete("current_password")
       resource.password = params["password"]
@@ -85,7 +85,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :send_onboarding_emails])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :agree_to_brainstormer_updates])
   end
 
   # The path used after sign up.

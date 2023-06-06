@@ -2,7 +2,7 @@ class MailerUnsubscribesController < ApplicationController
   before_action :set_user, only: :show
 
   def show
-    if @user.update(send_onboarding_emails: false)
+    if @user.update(agree_to_brainstormer_updates: false)
       #do nothing else than showing the page
     else
       flash[:alert] = "There was an error unsubscribing. Navigate to your settings to unsubscribe instead."
