@@ -15,6 +15,14 @@ class OnboardingMailer < ApplicationMailer
     )
   end
 
+  def free_trial_email
+    headers['X-MT-Category'] = 'Free trial email'
+    mail(
+      to: @user.email, 
+      subject: "Want to try a free trial? 😍",
+    )
+  end
+
   private
 
   def set_unsubscribe_url
