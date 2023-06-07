@@ -93,11 +93,17 @@ class User < ApplicationRecord
   def send_welcome_email_oauth
     if oauth_user?
       OnboardingMailer.with(user: self).welcome_email.deliver_later
+      send_usage_tip_email
     end
   end
 
   def send_welcome_email
     OnboardingMailer.with(user: self).welcome_email.deliver_later
+    send_usage_tip_email
+  end
+
+  def send_usage_tip_email
+    Mailer::SendOutUsageTipJob.set(wait: 3.weeks).perform_later(self.id)
   end
 
   protected
