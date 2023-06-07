@@ -7,7 +7,7 @@
   <body>
     <h1>Hi <%= @user.name %></h1>
     <p>I see you've been trying out Brainstormer and I hope you're getting the absolute best out of it! 😍</p>
-    <p>You're very welcome to keep using the hobbyist plan that you're on now, but if you're curious about the features on the facilitator plan, I just want to send you the link to try out the free trial.</p>
+    <p>You're very welcome to keep using the hobbyist plan that you're on now, but if you're curious about the features on the facilitator plan, I just want to send you the link to try out the <%= link_to 'free trial.', free_trial_url %></p>
     <p>The facilitator plan has</p>
     <ul style="list-style-type: none">
       <li>⏱️ more options for setting the timer - including "No limit", so you can host an asynchronous brainstorm.</li>

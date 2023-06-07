@@ -23,12 +23,13 @@ class OnboardingMailer < ApplicationMailer
   end
 
   def free_trial_email
-    if @user.agree_to_brainstormer_updates?
+    if @user.agree_to_brainstormer_updates? && !@user.has_received_free_trial_email?
       headers['X-MT-Category'] = 'Free trial email'
       mail(
         to: @user.email, 
         subject: "Want to try a free trial? 😍",
       )
+      @user.update(has_received_free_trial_email: true)
     end
   end
 
