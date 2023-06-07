@@ -14,7 +14,7 @@ class OnboardingMailer < ApplicationMailer
 
   def usage_tip_email
     if @user.agree_to_brainstormer_updates?
-      headers['X-MT-Category'] = 'usage tip #1'
+      headers['X-MT-Category'] = 'Usage tip email'
       mail(
         to: @user.email, 
         subject: "Just checking in: How's it going with brainstormer? 🧠",
