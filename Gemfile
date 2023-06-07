@@ -12,6 +12,7 @@ gem 'pg', '~> 1.4', '>= 1.4.5'
 gem 'puma', '~> 4.3'
 # Use Sidekiq as the Active Job adapter
 gem 'sidekiq', '~> 7.0.2'
+gem 'sidekiq-scheduler'
 # Use SCSS for stylesheets
 gem 'sass-rails', '>= 6'
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
