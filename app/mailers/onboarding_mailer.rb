@@ -1,4 +1,6 @@
 class OnboardingMailer < ApplicationMailer
+  has_history
+  utm_params
   before_action :set_user
   before_action :set_unsubscribe_url
 

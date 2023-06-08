@@ -19,6 +19,7 @@ gem 'sass-rails', '>= 6'
 gem 'webpacker', '~> 5.4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'ahoy_matey'
+gem "ahoy_email"
 gem 'maxminddb'
 gem 'geoip'
 gem 'geocoder'

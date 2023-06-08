@@ -2,6 +2,7 @@ class User < ApplicationRecord
 
   has_many :brainstorms, as: :facilitated_by, dependent: :destroy
   has_many :visits, class_name: "Ahoy::Visit"
+  has_many :messages, class_name: "Ahoy::Message", as: :user
 
   pay_customer stripe_attributes: :stripe_attributes
   pay_customer default_payment_processor: :stripe
