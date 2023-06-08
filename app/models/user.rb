@@ -107,6 +107,10 @@ class User < ApplicationRecord
     Mailer::SendOutUsageTipJob.set(wait: 3.weeks).perform_later(self.id)
   end
 
+  def has_received_free_trial_email?
+    !messages.find_by(mailer:"OnboardingMailer#free_trial_email").nil?
+  end
+
   protected
   
   def password_required?
