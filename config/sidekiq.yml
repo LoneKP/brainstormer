@@ -4,9 +4,10 @@
   - brainstormer_online_production_ahoy
   - brainstormer_online_production_mailers
   - brainstormer_online_production_active_storage_purge
-# :scheduler:
-#   :schedule:
-#     check_free_trial_criteria_job:
-#       queue: brainstormer_online_development_default
-#       cron: '0 * * * * *'   # Runs once per minute
-#       class: CheckFreeTrialCriteriaJob
+  - brainstormer_online_production_scheduler
+:scheduler:
+  :schedule:
+    check_free_trial_criteria_job:
+      queue: brainstormer_online_production_scheduler
+      cron: '12 14 * * * *'   # runs every day at 2:12 pm UTC time
+      class: CheckFreeTrialCriteriaJob

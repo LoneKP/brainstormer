@@ -2,3 +2,4 @@ rails: PORT=3000 rails s
 webpacker: ./bin/webpack-dev-server
 redis: redis-server
 sidekiq: bundle exec sidekiq
+stripe: stripe listen --forward-to localhost:3000/pay/webhooks/stripe

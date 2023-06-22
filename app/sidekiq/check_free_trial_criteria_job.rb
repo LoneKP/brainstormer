@@ -1,35 +1,31 @@
 class CheckFreeTrialCriteriaJob
   include Sidekiq::Job
+  require 'sidekiq-scheduler'
+
+
+  #send out the free trial email if:
+
+  # it is over a month after the user has signed up
+  # the user has created 2 brainstorms over the last month
+  # the user is not on facilitator plan
+  # the user hasn't received this email before and has not opted out (this is checked for in Mailer::SendFreeTrialJob)
 
   def perform
-    User.find_each do |user|
-      if meets_criteria?(user)
+    users = User.where("users.created_at <= ?", 1.month.ago)
+                .where("users.id IN (
+                  SELECT facilitated_by_id FROM brainstorms
+                  WHERE facilitated_by_type = 'User'
+                    AND brainstorms.created_at >= ?)", 30.days.ago.beginning_of_day)
+                .joins(:brainstorms)
+                .group('users.id')
+                .having('COUNT(brainstorms.id) >= 2')
+  
+    users.find_each do |user|
+      if !user.facilitator_plan?
         puts "#{user.name} meets criteria"
         Mailer::SendFreeTrialJob.perform_later(user.id)
       end
     end
   end
 
-  private
-
-  def meets_criteria?(user)
-    over_a_month_after_signup?(user) &&
-    has_created_two_or_more_brainstorms_in_the_recent_30_days?(user) &&
-    !user.facilitator_plan?
-  end
-  
-
-  def over_a_month_after_signup?(user)
-    Time.now > user.created_at + 1.month
-  end 
-
-  def has_created_two_or_more_brainstorms_in_the_recent_30_days?(user)
-    brainstorms_created_the_last_30_days(user) >= 2
-  end
-
-  def brainstorms_created_the_last_30_days(user)
-    user.brainstorms.count do |brainstorm| 
-      Time.now - brainstorm.created_at <= 30.days
-    end
-  end
 end
