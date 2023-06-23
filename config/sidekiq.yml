@@ -9,5 +9,5 @@
   :schedule:
     check_free_trial_criteria_job:
       queue: brainstormer_online_production_scheduler
-      cron: '25 15 * * * *'   # runs every day at 3:25 pm UTC time
+      cron: '0 25 12 * * *'   # runs every day at 12:25 UTC time
       class: CheckFreeTrialCriteriaJob
