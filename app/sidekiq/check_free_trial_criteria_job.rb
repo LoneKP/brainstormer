@@ -21,7 +21,7 @@ class CheckFreeTrialCriteriaJob
                 .having('COUNT(brainstorms.id) >= 2')
   
     users.find_each do |user|
-      if !user.facilitator_plan?
+      if !user.facilitator_plan? || !user.subscriptions.any?(&:trial_ended?)
         puts "#{user.name} meets criteria"
         Mailer::SendFreeTrialJob.perform_later(user.id)
       end
