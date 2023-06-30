@@ -1,6 +1,6 @@
 <%= form_for(@idea, remote: true, html: { autocomplete: "off", class: "flex flex-col w-full" }) do |f| %>
 <div class="p-6 lg:mr-8 mt-8 bg-post-it-yellowy my-shadow-lg">
-  <h2 class="italic text-6xl lg:text-2xl font-semibold font-bold">Add thought</h2>
+  <h2 class="italic text-6xl lg:text-2xl font-semibold">Add thought</h2>
   <div class="field mt-8">
     <%= f.text_area :text, class:"italic font-bold w-full h-screen/5 lg:h-32 opacity-75 focus:outline-none border-dashed border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal break-words md:text-5xl lg:text-xl lg:text-base" %>
   </div>
@@ -10,16 +10,34 @@
   </div>
   <p id="characterCountIdea" class="md:text-4xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
 </div>
-<button id="addIdeaPin" type=submit class="lg:mr-8 lg:mt-4 md:mt-8 px-8 lg:text-2xl md:text-7xl flex flex-row justify-center items-center modal-close lg:h-20 md:h-40 my-shadow-lg bg-lighter-gray focus:outline-none cursor-pointer">
-  <p class="font-bold mr-2 text-white">ADD</p>
-  <svg class="lg:h-6 lg:w-6 md:h-20 md:w-20" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="white">
-    <g>
-      <rect fill="none" />
-    </g>
-    <g>
-      <path d="M16,9V4l1,0c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1H7C6.45,2,6,2.45,6,3v0 c0,0.55,0.45,1,1,1l1,0v5c0,1.66-1.34,3-3,3h0v2h5.97v7l1,1l1-1v-7H19v-2h0C17.34,12,16,10.66,16,9z" fill-rule="evenodd" />
-    </g>
-  </svg>
+<button id="addIdeaPin" type=submit class="lg:mr-8 lg:mt-4 md:mt-8 px-8 lg:text-2xl md:text-7xl flex flex-row justify-center items-center modal-close lg:h-20 md:h-40 bg-lighter-gray pointer-events-none text-white my-shadow-lg focus:outline-none">
+  <p class="font-bold mr-2">ADD</p>
+  <span class="material-icons lg:h-6 lg:w-6 md:h-20 md:w-20">push_pin</span>
 </button>
 
 <% end %>
+
+<script>
+  // To be used in js pack tag validations file
+  let maxCharacters = 110
+  let allInputFieldsForValidation = [document.getElementById("idea_text")]
+  let inputFieldWithCharacterCount = document.getElementById("idea_text");
+  let characterCount = document.getElementById("characterCountIdea");
+  let submitButton = document.getElementById("addIdeaPin");
+  let activeColors = ["bg-post-it-yellowy", "hover:bg-post-it-yellowy-dark", "active:bg-post-it-yellowy-darker", "cursor-pointer"]
+  let inactiveColors = ["bg-lighter-gray", "pointer-events-none"]
+
+  //submit idea on cmd+enter / ctrl+enter
+  const textarea = document.getElementById("idea_text");
+
+  textarea.addEventListener("keydown", function(event) {
+    if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+      event.preventDefault();
+          const submitButton = document.getElementById("addIdeaPin")
+          if (submitButton) {
+            submitButton.click();
+          }
+        
+    }
+  });
+</script>

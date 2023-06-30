@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <h1>Hi <%= @user.name %></h1>
+    <p>I see you've been trying out Brainstormer and I hope you're getting the absolute best out of it! 😍</p>
+    <p>You're very welcome to keep using the hobbyist plan that you're on now, but if you're curious about the features on the facilitator plan, I just want to send you the link to try out the <%= link_to 'free trial.', free_trial_url %></p>
+    <p>The facilitator plan has</p>
+    <ul style="list-style-type: none">
+      <li>⏱️ more options for setting the timer - including "No limit", so you can host an asynchronous brainstorm.</li>
+      <li>🧠 all your brainstorms are saved to <a href="<%= your_brainstorms_url %>">Your Brainstorms</a> where you can always find them and continue with wherever you left off.</li>
+      <li>✅ the option to export to PDF and CSV if you need to bring the ideas to your system of choice (let me know what system that is! Maybe we could integrate with it!)</li>
+    </ul>
+    <p>The free trial doesn't require you to add in your credit card details, so if you don't want to continue, just do nothing, and you won't be charged.</p>
+    <p><%= link_to 'Go to sign up for the free trial here', free_trial_url %>!</p>
+    <p>(You need to sign in first if you're not already signed in)</p>
+    <p>Happy brainstorming!</p>
+    <p>Lone from Brainstormer</p>
+  </body>
+
+  <hr>
+
+  <footer style="font-size: 12px">
+    <p>This is an occasional email to help you get the most out of Brainstormer.</p>
+    <p>If you don't wish to receive this type of email, you're always welcome to <%= link_to 'unsubscribe.', @unsubscribe_url %></p>
+  </footer>
+  
+</html>

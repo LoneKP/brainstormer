@@ -9,8 +9,14 @@ class Brainstorm < ApplicationRecord
   
   attr_accessor :name
 
-  validates :problem, presence: { message: "You need to type in a problem to solve." }, :on => [:create, :update]
-  validates :name, presence: { message: "Please let the other participants know who you are."}, :on => :create
+  validates :problem,
+    presence: { message: "You need to type in a problem to solve." },
+    length: { maximum: 200, message: "That problem statement is too long. Please limit the problem statement to 200 characters!" },
+    on: [:create, :update]
+
+  validates :name, 
+    presence: { message: "Please let the other participants know who you are."}, 
+    :on => :create
 
   before_validation(on: :create) { self.token ||= generate_token }
 

@@ -5,8 +5,11 @@ Rails.application.routes.draw do
     confirmations: "users/confirmations" ,
     omniauth_callbacks: "users/omniauth_callbacks",
   }
+
+  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
   
   require "sidekiq/web"
+  require 'sidekiq-scheduler/web'
 
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
     ActiveSupport::SecurityUtils.secure_compare(::Digest::SHA256.hexdigest(username), ::Digest::SHA256.hexdigest(ENV["SIDEKIQ_USERNAME"])) &
@@ -40,6 +43,8 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :mailer_unsubscribes, only: [:show] 
+
   get '/about', to: 'pages#pages_template'
   get '/privacy-policy', to: 'pages#pages_template'
   get '/your-brainstorms', to: 'pages#your_brainstorms'
@@ -47,10 +52,13 @@ Rails.application.routes.draw do
   
   get '/checkouts', to: 'subscriptions#checkout'
   get '/your-plan', to: 'subscriptions#your_plan'
+  get '/free-trial', to: 'subscriptions#free_trial'
 
   devise_scope :user do
     get '/select-sign-up-method', to: 'users/registrations#select_sign_up_method'
     get '/sign-up-with-google', to: 'users/registrations#sign_up_with_google'
+    get 'users/edit/notifications', to: 'users/registrations#edit_notifications'
+    get 'users/edit/delete-account', to: 'users/registrations#delete_account'
   end
 
   root 'pages#index'

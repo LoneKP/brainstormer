@@ -1,6 +1,6 @@
 <div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl">
 <%= render 'shared/menu' %>
-  <div class="mb-12 my-shadow-lg grid grid-cols-2">
+  <div class="mb-12 my-shadow-lg lg:grid lg:grid-cols-2">
     <div class="bg-white px-12 pt-12 pb-16 mb-4 h-full">
       <div class="flex flex-row justify-between">
         <%= link_to root_path do %>
@@ -9,24 +9,24 @@
           </div>
         <% end %>  
       </div>
-      <div class="px-12 h-full flex flex-col">
-        <h1 class="text-3xl lg:text-3xl font-semibold w-72 text-blurple mb-2">Let's get you signed in!</h1>
-        <div class="my-12">
+      <div class="lg:px-12 p-12 lg:p-0 h-full flex flex-col">
+        <h1 class="lg:w-72 text-6xl lg:text-3xl font-semibold text-blurple mb-2">Let's get you signed in!</h1>
+        <div class="lg:my-12 my-36">
           <%- resource_class.omniauth_providers.each do |provider| %>
             <%= link_to omniauth_authorize_path(resource_name, provider), method: :post, class: "w-full" do %>
-              <button class="w-full justify-center uppercase hvr-grow my-shadow py-2 px-4 lg:py-3 bg-blurple text-white font-bold border-solid border-2 border-blurple focus:outline-none">Sign in with Google</button>
+              <button class="w-full lg:text-base text-4xl justify-center uppercase hvr-grow my-shadow lg:py-3 py-8 px-4 bg-blurple text-white font-bold border-solid border-2 border-blurple focus:outline-none">Sign in with Google</button>
             <% end %>
           <% end %>
           <div class="flex flex-row items-center mt-12 mb-8">
-            <div class="border-dotted border-t-2 w-full border-blurple"></div>
-            <p class="px-4 font-bold text-blurple">OR</p>
-            <div class="border-dotted border-t-2 w-full border-blurple"></div>
+            <div class="border-dotted lg:border-t-2 border-t-8 w-full border-blurple lg:my-0 my-28"></div>
+            <p class="px-4 font-bold lg:text-base text-3xl text-blurple">OR</p>
+            <div class="border-dotted lg:border-t-2 border-t-8 w-full border-blurple lg:my-0 my-28"></div>
           </div>
           <%= render "form" %>
         </div>
       </div>
     </div>
-    <div class="flex flex-col justify-center items-center h-full px-12">
+    <div class="lg:flex hidden flex-col justify-center items-center h-full px-12">
       <p class="text-xl mb-4"><%= @quote[0][0] %><p>
       <p class="text-sm italic self-start"><%= @quote[1][0] %></p>
     </div>

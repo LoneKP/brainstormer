@@ -1,6 +1,6 @@
 <div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl">
 <%= render 'shared/menu' %>
-  <div class="mb-12 my-shadow-lg grid grid-cols-2">
+  <div class="mb-12 my-shadow-lg lg:grid lg:grid-cols-2">
     <div class="flex-col flex bg-white p-12 mb-4 h-full w-full">
       <div class="flex flex-row justify-between">
         <%= link_to root_path do %>
@@ -10,21 +10,20 @@
         <% end %>  
       </div>
       <div class="px-12">
-        <h1 class="text-3xl lg:text-3xl font-semibold text-blurple">Sign up and take brainstorming to the next level!</h1>
-
-        <div class="flex flex-col gap-10 my-16">
-          <div class="flex flex-row gap-8 w-full">
+        <h1 class="text-6xl lg:text-3xl font-semibold text-blurple">Sign up and take brainstorming to the next level!</h1>
+        <div class="flex flex-col gap-24 lg:gap-10 my-48">
+          <div class="flex flex-row gap-12 lg:gap-8 w-full">
             <%= link_to select_sign_up_method_path do %>
-              <span class="material-icons border-solid border-2 border-blurple text-5xl text-blurple hvr-grow active:bg-blurple-gray cursor-pointer my-shadow bg-white font-bold">chevron_left</span>
+              <span class="material-icons border-solid border-2 border-blurple lg:text-5xl text-9xl text-blurple hvr-grow active:bg-blurple-gray cursor-pointer my-shadow bg-white font-bold">chevron_left</span>
             <% end %>
 
             <%- resource_class.omniauth_providers.each do |provider| %>
               <%= link_to omniauth_authorize_path(resource_name, provider), method: :post, class: "w-full" do %>
-                <button class="w-full justify-center uppercase hvr-grow my-shadow py-2 px-4 lg:py-3 bg-blurple text-white font-bold border-solid border-2 border-blurple focus:outline-none">Sign up with Google</button>
+                <button class="w-full justify-center uppercase hvr-grow my-shadow lg:text-base text-4xl py-8 px-4 lg:py-3 bg-blurple text-white font-bold border-solid border-2 border-blurple focus:outline-none">Sign up with Google</button>
               <% end %>
             <% end %>
           </div>
-          <p class="text-sm">By signing up with Google you're agreeing to Brainstormer's <%= link_to "privacy policy", privacy_policy_path, target: "_blank", class: "underline" %></p>
+          <p class="lg:text-sm text-3xl">By signing up with Google you're agreeing to Brainstormer's <%= link_to "privacy policy", privacy_policy_path, target: "_blank", class: "underline" %> and the default notification settings.</p>
         </div>
 
         <div class="text-xs">
@@ -32,7 +31,7 @@
         </div>
       </div>
     </div>
-    <div class="flex-col flex justify-center bg-blurple text-white p-12 mb-4 h-full w-full gap-12">
+    <div class="flex-col lg:flex hidden justify-center bg-blurple text-white p-12 mb-4 h-full w-full gap-12">
       <div class="flex flex-col">
         <p class="font-bold text-xl">Facilitate</p>
         <p class="text-sm">When you facilitate using an account, you will not lose facilitator rights when you leave and jump back in.</p>

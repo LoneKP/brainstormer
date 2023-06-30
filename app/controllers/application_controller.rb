@@ -63,4 +63,9 @@ class ApplicationController < ActionController::Base
       @access_to_your_brainstorms = plan_data(:access_to_your_brainstorms, current_user.plan)
     end
   end
+
+  def track_path_visit
+    page = request.path.sub("/", "").empty? ? "front page" : request.path.sub("/", "")
+    ahoy.track "Visit on #{page}" 
+  end
 end

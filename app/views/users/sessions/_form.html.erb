@@ -3,38 +3,39 @@
     <%= message %>
   </div>
 <% end %>
-<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "h-full flex flex-col mt-2"}) do |f| %>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "h-full flex flex-col mt-2 lg:gap-2 gap-12"}) do |f| %>
+  
   <div class="field">
-    <div class="mb-1">
-      <%= f.label :email, class: "italic text-lg font-bold leading-none mb-1" %><br />
+    <div class="">
+      <%= f.label :email, class: "italic lg:text-lg text-3xl font-bold leading-none mb-1" %><br />
     </div>
     <div class="mb-4">
-      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "focus:outline-none border-solid border-2 border-black lg:text-base text-5xl lg:h-10 h-24 italic font-bold px-4 w-full lg:mt-1 mt-2" %>
     </div>
   </div>
 
   <div class="field">
-    <div class="mb-1">
-      <%= f.label :password, class: "italic text-lg font-bold leading-none mb-1" %><br />
+    <div class="">
+      <%= f.label :password, class: "italic lg:text-lg text-3xl font-bold leading-none mb-1" %><br />
     </div>
     <div class="mb-3">
-      <%= f.password_field :password, autocomplete: "current-password", class: "focus:outline-none border-solid border-2 border-black h-10 italic font-bold px-4 w-full" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "focus:outline-none border-solid border-2 border-black lg:text-base text-5xl lg:h-10 h-24 italic font-bold px-4 w-full lg:mt-1 mt-2" %>
     </div>
   </div>
 
   <% if devise_mapping.rememberable? %>
-    <div class="field mb-4">
-      <%= f.check_box :remember_me %>
+    <div class="field mb-4 lg:mt-2 lg:text-base text-3xl">
+      <%= f.check_box :remember_me, class: "w-12 h-12 lg:h-6 lg:w-6" %>
       <%= f.label :remember_me %>
     </div>
   <% end %>
 
-  <div class="text-xs">
+  <div class="lg:text-xs text-2xl">
   <%= render "users/shared/links" %>
   </div>
 
   <div class="actions flex justify-end mt-10">
-    <%= f.submit "SIGN IN", class: "hvr-grow px-10 py-2 my-shadow-lg text-blurple text-lg font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer" %>
+    <%= f.submit "SIGN IN", class: "hvr-grow lg:px-10 px-16 lg:py-2 py-6 my-shadow-lg text-blurple lg:text-lg text-4xl font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer" %>
   </div>
 <% end %>
 

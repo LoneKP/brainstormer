@@ -1,7 +1,8 @@
 class User < ApplicationRecord
-  
+
   has_many :brainstorms, as: :facilitated_by, dependent: :destroy
   has_many :visits, class_name: "Ahoy::Visit"
+  has_many :messages, class_name: "Ahoy::Message", as: :user
 
   pay_customer stripe_attributes: :stripe_attributes
   pay_customer default_payment_processor: :stripe
@@ -25,6 +26,12 @@ class User < ApplicationRecord
 
   validates_acceptance_of :privacy_policy_agreement, allow_nil: false, on: :create
 
+  def after_confirmation
+    send_welcome_email
+  end
+
+  after_create :send_welcome_email_oauth
+
   def hobbyist_plan?
     !payment_processor.subscribed?
   end
@@ -45,6 +52,10 @@ class User < ApplicationRecord
     else
       1
     end
+  end
+
+  def oauth_user?
+    provider.present? && uid.present?
   end
 
   def stripe_attributes(pay_customer)
@@ -78,6 +89,26 @@ class User < ApplicationRecord
       user.privacy_policy_agreement = true
       user.skip_confirmation!
     end
+  end
+
+  def send_welcome_email_oauth
+    if oauth_user?
+      OnboardingMailer.with(user: self).welcome_email.deliver_later
+      send_usage_tip_email
+    end
+  end
+
+  def send_welcome_email
+    OnboardingMailer.with(user: self).welcome_email.deliver_later
+    send_usage_tip_email
+  end
+
+  def send_usage_tip_email
+    Mailer::SendOutUsageTipJob.set(wait: 3.weeks).perform_later(self.id)
+  end
+
+  def has_received_free_trial_email?
+    !messages.find_by(mailer:"OnboardingMailer#free_trial_email").nil?
   end
 
   protected

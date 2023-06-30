@@ -2,12 +2,22 @@
 
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :set_session_for_all_types, only: [:create]
+
+  prepend_before_action :require_no_authentication, only: [:new, :create, :cancel]
+  prepend_before_action :authenticate_scope!, only: [:edit, :edit_notifications, :delete_account, :update, :destroy]
+  prepend_before_action :set_minimum_password_length, only: [:new, :edit]
   
   before_action :configure_sign_up_params, only: [:create]
   before_action :configure_account_update_params, only: [:update]
 
+  before_action :track_path_visit
+
   def update_resource(resource, params)
-    if resource.provider == "google_oauth2"
+    if params.has_key?(:agree_to_brainstormer_updates)
+      params.delete(:password)
+      params.delete(:password_confirmation) if params[:password_confirmation].blank?
+      resource.update(agree_to_brainstormer_updates: params[:agree_to_brainstormer_updates])
+    elsif resource.provider == "google_oauth2"
       params.delete("current_password")
       resource.password = params["password"]
       resource.update_without_password(params)
@@ -37,9 +47,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # GET /resource/edit
-  # def edit
-  #   super
-  # end
+  def edit
+    render :edit
+  end
+
+  def edit_notifications
+  end
+
+  def delete_account
+  end
 
   # PUT /resource
   # def update
@@ -69,7 +85,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_account_update_params
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :agree_to_brainstormer_updates])
   end
 
   # The path used after sign up.

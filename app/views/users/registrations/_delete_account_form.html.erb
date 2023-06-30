@@ -1,0 +1,7 @@
+<h2 class="text-5xl lg:text-2xl font-semibold text-blurple mt-8 mb-4">Delete your account</h2>
+<div class="border-solid border-4 border-reddy py-12 px-4">
+  <div class="flex flex-row justify-between items-center">
+    <p class="italic lg:text-lg text-2xl font-bold leading-none">In case you want to say goodbye!</p>
+    <%= button_to "Delete my account", registration_path(resource_name), data: { confirm: "This can't be undone. Your brainstorms and all your data will be deleted. Are you sure?" }, method: :delete, class: "hvr-grow px-10 py-2 my-shadow-lg text-black lg:text-lg text-2xl font-bold bg-reddy active:bg-light-reddy cursor-pointer" %>
+  </div>
+</div>

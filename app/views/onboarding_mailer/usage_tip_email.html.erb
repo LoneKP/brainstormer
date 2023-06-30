@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+
+  <body>
+    <h1>Hi <%= @user.name %></h1>
+    <p>Do you need inspiration for when to magically 🪄 pull <a href="<%= root_url %>">Brainstormer</a> out of your sleeve?</p>
+    <p>Just in case, I've put together this little guide. 😊</p>
+    <p>Use Brainstormer when...</p>
+
+    <h2>1. You're in a meeting with no agenda! 🤔</h2>
+    <p>We've all been there...</p>
+    <p> At a meeting with no clear structure or purpose, where two attendees' have a lengthy discussion about something “very important”.</p>
+    <p>Everyone just ends up leaving feeling frustrated!</p>
+    <p>Next time this happens, you can use brainstormer to facilitate a lean coffee style meeting.</p>
+    <p>It works like this. Have everyone:</p>
+    <ol>
+      <li>write stickies with topics</li>
+      <li>vote for the topics they want to talk about</li>
+      <li>talk! Start from the most voted!</li>
+    </ol>
+    <p>You could set a timer so each talking point is 10 minutes. And remember to write down action points.</p>
+    <p>Everyone will leave feeling heard and the group has discussed what was important. Voila! 🎉</p>
+
+    <h2>2. You're a teacher and want to make sure the new learnings stick to the students' brains! 🧠</h2>
+    <p>You've been talking and talking in what feels like forever and you start to see your audience drift off.</p>
+    <p>Please don't let all your gems go in one ear and out the other! 👂</p>
+    <p>Learning truly happens when you allow your students to reflect and work with the inputs you give them.</p>
+    <p>Here's an idea for how to facilitate that with Brainstormer!</p>
+    <ol>
+      <li>Make some interesting questions for reflection</li>
+      <li>Create a brainstorm with each question</li>
+      <li>Distribute the students into groups</li>
+      <li>Ask them to add their reflections on the stickies and vote for the most insightful ones</li>
+      <li>Let them present their top 3 to the rest of the class</li>
+    </ol>
+
+    <p>Pro tip: If you have many students and need to have different groups, you can prepare the brainstorms in advance and use the <a href="<%= your_brainstorms_url %>">Your Brainstorms</a> page to quickly get an overview over what different brainstorms you have ongoing. (It is a paid feature, though)</p>
+
+    <h2>3. Your friends and you need to decide on where to go for dinner! 🍝</h2>
+
+    <p>You're trying to set up a memorable night out for you and your friends, but it just takes forever for everyone to agree on where to go.</p>
+
+    <p>It's impossible to make a decision in the group chat!</p>
+
+    <p>Next time - just:</p>
+
+    <ol>
+      <li>drop a link to a brainstorm</li>
+      <li>ask your friends to write down all the potential restaurants they can think of</li>
+      <li>vote!</li>
+      <li>Go have an amazing dinner at the most voted for suggestion!</li>
+    </ol>
+
+    <p>...and bon appetit! A decision served on a silver platter! 🍽️</p>
+
+    <p>These are all just suggestions for use cases - the possibilities are endless, and it's all up to you to be creative.</p>
+
+    <p>Let me know how it goes! And also let me know if you find other wonderful use cases for this little tool! (you can just reply to this email. I am a real person.)</p>
+
+    <p>Lone from Brainstormer</p>
+
+  </body>
+
+  <hr>
+
+  <footer style="font-size: 12px">
+    <p>This is an occasional email to help you get the most out of Brainstormer.</p>
+    <p>If you don't wish to receive this type of email, you're always welcome to <%= link_to 'unsubscribe.', @unsubscribe_url %></p>
+  </footer>
+
+</html>

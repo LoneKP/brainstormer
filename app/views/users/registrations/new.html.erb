@@ -1,6 +1,6 @@
 <div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl">
 <%= render 'shared/menu' %>
-  <div class="mb-12 my-shadow-lg grid grid-cols-2">
+  <div class="mb-12 my-shadow-lg lg:grid lg:grid-cols-2">
     <div class="flex-col flex bg-white p-12 mb-4 h-full w-full">
       <div class="flex flex-row justify-between">
         <%= link_to root_path do %>
@@ -9,8 +9,8 @@
           </div>
         <% end %>  
       </div>
-      <div class="px-12">
-        <h1 class="text-3xl lg:text-3xl font-semibold text-blurple">Sign up and take brainstorming to the next level!</h1>
+      <div class="lg:px-12 p-12 lg:p-0">
+        <h1 class="text-6xl lg:text-3xl font-semibold text-blurple">Sign up and take brainstorming to the next level!</h1>
         <div class="my-16">
           <%= render "sign_up_with_credentials_form" %>
         </div>
@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="flex-col flex justify-center bg-blurple text-white p-12 mb-4 h-full w-full gap-12">
+    <div class="flex-col lg:flex hidden justify-center bg-blurple text-white p-12 mb-4 h-full w-full gap-12">
       <div class="flex flex-col">
         <p class="font-bold text-xl">Facilitate</p>
         <p class="text-sm">When you facilitate using an account, you will not lose facilitator rights when you leave and jump back in.</p>

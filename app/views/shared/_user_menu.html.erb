@@ -1,34 +1,34 @@
 <div id="accountMenuItems" onclick="toggleMenu()" class="hidden fixed inset-0 z-50 flex-row items-center justify-center" style="background-color: rgba(49, 39, 131, 0.9);">
-  <div id="sideMenu" class="sideMenu fixed top-0 w-[450px] h-screen right-0 bg-beigy z-50 my-shadow">
-    <div class="relative lg:top-8 top-1 right-28 cursor-pointer">
-      <div class="font-bold justify-center uppercase inline-flex my-shadow py-2 px-4 lg:py-3 text-blurple focus:outline-none gap-8 flex-row items-center my-shadow lg:px-8 bg-white border-solid border-2 border-white">
+  <div id="sideMenu" class="sideMenu fixed top-0 w-full lg:w-[450px] h-screen right-0 bg-beigy z-50 my-shadow">
+    <div class="relative top-1 lg:top-8 lg:right-28 lg:text-left text-right mr-12 lg:mr-0 cursor-pointer">
+      <div class="font-bold justify-center uppercase inline-flex my-shadow px-8 py-3 text-blurple focus:outline-none gap-8 flex-row items-center my-shadow lg:px-8 bg-white border-solid border-2 border-white">
         <p class="uppercase"><%= "#{current_user ? current_user.name : @session.name}" %></p>
-        <svg class="h-6 w-6 hvr-grow" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#312783"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+        <span class="text-6xl lg:text-2xl hvr-grow material-icons-outlined">close</span>
       </div>
     </div>
-    <div class="w-full items-center flex flex-col justify-between h-full font-semibold text-xl">
+    <div class="w-full items-center flex flex-col justify-between h-full font-semibold text-6xl lg:text-xl">
       <div class="flex flex-col h-full justify-around">
         <% if current_user %>
-          <div class="flex flex-col gap-8 mt-10">
+          <div class="flex flex-col lg:gap-8 gap-28 mt-10">
             <%= link_to "Front Page", root_path, class: "hvr-grow uppercase" %>
             <%= link_to "Your brainstorms", your_brainstorms_path, class: "hvr-grow uppercase" %>
-            <%= link_to "Your account", edit_user_registration_path, class: "hvr-grow uppercase" %>
             <%= link_to "Your plan", your_plan_path, class: "hvr-grow uppercase" %>
+            <%= link_to "Settings", edit_user_registration_path, class: "hvr-grow uppercase" %>
           </div>
-          <div class="flex flex-col gap-10">
+          <div class="flex flex-col gap-10 lg:mb-10 mb-56">
             <%= link_to destroy_user_session_path, method: :delete, class:"uppercase" do %>
-            <div class="flex flex-row gap-4 items-center hvr-grow text-xl">
-              <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px" fill="#000000"><g><path d="M0,0h24v24H0V0z" fill="none"/></g><g><path d="M17,8l-1.41,1.41L17.17,11H9v2h8.17l-1.58,1.58L17,16l4-4L17,8z M5,5h7V3H5C3.9,3,3,3.9,3,5v14c0,1.1,0.9,2,2,2h7v-2H5V5z"/></g></svg>
+            <div class="flex flex-row gap-4 items-center hvr-grow lg:text-xl text-5xl">
+              <span class="text-6xl lg:text-xl material-icons-outlined">logout</span>
               <p>Log out</p>
             </div>
             <% end %>
             <% if !current_user.paid_plan?%>
-              <div class="border-solid border border-blurple p-6 italic text-black text-xs flex flex-col gap-2">
+              <div class="border-solid border border-blurple lg:p-6 p-16 italic text-black lg:text-xs text-2xl flex flex-col gap-8 lg:gap-2">
                 <div class="italic text-center">
                   <p>Ready to go beyond this free plan?</p>
                   <p>Upgrade for premium features <span class="not-italic">&#128525;</span> </p>
                 </div>
-                <p><%= link_to "Upgrade", pricing_path, class:"hvr-grow not-italic uppercase bg-blurple p-2 text-white my-shadow text-base justify-center flex text-center" %></p>
+                <p><%= link_to "Upgrade", pricing_path, class:"hvr-grow not-italic uppercase bg-blurple lg:p-2 p-10 text-white my-shadow lg:text-base text-5xl justify-center flex text-center" %></p>
               </div>
             <% end %>
           </div>

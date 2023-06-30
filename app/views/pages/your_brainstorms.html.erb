@@ -18,11 +18,11 @@
             <div class="flex flex-col gap-4">
             <% if !@most_recent_brainstorms&.empty? %>
               <div class="flex flex-row mt-6">
-                <p class="bg-black text-white px-4 text-xl">Your most recent brainstorms</p>
+                <p class="bg-black text-white px-4 lg:text-xl text-2xl">Your most recent brainstorms</p>
               </div>
               <% @most_recent_brainstorms&.each do |brainstorm| %>
                 <%= link_to brainstorm_show_url(brainstorm.token) do %>
-                  <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
+                  <div class="flex flex-col border-gray-100 lg:p-8 p-2 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
                     <p><%= brainstorm.problem %></p>
                   </div>
                 <% end %>
@@ -30,11 +30,11 @@
             <% end %>
             <% if !@ready_for_ideation&.empty? %>
               <div class="flex flex-row mt-6">
-                <p class="bg-black text-white px-4 text-xl">Ready for ideation</p>
+                <p class="bg-black text-white px-4 lg:text-xl text-2xl">Ready for ideation</p>
               </div>
               <% @ready_for_ideation&.each do |brainstorm| %>
                 <%= link_to brainstorm_show_url(brainstorm.token) do %>
-                  <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
+                  <div class="flex flex-col border-gray-100 lg:p-8 p-2 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
                     <p><%= brainstorm.problem %></p>
                   </div>
                 <% end %>
@@ -42,11 +42,11 @@
             <% end %>
             <% if !@in_progress&.empty? %>
               <div class="flex flex-row mt-6">
-                <p class="bg-black text-white px-4 text-xl">In progress</p>
+                <p class="bg-black text-white px-4 lg:text-xl text-2xl">In progress</p>
               </div>
               <% @in_progress&.each do |brainstorm| %>
                 <%= link_to brainstorm_show_url(brainstorm.token) do %>
-                  <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
+                  <div class="flex flex-col border-gray-100 lg:p-8 p-2 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
                     <p><%= brainstorm.problem %></p>
                   </div>
                 <% end %>
@@ -54,11 +54,11 @@
             <% end %>
             <% if !@done&.empty? %>
               <div class="flex flex-row mt-6">
-                <p class="bg-black text-white px-4 text-xl">Done</p>
+                <p class="bg-black text-white px-4 lg:text-xl text-2xl">Done</p>
               </div>
               <% @done&.each do |brainstorm| %>
                 <%= link_to brainstorm_show_url(brainstorm.token) do %>
-                  <div class="flex flex-col border-gray-100 lg:p-8 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
+                  <div class="flex flex-col border-gray-100 lg:p-8 p-2 bg-blurple lg:text-xl text-3xl text-white font-semibold w-3/4 my-shadow-lg">
                     <p><%= brainstorm.problem %></p>
                   </div>
                 <% end %>

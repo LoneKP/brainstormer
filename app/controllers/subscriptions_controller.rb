@@ -1,6 +1,5 @@
 class SubscriptionsController < ApplicationController
-  before_action :authenticate_user!
-  before_action :set_portal_session
+  before_action :track_path_visit, :authenticate_user!, :set_portal_session 
 
   def checkout
     # Make sure the user's payment processor is Stripe
@@ -46,6 +45,37 @@ class SubscriptionsController < ApplicationController
     end
     # Or Subscriptions (https://stripe.com/docs/billing/subscriptions/build-subscription)
 
+  end
+
+  def free_trial
+    if Rails.env.development?
+      price = "price_1MNvKeBkWgBbsxE3uGOeoC8T"
+    else
+      price = "price_1MQGQZBkWgBbsxE3yq6UtyUJ"
+    end
+
+    name = "Facilitator - monthly"
+
+    if current_user.subscriptions.any?
+      redirect_to @portal_session.url, allow_other_host: true 
+    else
+      @checkout_session = current_user.payment_processor.checkout(
+        mode: 'subscription',
+        subscription_data: {
+          items: [{
+            plan: price
+          }],
+          trial_settings: { end_behavior: {missing_payment_method: "cancel"}},
+          trial_period_days: 30,
+        },
+        payment_method_collection: "if_required",
+        success_url: your_plan_url,
+        cancel_url: root_url
+      )
+    
+      # If you want to redirect directly to checkout
+       redirect_to @checkout_session.url, allow_other_host: true, status: :see_other
+    end
   end
 
   def your_plan

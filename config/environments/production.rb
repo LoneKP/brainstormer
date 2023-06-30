@@ -65,14 +65,42 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
 
   config.action_mailer.delivery_method = :smtp
+  
+  # config.action_mailer.smtp_settings = {
+  # address:              'smtp.gmail.com',
+  # port:                 587,
+  # domain:               'gmail.com',
+  # user_name:            ENV['GMAIL_USER_NAME'],
+  # password:             ENV['GMAIL_PASSWORD'],
+  # authentication:       'plain',
+  # enable_starttls_auto: true }
+
+  # config.action_mailer.smtp_settings = {
+  # address:              ENV['MAILGUN_SMTP_SERVER'],
+  # port:                 ENV['MAILGUN_SMTP_PORT'],
+  # domain:               ENV['MAILGUN_DOMAIN'],
+  # user_name:            ENV['MAILGUN_SMTP_LOGIN'],
+  # password:             ENV['MAILGUN_SMTP_PASSWORD'],
+  # authentication:       'plain',
+  # enable_starttls_auto: true }
+
+  # config.action_mailer.smtp_settings = {
+  # user_name:            ENV['SENDGRID_USER_NAME'],
+  # password:             ENV['SENDGRID_API_KEY'],
+  # domain:               ENV['SENDGRID_DOMAIN'],
+  # address:              ENV['SENDGRID_SMTP_SERVER'],
+  # port:                 ENV['SENDGRID_SMTP_PORT'],
+  # authentication:       'plain',
+  # enable_starttls_auto: true }
+
   config.action_mailer.smtp_settings = {
-  address:              'smtp.gmail.com',
-  port:                 587,
-  domain:               'gmail.com',
-  user_name:            ENV['GMAIL_USER_NAME'],
-  password:             ENV['GMAIL_PASSWORD'],
-  authentication:       'plain',
-  enable_starttls_auto: true }
+    user_name:            ENV['MAILTRAP_USER_NAME'],
+    password:             ENV['MAILTRAP_PASSWORD'],
+    domain:               ENV['MAILTRAP_DOMAIN'],
+    address:              ENV['MAILTRAP_SMTP_SERVER'],
+    port:                 ENV['MAILTRAP_SMTP_PORT'],
+    authentication:       'plain',
+    enable_starttls_auto: true }
 
 
   # Ignore bad email addresses and do not raise email delivery errors.
@@ -80,6 +108,11 @@ Rails.application.configure do
   # config.action_mailer.raise_delivery_errors = false
 
   config.action_mailer.default_url_options = { :host => "www.brainstormer.online" }
+
+  config.action_mailer.default_options = {
+    from: '"Lone from Brainstormer" <lone@brainstormer.online>',
+    reply_to: "hello@brainstormer.online",
+  }
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
