@@ -1,15 +1,16 @@
 document.getElementById("add-idea-form").classList.add("hidden");
 document.getElementById("add-idea-build-form").innerHTML = "<%= j render "brainstorms/add_idea_build_form", idea: @idea, idea_build: @idea_build, brainstorm: @brainstorm %>"
 
-addEventListenerToIdeaPin(document.getElementById("addIdeaBuildPin"), document.getElementById("idea_build_idea_build_text"), 110, document.getElementById("characterCountIdeaBuild"));
-
-setInnerHTMLOfCountText(document.getElementById("idea_build_idea_build_text"), 110, document.getElementById("characterCountIdeaBuild"));
-
-colorPinOnTyping(document.getElementById("addIdeaBuildPin"), document.getElementById("idea_build_idea_build_text"));
+addEventListenerToSubmitButton(document.getElementById("addIdeaBuildPin"), document.getElementById("idea_build_idea_build_text"), 110, document.getElementById("characterCountIdeaBuild"));
 
 addEventListenerToInputField(document.getElementById("idea_build_idea_build_text"), document.getElementById("characterCountIdeaBuild"), 110);
 
+setInnerHTMLOfCountText(document.getElementById("idea_build_idea_build_text"), 110, document.getElementById("characterCountIdeaBuild"));
+
+colorSubmitButtonOnTyping(document.getElementById("addIdeaBuildPin"), [document.getElementById("idea_build_idea_build_text")], activeColors, inactiveColors);
+
 setMaxCharacters(document.getElementById("idea_build_idea_build_text"), 110);
+
 
 document.getElementById("buildOnIdea-<%= @idea.id %>").classList.add("hidden");
 

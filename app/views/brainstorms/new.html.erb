@@ -16,13 +16,14 @@
         </div>
           
 
-        <%= form_with model: @brainstorm, local: true, class: "flex flex-col" do |f| %>
+        <%= form_with model: @brainstorm, local: true, class: "flex flex-col", id: "setup-brainstorm-form" do |f| %>
         <div class="flex flex-col lg:my-12 my-20 mb-8 lg:mb-0 bg-white">
           <div class="flex flex-row justify-between items-baseline lg:mb-2 mb-6">
             <%= f.label :problem_to_solve, class: "italic lg:text-2xl text-5xl font-bold leading-none" %>
             <p class="hidden lg:flex opacity-50 text-black italic font-semibold lg:text-base text-2xl">Need help? See TIPS & TRICKS</p>
           </div>
           <%= f.text_field :problem, class: "lg:text-base text-6xl focus:outline-none border-solid border-2 border-black lg:h-12 italic font-bold px-4 w-full", autocomplete: "off" %>
+          <span class="md:text-4xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex" id="characterCountProblem">200 characters remaining</span>
 
           <% if @brainstorm.errors[:problem].any? %>
             <div class="leading-none p-2 mt-1 lg:text-sm text-2xl font-bold italic text-white bg-wine">
@@ -134,7 +135,7 @@
           <%= link_to root_path do %>
           <span class="material-icons lg:p-3 p-7 lg:text-5xl text-8xl text-blurple hvr-grow active:bg-blurple-gray cursor-pointer my-shadow bg-white font-bold">chevron_left</span>
           <% end %>
-          <%= f.submit 'CREATE BRAINSTORM', class: "hvr-grow my-shadow-lg text-blurple lg:text-lg text-5xl lg:px-10 px-16 font-bold bg-light-greeny active:bg-light-greeny-darker cursor-pointer" %>
+          <%= f.submit 'CREATE BRAINSTORM', id: "submitCreateBrainstorm", class: "bg-gray-200 text-gray-400 lg:text-lg text-5xl lg:px-10 px-16 font-bold pointer-events-none" %>
           <% end %>
         </div>
       
@@ -147,10 +148,21 @@
 </div>
 
 <script>
-const toggleTipsAndTricks = () => {
-  const tAndTContainer = document.getElementById("tipsAndTricksContainerNewPage")         
-  const tAndTarrow = document.getElementById("tipsAndTricksArrow")         
-  tAndTContainer.classList.contains("hidden") ? tAndTContainer.classList.remove("hidden") : tAndTContainer.classList.add("hidden")
-  tAndTarrow.classList.contains("rotate-180") ? tAndTarrow.classList.remove("rotate-180") : tAndTarrow.classList.add("rotate-180")
-}
+  const toggleTipsAndTricks = () => {
+    const tAndTContainer = document.getElementById("tipsAndTricksContainerNewPage")         
+    const tAndTarrow = document.getElementById("tipsAndTricksArrow")         
+    tAndTContainer.classList.contains("hidden") ? tAndTContainer.classList.remove("hidden") : tAndTContainer.classList.add("hidden")
+    tAndTarrow.classList.contains("rotate-180") ? tAndTarrow.classList.remove("rotate-180") : tAndTarrow.classList.add("rotate-180")
+  }
+
+  // To be used in js pack tag validations file
+  let maxCharacters = 200
+  let allInputFieldsForValidation = [document.getElementById("brainstorm_problem"), document.getElementById("brainstorm_name")]
+  let inputFieldWithCharacterCount = document.getElementById("brainstorm_problem");
+  let characterCount = document.getElementById("characterCountProblem");
+  let submitButton = document.getElementById("submitCreateBrainstorm");
+  let activeColors = ["bg-light-greeny", "active:bg-light-greeny-darker", "hvr-grow", "cursor-pointer", "text-blurple", "my-shadow-lg"]
+  let inactiveColors = ["pointer-events-none", "bg-gray-200", "text-gray-400"]
 </script>
+
+<%= javascript_pack_tag 'validations' %>
