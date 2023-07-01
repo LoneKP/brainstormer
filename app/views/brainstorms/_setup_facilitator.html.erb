@@ -184,6 +184,12 @@
 
 <script>
 
+handleCheckboxChange = (checkbox) => {
+  document.getElementById("checkboxVisualization").classList.toggle("line-through")
+
+  checkbox.form.submit();
+}
+
 let timerRange = document.getElementById("timerRange")
 let timerOutput = document.getElementById("timerOutput")
 
@@ -201,11 +207,5 @@ timerRange.oninput = function() {
     }
     durationOutput.value = this.value + ":00"
   }
-}
-
-handleCheckboxChange = (checkbox) => {
-  document.getElementById("checkboxVisualization").classList.toggle("line-through")
-
-  checkbox.form.submit();
 }
 </script>
