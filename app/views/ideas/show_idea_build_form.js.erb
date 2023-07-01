@@ -18,3 +18,14 @@ document.getElementById("new_idea_build").scrollIntoView();
 
 document.getElementById("build-on-idea-headline").classList.add("buzz");
 setTimeout(function(){ document.getElementById("build-on-idea-headline").classList.remove("buzz"); }, 400);
+
+document.getElementById("idea_build_idea_build_text").addEventListener("keydown", function(event) {
+  if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {
+    event.preventDefault();
+        const submitButton = document.getElementById("addIdeaBuildPin")
+        if (submitButton) {
+          submitButton.click();
+        }
+      
+  }
+});
