@@ -42,8 +42,8 @@
            <div class="flex flex-col lg:mr-4">
              <div class="my-shadow my-8 lg:my-4 bg-white">
                <%= link_to idea_vote_path(idea), remote: true, method: :post do %>
-               <div class="idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic font-bold bg-post-it-yellowy cursor-default">
-                 <div class="flex flex-row justify-between w-full">
+               <div class="idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic bg-post-it-yellowy cursor-default">
+                 <div class="flex flex-row justify-between w-full font-bold">
                    <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
                    <svg class="lg:h-8 lg:w-8 h-20 w-20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
                      <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>
@@ -60,15 +60,17 @@
                      </g>
                    </svg>
                  </div>
-                 <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full"><%= idea.text %></p>
+                 <div class="flex flex-col justify-between h-full">
+                  <p class="font-bold mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full"><%= idea.text %></p>
+                  <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea.author if !@brainstorm.anonymous? %></p>
+                 </div>
                </div>
                <% end %>
                <% idea.idea_builds.order(:id).each do |idea_build| %>
                <%= link_to idea_idea_build_vote_path(idea, idea_build), remote: true, method: :post do %>
-               <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic font-bold lg:px-4 px-10 cursor-default">
-
+               <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 cursor-default">
                  <div class="flex flex-row justify-between w-full items-center">
-                   <h2 class="py-4 mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
+                   <h2 class="font-bold lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
                    <svg class="lg:h-8 lg:w-8 h-20 w-20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
                      <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>
                      <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
@@ -84,7 +86,10 @@
                      </g>
                    </svg>
                  </div>
-                 <p class="py-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full "><%= idea_build.idea_build_text %></p>
+                <div class="flex flex-col justify-between h-full">
+                  <p class="font-bold pb-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full "><%= idea_build.idea_build_text %></p>
+                  <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea_build.author if !@brainstorm.anonymous? %></p>
+                </div>
                </div>
                <% end %>
                <% end %>

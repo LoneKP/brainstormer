@@ -143,6 +143,27 @@
     <% end %>
   </div>
 
+  <div class="bg-white mt-8 my-shadow-lg flex flex-row p-8 lg:justify-between lg:gap-2">
+    <div>
+      <div class="flex flex-row items-center">
+        <p class="w-full my-8 lg:mt-0 italic text-blurple text-6xl lg:text-2xl font-semibold">Settings</p>
+      </div>
+      <%= form_with url: brainstorm_settings_path(@brainstorm.token), method: :patch do |form| %>
+        <div class="flex flex-row items-center lg:gap-4 gap-12 lg:text-base text-3xl">
+          <%= form.check_box :anonymous, as: :boolean, checked: @brainstorm.anonymous, onchange: "handleCheckboxChange(this)", class: "w-20 h-20 lg:h-6 lg:w-6 cursor-pointer" %>
+          <p class="lg:text-lg md:text-3xl">Keep ideas anonymous</p>
+        </div>
+      <% end %>
+    </div>
+    <div class="bg-yellowy w-40 h-40 px-4 justify-between flex flex-col"> 
+      <div class="flex flex-col justify-center h-full">
+        <p class="font-flow overflow-hidden text-lg text-dark-yellowy leading-none">Lorem ipsum dolor sit amet, consectetur </p>
+      </div>
+      <p id="checkboxVisualization" class="text-white line-through">Mona Lisa</p>
+      <div class="bg-yellowy triangle self-end -mr-4"></div>
+    </div>
+  </div>
+
   <div class="flex flex-col bg-light-yellowy justify-between mb-56 mt-12 my-shadow-lg">
     <div class="bg-dots-bigger h-10"></div>
     <div class="px-20 pb-20">
@@ -180,5 +201,11 @@ timerRange.oninput = function() {
     }
     durationOutput.value = this.value + ":00"
   }
+}
+
+handleCheckboxChange = (checkbox) => {
+  document.getElementById("checkboxVisualization").classList.toggle("line-through")
+
+  checkbox.form.submit();
 }
 </script>

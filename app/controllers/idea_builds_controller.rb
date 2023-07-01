@@ -8,7 +8,7 @@ class IdeaBuildsController < ApplicationController
     @brainstorm = Brainstorm.find(brainstorm_params[:brainstorm_id])
     respond_to do |format|
       if @idea_build.save
-        IdeasChannel.broadcast_to @brainstorm, { content: @idea_build, idea_build_number: "#{@idea.number}.#{@idea_build.decimal}", event: "create_idea_build", opacity: @idea_build.opacity_lookup }
+        IdeasChannel.broadcast_to @brainstorm, { anonymous: @brainstorm.anonymous?, content: @idea_build, idea_build_number: "#{@idea.number}.#{@idea_build.decimal}", event: "create_idea_build", opacity: @idea_build.opacity_lookup }
         format.js
       else
         @idea_build.errors.messages.each do |message|
@@ -30,7 +30,7 @@ class IdeaBuildsController < ApplicationController
   private
 
   def idea_build_params
-    params.require(:idea_build).permit(:idea_id, :idea_build_text).except(:brainstorm_id)
+    params.require(:idea_build).permit(:idea_id, :idea_build_text, :author).except(:brainstorm_id)
   end
 
   def brainstorm_params

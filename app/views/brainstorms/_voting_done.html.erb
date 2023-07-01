@@ -101,21 +101,27 @@
     <% @ideas.order('votes DESC').each do |idea| %>
     <div class="flex flex-col xl:mr-4">
       <div class="my-shadow my-8 lg:my-4 bg-white">
-        <div class="idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic font-bold bg-post-it-yellowy cursor-default">
-          <div class="flex flex-row justify-between w-full">
+        <div class="idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic bg-post-it-yellowy cursor-default">
+          <div class="flex flex-row justify-between w-full font-bold">
             <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
             <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl"><%= pluralize(idea.votes, "vote") %></h2>
           </div>
           <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl"></h2>
-          <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full"><%= idea.text %></p>
+          <div class="flex flex-col justify-between h-full">
+            <p class="font-bold mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full"><%= idea.text %></p>
+            <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea.author if !@brainstorm.anonymous? %></p>
+          </div>
         </div>
         <% idea.idea_builds.order(:id).each do |idea_build| %>
-        <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic font-bold lg:px-4 px-10">
-          <div class="flex flex-row justify-between w-full items-center">
-            <h2 class="py-4 mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %>.<%= idea_build.decimal %></h2>
-            <h2 class="py-4 mb-4 lg:m-0 text-blurple text-5xl lg:text-xl"><%= pluralize(idea_build.votes, "vote") %></h2>
+        <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8">
+          <div class="flex flex-row justify-between w-full items-center font-bold">
+            <h2 class="lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %>.<%= idea_build.decimal %></h2>
+            <h2 class="lg:m-0 text-blurple text-5xl lg:text-xl"><%= pluralize(idea_build.votes, "vote") %></h2>
           </div>
-          <p class="py-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full"><%= idea_build.idea_build_text %></p>
+          <div class="flex flex-col justify-between h-full">
+            <p class="font-bold pb-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full "><%= idea_build.idea_build_text %></p>
+            <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea_build.author if !@brainstorm.anonymous? %></p>
+          </div>
         </div>
         <% end %>
       </div>

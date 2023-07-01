@@ -31,6 +31,8 @@ Rails.application.routes.draw do
       resource :duration, only: :update, module: "timers"
     end
 
+    resource :settings, only: :update, module: "brainstorms"
+
     resource :email, only: :create, module: "brainstorms"
   end
 

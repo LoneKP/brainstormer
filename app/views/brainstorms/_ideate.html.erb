@@ -32,14 +32,20 @@
         <% @ideas.order('id DESC').each do |idea| %>
         <div class="flex flex-col">
           <div onclick="toggleBuildOnIdea(<%=idea.id %>)" class="my-shadow mr-8 my-8 lg:my-4 bg-white">
-            <div id="idea-<%=idea.id %>" class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic font-bold bg-post-it-yellowy cursor-default">
-              <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
-              <p class="mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full"><%= idea.text %></p>
+            <div id="idea-<%=idea.id %>" class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start justify-between italic bg-post-it-yellowy cursor-default">
+            <h2 class="font-bold mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
+              <div class="flex flex-col justify-between h-full">
+                <p class="font-bold mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full"><%= idea.text %></p>
+                <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea.author if !@brainstorm.anonymous? %></p>
+              </div>
             </div>
             <% idea.idea_builds.order(:id).each do |idea_build| %>
-            <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic font-bold lg:px-4 px-10">
-              <h2 class="py-4 mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
-              <p class="py-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full "><%= idea_build.idea_build_text %></p>
+            <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8">
+              <h2 class="font-bold lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
+              <div class="flex flex-col justify-between h-full">
+                <p class="font-bold pb-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full "><%= idea_build.idea_build_text %></p>
+                <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea_build.author if !@brainstorm.anonymous? %></p>
+              </div>
             </div>
             <% end %>
             <div id="buildOnIdea-<%=idea.id %>" class="hidden text-center bg-post-it-yellowy-60 py-2">

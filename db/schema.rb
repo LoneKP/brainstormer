@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_08_212539) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_01_084834) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -159,6 +159,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_212539) do
     t.string "facilitated_by_type"
     t.bigint "facilitated_by_id"
     t.integer "max_participants", default: 0
+    t.boolean "anonymous", default: true
     t.index ["facilitated_by_type", "facilitated_by_id"], name: "index_brainstorms_on_facilitated_by"
   end
 
@@ -174,6 +175,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_212539) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "votes", default: 0
+    t.string "author"
     t.index ["idea_id"], name: "index_idea_builds_on_idea_id"
   end
 
@@ -183,6 +185,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_08_212539) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "votes", default: 0
+    t.string "author"
     t.index ["brainstorm_id"], name: "index_ideas_on_brainstorm_id"
   end
 

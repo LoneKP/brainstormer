@@ -1,5 +1,5 @@
 document.getElementById("add-idea-form").classList.add("hidden");
-document.getElementById("add-idea-build-form").innerHTML = "<%= j render "brainstorms/add_idea_build_form", idea: @idea, idea_build: @idea_build, brainstorm: @brainstorm %>"
+document.getElementById("add-idea-build-form").innerHTML = "<%= j render "brainstorms/add_idea_build_form", idea: @idea, idea_build: @idea_build, brainstorm: @brainstorm, session: @session %>"
 
 addEventListenerToSubmitButton(document.getElementById("addIdeaBuildPin"), document.getElementById("idea_build_idea_build_text"), 110, document.getElementById("characterCountIdeaBuild"));
 

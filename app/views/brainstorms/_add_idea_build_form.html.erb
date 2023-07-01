@@ -5,11 +5,12 @@
   <div class="field mt-8">
     <%= f.text_area :idea_build_text, class:"w-full h-screen/5 lg:h-32 opacity-75 italic font-bold focus:outline-none border-dashed border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal break-words md:text-5xl lg:text-xl lg:text-base" %>
   </div>
-  <%= f.hidden_field :idea_id, :value => idea.id %>
-  <%= f.hidden_field :brainstorm_id, :value => brainstorm.id %>
   <div id="error-field-idea-build">
     <%= render "shared/validation_error" %>
   </div>
+  <%= f.hidden_field :idea_id, :value => idea.id %>
+  <%= f.hidden_field :brainstorm_id, :value => brainstorm.id %>
+  <%= f.hidden_field :author, :value => session.name %>
   <p id="characterCountIdeaBuild" class="md:text-4xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
 </div>
 <button id="addIdeaBuildPin" type=submit class="lg:mr-8 mt-4 px-8 lg:text-2xl md:text-7xl flex flex-row justify-center items-center modal-close lg:h-20 md:h-40 my-shadow-lg bg-lighter-gray focus:outline-none cursor-pointer">
