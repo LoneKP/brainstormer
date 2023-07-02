@@ -40,9 +40,7 @@ Rails.application.routes.draw do
 
   resources :ideas, only: [:create, :destroy] do
     post :show_idea_build_form, :vote
-    resources :idea_builds, only: [:create] do
-      post :vote
-    end
+    resource :idea_builds, only: [:create]
   end
 
   resources :mailer_unsubscribes, only: [:show] 

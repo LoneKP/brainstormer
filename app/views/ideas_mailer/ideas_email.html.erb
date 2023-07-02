@@ -22,7 +22,7 @@
   <p><%= idea.idea_builds.count > 0 ? "The idea inspired the following idea builds: " : "" %> </p>
   <% idea.idea_builds.order(votes: :desc).each do |idea_build| %>
   <ul>
-    <li><%= idea_build.idea_build_text %> (<%= pluralize(idea_build.votes, "vote") %>)</li>
+    <li><%= idea_build.idea_build_text %></li>
   </ul>
   <% end %>
   <% end %>

@@ -5,7 +5,6 @@ class Session::Voting
   include Brainstorm::States, Ideated, DoneVoting
 
   kredis_set :idea_votes,       typed: :integer, key: ->(v) { "user_idea_votes_#{v.visitor_id}_#{v.brainstorm.token}" }
-  kredis_set :idea_build_votes, typed: :integer, key: ->(v) { "user_idea_build_votes_#{v.visitor_id}_#{v.brainstorm.token}" }
 
   kredis_hash :brainstorm_voting_status, typed: :boolean, key: ->(v) { "done_voting_brainstorm_status_#{v.brainstorm.token}" }
 
@@ -26,19 +25,19 @@ class Session::Voting
   end
 
   def voted_for?(votable)
-    votes_for(votable).include?(votable.id)
+    idea_votes.include?(votable.id)
   end
 
   def vote_for(votable)
     if !done? && can_vote?
-      votes_for(votable) << votable.id
+      idea_votes << votable.id
       votable.increment! :votes
     end
   end
 
   def subtract_vote_for(votable)
     unless done?
-      votes_for(votable).remove votable.id
+      idea_votes.remove votable.id
       votable.decrement! :votes
     end
   end
@@ -59,7 +58,7 @@ class Session::Voting
   end
 
   def votes_cast_count
-    idea_votes.size + idea_build_votes.size
+    idea_votes.size
   end
 
   def finish
@@ -97,10 +96,6 @@ class Session::Voting
 
   Vote = Struct.new(:index, :used, keyword_init: true) do
     alias used? used
-  end
-
-  def votes_for(votable)
-    votable.is_a?(Idea) ? idea_votes : idea_build_votes
   end
 
   def broadcast_state(state)

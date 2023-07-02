@@ -67,31 +67,15 @@
                </div>
                <% end %>
                <% idea.idea_builds.order(:id).each do |idea_build| %>
-               <%= link_to idea_idea_build_vote_path(idea, idea_build), remote: true, method: :post do %>
                <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 cursor-default">
                  <div class="flex flex-row justify-between w-full items-center">
                    <h2 class="font-bold lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
-                   <svg class="lg:h-8 lg:w-8 h-20 w-20" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 36 36" version="1.1">
-                     <title>0E4C7326-8988-4892-82B6-3FD8F36A9D07</title>
-                     <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-                       <g transform="translate(-701.000000, -551.000000)">
-                         <g id="Group-16" transform="translate(653.000000, 551.000000)">
-                           <g transform="translate(48.000000, 0.000000)">
-                             <polygon id="Path" points="0 0 36 0 36 36 0 36" />
-                             <polygon id="Path" points="0 0 36 0 36 36 0 36" />
-                             <polygon class="star-idea-build-<%=idea_build.id %>" id="star-idea-build-<%=idea_build.id %>" id="Path" stroke="#312783" stroke-width="3" stroke-linejoin="bevel" fill-rule="nonzero" points="18.12 25.8332211 27.39 31.44 24.93 20.8728 33.12 13.7628632 22.335 12.8459368 18.12 2.88 13.905 12.8459368 3.12 13.7628632 11.31 20.8728 8.85 31.44" />
-                           </g>
-                         </g>
-                       </g>
-                     </g>
-                   </svg>
                  </div>
                 <div class="flex flex-col justify-between h-full">
                   <p class="font-bold pb-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full "><%= idea_build.idea_build_text %></p>
                   <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea_build.author if !@brainstorm.anonymous? %></p>
                 </div>
                </div>
-               <% end %>
                <% end %>
              </div>
 

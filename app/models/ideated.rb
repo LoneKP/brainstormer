@@ -16,8 +16,8 @@ module Ideated
       only: [:id, :text, :votes, :author],
       include: {
         idea_builds: {
-          methods: [:vote_in_plural_or_singular, :decimal, :opacity_lookup],
-          only: [:id, :idea_build_text, :votes, :author]
+          methods: [:decimal, :opacity_lookup],
+          only: [:id, :idea_build_text, :author]
         }
       })
   end

@@ -1,7 +1,5 @@
 class IdeaBuildsController < ApplicationController
   include Ideated
-  before_action :set_visitor_id, only: [:vote]
-  before_action :set_idea_build, only: [:vote]
 
   def create
     @idea_build = IdeaBuild.new(idea_build_params)
@@ -18,14 +16,6 @@ class IdeaBuildsController < ApplicationController
         end
       end
     end
-  end
-
-  def vote
-    @idea = Idea.find(params[:idea_id])
-    @brainstorm = @idea.brainstorm
-
-    @voting = Session::Voting.new(@brainstorm, @visitor_id)
-    @voting.toggle_vote_for(@idea_build)
   end
 
   private

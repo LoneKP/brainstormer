@@ -56,12 +56,7 @@ fillStarsWithUserVotes = function () {
     Array.from(elements).forEach((element) => element.setAttribute("fill", "#312783"))
   })
 
-  currentUser.votesCastIdeaBuilds.forEach((id) => {
-    let elements = document.getElementsByClassName(`star-idea-build-${id}`)
-    Array.from(elements).forEach((element) => element.setAttribute("fill", "#312783"))
-  })
-
-  let votesUsed = currentUser.votesCastIdeas.size + currentUser.votesCastIdeaBuilds.size
+  let votesUsed = currentUser.votesCastIdeas.size
   let stars = document.getElementsByClassName("starVoteFill")
   
   for (let i = 0; i < votesUsed; i++) {

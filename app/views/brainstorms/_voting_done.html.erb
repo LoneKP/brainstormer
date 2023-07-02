@@ -116,7 +116,6 @@
         <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8">
           <div class="flex flex-row justify-between w-full items-center font-bold">
             <h2 class="lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %>.<%= idea_build.decimal %></h2>
-            <h2 class="lg:m-0 text-blurple text-5xl lg:text-xl"><%= pluralize(idea_build.votes, "vote") %></h2>
           </div>
           <div class="flex flex-col justify-between h-full">
             <p class="font-bold pb-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full "><%= idea_build.idea_build_text %></p>

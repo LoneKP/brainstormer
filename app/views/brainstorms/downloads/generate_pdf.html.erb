@@ -6,7 +6,7 @@
     </div>
     <% idea.idea_builds.each do |idea_build| %>
     <ul class="text-2xl mb-8">
-      <li> - <%= idea_build.idea_build_text %> - <%= pluralize(idea_build.votes, "vote") %></li>
+      <li> - <%= idea_build.idea_build_text %></li>
     </ul>
     <% end %>
   <% end %>

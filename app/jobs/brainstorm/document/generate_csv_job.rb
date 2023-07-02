@@ -37,8 +37,7 @@ class Brainstorm::Document::GenerateCsvJob < ApplicationJob
             idea.idea_builds.each do |idea_build|
               csv << [
                 "-",
-                "#" + idea.number.to_s + "." + idea_build.decimal.to_s + ": " + idea_build.idea_build_text,
-                idea_build.votes
+                "#" + idea.number.to_s + "." + idea_build.decimal.to_s + ": " + idea_build.idea_build_text
               ]
             end
         end

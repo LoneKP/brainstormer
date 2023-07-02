@@ -35,7 +35,6 @@ setInnerHTMLOfCountText = (inputFieldWithCharacterCount, maxCharacters, countTex
 };
 
 fieldsWithoutPresence = (allInputFieldsForValidation) => {
-  console.log()
   let counter = 0
   allInputFieldsForValidation.forEach(inputFieldForValidation => {
    if (inputFieldForValidation.value.trim() === "") {

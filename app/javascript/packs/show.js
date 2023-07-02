@@ -1,6 +1,6 @@
 changeView(brainstormStore.state);
 fillStarsWithUserVotes();
-changeHeadlineAccordingToVotesLeft(currentUser.votesCastIdeas.length + currentUser.votesCastIdeaBuilds.length, brainstormStore.maxVotesPerUser )
+changeHeadlineAccordingToVotesLeft(currentUser.votesCastIdeas.length, brainstormStore.maxVotesPerUser )
 
 // These could be summed up in a single "copy()" function
 // that accepts the relevant element id and the value as arguments
