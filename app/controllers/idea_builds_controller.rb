@@ -1,4 +1,5 @@
 class IdeaBuildsController < ApplicationController
+  include Ideated
   before_action :set_visitor_id, only: [:vote]
   before_action :set_idea_build, only: [:vote]
 
@@ -8,7 +9,7 @@ class IdeaBuildsController < ApplicationController
     @brainstorm = Brainstorm.find(brainstorm_params[:brainstorm_id])
     respond_to do |format|
       if @idea_build.save
-        IdeasChannel.broadcast_to @brainstorm, { anonymous: @brainstorm.anonymous?, content: @idea_build, idea_build_number: "#{@idea.number}.#{@idea_build.decimal}", event: "create_idea_build", opacity: @idea_build.opacity_lookup }
+        transmit_ideas(sort_by_id_desc)
         format.js
       else
         @idea_build.errors.messages.each do |message|

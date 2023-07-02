@@ -127,6 +127,7 @@ module.exports = {
       backgroundColor: ['active'],
       animation: ['hover'],
       visibility: ["group-hover"],
+      display: ["group-hover"],
     }
   },
   plugins: [

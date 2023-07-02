@@ -38,7 +38,7 @@ Rails.application.routes.draw do
 
   get 'brainstorms/join-session', to: 'brainstorms#join_session'
 
-  resources :ideas, only: [:create] do
+  resources :ideas, only: [:create, :destroy] do
     post :show_idea_build_form, :vote
     resources :idea_builds, only: [:create] do
       post :vote

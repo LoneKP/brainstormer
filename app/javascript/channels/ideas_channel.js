@@ -10,14 +10,8 @@ consumer.subscriptions.create({ channel: "IdeasChannel", token: location.pathnam
   },
 
   received(data) {
+    console.log(data)
     switch (data.event) {
-      case "create_idea":
-        createNewIdea(data);
-        addIdeasCount(data);
-        break;
-      case "create_idea_build":
-        createNewIdeaBuild(data);
-        break;
       case "transmit_ideas":
         buildHTML(data.ideas, brainstormStore.state, data.available_votes, data.anonymous);
     }
@@ -32,6 +26,11 @@ const buildHTML = (ideas, state, available_votes, anonymous) => {
   }
   else if (state == "voting_done") {
     buildVotingDonePage(ideas, anonymous);
+  }
+  else if (state == "ideation") {
+    buildIdeationPage(ideas, anonymous);
+    updateFacilitatorSpecificElementsOnIdeas();
+    addIdeasCount(ideas);
   }
 }
 
@@ -72,90 +71,23 @@ const buildVotingDonePage = (ideas, anonymous) => {
   }
 }
 
-const createNewIdea = (data) => {
-  let postItsContainer = document.createElement("div")
-  let ideaContainer = document.createElement("div")
-  let ideaDiv = document.createElement("div");
-  let ideaAndAuthorContainer = document.createElement("div");
-  let ideaElement = document.createElement("P");
-  let authorElement = document.createElement("P");
-  let numberElement = document.createElement("H2");
+const buildIdeationPage = (ideas, anonymous) => {
+  let htmlIdeaAndIdeaBuilds = ""
 
-  let buildOnIdeaDiv = document.createElement("div");
-  let buildOnIdeaLink = document.createElement("a");
-  let buildOnIdeaButton = document.createElement("button");
+  let auth_token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
-  numberElement.classList.add("font-bold", "mb-4", "lg:m-0", "text-blurple", "text-5xl", "lg:text-xl");
+  for (let i = 0; i < ideas.length; i++) {
+    let htmlIdeaBuilds = ""
+    for (let x = 0; x < ideas[i].idea_builds.length; x++) {
+      htmlIdeaBuilds += `<div class="lg:w-64 w-full bg-post-it-yellowy-${ideas[i].idea_builds[x].opacity_lookup} italic lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8"><h2 class="font-bold lg:m-0 text-blurple text-5xl lg:text-xl">#${ideas[i].number}.${ideas[i].idea_builds[x].decimal}</h2><div class="flex flex-col justify-between h-full"><p class="font-bold pb-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full ">${ideas[i].idea_builds[x].idea_build_text}</p><p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full">${anonymous ? "" : ideas[i].idea_builds[x].author}</p></div></div>`
+    }
+    htmlIdeaAndIdeaBuilds += `<div class="flex flex-col lg:mb-12 mb-28"><div class="group my-shadow mr-8 my-8 lg:my-4 bg-white"><div class="relative"><div class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start justify-between italic bg-post-it-yellowy cursor-default"><h2 class="font-bold mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#${ideas[i].number}</h2><div class="flex flex-col justify-between h-full"><p class="font-bold mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full">${ideas[i].text}</p><p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full">${anonymous ? "" : ideas[i].author}</p></div></div>${htmlIdeaBuilds}<div class="absolute w-full z-50"><div class="hidden group-hover:flex flex-row items-center bg-yellowy lg:h-14 h-32 my-shadow"><div class="flex flex-row w-full leading-none lg:gap-2 lg:p-2 gap-4 p-4 justify-center text-white h-32 lg:h-14"><form class="buildOnIdeaButton w-5/6" method="post" action="/ideas/${ideas[i].id}/show_idea_build_form" data-remote="true"><button class="h-full w-full" type="submit"><p class="bg-black h-full flex flex-col justify-center lg:text-lg text-4xl uppercase font-bold">Build on idea</p></button><input type="hidden" name="authenticity_token" value="${auth_token}" autocomplete="off"></form><form class="deleteIdeaButton w-1/6" method="post" action="/ideas/${ideas[i].id}"><input type="hidden" name="_method" value="delete" autocomplete="off"><button class="h-full w-full" type="submit"><span class="material-icons bg-reddy h-full text-white flex flex-col justify-center lg:text-2xl text-6xl">delete</span></button><input type="hidden" name="authenticity_token" value="${auth_token}" autocomplete="off"></form></div></div></div></div></div></div>`
 
-  postItsContainer.classList.add("flex", "flex-col");
-
-  ideaContainer.classList.add("my-shadow", "mr-8", "my-8", "lg:my-4", "bg-white");
-
-  ideaDiv.classList.add("select-none", "idea-card", "lg:h-64", "lg:w-64", "w-full", "lg:px-4", "px-10", "lg:pt-6", "lg:pb-1", "pt-14", "pb-8", "flex", "flex-col", "items-start", "italic", "bg-post-it-yellowy", "cursor-default");
-
-  ideaDiv.setAttribute("id", `idea-${data.content.id}`);
-  ideaDiv.setAttribute("onclick", `toggleBuildOnIdea(${data.content.id})`);
-
-  ideaAndAuthorContainer.classList.add("flex", "flex-col", "justify-between", "h-full");
-  ideaElement.classList.add("font-bold", "mb-4", "lg:m-0", "text-4xl", "lg:text-base", "leading-loose", "lg:leading-normal", "break-words", "w-full");
-  authorElement.classList.add("font-extralight", "lg:m-0", "text-2xl", "lg:text-sm", "leading-loose", "lg:leading-normal", "break-words", "w-full")
-
-  buildOnIdeaDiv.classList.add("text-center", "bg-post-it-yellowy-60", "py-2", "hidden");
-  buildOnIdeaDiv.setAttribute("id", `buildOnIdea-${data.content.id}`);
-  buildOnIdeaLink.setAttribute("data-remote", "true");
-  buildOnIdeaLink.setAttribute("rel", "nofollow");
-  buildOnIdeaLink.setAttribute("data-method", "post");
-  buildOnIdeaLink.setAttribute("href", data.build_on_idea_link);
-  buildOnIdeaButton.classList.add("text-5xl", "lg:text-lg", "font-medium", "uppercase", "bg-black", "text-white", "py-8", "lg:py-1", "lg:px-8", "px-40", "my-8", "lg:my-2");
-  buildOnIdeaButton.innerHTML = "Build on idea"
-
-  ideaElement.innerHTML = `${data.content.text}`;
-  authorElement.innerHTML = data.anonymous ? "" : data.content.author;
-  numberElement.innerHTML = `#${data.idea_number}`;
-
-  postItsContainer.appendChild(ideaContainer);
-  ideaContainer.appendChild(ideaDiv);
-  ideaDiv.appendChild(numberElement);
-  ideaDiv.appendChild(ideaAndAuthorContainer);
-  ideaAndAuthorContainer.appendChild(ideaElement);
-  ideaAndAuthorContainer.appendChild(authorElement);
- 
-
-  ideaContainer.appendChild(buildOnIdeaDiv);
-  buildOnIdeaDiv.appendChild(buildOnIdeaLink);
-  buildOnIdeaLink.appendChild(buildOnIdeaButton);
-
-  document.getElementById("ideas").prepend(postItsContainer);
+    document.getElementById("ideas").innerHTML = htmlIdeaAndIdeaBuilds; 
+  }
 }
 
-const createNewIdeaBuild = (data) => {
-  let ideaBuildDiv = document.createElement("div");
-  let ideaBuildNumber = document.createElement("h2");
-  let ideaBuildText = document.createElement("p");
-  let ideaBuildAndAuthorContainer = document.createElement("div");
-  let authorElement = document.createElement("p");
-
-  ideaBuildDiv.classList.add("lg:w-64", "w-full", `bg-post-it-yellowy-${data.opacity}`, "justify-between", "italic", "lg:px-4", "px-10", "lg:pt-6", "lg:pb-1", "pt-14", "pb-8");
-  ideaBuildNumber.classList.add("font-bold", "lg:m-0", "text-blurple", "text-5xl", "lg:text-xl");
-  ideaBuildText.classList.add("font-bold", "pb-4", "text-4xl", "lg:text-base", "leading-loose", "lg:leading-normal", "break-words", "w-full");
-  ideaBuildAndAuthorContainer.classList.add("flex", "flex-col", "justify-between", "h-full");
-  authorElement.classList.add("font-extralight", "lg:m-0", "text-2xl", "lg:text-sm", "leading-loose", "lg:leading-normal", "break-words", "w-full")
-
-  ideaBuildText.innerHTML = data.content.idea_build_text
-  ideaBuildNumber.innerHTML = `#${data.idea_build_number}`
-  authorElement.innerHTML = data.anonymous ? "" : data.content.author;
-
-  ideaBuildAndAuthorContainer.appendChild(ideaBuildText);
-  ideaBuildAndAuthorContainer.appendChild(authorElement);
-
-  ideaBuildDiv.appendChild(ideaBuildNumber);
-  ideaBuildDiv.appendChild(ideaBuildAndAuthorContainer);
-
-
-  document.getElementById(`buildOnIdea-${data.content.idea_id}`).insertAdjacentElement("beforebegin", ideaBuildDiv);
-}
-
-const addIdeasCount = (data) => {
-  document.getElementById("ideasCount").innerHTML = data.ideas_total
-  document.getElementById("final-ideas-count").innerHTML = data.ideas_total > 1 ? `${data.ideas_total} ideas` : `${data.ideas_total} idea`
+const addIdeasCount = (ideas) => {
+  document.getElementById("ideasCount").innerHTML = ideas.length
+  document.getElementById("final-ideas-count").innerHTML = ideas.length === 1 ? `${ideas.length} idea` : `${ideas.length} ideas`
 };

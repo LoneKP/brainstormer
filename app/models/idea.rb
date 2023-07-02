@@ -1,6 +1,6 @@
 class Idea < ApplicationRecord
   belongs_to :brainstorm
-  has_many :idea_builds
+  has_many :idea_builds, dependent: :destroy
 
   validates :text, presence: {message: "You forgot to write an idea!"}
 

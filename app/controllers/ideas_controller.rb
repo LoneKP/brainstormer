@@ -1,4 +1,5 @@
 class IdeasController < ApplicationController
+  include Ideated
   before_action :set_brainstorm, only: [:create]
   before_action :set_visitor_id, only: [:vote]
   before_action :set_idea, only: [:vote]
@@ -7,7 +8,7 @@ class IdeasController < ApplicationController
     @idea = Idea.new(idea_params)
     respond_to do |format|
       if @idea.save
-          IdeasChannel.broadcast_to @brainstorm, { anonymous: @brainstorm.anonymous?, content: @idea, ideas_total: @brainstorm.ideas.count, idea_number: @idea.number, build_on_idea_link: idea_show_idea_build_form_path(@idea), event: "create_idea" }
+          transmit_ideas(sort_by_id_desc)
         format.js
       else
         @idea.errors.messages.each do |message|
@@ -22,7 +23,7 @@ class IdeasController < ApplicationController
   def show_idea_build_form
     @idea = Idea.find(params[:idea_id])
     @brainstorm = @idea.brainstorm
-    @idea_build = IdeaBuild.new
+    @idea_build = @idea.idea_builds.new
     @session = set_session_for_all_types
     respond_to do |format|
       format.js
@@ -33,6 +34,14 @@ class IdeasController < ApplicationController
     @brainstorm = @idea.brainstorm
     @voting = Session::Voting.new(@brainstorm, @visitor_id)
     @voting.toggle_vote_for(@idea)
+  end
+
+  def destroy
+    @idea = Idea.find(params[:id])
+    @brainstorm = @idea.brainstorm
+    if @idea.destroy
+      transmit_ideas(sort_by_id_desc)
+    end
   end
 
   private

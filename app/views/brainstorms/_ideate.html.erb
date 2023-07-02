@@ -30,31 +30,42 @@
       </div>
       <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideas">
         <% @ideas.order('id DESC').each do |idea| %>
-        <div class="flex flex-col">
-          <div onclick="toggleBuildOnIdea(<%=idea.id %>)" class="my-shadow mr-8 my-8 lg:my-4 bg-white">
-            <div id="idea-<%=idea.id %>" class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start justify-between italic bg-post-it-yellowy cursor-default">
-            <h2 class="font-bold mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
-              <div class="flex flex-col justify-between h-full">
-                <p class="font-bold mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full"><%= idea.text %></p>
-                <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea.author if !@brainstorm.anonymous? %></p>
+          <div class="flex flex-col lg:mb-12 mb-28">
+            <div class="group my-shadow mr-8 my-8 lg:my-4 bg-white">
+              <div class="relative">
+                <div class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start justify-between italic bg-post-it-yellowy cursor-default">
+                  <h2 class="font-bold mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
+                  <div class="flex flex-col justify-between h-full">
+                    <p class="font-bold mb-4 lg:m-0 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full"><%= idea.text %></p>
+                    <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea.author if !@brainstorm.anonymous? %></p>
+                  </div>
+                </div>
+                <% idea.idea_builds.order(:id).each do |idea_build| %>
+                  <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8">
+                    <h2 class="font-bold lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
+                    <div class="flex flex-col justify-between h-full">
+                      <p class="font-bold pb-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full "><%= idea_build.idea_build_text %></p>
+                      <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea_build.author if !@brainstorm.anonymous? %></p>
+                    </div>
+                  </div>
+                <% end %>
+                <div class="absolute w-full z-50">
+                  <div class="hidden group-hover:flex flex-row items-center bg-yellowy lg:h-14 h-32 my-shadow">
+                    <div class="flex flex-row w-full leading-none lg:gap-2 lg:p-2 gap-4 p-4 justify-center text-white h-32 lg:h-14">
+                      <%= button_to idea_show_idea_build_form_path(idea), remote: true, method: :post, class: "h-full w-full", form_class: "buildOnIdeaButton #{@current_facilitator ? "w-5/6" : "w-full"}" do %>
+                        <p class="bg-black h-full flex flex-col justify-center lg:text-lg text-4xl uppercase font-bold">Build on idea</p>
+                      <% end %>
+                      <% if @current_facilitator %>
+                        <%= button_to idea_path(idea.id), method: :delete, class: "h-full w-full", form_class: "w-1/6 deleteIdeaButton" do %>
+                          <span class="material-icons bg-reddy h-full text-white flex flex-col justify-center lg:text-2xl text-6xl">delete</span>
+                        <% end %>
+                      <% end %>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-            <% idea.idea_builds.order(:id).each do |idea_build| %>
-            <div class="lg:w-64 w-full bg-post-it-yellowy-<%= idea_build.opacity_lookup %> italic lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8">
-              <h2 class="font-bold lg:m-0 text-blurple text-5xl lg:text-xl">#<%=idea.number %>.<%= idea_build.decimal %></h2>
-              <div class="flex flex-col justify-between h-full">
-                <p class="font-bold pb-4 text-4xl lg:text-base leading-loose lg:leading-normal break-words w-full "><%= idea_build.idea_build_text %></p>
-                <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea_build.author if !@brainstorm.anonymous? %></p>
-              </div>
-            </div>
-            <% end %>
-            <div id="buildOnIdea-<%=idea.id %>" class="hidden text-center bg-post-it-yellowy-60 py-2">
-              <%= link_to idea_show_idea_build_form_path(idea), remote: true, method: :post do %>
-              <button class="lg:text-lg text-5xl font-medium uppercase bg-black text-white py-8 lg:py-1 lg:px-8 px-40 my-8 lg:my-2">Build on idea</button>
-              <% end %>
             </div>
           </div>
-        </div>
         <% end %>
       </div>
     </div>
