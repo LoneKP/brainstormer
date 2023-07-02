@@ -23,26 +23,51 @@ class Brainstorm::Document::GenerateCsvJob < ApplicationJob
     @tempfile = Tempfile.new(["#{brainstorm.token}-", '.csv']).tap do |file|
       CSV.open(file, 'wb') do |csv|
         # CSV Header Row
-        csv << %w[Ideas IdeaBuilds Votes]
-
+        if !brainstorm.anonymous?
+          csv << %w[Ideas IdeaBuilds Votes Author]
+        else
+          csv << %w[Ideas IdeaBuilds Votes]
+        end
+  
         # CSV Rows, each row representing an idea
-
         brainstorm.ideas.order('votes DESC').each do |idea|
           builds = idea.idea_builds.map { |idea_build| idea_build.idea_build_text }
+  
+          if !brainstorm.anonymous?
+            csv << [
+              "#" + idea.number.to_s + ": " + idea.text,
+              "-",
+              idea.votes,
+              idea.author
+            ]
+          else
             csv << [
               "#" + idea.number.to_s + ": " + idea.text,
               "-",
               idea.votes
             ]
-            idea.idea_builds.each do |idea_build|
+          end
+  
+          idea.idea_builds.each do |idea_build|
+            if !brainstorm.anonymous?
               csv << [
                 "-",
-                "#" + idea.number.to_s + "." + idea_build.decimal.to_s + ": " + idea_build.idea_build_text
+                "#" + idea.number.to_s + "." + idea_build.decimal.to_s + ": " + idea_build.idea_build_text,
+                "-",
+                idea_build.author
+              ]
+            else
+              csv << [
+                "-",
+                "#" + idea.number.to_s + "." + idea_build.decimal.to_s + ": " + idea_build.idea_build_text,
+                "-"
               ]
             end
+          end
         end
       end
     end
   end
+  
 end
 
