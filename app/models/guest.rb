@@ -4,4 +4,8 @@ class Guest < ApplicationRecord
   def plan
     1
   end
+
+  def facilitator_plan?
+    false
+  end
 end

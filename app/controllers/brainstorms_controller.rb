@@ -15,13 +15,13 @@ class BrainstormsController < ApplicationController
     if current_user.nil?
       guest = Guest.create(name: brainstorm_params[:name]) 
       session[:guest_id] = guest.id
-    else
-
     end
+
     current_user.update(name: brainstorm_params[:name]) if current_user
     @brainstorm = Brainstorm.new(brainstorm_params)
     @brainstorm.facilitated_by = current_user || guest
       if @brainstorm.save
+        set_inactive_date_for_non_paid_brainstorms
         @brainstorm.state = :setup
         redirect_to "/#{@brainstorm.token}"
         ahoy.track "Brainstorm created"
@@ -131,6 +131,12 @@ class BrainstormsController < ApplicationController
   end
 
   private
+
+  def set_inactive_date_for_non_paid_brainstorms
+    if !@brainstorm.facilitated_by.facilitator_plan?
+      @brainstorm.update(inactive_at: 2.weeks.from_now)
+    end
+  end
 
   def brainstorm_params
     params.require(:brainstorm).permit(:problem, :name)
