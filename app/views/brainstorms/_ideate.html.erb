@@ -53,11 +53,11 @@
                   <div class="hidden group-hover:flex flex-row items-center bg-yellowy lg:h-14 h-32 my-shadow">
                     <div class="flex flex-row w-full leading-none lg:gap-2 lg:p-2 gap-4 p-4 justify-center text-white h-32 lg:h-14">
                       <%= button_to idea_show_idea_build_form_path(idea), remote: true, method: :post, class: "h-full w-full", form_class: "buildOnIdeaButton #{@current_facilitator ? "w-5/6" : "w-full"}" do %>
-                        <p class="bg-black h-full flex flex-col justify-center lg:text-lg text-4xl uppercase font-bold">Build on idea</p>
+                        <p class="bg-black hover:bg-darky h-full flex flex-col justify-center lg:text-lg text-4xl uppercase font-bold">Build on idea</p>
                       <% end %>
                       <% if @current_facilitator %>
                         <%= button_to idea_path(idea.id), method: :delete, class: "h-full w-full", form_class: "w-1/6 deleteIdeaButton" do %>
-                          <span class="material-icons bg-reddy h-full text-white flex flex-col justify-center lg:text-2xl text-6xl">delete</span>
+                          <span class="material-icons bg-reddy hover:bg-darker-reddy h-full text-white flex flex-col justify-center lg:text-2xl text-6xl">delete</span>
                         <% end %>
                       <% end %>
                     </div>
