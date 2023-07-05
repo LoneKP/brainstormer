@@ -31,7 +31,7 @@ class BrainstormsController < ApplicationController
   end
 
   def show
-    check_brainstorm_availability_and_redirect
+    check_brainstorm_availability_and_redirect if @brainstom
 
     @ideas = @brainstorm.ideas
     @idea  = @ideas.new
