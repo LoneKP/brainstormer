@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 
   resources :mailer_unsubscribes, only: [:show] 
 
+  get '/brainstorm-not-found', to: 'pages#pages_template'
   get '/about', to: 'pages#pages_template'
   get '/privacy-policy', to: 'pages#pages_template'
   get '/your-brainstorms', to: 'pages#your_brainstorms'

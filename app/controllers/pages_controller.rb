@@ -6,7 +6,7 @@ class PagesController < ApplicationController
 
 
   def pages_template
-    @page = request.path.sub("/", "").sub("-","_")
+    @page = request.path.sub("/", "").gsub("-","_")
   end
 
   def your_brainstorms

@@ -31,6 +31,8 @@ class BrainstormsController < ApplicationController
   end
 
   def show
+    check_brainstorm_availability_and_redirect
+
     @ideas = @brainstorm.ideas
     @idea  = @ideas.new
     
@@ -131,6 +133,10 @@ class BrainstormsController < ApplicationController
   end
 
   private
+
+  def check_brainstorm_availability_and_redirect
+    redirect_to brainstorm_not_found_path if @brainstorm.inactive? && !@brainstorm.facilitated_by.facilitator_plan?
+  end
 
   def set_inactive_date_for_non_paid_brainstorms
     if !@brainstorm.facilitated_by.facilitator_plan?

@@ -44,6 +44,10 @@ class Brainstorm < ApplicationRecord
    state === "voting_done"
   end
 
+  def inactive?
+    inactive_at < Time.now
+  end
+
   private
 
   def generate_token
