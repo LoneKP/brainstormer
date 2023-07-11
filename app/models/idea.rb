@@ -11,4 +11,17 @@ class Idea < ApplicationRecord
   def vote_in_plural_or_singular
     votes > 1 || votes == 0 ? "votes" : "vote"
   end
+
+  def opacity_hash
+    {1=>90, 2=>80, 3=>70, 4=>60, 5=>50, 6=>40, 7=>30, 8=>20, 9=>10}
+  end
+
+  def opacity_lookup_previous_idea_build
+    return "" if idea_builds.count == 0
+    "-#{opacity_hash[idea_builds.count] || 10}"
+  end
+
+  def opacity_lookup_next_idea_build
+    "-#{opacity_hash[idea_builds.count + 1] || 10}"
+  end
 end

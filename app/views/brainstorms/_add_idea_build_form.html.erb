@@ -1,7 +1,6 @@
 <%= form_for(@idea_build, url: idea_idea_builds_path(idea.id), remote: true, html: { autocomplete: "off", class: "flex flex-col w-full" }) do |f| %>
-<div class="p-6 lg:mr-8 mt-8 bg-post-it-yellowy my-shadow-lg">
-  <h2 id="build-on-idea-headline" class="underline italic text-5xl lg:text-2xl font-semibold">Build on #<%= idea.number %></h2>
-  <p class="font-semibold italic text-3xl lg:text-base mt-4"><%= idea.text %></p>
+<div class="lg:w-64 w-full bg-post-it-yellowy<%= idea.opacity_lookup_next_idea_build %> italic lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8">
+<h2 class="font-bold lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %>.<%= idea.idea_builds.second_to_last ? idea.idea_builds.second_to_last.decimal + 1 : "1" %></h2>
   <div class="field mt-8">
     <%= f.text_area :idea_build_text, class:"w-full h-screen/5 lg:h-32 opacity-75 italic font-bold focus:outline-none border-dashed border-black border-2 py-2 px-4 block appearance-none leading-loose lg:leading-normal break-words md:text-5xl lg:text-xl lg:text-base" %>
   </div>
@@ -13,16 +12,10 @@
   <%= f.hidden_field :author, :value => session.name %>
   <p id="characterCountIdeaBuild" class="md:text-4xl lg:text-xs mt-1 mb-4 ml-auto justify-end flex"></p>
 </div>
-<button id="addIdeaBuildPin" type=submit class="lg:mr-8 mt-4 px-8 lg:text-2xl md:text-7xl flex flex-row justify-center items-center modal-close lg:h-20 md:h-40 my-shadow-lg bg-lighter-gray focus:outline-none cursor-pointer">
-  <p class="font-bold mr-2 text-white">ADD</p>
-  <svg class="lg:h-6 lg:w-6 md:h-20 md:w-20" xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" viewBox="0 0 24 24" fill="white">
-    <g>
-      <rect fill="none" />
-    </g>
-    <g>
-      <path d="M16,9V4l1,0c0.55,0,1-0.45,1-1v0c0-0.55-0.45-1-1-1H7C6.45,2,6,2.45,6,3v0 c0,0.55,0.45,1,1,1l1,0v5c0,1.66-1.34,3-3,3h0v2h5.97v7l1,1l1-1v-7H19v-2h0C17.34,12,16,10.66,16,9z" fill-rule="evenodd" />
-    </g>
-  </svg>
-</button>
+
+  <button id="addIdeaBuildPin" type=submit class="gap-2 justify-center flex flex-row items-center bg-lighter-gray lg:h-14 h-32 disabled hover:bg-post-it-yellowy<%= idea.opacity_lookup_next_idea_build %> text-white hover:text-blurple hover:border-2 hover:border-blurple hover:border-solid uppercase font-bold pointer-events-none">
+    <p class="lg:text-base text-4xl">ADD</p>
+    <span class="material-icons lg:text-xl text-5xl">push_pin</span>
+  </button>
 
 <% end %>

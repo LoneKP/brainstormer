@@ -66,14 +66,7 @@ fillStarsWithUserVotes = function () {
 
 updateFacilitatorSpecificElementsOnIdeas = function () {
   if (currentUser.facilitator == "false") {
-
-    let buildOnIdeaButtonElements = document.getElementsByClassName("buildOnIdeaButton");
     let deleteIdeaButtonElements = document.getElementsByClassName("deleteIdeaButton");
-
-    for (let buildOnIdeaButtonElement of buildOnIdeaButtonElements) {
-      buildOnIdeaButtonElement.classList.add("w-full");
-      buildOnIdeaButtonElement.classList.remove("w-5/6");
-    }
 
     for (let deleteIdeaButtonElement of deleteIdeaButtonElements) {
       deleteIdeaButtonElement.classList.add("hidden");

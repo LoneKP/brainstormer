@@ -1,5 +1,5 @@
-document.getElementById("add-idea-form").classList.add("hidden");
-document.getElementById("add-idea-build-form").innerHTML = "<%= j render "brainstorms/add_idea_build_form", idea: @idea, idea_build: @idea_build, brainstorm: @brainstorm, session: @session %>"
+
+document.getElementById("add-idea-build-form-idea-<%= @idea.id %>").innerHTML = "<%= j render "brainstorms/add_idea_build_form", idea: @idea, idea_build: @idea_build, brainstorm: @brainstorm, session: @session %>"
 
 addEventListenerToSubmitButton(document.getElementById("addIdeaBuildPin"), document.getElementById("idea_build_idea_build_text"), 110, document.getElementById("characterCountIdeaBuild"));
 
@@ -7,15 +7,25 @@ addEventListenerToInputField(document.getElementById("idea_build_idea_build_text
 
 setInnerHTMLOfCountText(document.getElementById("idea_build_idea_build_text"), 110, document.getElementById("characterCountIdeaBuild"));
 
-colorSubmitButtonOnTyping(document.getElementById("addIdeaBuildPin"), [document.getElementById("idea_build_idea_build_text")], activeColors, inactiveColors);
+colorSubmitButtonOnTyping(document.getElementById("addIdeaBuildPin"), [document.getElementById("idea_build_idea_build_text")], ["bg-post-it-yellowy", "cursor-pointer", "bg-blurple"], ["bg-lighter-gray", "pointer-events-none"]);
 
 setMaxCharacters(document.getElementById("idea_build_idea_build_text"), 110);
 
 
-document.getElementById("new_idea_build").scrollIntoView();
+document.getElementById("group-hover-div-<%= @idea.id %>").classList.remove("group");
 
-document.getElementById("build-on-idea-headline").classList.add("buzz");
-setTimeout(function(){ document.getElementById("build-on-idea-headline").classList.remove("buzz"); }, 400);
+document.getElementById("idea_build_idea_build_text").focus();
+
+
+//to make the stickies not jump when hovering on them to show the build on idea button
+for (var i = 0; i < document.getElementsByClassName("relativeClass").length; i++) {
+  document.getElementsByClassName("relativeClass")[i].classList.remove("relative");
+}
+
+for (var i = 0; i < document.getElementsByClassName("absoluteClass").length; i++) {
+  document.getElementsByClassName("absoluteClass")[i].classList.remove("absolute");
+}
+
 
 document.getElementById("idea_build_idea_build_text").addEventListener("keydown", function(event) {
   if ((event.metaKey || event.ctrlKey) && event.key === 'Enter') {

@@ -12,7 +12,7 @@ module Ideated
 
   def ideas_and_idea_builds_object(sorting_choice)
     @brainstorm.ideas.order(sorting_choice).as_json(
-      methods: [:vote_in_plural_or_singular, :number],
+      methods: [:vote_in_plural_or_singular, :number, :opacity_lookup_previous_idea_build, :opacity_lookup_next_idea_build],
       only: [:id, :text, :votes, :author],
       include: {
         idea_builds: {

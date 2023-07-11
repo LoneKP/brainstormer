@@ -26,13 +26,12 @@
         <div id="add-idea-form" class="w-full">
           <%= render 'add_idea_form' %>
         </div>
-        <div id="add-idea-build-form"></div>
       </div>
       <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideas">
         <% @ideas.order('id DESC').each do |idea| %>
           <div class="flex flex-col lg:mb-12 mb-28">
-            <div class="group my-shadow mr-8 my-8 lg:my-4 bg-white">
-              <div class="relative">
+            <div id="group-hover-div-<%= idea.id %>" class="group my-shadow mr-8 my-8 lg:my-4">
+              <div class="relative relativeClass">
                 <div class="select-none idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start justify-between italic bg-post-it-yellowy cursor-default">
                   <h2 class="font-bold mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
                   <div class="flex flex-col justify-between h-full">
@@ -49,22 +48,25 @@
                     </div>
                   </div>
                 <% end %>
-                <div class="absolute w-full z-50">
-                  <div class="hidden group-hover:flex flex-row items-center bg-yellowy lg:h-14 h-32 my-shadow">
-                    <div class="flex flex-row w-full leading-none lg:gap-2 lg:p-2 gap-4 p-4 justify-center text-white h-32 lg:h-14">
-                      <%= button_to idea_show_idea_build_form_path(idea), remote: true, method: :post, class: "h-full w-full", form_class: "buildOnIdeaButton #{@current_facilitator ? "w-5/6" : "w-full"}" do %>
-                        <p class="bg-black hover:bg-darky h-full flex flex-col justify-center lg:text-lg text-4xl uppercase font-bold">Build on idea</p>
+                <div class="absolute absoluteClass w-full z-50 bg-white">
+                  <div class="hidden group-hover:flex flex-row items-center lg:h-14 h-32">
+                    <div class="flex flex-row w-full leading-none justify-center text-white h-32 lg:h-14">
+                      <%= button_to idea_show_idea_build_form_path(idea), remote: true, method: :post, class: "h-full w-full", form_class: "w-full" do %>
+                        <p class="bg-blurple hover:bg-post-it-yellowy<%= idea.opacity_lookup_previous_idea_build %> hover:text-blurple hover:border-2 hover:border-blurple hover:border-solid h-full flex flex-col justify-center lg:text-base text-4xl uppercase font-bold">Build on idea</p>
                       <% end %>
                       <% if @current_facilitator %>
-                        <%= button_to idea_path(idea.id), method: :delete, class: "h-full w-full", form_class: "w-1/6 deleteIdeaButton" do %>
-                          <span class="material-icons bg-reddy hover:bg-darker-reddy h-full text-white flex flex-col justify-center lg:text-2xl text-6xl">delete</span>
+                        <%= button_to idea_path(idea.id), method: :delete, class: "h-full w-full", form_class: "deleteIdeaButton" do %>
+                          <span class="w-32 lg:w-14 material-icons bg-reddy hover:bg-post-it-yellowy<%= idea.opacity_lookup_previous_idea_build %> hover:text-reddy hover:border-2 hover:border-reddy hover:border-solid h-full text-white flex flex-col justify-center lg:text-2xl text-6xl">delete</span>
                         <% end %>
                       <% end %>
                     </div>
                   </div>
+                  <div id="add-idea-build-form-idea-<%= idea.id %>"></div>
                 </div>
               </div>
+              
             </div>
+            
           </div>
         <% end %>
       </div>
