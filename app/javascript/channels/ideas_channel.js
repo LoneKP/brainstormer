@@ -75,6 +75,10 @@ const buildIdeationPage = (ideas, anonymous) => {
 
   let auth_token = document.querySelector("meta[name='csrf-token']").getAttribute("content");
 
+  if (ideas.length === 0) {
+    document.getElementById("ideas").innerHTML = ""
+  }
+
   for (let i = 0; i < ideas.length; i++) {
     let htmlIdeaBuilds = ""
     for (let x = 0; x < ideas[i].idea_builds.length; x++) {
