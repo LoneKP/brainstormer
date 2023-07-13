@@ -1,7 +1,3 @@
 <% if @idea_build.errors.any? %>
  document.getElementById("error-field-idea-build").innerHTML = "<%= j render "shared/validation_error", type: "idea_build_text" %>"
 <% end %>
-
-document.getElementById("idea_build_idea_build_text").value=""
-
-document.getElementById("add-idea-form").classList.remove("hidden");
