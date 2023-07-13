@@ -37,3 +37,28 @@ document.getElementById("idea_build_idea_build_text").addEventListener("keydown"
       
   }
 });
+
+
+document.addEventListener("click", function(event) {
+  var specificElement = document.getElementById("add-idea-build-form-idea-<%= @idea.id %>");
+
+  // Check if the clicked element is not the opened idea build
+  if (!specificElement.contains(event.target)) {
+
+    //remove the idea build form
+    document.getElementById("add-idea-build-form-idea-<%= @idea.id %>").innerHTML = "";
+
+    //reverse removing group
+    document.getElementById("group-hover-div-<%= @idea.id %>").classList.add("group");
+
+    //to make the stickies not jump when hovering on them to show the build on idea button
+    for (var i = 0; i < document.getElementsByClassName("relativeClass").length; i++) {
+      document.getElementsByClassName("relativeClass")[i].classList.add("relative");
+    }
+
+    for (var i = 0; i < document.getElementsByClassName("absoluteClass").length; i++) {
+      document.getElementsByClassName("absoluteClass")[i].classList.add("absolute");
+    }
+  }
+});
+
