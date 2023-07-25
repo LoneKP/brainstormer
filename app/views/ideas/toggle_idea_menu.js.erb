@@ -1,0 +1,39 @@
+
+var menu = document.getElementById("idea-menu-idea-<%= @idea.id %>");
+var moreOptions = document.getElementById("more-options-<%= @idea.id %>");
+
+var menuIsClosed = menu.textContent.trim() === "";
+
+
+toggleIdeaMenu(<%= @idea.id %>, menuIsClosed);
+
+
+document.addEventListener("click", function(event) {
+
+  if ((!menu.contains(event.target) && !moreOptions.contains(event.target)) && menuIsClosed !== "") {
+    toggleIdeaMenu(<%= @idea.id %>, false);
+  }
+});
+
+
+function toggleIdeaMenu(ideaId, isClosed) {
+  var hoverElement = document.getElementById("idea-sticky-" + ideaId);
+  var containerElement = document.getElementById("idea-sticky-container-" + ideaId);
+
+  if (isClosed) {
+    menu.innerHTML = "<%= j render "brainstorms/idea_menu", idea: @idea, brainstorm: @idea.brainstorm %>";
+
+    hoverElement.classList.remove("hidden");
+    containerElement.classList.remove("absolute");
+    //moreOptions.classList.add("bg-post-it-yellowy");
+    //moreOptions.classList.remove("bg-white");
+
+  } else {
+    menu.innerHTML = "";
+
+    hoverElement.classList.add("hidden");
+    containerElement.classList.add("absolute");
+    //moreOptions.classList.remove("bg-post-it-yellowy");
+    //moreOptions.classList.add("bg-white");
+  }
+}

@@ -66,10 +66,10 @@ fillStarsWithUserVotes = function () {
 
 updateFacilitatorSpecificElementsOnIdeas = function () {
   if (currentUser.facilitator == "false") {
-    let deleteIdeaButtonElements = document.getElementsByClassName("deleteIdeaButton");
+    let toggleIdeaMenuButtonElements = document.getElementsByClassName("toggleIdeaMenuButton");
 
-    for (let deleteIdeaButtonElement of deleteIdeaButtonElements) {
-      deleteIdeaButtonElement.classList.add("hidden");
+    for (let toggleIdeaMenuButtonElement of toggleIdeaMenuButtonElements) {
+      toggleIdeaMenuButtonElement.classList.add("hidden");
     }
   }
 }

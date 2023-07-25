@@ -1,0 +1,21 @@
+<div class="fixed inset-0 z-50 flex flex-row items-center justify-center" style="background-color: rgba(251, 237, 235, 0.5);">
+  <div class="flex flex-row w-full mx-8 lg:mx-0 lg:w-3/5 items-start">
+    <div id="list-of-ideas-to-merge" class="flex flex-col justify-between w-full h-144 overflow-y-auto">
+      <div class="my-shadow bg-post-it-yellowy text-blurple">
+        <div class="gap-4 flex flex-col lg:px-4 px-10 py-4 border-solid border-b-2 border-blurple">
+          <p class="italic">#<%= source_idea.number %>: <%= source_idea.text %></p>
+          <p class="font-bold">Merge idea <span>#<%= source_idea.number %></span> into...</p>
+        </div>
+        <% brainstorm.ideas.order('id ASC').each do |target_idea| %>
+        <% next if target_idea.id == source_idea.id %>
+          <%= button_to idea_merge_path(source_idea.id, target_idea.id), method: :post, remote: true, class: "w-full hover:bg-blurple hover:text-white lg:px-4 px-10 py-8 text-sm", form_class: "even:bg-post-it-yellowy-70 odd:bg-post-it-yellowy-40" do %>
+              <p class="">#<%= target_idea.number %>: <%= target_idea.text %></p> 
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+    <div class="flex flex-col bg-white text-black p-2 my-shadow cursor-pointer hvr-grow">
+      <span class="material-icons text-2xl font-bold ">close</span>
+    </div>
+  </div>
+</div>

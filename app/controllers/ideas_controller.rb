@@ -30,6 +30,34 @@ class IdeasController < ApplicationController
     end
   end
 
+  def toggle_idea_menu
+    @idea = Idea.find(params[:idea_id])
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def show_choose_idea_to_merge_into
+    @source_idea = Idea.find(params[:idea_id])
+    @brainstorm = @source_idea.brainstorm
+    respond_to do |format|
+      format.js
+    end
+  end
+
+  def merge
+    @source_idea = Idea.find(params[:idea_id])
+    @target_idea = Idea.find(params[:target_idea_id])
+    @brainstorm = @source_idea.brainstorm
+
+    respond_to do |format|
+      if @source_idea.merge_into(@target_idea)
+        transmit_ideas(sort_by_id_desc)
+        format.js
+      end
+    end
+  end
+
   def vote
     @brainstorm = @idea.brainstorm
     @voting = Session::Voting.new(@brainstorm, @visitor_id)

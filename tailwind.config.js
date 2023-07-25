@@ -62,6 +62,8 @@ module.exports = {
         "screen/3": "calc(100vh / 3)",
         "screen/4": "calc(100vh / 4)",
         "screen/5": "calc(100vh / 5)",
+        '128': '32rem',
+        '144': '36rem',
       }),
       width: {
         "1/7": "14.2857143%",

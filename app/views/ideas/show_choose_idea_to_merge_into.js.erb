@@ -1,0 +1,12 @@
+document.getElementById("choose-idea-to-merge-into").innerHTML = "<%= j render "brainstorms/choose_idea_to_merge_into", source_idea: @source_idea, brainstorm: @brainstorm %>"
+
+document.addEventListener("click", function(event) {
+  var specificElement = document.getElementById("list-of-ideas-to-merge");
+
+  // Check if the clicked element is not the opened idea build
+  if (!specificElement.contains(event.target)) {
+
+    //remove the idea build form
+    document.getElementById("choose-idea-to-merge-into").innerHTML = "";
+  }
+});

@@ -19,4 +19,22 @@ class Idea < ApplicationRecord
   def opacity_lookup_next_idea_build
     "-#{opacity_hash[idea_builds.count + 1] || 10}"
   end
+
+  def merge_into(target_idea)
+    transaction do
+      # Collect attributes of idea_builds from the source idea, including the original idea itself
+      idea_builds_attributes = self.idea_builds.map do |idea_build|
+        { idea_build_text: idea_build.idea_build_text, author: idea_build.author }
+      end
+
+      # Add the original idea itself as an idea_build to the target idea as the first idea_build
+      idea_builds_attributes.unshift( { idea_build_text: self.text, author: self.author } )
+
+      idea_builds_attributes.each do |attributes|
+        target_idea.idea_builds.create(attributes)
+      end
+  
+      self.destroy
+    end
+  end
 end
