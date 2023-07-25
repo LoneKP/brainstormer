@@ -52,11 +52,11 @@
                   <div id="idea-sticky-<%= idea.id %>" class="hidden group-hover:flex flex-row items-center lg:h-14 h-32">
                     <div class="flex flex-row w-full leading-none justify-center text-white h-32 lg:h-14">
                       <%= button_to idea_show_idea_build_form_path(idea), remote: true, method: :post, class: "h-full w-full", form_class: "w-full" do %>
-                        <p class="bg-blurple hover:bg-post-it-yellowy hover:text-blurple hover:border-2 hover:border-blurple hover:border-solid h-full flex flex-col justify-center lg:text-base text-4xl uppercase font-bold">Build on idea</p>
+                        <p class="bg-blurple hover:bg-post-it-yellowy hover:text-blurple hover:border-2 hover:border-blurple hover:border-solid h-full flex flex-col justify-center lg:text-base text-5xl uppercase font-bold">Build on idea</p>
                       <% end %>
                       <% if @current_facilitator %>
                         <%= button_to idea_toggle_idea_menu_path(idea.id), remote: true, method: :post, class: "h-full w-full bg-white hover:bg-post-it-yellowy", id: "more-options-#{idea.id}", form_class: "toggleIdeaMenuButton" do %>
-                          <span class="lg:w-8 w-16 material-icons hover:border-2 hover:border-blurple hover:border-solid h-full text-blurple flex flex-col justify-center lg:text-2xl text-6xl">more_vert</span>
+                          <span class="lg:w-8 w-32 material-icons hover:border-2 hover:border-blurple hover:border-solid h-full text-blurple flex flex-col justify-center lg:text-2xl text-6xl">more_vert</span>
                         <% end %>
                       <% end %>
                     </div>

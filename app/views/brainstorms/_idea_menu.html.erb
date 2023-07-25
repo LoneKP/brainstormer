@@ -1,11 +1,11 @@
 <div class="flex flex-col w-full">
   <% if brainstorm.ideas.count > 1 %>
-    <%= button_to idea_show_choose_idea_to_merge_into_path(idea.id), method: :post, remote: true, class: "hover:bg-blurple hover:text-white font-semibold lg:py-2 lg:px-4 px-10 w-full text-blurple bg-yellowy justify-between flex flex-row" do %>
+    <%= button_to idea_show_choose_idea_to_merge_into_path(idea.id), method: :post, remote: true, class: "lg:text-base text-5xl hover:bg-blurple hover:text-white font-semibold lg:py-2 lg:px-4 px-10 py-10 w-full text-blurple bg-yellowy justify-between flex flex-row" do %>
       <p>Merge</p>
       <span class="material-icons lg:text-2xl text-6xl">merge_type</span>
     <% end %>
   <% end %>
-  <%= button_to idea_path(idea.id), method: :delete, class: "hover:bg-blurple hover:text-white font-semibold lg:py-2 lg:px-4 px-10 w-full text-blurple bg-post-it-yellowy justify-between flex flex-row", form_class: "deleteIdeaButton" do %>
+  <%= button_to idea_path(idea.id), method: :delete, class: "lg:text-base text-5xl hover:bg-blurple hover:text-white font-semibold lg:py-2 lg:px-4 px-10 py-10 w-full text-blurple bg-post-it-yellowy justify-between flex flex-row", form_class: "deleteIdeaButton" do %>
     <p>Delete</p>
     <span class="material-icons lg:text-2xl text-6xl">delete</span>
   <% end %>
