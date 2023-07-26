@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_03_193309) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_26_081401) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -161,6 +161,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_03_193309) do
     t.integer "max_participants", default: 0
     t.boolean "anonymous", default: true
     t.datetime "inactive_at"
+    t.boolean "public", default: false
     t.index ["facilitated_by_type", "facilitated_by_id"], name: "index_brainstorms_on_facilitated_by"
   end
 

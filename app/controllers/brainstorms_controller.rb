@@ -51,6 +51,12 @@ class BrainstormsController < ApplicationController
     @users_done_voting = REDIS.hgetall(done_voting_brainstorm_status).values.count("true")
   end
 
+  def index
+    @brainstorms = Brainstorm.all.where(public: true).order(created_at: :desc)
+
+    @brainstorms = @brainstorms.select { |brainstorm| brainstorm.state == 'ideation' }
+  end
+
   def edit_problem
     respond_to do |format|
       format.turbo_stream

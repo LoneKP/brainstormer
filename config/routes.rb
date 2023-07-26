@@ -22,7 +22,7 @@ Rails.application.routes.draw do
     mount Blazer::Engine, at: "analytics/blazer"
   end
 
-  resources :brainstorms, param: :token, only: [:new, :edit, :update, :create] do
+  resources :brainstorms, param: :token, only: [:new, :edit, :update, :create, :index] do
     member do
       post :done_brainstorming, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
     end
