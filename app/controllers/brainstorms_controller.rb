@@ -182,6 +182,6 @@ class BrainstormsController < ApplicationController
   end
 
   def set_categories
-    @categories = Category.joins(:brainstorms).all.order(name: :asc)
+    @categories = Category.joins(:brainstorms).distinct.all.order(name: :asc)
   end
 end
