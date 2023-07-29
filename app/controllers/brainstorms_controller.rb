@@ -4,6 +4,7 @@ class BrainstormsController < ApplicationController
   before_action :set_session_for_all_types, only: [:show, :done_voting, :new]
   before_action :set_current_facilitator, only: :show
   before_action :set_access, only: :show
+  before_action :set_categories, only: [:index, :filter_categories]
 
   after_action :track_visitor_brainstormed, only: :show
 
@@ -51,10 +52,24 @@ class BrainstormsController < ApplicationController
     @users_done_voting = REDIS.hgetall(done_voting_brainstorm_status).values.count("true")
   end
 
-  def index
-    @brainstorms = Brainstorm.all.where(public: true).order(created_at: :desc)
+  def index    
+    @brainstorms = Brainstorm.public_and_in_ideation
+  end
 
-    @brainstorms = @brainstorms.select { |brainstorm| brainstorm.state == 'ideation' }
+  def filter_categories
+    if params[:clicked_category_id] == "0"
+      @selected_category = "All"
+      @brainstorms = Brainstorm.public_and_in_ideation
+    else
+      @selected_category = Category.find(params[:clicked_category_id])
+      @brainstorms = @selected_category.brainstorms.public_and_in_ideation
+    end
+
+    @all_brainstorms_count = Brainstorm.public_and_in_ideation.count
+    
+    respond_to do |format|
+      format.turbo_stream
+    end
   end
 
   def edit_problem
@@ -164,5 +179,9 @@ class BrainstormsController < ApplicationController
 
   def track_visitor_brainstormed
     ahoy.track "visitor_brainstormed", token: @brainstorm.token
+  end
+
+  def set_categories
+    @categories = Category.joins(:brainstorms).all.order(name: :asc)
   end
 end

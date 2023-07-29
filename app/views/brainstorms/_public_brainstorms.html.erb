@@ -1,0 +1,13 @@
+<%= turbo_frame_tag "filtered-content" do %>
+  <div class="grid grid-cols-3 grid-flow-row gap-4 my-16">
+    <% brainstorms.each do |brainstorm| %>
+      <%= link_to brainstorm_show_path(brainstorm.token), class: "even:bg-reddy odd:bg-beigy odd:text-blurple even:text-white hvr-grow" do %>
+        <div class="h-64 gap-2 w-full p-4">
+          <div class="h-full flex flex-row px-4">
+            <p class="font-semibold items-center justify-center flex w-full"><%= brainstorm.problem %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+<% end %>

@@ -6,6 +6,8 @@ class Brainstorm < ApplicationRecord
   has_many :ideas
 
   belongs_to :facilitated_by, polymorphic: true
+
+  has_and_belongs_to_many :categories
   
   attr_accessor :name
 
@@ -20,6 +22,10 @@ class Brainstorm < ApplicationRecord
 
   before_validation(on: :create) { self.token ||= generate_token }
 
+  scope :public_and_in_ideation, -> do
+    where(public: true).order(created_at: :desc).select { |brainstorm| brainstorm.state == 'ideation' }
+  end
+  
   def self.find_sole_by_token(token)
     where("token ilike ?", "%#{token}").then do |relation|
       relation.first if relation.one?

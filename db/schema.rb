@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_26_081401) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_26_141446) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -163,6 +163,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_26_081401) do
     t.datetime "inactive_at"
     t.boolean "public", default: false
     t.index ["facilitated_by_type", "facilitated_by_id"], name: "index_brainstorms_on_facilitated_by"
+  end
+
+  create_table "brainstorms_categories", id: false, force: :cascade do |t|
+    t.bigint "brainstorm_id", null: false
+    t.bigint "category_id", null: false
+    t.index ["brainstorm_id", "category_id"], name: "index_brainstorms_categories_on_brainstorm_id_and_category_id", unique: true
+    t.index ["category_id", "brainstorm_id"], name: "index_brainstorms_categories_on_category_id_and_brainstorm_id", unique: true
+  end
+
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "guests", force: :cascade do |t|

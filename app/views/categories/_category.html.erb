@@ -1,0 +1,19 @@
+<%= turbo_frame_tag category do %>
+  <%= link_to category_path(category), data: { turbo: true, turbo_frame: "_top" } do %>
+    <div class="flex flex-row border-b border-blurple justify-between">
+
+      <div class="py-2 px-4">
+        <p><span class="font-bold"><%= category.name %></span> (<%= pluralize(category.brainstorms.count, "brainstorm") %>)</p>
+      </div>
+
+      <div class="flex flex-row">
+        <div class="py-2 px-4">
+          <%= button_to "Delete", category_path(category), method: :delete, class: "btn btn--light", data: { turbo: true } %>
+        </div>
+        <div class="py-2 px-4">
+          <%= link_to "Edit", edit_category_path(category), class: "btn btn--light", data: { turbo: true } %>
+        </div>
+      </div>
+    </div>
+  <% end %>
+<% end %>

@@ -17,19 +17,15 @@
 
         <p class="mt-4">Add your ideas to the topics you find most interesting!</p>
 
+        
+        <%= turbo_frame_tag "category_tags" do %>
+          <%= render "category_results", categories: @categories, selected_category: "All", brainstorms: @brainstorms, all_brainstorms_count: @brainstorms.count %>
+        <% end %>
+        
 
-        <div class="grid grid-cols-3 grid-flow-row gap-4 my-16">
-          <% @brainstorms.each do |brainstorm| %>
-            <%= link_to brainstorm_show_path(brainstorm.token), class: "even:bg-reddy odd:bg-beigy odd:text-blurple even:text-white hvr-grow" do %>
-              <div class="h-64 gap-2 w-full p-4">
-                <div class="h-full flex px-4">
-                  <p class="font-semibold items-center justify-center flex w-full"><%= brainstorm.problem %></p>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-          
-        </div>
+        <%= turbo_frame_tag "filtered-content" do %>
+          <%= render "public_brainstorms", brainstorms: @brainstorms, brainstorms_by_category: @brainstorms_by_category %>
+        <% end %>
       
       </div>
       <div class="bg-dots-smaller mb-12 mt-8 h-40 mx-6"></div>
