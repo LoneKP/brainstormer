@@ -31,6 +31,25 @@ class CategoriesController < ApplicationController
   def edit
   end
 
+  def toggle_category_on_brainstorm
+    category = Category.find(params[:category_id])
+    brainstorm = Brainstorm.find(params[:brainstorm_id])
+
+    if brainstorm.categories.include?(category)
+      if brainstorm.categories.delete(category)
+        respond_to do |format|
+          format.html { redirect_to category_path(category), notice: "Category was successfully removed"  }
+        end
+      end
+    else
+      if brainstorm.categories << category
+        respond_to do |format|
+          format.html { redirect_to category_path(category), notice: "Category was successfully added"  }
+        end
+      end
+    end
+  end
+
   def update
     if @category.update(category_params)
     redirect_to categories_path, notice: "Category was successfully updated." 

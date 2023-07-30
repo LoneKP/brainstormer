@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   end
 
   post '/filter_categories', to: 'brainstorms#filter_categories', as: :filter_categories
+  post 'toggle_category_on_brainstorm/:category_id/:brainstorm_id', to: 'categories#toggle_category_on_brainstorm', as: :toggle_category_on_brainstorm
 
   resources :brainstorms, param: :token, only: [:new, :edit, :update, :create, :index] do
     member do
