@@ -5,7 +5,7 @@ class Ahoy::Store < Ahoy::DatabaseStore
 end
 
 Ahoy.mask_ips = true
-Ahoy.cookies = false
+Ahoy.cookies = true
 
 # set to true for JavaScript tracking
 Ahoy.api = false
