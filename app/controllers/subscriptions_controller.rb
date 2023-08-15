@@ -78,6 +78,40 @@ class SubscriptionsController < ApplicationController
     end
   end
 
+  def lifetime_free_access
+    if Rails.env.development?
+      price = "price_1MNvKeBkWgBbsxE3uGOeoC8T"
+      coupon_id = "PVi0eUPL"
+    else
+      price = "price_1MQGQZBkWgBbsxE3yq6UtyUJ"
+      coupon_id = "zWoFs854"
+    end
+
+    name = "Facilitator - monthly"
+
+    if current_user.subscriptions.any?
+      redirect_to @portal_session.url, allow_other_host: true 
+    else
+      @checkout_session = current_user.payment_processor.checkout(
+        mode: 'subscription',
+        discounts: [{
+          coupon: coupon_id,
+        }],
+        subscription_data: {
+          items: [{
+            plan: price
+          }],
+        },
+        payment_method_collection: "if_required",
+        success_url: your_plan_url,
+        cancel_url: root_url
+      )
+    
+      # If you want to redirect directly to checkout
+       redirect_to @checkout_session.url, allow_other_host: true, status: :see_other
+    end
+  end
+
   def your_plan
   end
 end
