@@ -101,6 +101,9 @@ class SubscriptionsController < ApplicationController
           items: [{
             plan: price
           }],
+          metadata: {
+            "lifetime_free_access": true
+          },
         },
         payment_method_collection: "if_required",
         success_url: your_plan_url,
