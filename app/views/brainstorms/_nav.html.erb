@@ -1,17 +1,20 @@
 <div class="hidden lg:block" id="notice"></div>
 <div class="lg:hidden" id="notice-mobile"></div>
-<div class="hidden lg:flex mx-16 pt-16 mb-16 justify-between lg:items-start items-end">
-  <div class="flex flex-row">
-    <div class="italic bg-black w-40 h-40 lg:w-20 lg:h-20 text-white text-8xl lg:text-5xl flex font-bold items-center justify-center">
-      <span>B</span>
+<div class="mx-16 pt-16 mb-16">
+  <%= link_to sanitize("&larr; Back to Idea Junction"), brainstorms_path, class: "font-bold" if @brainstorm.public? %>
+  <div class="hidden lg:flex justify-between lg:items-start items-end lg:mt-2">
+    <div class="flex flex-row">
+      <div class="italic bg-black w-40 h-40 lg:w-20 lg:h-20 text-white text-8xl lg:text-5xl flex font-bold items-center justify-center">
+        <span>B</span>
+      </div>
+      <div onclick="copyToken(getToken())" onmouseout="tokenOutFunc()" class="tooltip cursor-pointer font-semibold bg-greeny text-white text-4xl lg:text-2xl items-center lg:flex px-4 py-1 self-end ml-4">
+        <span class="tooltiptext" id="tooltipToken">Copy to clipboard</span>
+        <span class="uppercase">#<%=@brainstorm.token%></span>
+      </div>
     </div>
-    <div onclick="copyToken(getToken())" onmouseout="tokenOutFunc()" class="tooltip cursor-pointer font-semibold bg-greeny text-white text-4xl lg:text-2xl items-center lg:flex px-4 py-1 self-end ml-4">
-      <span class="tooltiptext" id="tooltipToken">Copy to clipboard</span>
-      <span class="uppercase">#<%=@brainstorm.token%></span>
-    </div>
-  </div>
-  <div id="name-list-container" class="flex flex-col">
-    <div id="name-list" class="my-shadow items-center hidden lg:flex bg-white w-min"></div>
+    <div id="name-list-container" class="flex flex-col">
+      <div id="name-list" class="my-shadow items-center hidden lg:flex bg-white w-min"></div>
+      </div>
     </div>
   </div>
 </div>
