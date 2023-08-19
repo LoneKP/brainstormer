@@ -251,7 +251,7 @@ GEM
       rails (>= 6.0.0)
     pg (1.4.5)
     public_suffix (5.0.1)
-    puma (4.3.12)
+    puma (5.6.7)
       nio4r (~> 2.0)
     raabro (1.4.0)
     racc (1.6.2)
@@ -440,7 +440,7 @@ DEPENDENCIES
   omniauth-rails_csrf_protection
   pay (~> 6.3)
   pg (~> 1.4, >= 1.4.5)
-  puma (~> 4.3)
+  puma (~> 5.6)
   rails (= 7.0.4)
   redis
   redis-client
