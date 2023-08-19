@@ -3,6 +3,7 @@ class OnboardingMailer < ApplicationMailer
   utm_params
   before_action :set_user
   before_action :set_unsubscribe_url
+  track_clicks campaign: "Onboarding emails"
 
   def welcome_email 
     if @user.agree_to_brainstormer_updates?
