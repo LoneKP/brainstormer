@@ -59,6 +59,7 @@ Rails.application.routes.draw do
   get '/your-plan', to: 'subscriptions#your_plan'
   get '/free-trial', to: 'subscriptions#free_trial'
   get '/lifetime-free-access', to: 'subscriptions#lifetime_free_access'
+  get '/redeem-lifetime-free-access-coupon', to: 'subscriptions#redeem_lifetime_free_access_coupon'
 
   devise_scope :user do
     get '/select-sign-up-method', to: 'users/registrations#select_sign_up_method'

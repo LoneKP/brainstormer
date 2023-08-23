@@ -80,14 +80,14 @@ class SubscriptionsController < ApplicationController
 
   def lifetime_free_access
     if Rails.env.development?
-      price = "price_1MNvKeBkWgBbsxE3uGOeoC8T"
+      price = "price_1MNv1dBkWgBbsxE3L7bCqq8M"
       coupon_id = "PVi0eUPL"
     else
-      price = "price_1MQGQZBkWgBbsxE3yq6UtyUJ"
+      price = "price_1MQGQZBkWgBbsxE3AKrVIAwX"
       coupon_id = "zWoFs854"
     end
 
-    name = "Facilitator - monthly"
+    name = "Facilitator - yearly"
 
     if current_user.subscriptions.any?
       redirect_to @portal_session.url, allow_other_host: true 
@@ -103,6 +103,39 @@ class SubscriptionsController < ApplicationController
           }],
           metadata: {
             "lifetime_free_access": true
+          },
+        },
+        payment_method_collection: "if_required",
+        success_url: your_plan_url,
+        cancel_url: root_url
+      )
+    
+      # If you want to redirect directly to checkout
+       redirect_to @checkout_session.url, allow_other_host: true, status: :see_other
+    end
+  end
+
+  def redeem_lifetime_free_access_coupon
+    if Rails.env.development?
+      price = "price_1MNv1dBkWgBbsxE3L7bCqq8M"
+    else
+      price = "price_1MQGQZBkWgBbsxE3AKrVIAwX"
+    end
+
+    name = "Facilitator - yearly"
+
+    if current_user.subscriptions.any?
+      redirect_to @portal_session.url, allow_other_host: true 
+    else
+      @checkout_session = current_user.payment_processor.checkout(
+        mode: 'subscription',
+        allow_promotion_codes: true,
+        subscription_data: {
+          items: [{
+            plan: price
+          }],
+          metadata: {
+            "redeem_lifetime_free_access_coupon": true
           },
         },
         payment_method_collection: "if_required",
