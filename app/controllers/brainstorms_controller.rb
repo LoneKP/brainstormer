@@ -5,6 +5,7 @@ class BrainstormsController < ApplicationController
   before_action :set_current_facilitator, only: :show
   before_action :set_access, only: :show
   before_action :set_categories, only: [:index, :filter_categories]
+  before_action :track_path_visit, only: :index
 
   after_action :track_visitor_brainstormed, only: :show
 
