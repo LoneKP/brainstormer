@@ -40,6 +40,7 @@ module.exports = {
       '8xl': '6rem',
       '9xl': '7rem',
       '10xl': '10rem',
+      '11xl': '11rem',
     },
     extend: {
       keyframes: {
