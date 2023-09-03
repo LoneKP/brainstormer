@@ -100,7 +100,7 @@
   <div class="block w-full lg:flex lg:flex-wrap lg:justify-between lg:px-0 px-16 ml-0 lg:p-0" id="ideasVotingDone">
     <% @ideas.order('votes DESC').each do |idea| %>
     <div class="flex flex-col xl:mr-4">
-      <div class="my-shadow my-8 lg:my-4 bg-white">
+      <div class="my-shadow my-8 lg:my-4 bg-white group">
         <div class="idea-card lg:h-64 lg:w-64 w-full lg:px-4 px-10 lg:pt-6 lg:pb-1 pt-14 pb-8 flex flex-col items-start italic bg-post-it-yellowy cursor-default">
           <div class="flex flex-row justify-between w-full font-bold">
             <h2 class="mb-4 lg:m-0 text-blurple text-5xl lg:text-xl">#<%= idea.number %></h2>
@@ -122,6 +122,11 @@
             <p class="font-extralight lg:m-0 text-2xl lg:text-sm leading-loose lg:leading-normal break-words w-full"><%= idea_build.author if !@brainstorm.anonymous? %></p>
           </div>
         </div>
+        <% end %>
+        <% if @current_facilitator %>
+          <div class="hidden group-hover:flex">
+            <%= render 'idea_menu', idea: idea, brainstorm: @brainstorm %>
+          </div>
         <% end %>
       </div>
 

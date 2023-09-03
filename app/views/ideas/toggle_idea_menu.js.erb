@@ -25,15 +25,15 @@ function toggleIdeaMenu(ideaId, isClosed) {
 
     hoverElement.classList.remove("hidden");
     containerElement.classList.remove("absolute");
-    //moreOptions.classList.add("bg-post-it-yellowy");
-    //moreOptions.classList.remove("bg-white");
 
   } else {
     menu.innerHTML = "";
+    if (hoverElement != null) {
+      hoverElement.classList.add("hidden");
+    }
 
-    hoverElement.classList.add("hidden");
-    containerElement.classList.add("absolute");
-    //moreOptions.classList.remove("bg-post-it-yellowy");
-    //moreOptions.classList.add("bg-white");
+    if (containerElement != null) {
+      containerElement.classList.add("absolute");
+    }
   }
 }

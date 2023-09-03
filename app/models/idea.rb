@@ -21,8 +21,9 @@ class Idea < ApplicationRecord
   end
 
   def merge_into(target_idea)
+
     transaction do
-      # Collect attributes of idea_builds from the source idea, including the original idea itself
+      # Collect attributes of idea_builds from the source idea
       idea_builds_attributes = self.idea_builds.map do |idea_build|
         { idea_build_text: idea_build.idea_build_text, author: idea_build.author }
       end
@@ -33,6 +34,8 @@ class Idea < ApplicationRecord
       idea_builds_attributes.each do |attributes|
         target_idea.idea_builds.create(attributes)
       end
+
+      target_idea.update(votes: target_idea.votes + self.votes)
   
       self.destroy
     end
