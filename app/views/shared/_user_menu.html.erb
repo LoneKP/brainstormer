@@ -11,8 +11,8 @@
         <% if current_user %>
           <div class="flex flex-col lg:gap-8 gap-28 mt-10">
             <%= link_to "Front Page", root_path, class: "hvr-grow uppercase" %>
+             <%= link_to "Idea junction", brainstorms_path, class: "hvr-grow uppercase" %>
             <%= link_to "Your brainstorms", your_brainstorms_path, class: "hvr-grow uppercase" %>
-            <%= link_to "Idea junction", brainstorms_path, class: "hvr-grow uppercase" %>
             <%= link_to "Your plan", your_plan_path, class: "hvr-grow uppercase" %>
             <%= link_to "Settings", edit_user_registration_path, class: "hvr-grow uppercase" %>
           </div>
