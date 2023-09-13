@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_08_19_123252) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_13_174424) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -170,6 +170,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_08_19_123252) do
     t.boolean "anonymous", default: true
     t.datetime "inactive_at"
     t.boolean "public", default: false
+    t.bigint "ahoy_visit_id"
+    t.index ["ahoy_visit_id"], name: "index_brainstorms_on_ahoy_visit_id"
     t.index ["facilitated_by_type", "facilitated_by_id"], name: "index_brainstorms_on_facilitated_by"
   end
 

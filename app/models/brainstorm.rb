@@ -8,6 +8,8 @@ class Brainstorm < ApplicationRecord
   belongs_to :facilitated_by, polymorphic: true
 
   has_and_belongs_to_many :categories
+
+  visitable :ahoy_visit
   
   attr_accessor :name
 
