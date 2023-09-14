@@ -27,6 +27,7 @@ class SubscriptionsController < ApplicationController
     else
       @checkout_session = current_user.payment_processor.checkout(
         mode: 'subscription',
+        allow_promotion_codes: true,
         # line_items: [{
         #   price: price,
         #   quantity: 1
