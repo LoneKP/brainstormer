@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   
   get '/checkouts', to: 'subscriptions#checkout'
   get '/your-plan', to: 'subscriptions#your_plan'
+  get '/thank-you', to: 'subscriptions#thank_you'
   get '/free-trial', to: 'subscriptions#free_trial'
   get '/lifetime-free-access', to: 'subscriptions#lifetime_free_access'
   get '/redeem-lifetime-free-access-coupon', to: 'subscriptions#redeem_lifetime_free_access_coupon'

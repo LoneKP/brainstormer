@@ -1,0 +1,24 @@
+<div class="mx-auto px-4 xl:px-0 lg:max-w-screen-lg xl:max-w-screen-xl">
+<%= render 'shared/menu' %>
+  <div class="flex flex-row h-full mb-12 my-shadow-lg bg-white">
+    <div class="flex-col flex bg-white p-12 mb-4 h-full w-full">
+      <div class="flex flex-row justify-between">
+        <%= link_to root_path do %>
+          <div class="-ml-16 italic bg-black w-32 h-32 lg:w-16 lg:h-16 text-white text-7xl lg:text-5xl flex font-bold items-center justify-center">
+            <span>B</span>
+          </div>
+        <% end %>  
+      </div>
+      <div class="lg:px-40 mt-16 lg:mt-0 lg:text-base text-xl">
+        <h1 class="text-6xl lg:text-3xl font-semibold text-blurple mb-8">Thank you!</h1>
+        <p>It means the world to me that you have become a paying subscriber!</p></br>
+        <p class="lg:text-11xl text-9xl">&#x1F496</p></br>
+        <p>Go to <%= link_to "your plan", your_plan_path, class: "underline"%> to see your plan details or <%= link_to "create a new brainstorm", new_brainstorm_path, class: "underline"%> to view the new features you unlocked!</p></br>
+        <p>And as always, don't hesitate to <a class="underline" href="mailto:brainstormer.online@gmail.com?subject=Hi Lone! This is what Brainstormer needs for it to be truly lovable!">let me know</a> what I can do to improve Brainstormer.</p></br></br>
+        <p>Best regards,</p>
+        <p>Lone Kjeldgaard</p>
+      </div>
+    </div>
+  </div>
+  <%= render 'shared/footer' %>
+</div>

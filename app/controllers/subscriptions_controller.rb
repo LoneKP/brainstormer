@@ -37,7 +37,7 @@ class SubscriptionsController < ApplicationController
             plan: price
           }]
         },
-        success_url: your_plan_url,
+        success_url: thank_you_url,
         cancel_url: root_url
       )
     
@@ -150,5 +150,8 @@ class SubscriptionsController < ApplicationController
   end
 
   def your_plan
+  end
+
+  def thank_you
   end
 end
