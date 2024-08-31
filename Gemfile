@@ -5,7 +5,7 @@ ruby File.read('.ruby-version').strip
 
 gem 'google-cloud-storage'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '7.0.8.1'
+gem 'rails', '7.0.4'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.4', '>= 1.4.5'
 # Use Puma as the app server
