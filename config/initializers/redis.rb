@@ -1,5 +1,5 @@
 if ENV['REDIS_URL'].present?
-  uri = URI.parse(ENV['REDIS_URL'])
+  uri = URI.parse(ENV['REDIS_TEMPORARY_URL'])
   REDIS = Redis.new(
     host: uri.host, 
     port: uri.port, 
