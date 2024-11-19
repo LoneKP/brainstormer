@@ -52,7 +52,7 @@ class Session
   end
 
   def guest?
-    !@key["guest_id"].empty?
+    !@key["guest_id"]&.empty?
   end
 
   def user?
