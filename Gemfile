@@ -41,8 +41,6 @@ gem 'jbuilder', '~> 2.7'
 
 # Use Redis adapter to run Action Cable in production
 gem 'redis'
-gem 'redis-client'
-gem 'redis-rails'
 gem 'kredis', github: 'rails/kredis'
 
 gem "stripe", "~> 8.0"
