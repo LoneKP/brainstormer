@@ -53,7 +53,7 @@ class PresenceChannel < ApplicationCable::Channel
         data[:online_users][visitor] = {
           id: visitor, 
           name: name, 
-          initials: "HI"
+          initials: "HI",
           #initials: name.split(nil,2).map(&:first).join.upcase, 
           userColor: user_color, 
           doneVoting: done_voting
