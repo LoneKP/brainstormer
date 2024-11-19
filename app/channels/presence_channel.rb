@@ -23,7 +23,7 @@ class PresenceChannel < ApplicationCable::Channel
   def add_to_list_and_transmit!
     REDIS.set user_color_key, random_color_class
     if params[:waiting_room] === false
-      REDIS.hset brainstorm_key, visitor_id, Time.now
+      REDIS.hset brainstorm_key, visitor_id, Time.now.to_s
     elsif params[:waiting_room] === true
       REDIS.hset in_brainstorm_waiting_room, visitor_id, params[:waiting_room]
     end
