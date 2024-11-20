@@ -40,7 +40,7 @@ gem 'net-pop'  # for rspec
 gem 'jbuilder', '~> 2.7'
 
 # Use Redis adapter to run Action Cable in production
-gem 'redis', "~> 5.0"
+gem 'redis', "~> 5.2"
 gem 'redis-client'
 gem 'redis-rails'
 gem 'kredis', github: 'rails/kredis'
