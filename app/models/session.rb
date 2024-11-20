@@ -7,14 +7,18 @@ class Session
     set_hash
   end
 
+  def key
+    visitor_id.to_s
+  end
+
   def set_hash
-    @key = Kredis.hash(visitor_id)
-    @key.update(
-      "visitor_id" => visitor_id.to_s, 
-      "guest_id" => guest_id.to_s, 
-      "user_id" => user_id.to_s, 
-      "name" => set_name
-    )  
+    fields = {
+      "visitor_id" => visitor_id.to_s,
+      "guest_id"   => guest_id.to_s,
+      "user_id"    => user_id.to_s,
+      "name"       => set_name
+    }
+    REDIS_SESSION.hset(key, fields)
   end
 
   def set_name
@@ -37,7 +41,7 @@ class Session
   end
 
   def retrieve_name_from_storage(visitor_id)
-     @key["name"]
+     key["name"]
   end
 
   def generate_name
@@ -48,23 +52,23 @@ class Session
   end
 
   def id
-    @key["visitor_id"]
+    key["visitor_id"]
   end
 
   def guest?
-    !@key["guest_id"]&.empty?
+    !REDIS_SESSION.hget(key, "guest_id").empty?
   end
 
   def user?
-    !@key["user_id"]&.empty?
+    !REDIS_SESSION.hget(key, "user_id").empty?
   end
 
   def guest
-    @key["guest_id"]
+    REDIS_SESSION.hget(key, "guest_id")
   end
 
   def user
-    @key["user_id"]
+    REDIS_SESSION.hget(key, "user_id")
   end
 
   def type

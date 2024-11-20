@@ -43,7 +43,6 @@ gem 'jbuilder', '~> 2.7'
 gem 'redis', "~> 5.2"
 gem 'redis-client'
 gem 'redis-rails'
-gem 'kredis', github: 'rails/kredis'
 
 gem "stripe", "~> 8.0"
 gem "pay", "~> 6.3"

@@ -1,17 +1,15 @@
+# app/models/session/voting.rb
+
 class Session::Voting
   MAX_VOTES_PER_SESSION = 6
 
-  include Kredis::Attributes
   include Brainstorm::States, Ideated, DoneVoting
-
-  kredis_set :idea_votes,       typed: :integer, key: ->(v) { "user_idea_votes_#{v.visitor_id}_#{v.brainstorm.token}" }
-
-  kredis_hash :brainstorm_voting_status, typed: :boolean, key: ->(v) { "done_voting_brainstorm_status_#{v.brainstorm.token}" }
 
   attr_reader :brainstorm, :visitor_id
 
   def initialize(brainstorm, visitor_id)
-    @brainstorm, @visitor_id = brainstorm, visitor_id
+    @brainstorm = brainstorm
+    @visitor_id = visitor_id
   end
 
   def dynamic_vote_count
@@ -25,19 +23,19 @@ class Session::Voting
   end
 
   def voted_for?(votable)
-    idea_votes.include?(votable.id)
+    idea_voted_for?(votable.id)
   end
 
   def vote_for(votable)
     if !done? && can_vote?
-      idea_votes << votable.id
+      add_idea_vote(votable.id)
       votable.increment! :votes
     end
   end
 
   def subtract_vote_for(votable)
     unless done?
-      idea_votes.remove votable.id
+      remove_idea_vote(votable.id)
       votable.decrement! :votes
     end
   end
@@ -54,35 +52,34 @@ class Session::Voting
   end
 
   def votes_left_count
-    [ dynamic_vote_count - votes_cast_count, 0 ].max
+    [dynamic_vote_count - votes_cast_count, 0].max
   end
 
   def votes_cast_count
-    idea_votes.size
+    idea_votes_size
   end
 
   def finish
-    brainstorm_voting_status[visitor_id] = true
+    set_brainstorm_voting_status(visitor_id, true)
   end
 
   def open
-    brainstorm_voting_status[visitor_id] = false
+    set_brainstorm_voting_status(visitor_id, false)
   end
 
   def done?
-    brainstorm_voting_status[visitor_id]
+    get_brainstorm_voting_status(visitor_id)
   end
 
   def toggle_voting_done
     done? ? open : finish
     broadcast_presence :update_number_of_users_done_voting_element, users_done_voting_who_are_also_online, total_users_online
-    # if everyone_done_voting?
-    #   change_to_voting_done_state
-    # end
+    # Uncomment and implement if needed
+    # change_to_voting_done_state if everyone_done_voting?
   end
 
   def everyone_done_voting?
-    users_done_voting_who_are_also_online.to_i >= total_users_online.to_i 
+    users_done_voting_who_are_also_online.to_i >= total_users_online.to_i
   end
 
   def change_to_voting_done_state
@@ -92,17 +89,61 @@ class Session::Voting
     PresenceChannel.broadcast_to brainstorm, { event: "remove_done_tags_on_user_badges" }
   end
 
+  def idea_votes
+    REDIS_SESSION.smembers(idea_votes_key).map(&:to_i)
+  end
+
   private
 
   Vote = Struct.new(:index, :used, keyword_init: true) do
-    alias used? used
+    alias_method :used?, :used
   end
 
+  # Redis methods for idea_votes
+  def idea_votes_key
+    "user_idea_votes_#{visitor_id}_#{brainstorm.token}"
+  end
+
+  def idea_votes_size
+    REDIS_SESSION.scard(idea_votes_key)
+  end
+
+  def add_idea_vote(idea_id)
+    REDIS_SESSION.sadd(idea_votes_key, idea_id)
+  end
+
+  def remove_idea_vote(idea_id)
+    REDIS_SESSION.srem(idea_votes_key, idea_id)
+  end
+
+  def idea_voted_for?(idea_id)
+    REDIS_SESSION.sismember(idea_votes_key, idea_id)
+  end
+
+  # Redis methods for brainstorm_voting_status
+  def brainstorm_voting_status_key
+    "done_voting_brainstorm_status_#{brainstorm.token}"
+  end
+
+  def set_brainstorm_voting_status(visitor_id, status)
+    REDIS_SESSION.hset(brainstorm_voting_status_key, visitor_id, status ? 'true' : 'false')
+  end
+
+  def get_brainstorm_voting_status(visitor_id)
+    value = REDIS_SESSION.hget(brainstorm_voting_status_key, visitor_id)
+    value == 'true'
+  end
+
+  def all_brainstorm_voting_statuses
+    REDIS_SESSION.hgetall(brainstorm_voting_status_key).transform_values { |v| v == 'true' }
+  end
+
+  # Placeholder methods for broadcasting (implement as needed)
   def broadcast_state(state)
     StateChannel.broadcast_to brainstorm, { event: "set_brainstorm_state", state: state }
-  end  
+  end
 
   def broadcast_presence(event, done, online)
-    PresenceChannel.broadcast_to brainstorm, {event: event, users_done_voting: done, total_users_online: online}
-  end  
+    PresenceChannel.broadcast_to brainstorm, { event: event, users_done_voting: done, total_users_online: online }
+  end
 end

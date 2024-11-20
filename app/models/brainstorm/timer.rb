@@ -1,25 +1,25 @@
-class Brainstorm::Timer
-  include Kredis::Attributes, Ideated, DoneVoting
+# app/models/brainstorm/timer.rb
 
-  kredis_integer  :duration_proxy, key: ->(t) { "brainstorm_id_duration_#{t.id}" }
-  kredis_datetime :started_at
+class Brainstorm::Timer
+  include Ideated, DoneVoting
 
   def initialize(brainstorm)
     @brainstorm = brainstorm
-
-    if previous_started_at = Kredis.hash("brainstorm_id_timer_running_#{id}").hget("timer_start_timestamp").presence
-      started_at.value = DateTime.parse(previous_started_at)
-    end
   end
 
-  def duration() = duration_proxy.value || 10.minutes.to_i
-  def duration=(duration); duration_proxy.value = duration; end
+  def duration
+    get_duration_proxy || 10.minutes.to_i
+  end
+
+  def duration=(value)
+    set_duration_proxy(value)
+  end
 
   def start
     if no_timer?
       broadcast :no_timer
     else
-      started_at.value = Time.now
+      set_started_at(Time.now)
       check_expiry_later
       broadcast :start, duration
     end
@@ -30,7 +30,7 @@ class Brainstorm::Timer
   end
 
   def reset
-    started_at.clear
+    clear_started_at
     broadcast :reset
   end
 
@@ -43,10 +43,9 @@ class Brainstorm::Timer
       brainstorm.timer_expired
       broadcast :expired
       broadcast_ideas :transmit_ideas, transmit_ideas(sort_by_id_desc, Brainstorm::DynamicVoteCounter.new(brainstorm).votes)
-      PresenceChannel.broadcast_to brainstorm, {event: :update_number_of_users_done_voting_element, users_done_voting: users_done_voting_who_are_also_online, total_users_online: total_users_online}
+      PresenceChannel.broadcast_to brainstorm, { event: :update_number_of_users_done_voting_element, users_done_voting: users_done_voting_who_are_also_online, total_users_online: total_users_online }
     end
   end
-
 
   def running?
     remaining_seconds.positive?
@@ -61,15 +60,16 @@ class Brainstorm::Timer
   end
 
   def elapsed_seconds
-    if value = started_at.value
-      Time.now.to_i - value.to_i
+    if started_at_time = get_started_at
+      Time.now.to_i - started_at_time.to_i
     else
       0
     end
   end
 
-
-  def id() = brainstorm.token
+  def id
+    brainstorm.token
+  end
 
   private
 
@@ -77,5 +77,38 @@ class Brainstorm::Timer
 
   def broadcast(event, duration = nil)
     TimerChannel.broadcast_to brainstorm, { event: event, duration: duration }
+  end
+
+  # Methods to interact with Redis
+
+  def duration_proxy_key
+    "brainstorm_id_duration_#{id}"
+  end
+
+  def started_at_key
+    "brainstorm_started_at_#{id}"
+  end
+
+  def get_duration_proxy
+    value = REDIS_SESSION.get(duration_proxy_key)
+    value.to_i if value
+  end
+
+  def set_duration_proxy(value)
+    REDIS_SESSION.set(duration_proxy_key, value.to_i)
+  end
+
+  def get_started_at
+    value = REDIS_SESSION.get(started_at_key)
+    Time.at(value.to_i) if value
+  end
+
+  def set_started_at(time)
+    timestamp = time.to_i
+    REDIS_SESSION.set(started_at_key, timestamp)
+  end
+
+  def clear_started_at
+    REDIS_SESSION.del(started_at_key)
   end
 end
