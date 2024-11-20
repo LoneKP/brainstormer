@@ -1,6 +1,6 @@
 if ENV['REDIS_URL'].present?
   uri = URI.parse(ENV['REDIS_URL'])
-  REDIS = Redis.new(
+  REDIS_SESSION = Redis.new(
     :url => ENV['REDIS_URL'],
     :ssl => true,
     :ssl_params => { 
@@ -8,5 +8,5 @@ if ENV['REDIS_URL'].present?
     }
   )
 else
-  REDIS = Redis.new
+  REDIS_SESSION = Redis.new
 end

@@ -1,15 +1,15 @@
 module DoneVoting
   def users_done_voting_who_are_also_online
-    users_online_ids = REDIS.hgetall(brainstorm_key).keys
-    all_users_voting_status = REDIS.hgetall(done_voting_brainstorm_status)
+    users_online_ids = REDIS_SESSION.hgetall(brainstorm_key).keys
+    all_users_voting_status = REDIS_SESSION.hgetall(done_voting_brainstorm_status)
 
-    all_users_voting_status_ids = REDIS.hgetall(done_voting_brainstorm_status).keys
+    all_users_voting_status_ids = REDIS_SESSION.hgetall(done_voting_brainstorm_status).keys
     still_online_users_on_voting_list = users_online_ids & all_users_voting_status_ids
     all_users_voting_status.slice(*still_online_users_on_voting_list).values.count("true")
   end
 
   def total_users_online
-    REDIS.hgetall(brainstorm_key).keys.count
+    REDIS_SESSION.hgetall(brainstorm_key).keys.count
   end
 
   def done_voting_brainstorm_status

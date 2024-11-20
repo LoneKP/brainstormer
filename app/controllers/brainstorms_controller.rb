@@ -48,9 +48,9 @@ class BrainstormsController < ApplicationController
 
     @voting = Session::Voting.new(@brainstorm, @visitor_id)
 
-    @total_users_online = REDIS.hgetall(brainstorm_key).keys.count
+    @total_users_online = REDIS_SESSION.hgetall(brainstorm_key).keys.count
 
-    @users_done_voting = REDIS.hgetall(done_voting_brainstorm_status).values.count("true")
+    @users_done_voting = REDIS_SESSION.hgetall(done_voting_brainstorm_status).values.count("true")
   end
 
   def index    

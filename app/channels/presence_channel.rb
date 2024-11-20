@@ -21,35 +21,35 @@ class PresenceChannel < ApplicationCable::Channel
   private
 
   def add_to_list_and_transmit!
-    REDIS.set user_color_key, random_color_class
+    REDIS_SESSION.set user_color_key, random_color_class
     if params[:waiting_room] === false
-      REDIS.hset brainstorm_key, visitor_id, Time.now.to_s
+      REDIS_SESSION.hset brainstorm_key, visitor_id, Time.now.to_s
     elsif params[:waiting_room] === true
-      REDIS.hset in_brainstorm_waiting_room, visitor_id, params[:waiting_room]
+      REDIS_SESSION.hset in_brainstorm_waiting_room, visitor_id, params[:waiting_room]
     end
     transmit_list!
   end
 
   def remove_from_list_and_transmit!
-    REDIS.hdel brainstorm_key, visitor_id
-    REDIS.hdel in_brainstorm_waiting_room, visitor_id
+    REDIS_SESSION.hdel brainstorm_key, visitor_id
+    REDIS_SESSION.hdel in_brainstorm_waiting_room, visitor_id
     transmit_list!
   end
 
   def transmit_list!
-    visitors = REDIS.hgetall(brainstorm_key).keys
+    visitors = REDIS_SESSION.hgetall(brainstorm_key).keys
     data = { 
       event: "transmit_presence_list",
       online_users: {},
-      number_of_users_in_waiting_room: REDIS.hgetall(in_brainstorm_waiting_room).keys.count,
+      number_of_users_in_waiting_room: REDIS_SESSION.hgetall(in_brainstorm_waiting_room).keys.count,
       max_allowed_participants: plan_data(:participant_limit, @brainstorm.facilitated_by.plan)
     }
     
     visitors.each do |visitor|
       unless last_user_activity_more_than_one_hour_ago?(visitor)
-        name = REDIS.hgetall(visitor)["name"]
-        user_color = REDIS.get("user_color_for_user_id_#{visitor}")
-        done_voting = REDIS.hget(done_voting_brainstorm_status, "#{visitor}")
+        name = REDIS_SESSION.hgetall(visitor)["name"]
+        user_color = REDIS_SESSION.get("user_color_for_user_id_#{visitor}")
+        done_voting = REDIS_SESSION.hget(done_voting_brainstorm_status, "#{visitor}")
         data[:online_users][visitor] = {
           id: visitor, 
           name: name, 
@@ -65,7 +65,7 @@ class PresenceChannel < ApplicationCable::Channel
   end
 
   def last_user_activity_more_than_one_hour_ago?(user_id)
-    DateTime.parse(REDIS.hget(brainstorm_key, user_id)) < Time.now-1.hour
+    DateTime.parse(REDIS_SESSION.hget(brainstorm_key, user_id)) < Time.now-1.hour
   end
 
   def brainstorm_key
@@ -73,7 +73,7 @@ class PresenceChannel < ApplicationCable::Channel
   end
 
   def online_participant_count
-    REDIS.hgetall(brainstorm_key).keys.count
+    REDIS_SESSION.hgetall(brainstorm_key).keys.count
   end
 
   def user_key
