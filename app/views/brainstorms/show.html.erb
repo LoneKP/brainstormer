@@ -33,7 +33,7 @@
   currentUser = {
     visitorId: '<%= @visitor_id %>',
     facilitator: '<%= @current_facilitator %>',
-    votesCastIdeas: new Set(<%= @voting.idea_votes.members %>),
+    votesCastIdeas: new Set(<%= @voting.idea_votes %>),
     userIsDoneVoting: '<%= @voting.done? %>',
     type: '<%= @session.type %>',
     plan: '<%= @plan %>'
