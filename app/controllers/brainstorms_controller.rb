@@ -52,10 +52,6 @@ class BrainstormsController < ApplicationController
     @users_done_voting = REDIS_SESSION.hgetall(done_voting_brainstorm_status).values.count("true")
   end
 
-  def index    
-    @brainstorms = Brainstorm.public_and_in_ideation
-  end
-
   def edit_problem
     respond_to do |format|
       format.turbo_stream

@@ -21,10 +21,6 @@ class Brainstorm < ApplicationRecord
     :on => :create
 
   before_validation(on: :create) { self.token ||= generate_token }
-
-  scope :public_and_in_ideation, -> do
-    where(public: true).order(created_at: :desc).select { |brainstorm| brainstorm.state == 'ideation' }
-  end
   
   def self.find_sole_by_token(token)
     where("token ilike ?", "%#{token}").then do |relation|

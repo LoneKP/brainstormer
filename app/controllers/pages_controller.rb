@@ -18,8 +18,4 @@ class PagesController < ApplicationController
 
   def pricing
   end
-
-  def index
-    @brainstorms = Brainstorm.public_and_in_ideation.sample(3)
-  end
 end
