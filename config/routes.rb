@@ -22,9 +22,6 @@ Rails.application.routes.draw do
     mount Blazer::Engine, at: "analytics/blazer"
   end
 
-  post '/filter_categories', to: 'brainstorms#filter_categories', as: :filter_categories
-  post 'toggle_category_on_brainstorm/:category_id/:brainstorm_id', to: 'categories#toggle_category_on_brainstorm', as: :toggle_category_on_brainstorm
-
   resources :brainstorms, param: :token, only: [:new, :edit, :update, :create, :index] do
     member do
       post :done_brainstorming, :start_brainstorm, :start_voting, :done_voting, :end_voting, :change_state
@@ -70,8 +67,6 @@ Rails.application.routes.draw do
   end
 
   root 'pages#index'
-
-  resources :categories
 
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
