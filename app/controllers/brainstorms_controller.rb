@@ -49,8 +49,6 @@ class BrainstormsController < ApplicationController
     @total_users_online = REDIS_SESSION.hgetall(brainstorm_key).keys.count
 
     @users_done_voting = REDIS_SESSION.hgetall(done_voting_brainstorm_status).values.count("true")
-
-    console
   end
 
   def edit_problem
