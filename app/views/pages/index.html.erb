@@ -56,49 +56,49 @@
     <div id="index-post-it-container" class="hidden lg:flex flex-row w-1/2 flex-wrap gap-2 content-center">
       <div class="lg:hidden bg-greeny w-40 h-40 px-4 justify-between flex flex-col"> 
         <div class="flex flex-col justify-center h-full">
-          <p class="font-flow overflow-hidden text-lg text-dark-greeny leading-none"></p>
+          <p class="overflow-hidden text-lg text-dark-greeny leading-none"></p>
         </div>
         <div class="bg-greeny triangle self-end -mr-4"></div>
       </div>
       <div class="lg:hidden bg-greeny w-40 h-40 px-4 justify-between flex flex-col"> 
         <div class="flex flex-col justify-center h-full">
-          <p class="font-flow overflow-hidden text-lg text-dark-greeny leading-none"></p>
+          <p class="overflow-hidden text-lg text-dark-greeny leading-none"></p>
         </div>
         <div class="bg-greeny triangle self-end -mr-4"></div>
       </div>
       <div class="lg:hidden bg-greeny w-40 h-40 px-4 justify-between flex flex-col"> 
         <div class="flex flex-col justify-center h-full">
-          <p class="font-flow overflow-hidden text-lg text-dark-greeny leading-none"></p>
+          <p class="overflow-hidden text-lg text-dark-greeny leading-none"></p>
         </div>
         <div class="bg-greeny triangle self-end -mr-4"></div>
       </div>
       <div class="lg:hidden bg-greeny w-40 h-40 px-4 justify-between flex flex-col"> 
         <div class="flex flex-col justify-center h-full">
-          <p class="font-flow overflow-hidden text-lg text-dark-greeny leading-none"></p>
+          <p class="overflow-hidden text-lg text-dark-greeny leading-none"></p>
         </div>
         <div class="bg-greeny triangle self-end -mr-4"></div>
       </div>
       <div class="lg:hidden bg-greeny w-40 h-40 px-4 justify-between flex flex-col"> 
         <div class="flex flex-col justify-center h-full">
-          <p class="font-flow overflow-hidden text-lg text-dark-greeny leading-none"></p>
+          <p class="overflow-hidden text-lg text-dark-greeny leading-none"></p>
         </div>
         <div class="bg-greeny triangle self-end -mr-4"></div>
       </div>
       <div class="lg:hidden bg-greeny w-40 h-40 px-4 justify-between flex flex-col"> 
         <div class="flex flex-col justify-center h-full">
-          <p class="font-flow overflow-hidden text-lg text-dark-greeny leading-none"></p>
+          <p class="overflow-hidden text-lg text-dark-greeny leading-none"></p>
         </div>
         <div class="bg-greeny triangle self-end -mr-4"></div>
       </div>
       <div class="lg:hidden bg-greeny w-40 h-40 px-4 justify-between flex flex-col"> 
         <div class="flex flex-col justify-center h-full">
-          <p class="font-flow overflow-hidden text-lg text-dark-greeny leading-none"></p>
+          <p class="overflow-hidden text-lg text-dark-greeny leading-none"></p>
         </div>
         <div class="bg-greeny triangle self-end -mr-4"></div>
       </div>
       <div class="lg:hidden bg-greeny w-40 h-40 px-4 justify-between flex flex-col"> 
         <div class="flex flex-col justify-center h-full">
-          <p class="font-flow overflow-hidden text-lg text-dark-greeny leading-none"></p>
+          <p class="overflow-hidden text-lg text-dark-greeny leading-none"></p>
         </div>
         <div class="bg-greeny triangle self-end -mr-4"></div>
       </div>
@@ -363,13 +363,12 @@
   }
 
   async function writeTextInPostIts() {
-    let textSample = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi aliquet metus in vestibulum feugiat. Vivamus ut augue finibus, viverra turpis vel, dignissim lacus. Integer et ipsum ac neque elementum laoreet. Praesent id imperdiet libero, non bibendum mauris. Aenean nec dapibus lorem, vel sagittis arcu. Etiam semper sem eget ullamcorper ultrices. Praesent quis pellentesque nibh. Vestibulum orci neque, vehicula ac massa non, luctus facilisis lorem. Nunc pellentesque venenatis libero, at ornare lectus euismod eu. Nunc tincidunt sit amet sem at gravida.".split(" ")
     pTags = document.getElementById("index-post-it-container").getElementsByTagName("p")
 
     for(i = 0; i < pTags.length; i++) {
       for (x = i*6; x < (i+1)*6; x++ ) {
         pTags[i].parentNode.parentNode.classList.remove("lg:hidden")
-        pTags[i].textContent += textSample[x] + " "
+        pTags[i].textContent
         await sleep(50);
       }
     }

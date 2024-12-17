@@ -24,7 +24,7 @@
     "node": ">=18.0.0"
   },
   "scripts": {
-    "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds --loader:.woff=file && yarn build:css",
+    "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds && yarn build:css",
     "build:css": "tailwindcss -i app/javascript/stylesheets/application.css -o app/assets/builds/application.css --watch"
   }
 }
