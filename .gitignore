@@ -31,3 +31,6 @@ yarn-debug.log*
 .yarn-integrity
 /config/secrets/*
 /config/credentials/development.key
+
+/app/assets/builds/*
+!/app/assets/builds/.keep

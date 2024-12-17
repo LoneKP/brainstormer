@@ -1,63 +1,92 @@
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+
 .slider-thumb::-webkit-slider-thumb {
-  @apply appearance-none bg-blurple h-4 w-4 transform focus:outline-none scale-400 lg:scale-200;
+  appearance: none;
+  background-color: #312783;
+  height: 1rem; /* 4 units */
+  width: 1rem; /* 4 units */
+  transform: scale(3); /* Replace scale-400 */
 }
 
 .slider-thumb::-webkit-slider-thumb:hover {
   cursor: ew-resize;
-  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
+  justify-content: center;
+  transform: scale(4); /* Replace scale-500 */
+  transition: transform 0.1s ease-in-out;
 }
 
 .slider-thumb::-webkit-slider-thumb:active {
   cursor: ew-resize;
-  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
+  justify-content: center;
+  transform: scale(4); /* Replace scale-500 */
+  transition: transform 0.1s ease-in-out;
 }
 
 .slider-thumb::-webkit-slider-runnable-track {
-  @apply bg-light-blurple h-4
+  background-color: #DFD8FF;
+  height: 1rem; /* 4 units */
 }
 
 .slider-thumb::-moz-range-thumb {
-  @apply appearance-none bg-blurple h-4 w-4 rounded-none focus:outline-none border-none transform scale-400 lg:scale-200;
+  appearance: none;
+  background-color: #312783;
+  height: 1rem;
+  width: 1rem;
+  transform: scale(4);
 }
 
 .slider-thumb::-moz-range-thumb:hover {
   cursor: ew-resize;
-  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
+  justify-content: center;
+  transform: scale(5);
+  transition: transform 0.1s ease-in-out;
 }
 
 .slider-thumb::-moz-range-thumb:active {
   cursor: ew-resize;
-  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
+  justify-content: center;
+  transform: scale(5);
+  transition: transform 0.1s ease-in-out;
 }
 
 .slider-thumb::-moz-range-track {
-  @apply bg-light-blurple h-4
+  background-color: #DFD8FF;
+  height: 1rem; /* 4 units */
 }
 
 .slider-thumb::-ms-track {
-  @apply appearance-none bg-blurple h-4 w-4 rounded-none focus:outline-none border-none transform scale-400 lg:scale-200;
+  appearance: none;
+  background-color: #4c51bf;
+  height: 1rem;
+  width: 1rem;
+  transform: scale(4);
 }
 
 .slider-thumb::-ms-track:hover {
   cursor: ew-resize;
-  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
+  justify-content: center;
+  transform: scale(5);
+  transition: transform 0.1s ease-in-out;
 }
 
 .slider-thumb::-ms-track:active {
   cursor: ew-resize;
-  @apply justify-center transform scale-500 lg:scale-250 ease-in-out transition duration-100;
+  justify-content: center;
+  transform: scale(5);
+  transition: transform 0.1s ease-in-out;
 }
 
 .slider-thumb::-ms-track {
-  @apply bg-light-blurple h-4
+  background-color: #667eea;
+  height: 1rem; /* 4 units */
 }
 
-.hvr-grow {
-  @apply hover:scale-105 ease-in-out duration-200 transform
-}
-
-.underlineSelection {
-  @apply border-solid border-b-2 border-blurple font-bold
+.hvr-grow:hover {
+  transform: scale(1.05); /* Replace hover:scale-105 */
+  transition: transform 0.2s ease-in-out;
 }
 
 .bg-post-it-yellowy-90 {
@@ -467,9 +496,7 @@
 
 @font-face {
   font-family: flow;
-  src: url('../../../public/fonts/flow-block.woff') format('woff');
+  src: url('../../assets/builds/flow-block-AM3VSMFC.woff') format('woff');
   font-weight: 400;
   font-style: normal;
 }
-
-

@@ -1,6 +1,4 @@
-<div id="emailModalContainer" class="flex flex-row" x-data="{ 'showEmailModal': false}">
-  <!--Overlay-->
-  <div class="flex flex-col" style="background-color: rgba(49, 39, 131, 0.9);" x-show="showEmailModal" :class="{ 'fixed inset-0 z-10 flex items-center justify-center': showEmailModal }">
+<div id="emailModalContainer" class="hidden fixed inset-0 z-50 flex-row items-center justify-center" style="background-color: rgba(49, 39, 131, 0.9);">
     <!--Dialog-->
     <div class="w-11/12 lg:w-1/2 mx-auto" @click.away="showEmailModal= false">
       <div class="bg-white rounded shadow-lg lg:py-3 py-16 text-left px-6" x-show="showEmailModal">
@@ -24,7 +22,7 @@
         </div>
       </div>
       <div class="lg:mt-8 mt-12 flex flex-row justify-between w-full">
-        <div @click="showEmailModal = false">
+        <div onclick=document.getElementById("emailModalContainer").classList.add("hidden")>
           <span class="material-icons lg:p-3 p-7 lg:text-5xl text-8xl text-blurple hvr-grow active:bg-blurple-gray cursor-pointer my-shadow bg-white font-bold">chevron_left</span>
         </div>
         <button type=submit class="hvr-grow px-20 lg:px-8 my-shadow-lg text-blurple text-6xl lg:text-lg font-bold bg-light-greeny active:bg-light-greeny-darker focus:outline-none cursor-pointer">SEND</button>
@@ -34,7 +32,4 @@
 
     <!--/Dialog -->
   </div>
-</div>
-
-<!-- /Overlay -->
 </div>

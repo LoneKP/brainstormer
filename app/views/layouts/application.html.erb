@@ -6,8 +6,7 @@
     <%= csp_meta_tag %>
     <link href="https://fonts.googleapis.com/css?family=Material+Icons|Material+Icons+Outlined|Material+Icons+Two+Tone|Material+Icons+Round|Material+Icons+Sharp" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Inter&display=swap" rel="stylesheet">
-    <%= javascript_pack_tag 'application' %>
-    <%= stylesheet_pack_tag 'application', media: 'all' %>
+    <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= favicon_link_tag asset_path('favicon.png') %>
     <!-- Primary Meta Tags -->
     <meta name="title" content="Come up with great ideas together!">
@@ -27,6 +26,8 @@
     <meta property="twitter:description" content="Easy facilitation of online brainstorming sessions">
     <meta property="twitter:image" content="<%= asset_path('some_image.png') %>">
     <script src="https://js.stripe.com/v3"></script>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", type: "module" %>
+    <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
   </head>
   <body class="font-mono <%= if action_name == "pricing" || request.path == "/brainstorms/new" || request.path == "/brainstorms" || request.path == "/brainstorms/join-session" || request.path == "/go_to_brainstorm" ; "bg-blurple"; elsif action_name == "show"; "bg-pattern" else "bg-beigy"; end %>">
     <% unless move_flash_messages? %>

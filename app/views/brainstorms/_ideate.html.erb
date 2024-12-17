@@ -126,9 +126,9 @@
       hideTimerElements()
     }  
   }
-
-  connectTimer(document.getElementById("timeDisplay"), document.getElementById("timerPhoneElement"))
-
+  document.addEventListener('DOMContentLoaded', () => {
+    connectTimer(document.getElementById("timeDisplay"), document.getElementById("timerPhoneElement"))
+  })
   const toggleBuildOnIdea = (ideaId) => {
     document.getElementById(`buildOnIdea-${ideaId}`).classList.toggle("hidden")
   }

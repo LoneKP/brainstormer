@@ -5,7 +5,8 @@
     <% end %>
   <% end %>
 <% else %>
-  document.getElementById("emailModalContainer").setAttribute("x-data", "{ 'showEmailModal': false }")
+  document.getElementById("emailModalContainer").classList.remove("flex")
+  document.getElementById("emailModalContainer").classList.add("hidden")
   document.getElementById("notice").innerHTML = "<%= j render "shared/flash" %>"
   document.getElementById("notice-mobile").innerHTML = "<%= j render "shared/flash", phone: true %>"
   document.getElementById("email_address").value = "" 

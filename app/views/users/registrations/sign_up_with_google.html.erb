@@ -18,7 +18,7 @@
             <% end %>
 
             <%- resource_class.omniauth_providers.each do |provider| %>
-              <%= link_to omniauth_authorize_path(resource_name, provider), method: :post, class: "w-full" do %>
+              <%= button_to omniauth_authorize_path(resource_name, provider), method: :post, class: "w-full" do %>
                 <button class="w-full justify-center uppercase hvr-grow my-shadow lg:text-base text-4xl py-8 px-4 lg:py-3 bg-blurple text-white font-bold border-solid border-2 border-blurple focus:outline-none">Sign up with Google</button>
               <% end %>
             <% end %>

@@ -1,5 +1,6 @@
 rails: PORT=3000 rails s
-webpacker: ./bin/webpack-dev-server
-redis: redis-server
+redis: redis-server --loglevel debug
 sidekiq: bundle exec sidekiq
 stripe: stripe listen --forward-to localhost:3000/pay/webhooks/stripe
+js: yarn build --watch
+css: yarn build:css --watch

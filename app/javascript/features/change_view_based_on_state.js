@@ -33,8 +33,8 @@ let stateConfiguration = {
   }
 }
 
-changeView = function (state) {
-  configuration = stateConfiguration[state]
+window.changeView = function (state) {
+  let configuration = stateConfiguration[state]
   for (const [key, value] of Object.entries(configuration)) {
     document.getElementById(key).style.display = value ? 'block' : 'none';
   }
@@ -46,11 +46,11 @@ changeView = function (state) {
   }
 }
 
-showTimeIsUpModal = function () {
+window.showTimeIsUpModal = function () {
   document.getElementById("time_is_up").classList.remove("hidden");
 }
 
-fillStarsWithUserVotes = function () {
+window.fillStarsWithUserVotes = function () {
   currentUser.votesCastIdeas.forEach((id) => {
     let elements = document.getElementsByClassName(`star-idea-${id}`)
     Array.from(elements).forEach((element) => element.setAttribute("fill", "#312783"))
@@ -64,7 +64,7 @@ fillStarsWithUserVotes = function () {
   }
 }
 
-updateFacilitatorSpecificElementsOnIdeas = function () {
+window.updateFacilitatorSpecificElementsOnIdeas = function () {
   if (currentUser.facilitator == "false") {
     let toggleIdeaMenuButtonElements = document.getElementsByClassName("toggleIdeaMenuButton");
 
@@ -74,7 +74,7 @@ updateFacilitatorSpecificElementsOnIdeas = function () {
   }
 }
 
-changeHeadlineAccordingToVotesLeft = function (votesCast, maxVotesPerUser) {
+window.changeHeadlineAccordingToVotesLeft = function (votesCast, maxVotesPerUser) {
   if (votesCast >= maxVotesPerUser) {
     document.getElementById("votingHeadline").textContent = "No votes left!"
   }
@@ -83,12 +83,12 @@ changeHeadlineAccordingToVotesLeft = function (votesCast, maxVotesPerUser) {
   }
 }
 
-setAndChangeBrainstormState = function (state) {
+window.setAndChangeBrainstormState = function (state) {
   brainstormStore.state = state;
   changeView(state);
 }
 
-removeNameListUserIdIfUserIsFacilitator = function () {
+window.removeNameListUserIdIfUserIsFacilitator = function () {
   if (currentUser.facilitator == "true") {
     let userNameElement = document.getElementById(`name-list-user-id-${currentUser.visitorId}`);
     userNameElement.remove();

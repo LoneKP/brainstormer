@@ -11,13 +11,12 @@
         <% if current_user %>
           <div class="flex flex-col lg:gap-8 gap-28 mt-10">
             <%= link_to "Front Page", root_path, class: "hvr-grow uppercase" %>
-             <%= link_to "Idea junction", brainstorms_path, class: "hvr-grow uppercase" %>
             <%= link_to "Your brainstorms", your_brainstorms_path, class: "hvr-grow uppercase" %>
             <%= link_to "Your plan", your_plan_path, class: "hvr-grow uppercase" %>
             <%= link_to "Settings", edit_user_registration_path, class: "hvr-grow uppercase" %>
           </div>
           <div class="flex flex-col gap-10 lg:mb-10 mb-56">
-            <%= link_to destroy_user_session_path, method: :delete, class:"uppercase" do %>
+            <%= button_to destroy_user_session_path, method: :delete, class:"uppercase" do %>
             <div class="flex flex-row gap-4 items-center hvr-grow lg:text-xl text-5xl">
               <span class="text-6xl lg:text-xl material-icons-outlined">logout</span>
               <p>Log out</p>

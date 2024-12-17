@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_11_21_082917) do
+ActiveRecord::Schema[7.2].define(version: 2024_11_21_114244) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -211,6 +211,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_082917) do
     t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_account"
     t.index ["customer_id", "processor_id"], name: "index_pay_charges_on_customer_id_and_processor_id", unique: true
     t.index ["subscription_id"], name: "index_pay_charges_on_subscription_id"
   end
@@ -225,6 +226,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_082917) do
     t.datetime "deleted_at", precision: nil
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_account"
     t.index ["owner_type", "owner_id", "deleted_at", "default"], name: "pay_customer_owner_index"
     t.index ["processor", "processor_id"], name: "index_pay_customers_on_processor_and_processor_id", unique: true
   end
@@ -249,6 +251,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_082917) do
     t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "stripe_account"
     t.index ["customer_id", "processor_id"], name: "index_pay_payment_methods_on_customer_id_and_processor_id", unique: true
   end
 
@@ -272,6 +275,8 @@ ActiveRecord::Schema[7.0].define(version: 2024_11_21_082917) do
     t.jsonb "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "payment_method_id"
+    t.string "stripe_account"
     t.index ["customer_id", "processor_id"], name: "index_pay_subscriptions_on_customer_id_and_processor_id", unique: true
     t.index ["metered"], name: "index_pay_subscriptions_on_metered"
     t.index ["pause_starts_at"], name: "index_pay_subscriptions_on_pause_starts_at"

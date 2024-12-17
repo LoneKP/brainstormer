@@ -6,7 +6,7 @@
       <div class="invisible -mb-4 font-semibold lg:text-xs text-xl bg-blurple text-white w-max my-shadow-sm px-2">Current plan</div>
       <div class="my-shadow-sm text-blurple <%= current_user.facilitator_plan? ? "bg-white" : "bg-beigy" %> font-bold py-6 text-center lg:text-lg text-3xl">HOBBYIST</div>
       <%= link_to pricing_path do %>
-        <div class="my-shadow-sm text-white <%= current_user.facilitator_plan? ? "bg-greeny text-white" : "bg-white text-blurple" %> font-bold py-6 text-center lg:text-lg text-3xl">FACILITATOR</div>
+        <div class="my-shadow-sm <%= current_user.facilitator_plan? ? "bg-greeny text-white" : "bg-white text-blurple" %> font-bold py-6 text-center lg:text-lg text-3xl">FACILITATOR</div>
       <% end %>
       <%= link_to pricing_path do %>
         <div class="my-shadow-sm bg-white text-blurple font-bold py-6 text-center lg:text-lg text-3xl">ORGANIZATION</div>

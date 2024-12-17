@@ -4,7 +4,6 @@ class BrainstormsController < ApplicationController
   before_action :set_session_for_all_types, only: [:show, :done_voting, :new]
   before_action :set_current_facilitator, only: :show
   before_action :set_access, only: :show
-  before_action :track_path_visit, only: :index
 
   after_action :track_visitor_brainstormed, only: :show
 
@@ -50,6 +49,8 @@ class BrainstormsController < ApplicationController
     @total_users_online = REDIS_SESSION.hgetall(brainstorm_key).keys.count
 
     @users_done_voting = REDIS_SESSION.hgetall(done_voting_brainstorm_status).values.count("true")
+
+    console
   end
 
   def edit_problem

@@ -5,18 +5,15 @@ ruby File.read('.ruby-version').strip
 
 gem 'google-cloud-storage'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '7.0.4'
+gem 'rails', '7.2.2'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.4', '>= 1.4.5'
 # Use Puma as the app server
-gem 'puma', '~> 4.3'
+gem 'puma'
 # Use Sidekiq as the Active Job adapter
 gem 'sidekiq', '< 8'
 gem 'sidekiq-scheduler'
-# Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
-# Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
-gem 'webpacker', '~> 5.4.0'
+
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'ahoy_matey'
 gem "ahoy_email"
@@ -26,10 +23,14 @@ gem 'geocoder'
 gem 'blazer'
 gem 'wicked_pdf'
 gem 'wkhtmltopdf-binary'
+gem 'csv'
+gem 'mutex_m'
 
 gem 'turbo-rails'
 
-gem 'devise'
+gem 'sprockets-rails'
+
+gem 'devise', '~> 4.9', '>= 4.9.3'
 
 #added after updating to ruby 3.1.2
 gem 'net-smtp' # to send email
@@ -44,12 +45,12 @@ gem 'redis', "~> 5.2"
 gem 'redis-client'
 gem 'redis-rails'
 
-gem "stripe", "~> 8.0"
-gem "pay", "~> 6.3"
+gem 'stripe', '~> 12.6'
+gem 'pay', '~> 7.3'
 
-gem "omniauth"
-gem "omniauth-google-oauth2"
-gem "omniauth-rails_csrf_protection"
+gem 'omniauth', '~> 2.1', '>= 2.1.2'
+gem 'omniauth-google-oauth2', '~> 1.2'
+gem 'omniauth-rails_csrf_protection', '~> 1.0', '>= 1.0.2'
 
 # Use Active Model has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -87,3 +88,5 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem "jsbundling-rails", "~> 1.3"

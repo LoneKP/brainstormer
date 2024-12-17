@@ -55,7 +55,8 @@
   }
 
   const openSendEmailModal = () => {
-    document.getElementById("emailModalContainer").setAttribute("x-data", "{ 'showEmailModal': true }")
+    document.getElementById("emailModalContainer").classList.add("flex")
+    document.getElementById("emailModalContainer").classList.remove("hidden")
     // document.getElementById("notice").innerHTML = ""
     // document.getElementById("error-field-email-address").innerHTML = ""
   }
@@ -154,8 +155,3 @@
     document.getElementById("done-button").innerHTML = "CHANGE VOTES"
   }
 </script>
-
-<%= javascript_pack_tag 'user_badge' %>
-<%= javascript_pack_tag 'change_view_based_on_state' %>
-<%= javascript_pack_tag 'validations' %>
-<%= javascript_pack_tag 'show' %>

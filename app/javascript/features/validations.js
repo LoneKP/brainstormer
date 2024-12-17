@@ -25,16 +25,16 @@ window.addEventListenerToInputField = function (inputFieldWithCharacterCount, co
   );
 };
 
-setMaxCharacters = (inputFieldWithCharacterCount, maxCharacters) => {
+window.setMaxCharacters = (inputFieldWithCharacterCount, maxCharacters) => {
   inputFieldWithCharacterCount.maxLength = maxCharacters
 }
 
-setInnerHTMLOfCountText = (inputFieldWithCharacterCount, maxCharacters, countText) => {
+window.setInnerHTMLOfCountText = (inputFieldWithCharacterCount, maxCharacters, countText) => {
   const p = countText
   p.innerHTML = inputFieldWithCharacterCount.value.length + "/" + maxCharacters
 };
 
-fieldsWithoutPresence = (allInputFieldsForValidation) => {
+window.fieldsWithoutPresence = (allInputFieldsForValidation) => {
   let counter = 0
   allInputFieldsForValidation.forEach(inputFieldForValidation => {
    if (inputFieldForValidation.value.trim() === "") {
@@ -44,16 +44,14 @@ fieldsWithoutPresence = (allInputFieldsForValidation) => {
   return counter
 }
 
-function addColorToSubmitButton(submitButton, activeColors, inactiveColors) {
-    activeColors.forEach(activeColor => {
+window.addColorToSubmitButton = function (submitButton, activeColors, inactiveColors) {
+  activeColors.forEach(activeColor => {
       submitButton.classList.add(activeColor);
-    });
-    inactiveColors.forEach(inactiveColor => {
+  });
+  inactiveColors.forEach(inactiveColor => {
       submitButton.classList.remove(inactiveColor);
-    });
-
-  //submitButton.firstElementChild.style.fill = "#312783";
-}
+  });
+};
 
 window.removeColorFromSubmitButton = function(submitButton, activeColors, inactiveColors) {
   activeColors.forEach(activeColor => {
@@ -65,7 +63,7 @@ window.removeColorFromSubmitButton = function(submitButton, activeColors, inacti
   //submitButton.firstElementChild.style.fill = "white";
 }
 
-colorSubmitButtonOnTyping = (submitButton, allInputFieldsForValidation, activeColors, inactiveColors) => {
+window.colorSubmitButtonOnTyping = (submitButton, allInputFieldsForValidation, activeColors, inactiveColors) => {
   allInputFieldsForValidation.forEach(inputFieldForValidation => {
     inputFieldForValidation.addEventListener(
       "keyup",
@@ -80,12 +78,12 @@ colorSubmitButtonOnTyping = (submitButton, allInputFieldsForValidation, activeCo
    })
 };
 
-addEventListenerToSubmitButton(submitButton, inputFieldWithCharacterCount, maxCharacters, characterCount);
+window.addEventListenerToSubmitButton(submitButton, inputFieldWithCharacterCount, maxCharacters, characterCount);
 
-addEventListenerToInputField(inputFieldWithCharacterCount, characterCount, maxCharacters);
+window.addEventListenerToInputField(inputFieldWithCharacterCount, characterCount, maxCharacters);
 
-setInnerHTMLOfCountText(inputFieldWithCharacterCount, maxCharacters, characterCount);
+window.setInnerHTMLOfCountText(inputFieldWithCharacterCount, maxCharacters, characterCount);
 
-colorSubmitButtonOnTyping(submitButton, allInputFieldsForValidation, activeColors, inactiveColors);
+window.colorSubmitButtonOnTyping(submitButton, allInputFieldsForValidation, activeColors, inactiveColors);
 
-setMaxCharacters(inputFieldWithCharacterCount, maxCharacters)
+window.setMaxCharacters(inputFieldWithCharacterCount, maxCharacters)

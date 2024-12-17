@@ -74,6 +74,7 @@ class Session::Voting
   def toggle_voting_done
     done? ? open : finish
     broadcast_presence :update_number_of_users_done_voting_element, users_done_voting_who_are_also_online, total_users_online
+    #PresenceChannel.broadcast_to brainstorm, { event: "toggle_done_voting_badge", state: "vote", user_id: visitor_id }
     # Uncomment and implement if needed
     # change_to_voting_done_state if everyone_done_voting?
   end
