@@ -25,6 +25,6 @@
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --outdir=app/assets/builds && yarn build:css",
-    "build:css": "tailwindcss -i app/javascript/stylesheets/application.css -o app/assets/builds/application.css --watch"
+    "build:css": "tailwindcss -i app/javascript/stylesheets/application.css -o app/assets/builds/application.css --minify"
   }
 }
