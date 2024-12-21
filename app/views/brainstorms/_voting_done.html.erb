@@ -56,8 +56,7 @@
 
   <% end %>
     <div class="flex lg:space-x-2">
-      <%= link_to download_brainstorm_pdf_path(token: @brainstorm.token, visitor_id: @visitor_id), method: :post, id: "save-to-pdf-button", class: "#{"tooltip" if !@access_to_export_features}" do %>
-        <button onmouseout="outFunc()" class="<%= @access_to_export_features ? "bg-blurple active:bg-darker-blurple hvr-grow text-white" : "cursor-default bg-gray-200 text-gray-400" %> hidden lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-56">
+      <%= button_to download_brainstorm_pdf_path(token: @brainstorm.token, visitor_id: @visitor_id), method: :post, id: "save-to-pdf-button", onmouseout: "outFunc()", class: "#{"tooltip cursor-default bg-gray-200 text-gray-400" if !@access_to_export_features} #{"bg-blurple active:bg-darker-blurple hvr-grow text-white" if @access_to_export_features} hidden lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-56" do %>
         <% if !@access_to_export_features %>
           <span class="tooltiptext flex flex-col align-middle mb-2"><i class="material-icons">lock</i><%= Current.facilitator ? "You need" : "Your facilitator needs" %> to upgrade to export.</span>
         <% end %>
@@ -70,8 +69,7 @@
           </div>
         </button>
       <% end %>
-      <%= link_to download_brainstorm_csv_path(token: @brainstorm.token, visitor_id: @visitor_id), method: :post, id: "save-to-csv-button", class: "#{"tooltip" if !@access_to_export_features}" do %>
-        <button onmouseout="outFunc()" class="<%= @access_to_export_features ? "bg-blurple active:bg-darker-blurple hvr-grow text-white" : "cursor-default bg-gray-200 text-gray-400" %> hidden lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-56">
+      <%= button_to download_brainstorm_csv_path(token: @brainstorm.token, visitor_id: @visitor_id), method: :post, id: "save-to-csv-button", onmouseout: "outFunc()", class: "#{"tooltip cursor-default bg-gray-200 text-gray-400" if !@access_to_export_features} #{"bg-blurple active:bg-darker-blurple hvr-grow text-white" if @access_to_export_features } hidden lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-56" do %>
         <% if !@access_to_export_features %>
           <span class="tooltiptext flex flex-col align-middle mb-2"><i class="material-icons">lock</i><%= Current.facilitator ? "You need" : "Your facilitator needs" %> to upgrade to export.</span>
         <% end %>
