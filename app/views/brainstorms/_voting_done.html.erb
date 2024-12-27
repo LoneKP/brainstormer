@@ -81,12 +81,15 @@
             </div>
           </div>
         </button>
-      <% end %>
-      <button onclick="openSendEmailModal()" class="hvr-grow lg:p-2 md:p-4 text-lg lg:text-2xl text-white font-semibold uppercase bg-blurple active:bg-darker-blurple focus:outline-none leading-tight my-shadow-lg lg:w-56 w-full lg:mt-0 md:mt-8">
-        <div class="border-solid border-white border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
-          <div class="flex text-white font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">EMAIL</div>
+      <% end %>                                                           
+      <button onclick="openSendEmailModal()" onmouseout="outFunc()" class="<%="tooltip cursor-default bg-gray-200 text-gray-400" if !@access_to_export_features %> <%="bg-blurple active:bg-darker-blurple hvr-grow text-white" if @access_to_export_features %> hidden lg:block lg:p-2 md:p-4 font-semibold uppercase leading-tight my-shadow-lg lg:w-56">
+        <% if !@access_to_export_features %>
+          <span class="tooltiptext flex flex-col align-middle mb-2"><i class="material-icons">lock</i><%= Current.facilitator ? "You need" : "Your facilitator needs" %> to upgrade to email.</span>
+        <% end %>
+        <div class="<%= @access_to_export_features ? "border-white" : "border-gray-400" %> border-solid border-2 flex items-center lg:justify-between md:justify-center px-4 lg:py-0 md:py-4">
+          <div class="flex font-semibold h-full text-base focus:outline-none py-2 md:text-4xl lg:text-lg">EMAIL</div>
           <div class="flex">
-            <span class="material-icons-sharp lg:text-2xl text-5xl ml-4 lg:ml-0 text-white">email</span>
+            <span class="material-icons-sharp lg:text-2xl text-5xl ml-4 lg:ml-0">email</span>
           </div>
         </div>
       </button>

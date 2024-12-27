@@ -1,35 +1,23 @@
-<div id="emailModalContainer" class="hidden fixed inset-0 z-50 flex-row items-center justify-center" style="background-color: rgba(49, 39, 131, 0.9);">
-    <!--Dialog-->
-    <div class="w-11/12 lg:w-1/2 mx-auto" @click.away="showEmailModal= false">
-      <div class="bg-white rounded shadow-lg lg:py-3 py-16 text-left px-6" x-show="showEmailModal">
-
-        <!--Title-->
-        <div class="flex justify-between">
-          <div class="flex flex-col">
-            <p class="py-8 text-7xl lg:text-4xl font-bold text-blurple">RECEIVE YOUR IDEAS IN YOUR INBOX</p>
-            <p class="italic uppercase text-3xl lg:text-base font-bold leading-none">What is your email?</p>
-          </div>
-        </div>
-
-        <!-- content -->
-
-        <%= form_with url: brainstorm_email_path(@brainstorm.token), method: :post, local: false do |f| %>
-        <div class="field my-2">
-          <%= f.text_field :email_address, class:"w-full focus:outline-none border-solid border-2 border-black lg:h-12 h-32 my-shadow italic font-bold px-4 lg:text-xl text-6xl", value: current_user&.email %>
-          <div id="error-field-email-address">
-            <%= render "shared/validation_error" %>
-          </div>
-        </div>
-      </div>
-      <div class="lg:mt-8 mt-12 flex flex-row justify-between w-full">
-        <div onclick=document.getElementById("emailModalContainer").classList.add("hidden")>
-          <span class="material-icons lg:p-3 p-7 lg:text-5xl text-8xl text-blurple hvr-grow active:bg-blurple-gray cursor-pointer my-shadow bg-white font-bold">chevron_left</span>
-        </div>
-        <button type=submit class="hvr-grow px-20 lg:px-8 my-shadow-lg text-blurple text-6xl lg:text-lg font-bold bg-light-greeny active:bg-light-greeny-darker focus:outline-none cursor-pointer">SEND</button>
-        <% end %>
+<% if @access_to_export_features  %>
+<div id="emailModalContainer" onclick="this.classList.add('hidden'); this.classList.remove('flex');" class="fixed inset-0 z-50 hidden flex-row items-center justify-center" style="background-color: rgba(49, 39, 131, 0.9);">
+  <div class="flex flex-col justify-between w-full mx-8 lg:mx-0 lg:w-1/3">
+    <div class="bg-light-yellowy text-blurple lg:mt-12 my-shadow-lg">
+      <div class="bg-dots-blurple h-10 mb-8"></div>
+      <div class="flex flex-col items-center justify-around py-32 lg:py-0">
+        <span class="material-icons-sharp text-11xl">mail</span>
+        <p class="text-3xl lg:text-xl font-bold px-8 py-8 text-center">Your ideas will be sent to <%= current_user.email %></span></p>
       </div>
     </div>
-
-    <!--/Dialog -->
+    <div class="mt-20 lg:mt-8 w-full lg:w-auto">
+     <%= form_with url: brainstorm_email_path(@brainstorm.token), method: :post, local: false do |f| %>
+     <div class="my-8 flex flex-row justify-between lg:mt-8 mt-20">
+      <span class="material-icons lg:p-3 p-7 lg:text-5xl text-8xl text-blurple hvr-grow active:bg-blurple-gray cursor-pointer my-shadow bg-white font-bold">chevron_left</span>
+      <button type=submit class="lg:text-lg text-5xl lg:px-10 px-16 font-bold bg-blurple active:bg-blurple-darker hvr-grow cursor-pointer text-white my-shadow-lg">
+        <p>SEND</p>
+      </button>
+      </div>
+    <% end %>
+    </div>
   </div>
 </div>
+<% end %>
